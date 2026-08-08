@@ -95,18 +95,6 @@ Route::get('/notifications', \App\Livewire\User\UserNotifications::class)->middl
 Route::get('/privacy', Privacy::class)->name('privacy');
 Route::get('/terms', Terms::class)->name('terms');
 
-// Language Switcher Route
-Route::get('/lang/{locale}', function (string $locale) {
-    if (in_array($locale, ['ar', 'fr', 'en'])) {
-        session(['locale' => $locale]);
-        app()->setLocale($locale);
-        if ($user = auth()->user()) {
-            $user->update(['locale' => $locale]);
-        }
-    }
-    return redirect()->back();
-})->name('lang.switch');
-
 Route::get('/gallery', GalleryIndex::class)->name('gallery');
 Route::get('/events', EventsIndex::class)->name('events');
 Route::get('/videos', VideoCenter::class)->name('videos');
@@ -126,7 +114,7 @@ Route::get('/my-badge', function () {
     return redirect()->route('accreditation.badge', ['identifier' => $id]);
 })->middleware('auth')->name('my.badge');
 
-Route::get('/my/notifications', \App\Livewire\User\UserNotifications::class)->middleware('auth')->name('user.notifications');
+Route::get('/my/notifications', \App\Livewire\User\UserNotifications::class)->middleware('auth')->name('my.notifications');
 
 // PWA Routes
 Route::get('/manifest.webmanifest', function () {
@@ -147,23 +135,15 @@ Route::get('/offline.html', function () {
 
 // Language Switcher Route
 Route::match(['get', 'post'], '/lang/{locale}', function (string $locale) {
-    $supported = ['ar', 'fr', 'en'];
-
-    if (in_array($locale, $supported)) {
-        // Save to session FIRST, before redirect
+    if (in_array($locale, ['ar', 'fr', 'en'])) {
         session(['locale' => $locale]);
         session()->save();
-
         app()->setLocale($locale);
-
-        // Persist to user profile if authenticated
-        $user = Auth::user();
-        if ($user instanceof \App\Models\User) {
+        if ($user = auth()->user()) {
             $user->update(['locale' => $locale]);
         }
     }
 
-    // Redirect back (with fallback to home)
     $back = url()->previous();
     if (empty($back) || $back === url()->current()) {
         $back = route('home');
