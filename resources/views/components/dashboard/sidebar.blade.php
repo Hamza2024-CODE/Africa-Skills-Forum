@@ -74,7 +74,7 @@ $locale = app()->getLocale();
 
 <div
     x-data="{
-        collapsed: window.innerWidth < 1280 ? true : (localStorage.getItem('wsap_sidebar') === 'true'),
+        collapsed: window.innerWidth <= 1279 ? true : (localStorage.getItem('wsap_sidebar') === 'true'),
         toggle()  { this.collapsed = !this.collapsed; localStorage.setItem('wsap_sidebar', this.collapsed); }
     }"
     :class="collapsed ? 'w-[70px]' : 'w-64'"

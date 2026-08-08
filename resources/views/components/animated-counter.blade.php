@@ -33,7 +33,7 @@
             const elapsed  = now - startTime;
             const progress = Math.min(elapsed / duration, 1);
             this.count = Math.floor(easeOutQuart(progress) * target);
-            if (progress < 1) {
+            if (progress !== 1) {
                 requestAnimationFrame(step);
             } else {
                 this.count = target;
