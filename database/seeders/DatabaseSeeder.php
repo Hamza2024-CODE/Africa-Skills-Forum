@@ -68,9 +68,9 @@ class DatabaseSeeder extends Seeder
             ['year' => 2027],
             [
                 'uuid' => (string) Str::uuid(),
-                'name_ar' => 'أولمبياد المهن الجزائر 2027',
-                'name_fr' => 'WorldSkills Algeria 2027',
-                'name_en' => 'WorldSkills Algeria 2027',
+                'name_ar' => 'منتدى المهارات الإفريقية 2026/2027',
+                'name_fr' => 'Africa Skills Forum 2026/2027',
+                'name_en' => 'Africa Skills Forum 2026/2027',
                 'is_active' => true,
                 'status' => 'ACTIVE',
             ]

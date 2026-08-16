@@ -4,14 +4,14 @@
         <!-- Header -->
         <div class="text-center max-w-3xl mx-auto space-y-3">
             <h1 class="text-3xl sm:text-4xl font-black text-[#06205C]">
-                {{ app()->getLocale() === 'fr' ? 'Résultats Officiels & Classement' : (app()->getLocale() === 'en' ? 'Official Results & Rankings' : 'نتائج وتأهيلات أولمبياد المهن') }}
+                {{ app()->getLocale() === 'fr' ? 'Résultats Officiels — Africa Skills Competition' : (app()->getLocale() === 'en' ? 'Official Africa Skills Competition Results' : 'نتائج وتأهيلات مسابقات Africa Skills Competition') }}
             </h1>
             <p class="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
                 {{ app()->getLocale() === 'fr' ? 'Consultez les listes des qualifiés et médaillés par discipline et par étape.' : (app()->getLocale() === 'en' ? 'View qualified candidates and medal winners across skill disciplines.' : 'استعرض قوائم المتأهلين والميداليات عبر مختلف المراحل والتخصصات.') }}
             </p>
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-[11px] font-bold shadow-2xs">
                 <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <span>{{ app()->getLocale() === 'fr' ? 'Système d\'évaluation WSAP — 100 points, basé sur la méthodologie WorldSkills International.' : (app()->getLocale() === 'en' ? 'WSAP Evaluation System — 100 points, based on WorldSkills International methodology.' : 'نظام تقييم WSAP — 100 نقطة، مبني على منهجية WorldSkills International والمعايير المعتمدة لكل مهنة.') }}</span>
+                <span>{{ app()->getLocale() === 'fr' ? 'Système d\'évaluation ASF — 100 points, basé sur les standards internationaux d\'Africa Skills Competition.' : (app()->getLocale() === 'en' ? 'ASF Evaluation System — 100 points, based on Africa Skills Competition standards.' : 'نظام تقييم ASF — 100 نقطة، مبني على معايير مسابقات Africa Skills Competition.') }}</span>
             </div>
         </div>
 

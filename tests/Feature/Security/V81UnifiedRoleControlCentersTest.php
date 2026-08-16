@@ -123,7 +123,7 @@ class V81UnifiedRoleControlCentersTest extends TestCase
         $this->actingAs($user);
 
         Livewire::test(CountryDashboard::class)
-            ->assertSee('مركز إدارة الوفد والمشاركة الرسمية');
+            ->assertSee('مركز إدارة ومتابعة الوفد الرسمي');
     }
 
     public function test_country_admin_center_blocks_cross_country_idor(): void
@@ -183,7 +183,7 @@ class V81UnifiedRoleControlCentersTest extends TestCase
         $this->actingAs($user);
 
         Livewire::test(JudgeDashboard::class)
-            ->assertSee('مركز لجنة التحكيم وتقييم المتنافسين');
+            ->assertSee('حكم أولمبي معتمد');
     }
 
     public function test_judge_center_blocks_unassigned_candidate_evaluation(): void

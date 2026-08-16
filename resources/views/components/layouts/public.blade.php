@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'WorldSkills Algeria') }} — {{ $title ?? __('messages.hero_subtitle') }}</title>
+    <title>{{ platform()->name() }} — {{ $title ?? __('messages.hero_subtitle') }}</title>
 
     {!! app(\App\Services\SettingsEngine::class)->getDesignTokensCss() !!}
 
@@ -33,19 +33,25 @@
               sans: ['Tajawal', 'Outfit', 'sans-serif'],
             },
             colors: {
+              navy: '#0B2A6F',
+              green: '#35A536',
+              gold: '#F5A800',
               brand: {
                 50: '#F4F7FC',
                 100: '#E2ECFA',
                 200: '#C2D9F7',
                 300: '#8FBDF0',
-                400: '#4D95E6',
-                500: '#0066FF',
-                600: '#0052CC',
-                700: '#06205C',
-                800: '#041235',
-                900: '#020A24',
-                sky: '#00B8FF',
-                dark: '#06205C',
+                400: '#35A536',
+                500: '#0B2A6F',
+                600: '#071E52',
+                700: '#05153B',
+                800: '#030D26',
+                900: '#020718',
+                navy: '#0B2A6F',
+                green: '#35A536',
+                gold: '#F5A800',
+                sky: '#35A536',
+                dark: '#0B2A6F',
                 bg: '#F4F7FC',
                 muted: '#64748B'
               }
@@ -91,17 +97,33 @@
             animation: ambientPulse 4s ease-in-out infinite;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            *, ::before, ::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
+        /* ── Global Mobile Responsiveness Engine ── */
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden !important;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
+
+        img, svg, video, iframe {
+            max-width: 100%;
+            height: auto;
+        }
+
         .touch-target {
             min-height: 44px;
             min-width: 44px;
+        }
+
+        /* Mobile Specific Overrides */
+        @media (max-width: 640px) {
+            .container, .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl, .max-w-3xl, .max-w-2xl {
+                padding-left: 0.85rem !important;
+                padding-right: 0.85rem !important;
+            }
+            h1 { font-size: 1.65rem !important; line-height: 1.25 !important; }
+            h2 { font-size: 1.35rem !important; line-height: 1.3 !important; }
+            h3 { font-size: 1.15rem !important; line-height: 1.35 !important; }
         }
     </style>
 
@@ -165,12 +187,15 @@
     <x-navbar />
 
     <!-- Page Main Content -->
-    <main class="flex-grow">
+    <main class="flex-grow pb-16 md:pb-0">
         {{ $slot }}
     </main>
 
     <!-- Modular Dark Deep Blue Footer Component -->
     <x-footer />
+
+    <!-- Native Smartphone Mobile App Bottom Tab Bar Navigation -->
+    <x-mobile-bottom-nav />
 
     <!-- Dynamic Scroll Mascot Popup Widget (WorldSkills Algeria Mascot 2026) -->
     <div x-data="{ 
@@ -212,19 +237,19 @@
             <!-- Mascot Badge Header -->
             <div class="flex items-center gap-1.5 sm:gap-2">
                 <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#0066FF] animate-ping"></span>
-                <span class="text-[9px] sm:text-[10px] font-black text-[#0066FF] uppercase tracking-wider">
-                    ✦ {{ app()->getLocale() === 'fr' ? 'Mascotte Officielle 2026' : (app()->getLocale() === 'en' ? 'Official Mascot 2026' : 'تعويذة أولمبياد المهن 2026') }}
+                <span class="text-[9px] sm:text-[10px] font-black text-[#0B2A6F] uppercase tracking-wider">
+                    ✦ {{ app()->getLocale() === 'fr' ? 'Mascotte Officielle 2026' : (app()->getLocale() === 'en' ? 'Official Mascot 2026' : 'رمز التميز والمهارات 2026') }}
                 </span>
             </div>
 
             <!-- Welcome Text Message -->
-            <p class="text-[11px] sm:text-xs font-bold text-[#06205C] leading-snug sm:leading-relaxed">
-                {{ app()->getLocale() === 'fr' ? 'Bienvenue aux Olympiades Africaines des Métiers 2026 ! L\'Algérie vous accueille.' : (app()->getLocale() === 'en' ? 'Welcome to the African WorldSkills Competition 2026!' : 'أهلاً بكم في أولمبياد المهن إفريقيا 2026! الجزائر ترحب بجميع المتنافسين والوفود المشاركة.') }}
+            <p class="text-[11px] sm:text-xs font-bold text-[#0B2A6F] leading-snug sm:leading-relaxed">
+                {{ app()->getLocale() === 'fr' ? 'Bienvenue au Forum Africa Skills Forum 2026 ! L\'Algérie vous accueille à Oran.' : (app()->getLocale() === 'en' ? 'Welcome to Africa Skills Forum 2026! Algeria welcomes all delegations.' : 'أهلاً بكم في منتدى المهارات الإفريقية 2026! الجزائر ترحب بجميع الوفود والمشاركين بوهران.') }}
             </p>
 
             <!-- Interactive Quick Link Button -->
-            <a href="{{ route('skills') }}" class="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl bg-gradient-to-r from-[#0066FF] to-[#00A3FF] text-white text-[10px] sm:text-[11px] font-black shadow-md hover:shadow-lg transition hover:scale-105">
-                <span>{{ __('messages.skills') }}</span>
+            <a href="{{ route('guide') }}" class="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl bg-gradient-to-r from-[#0B2A6F] to-[#35A536] text-white text-[10px] sm:text-[11px] font-black shadow-md hover:shadow-lg transition hover:scale-105">
+                <span>{{ __('messages.guide') }}</span>
                 <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </a>
 
@@ -234,7 +259,7 @@
 
         <!-- High-Res Floating Mascot Image Portrait -->
         <div class="w-16 sm:w-32 md:w-36 h-auto flex-shrink-0 relative group filter drop-shadow-2xl wsap-float-slow cursor-pointer" @click="showMascot = true">
-            <img src="/images/mascot.png" alt="WorldSkills Algeria Mascot 2026" class="w-full h-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+            <img src="/images/mascot.png" alt="Africa Skills Forum Mascot 2026" class="w-full h-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
         </div>
     </div>
 
@@ -256,6 +281,46 @@
                 AOS.refresh();
             }
         });
+    </script>
+    <x-pwa-installer />
+
+    <!-- Global Dynamic Interactive Mouse Ambient Light Aura (Subtle & Elegant) -->
+    <div id="asf-cursor-spotlight" class="pointer-events-none fixed top-0 left-0 w-64 h-64 -ml-32 -mt-32 rounded-full z-30 transition-transform duration-150 ease-out opacity-0" style="will-change: transform;">
+        <div class="w-full h-full rounded-full bg-gradient-to-r from-[#0B2A6F]/10 via-[#35A536]/12 to-[#F5A800]/8 blur-2xl"></div>
+    </div>
+
+    <script>
+        (function initMouseSpotlight() {
+            var el = document.getElementById('asf-cursor-spotlight');
+            if (!el) return;
+            var reqId = null;
+            var mouseX = 0, mouseY = 0;
+            var isMoving = false;
+
+            function updatePos() {
+                if (el) {
+                    el.style.transform = 'translate3d(' + mouseX + 'px, ' + mouseY + 'px, 0)';
+                }
+                reqId = null;
+            }
+
+            window.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                if (!isMoving) {
+                    isMoving = true;
+                    el.style.opacity = '1';
+                }
+                if (!reqId) {
+                    reqId = requestAnimationFrame(updatePos);
+                }
+            }, { passive: true });
+
+            document.addEventListener('mouseleave', function() {
+                if (el) el.style.opacity = '0';
+                isMoving = false;
+            });
+        })();
     </script>
 </body>
 </html>

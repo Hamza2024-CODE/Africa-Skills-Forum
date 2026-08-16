@@ -32,12 +32,12 @@ class SettingsEngine
         'appearance.glassmorphism_enabled' => 'true',
         'appearance.animation_level' => 'full',
 
-        'branding.site_name' => 'WorldSkills Algeria',
-        'branding.site_logo' => '/logo.svg',
-        'branding.site_logo_dark' => '/logo.svg',
-        'branding.favicon' => '/favicon.ico',
+        'branding.site_name' => 'Africa Skills Forum',
+        'branding.site_logo' => '/AFRICA.png',
+        'branding.site_logo_dark' => '/AFRICA.png',
+        'branding.favicon' => '/AFRICA.png',
         'branding.hero_banner' => '/banner.png',
-        'branding.footer_logo' => '/logo.svg',
+        'branding.footer_logo' => '/AFRICA.png',
     ];
 
     public function get(string $key, mixed $default = null): mixed
@@ -69,7 +69,7 @@ class SettingsEngine
 
         $this->flushCache();
 
-        if (class_exists(AuditService::class)) {
+        if (class_exists(AuditService::class) && (string)$oldValue !== (string)$value) {
             AuditService::log('SETTING_UPDATED', null, [
                 'key' => $key,
                 'group' => $group,

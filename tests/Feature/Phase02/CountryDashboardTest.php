@@ -32,7 +32,7 @@ class CountryDashboardTest extends TestCase
         $response->assertStatus(200);
 
         Livewire::test(CountryDashboard::class)
-            ->assertSee('مركز إدارة الوفد والمشاركة الرسمية');
+            ->assertSee('مركز إدارة ومتابعة الوفد الرسمي');
     }
 
     public function test_skill_selection_manager_renders_and_toggles_skill(): void

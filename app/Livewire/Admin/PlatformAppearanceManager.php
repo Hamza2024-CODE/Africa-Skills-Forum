@@ -40,12 +40,14 @@ class PlatformAppearanceManager extends Component
     public string $site_logo_url;
     public string $favicon_url;
     public string $hero_banner_url;
+    public string $accreditation_banner_url;
 
     public string $previewDevice = 'desktop';
 
     public mixed $site_logo_file = null;
     public mixed $favicon_file = null;
     public mixed $hero_banner_file = null;
+    public mixed $accreditation_banner_file = null;
 
     public string $savedMessage = '';
     public string $errorMessage = '';
@@ -85,6 +87,7 @@ class PlatformAppearanceManager extends Component
         $this->site_logo_url = $settings->get('branding.site_logo', '/logo.svg');
         $this->favicon_url = $settings->get('branding.favicon', '/favicon.ico');
         $this->hero_banner_url = $settings->get('branding.hero_banner', '/banner.png');
+        $this->accreditation_banner_url = $settings->get('accreditation_banner_image', '/images/channels4_banner.jpg');
     }
 
     public function saveAppearance(SettingsEngine $settings)
@@ -114,6 +117,7 @@ class PlatformAppearanceManager extends Component
             'site_logo_file' => ['nullable', 'image', 'mimes:png,jpg,jpeg,svg', 'max:2048'],
             'favicon_file' => ['nullable', 'file', 'mimes:ico,png,svg', 'max:1024'],
             'hero_banner_file' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:4096'],
+            'accreditation_banner_file' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:4096'],
         ]);
 
         // Process File Uploads Safely
@@ -138,6 +142,13 @@ class PlatformAppearanceManager extends Component
             $this->hero_banner_url = '/storage/' . $path;
             $settings->set('branding.hero_banner', $this->hero_banner_url, 'string', 'branding');
         }
+
+        // Registration Page Banner
+        if ($this->accreditation_banner_file) {
+            $path = $this->accreditation_banner_file->store('banners', 'public');
+            $this->accreditation_banner_url = '/storage/' . $path;
+        }
+        $settings->set('accreditation_banner_image', $this->accreditation_banner_url, 'string', 'branding');
 
         // Save Color & Radius Design Tokens
         $settings->set('appearance.primary_color', $this->primary_color, 'string', 'appearance');

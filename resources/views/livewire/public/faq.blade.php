@@ -3,7 +3,7 @@
         
         <!-- Header -->
         <div class="text-center max-w-3xl mx-auto space-y-3">
-            <h1 class="text-3xl sm:text-4xl font-black text-[#06205C]">
+            <h1 class="text-3xl sm:text-4xl font-black text-[#0B2A6F]">
                 {{ app()->getLocale() === 'fr' ? 'Foire Aux Questions (FAQ)' : (app()->getLocale() === 'en' ? 'Frequently Asked Questions (FAQ)' : 'الأسئلة الشائعة وإجابات الاستفسارات المتكررة') }}
             </h1>
             <p class="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
@@ -13,16 +13,16 @@
 
         <div class="max-w-4xl mx-auto space-y-4">
             <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-md hover:shadow-lg transition space-y-2">
-                <h3 class="text-base font-black text-[#06205C]">
-                    {{ app()->getLocale() === 'fr' ? 'Qui peut s\'inscrire et participer aux Olympiades ?' : (app()->getLocale() === 'en' ? 'Who can register and participate in WorldSkills?' : 'من يمكنه التسجيل والمشاركة في أولمبياد المهن؟') }}
+                <h3 class="text-base font-black text-[#0B2A6F]">
+                    {{ app()->getLocale() === 'fr' ? 'Qui peut s\'inscrire et participer au Forum Africa Skills Forum ?' : (app()->getLocale() === 'en' ? 'Who can register and participate in Africa Skills Forum?' : 'من يمكنه التسجيل والمشاركة في منتدى المهارات الإفريقية Africa Skills Forum؟') }}
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed font-medium">
-                    {{ app()->getLocale() === 'fr' ? 'L\'inscription est ouverte aux jeunes talents inscrits dans les établissements de formation ou délégations, âgés de 16 à 25 ans.' : (app()->getLocale() === 'en' ? 'Registration is open to young skilled candidates enrolled in vocational institutes or delegations, aged 16 to 25.' : 'يتاح التسجيل لجميع المتربصين والشباب المسجلين بمؤسسات التكوين والتعليم المهنيين أو الوفود الوطنية الشريكة، في الفئة العمرية بين 16 و25 سنة.') }}
+                    {{ app()->getLocale() === 'fr' ? 'L\'inscription est ouverte aux délégués, experts, jeunes talents et délégations africaines partenaires.' : (app()->getLocale() === 'en' ? 'Registration is open to African delegates, experts, skilled youth, and partner national delegations.' : 'يتاح التسجيل لجميع المتربصين والخبراء والشباب والوفود الوطنية الإفريقية الشريكة، وفقاً للشروط والاعتمادات الرسمية للمنتدى.') }}
                 </p>
             </div>
 
             <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-md hover:shadow-lg transition space-y-2">
-                <h3 class="text-base font-black text-[#06205C]">
+                <h3 class="text-base font-black text-[#0B2A6F]">
                     {{ app()->getLocale() === 'fr' ? 'Quels sont les documents d\'identité requis (NIN / Passeport) ?' : (app()->getLocale() === 'en' ? 'What are the required ID documents (NIN / Passport)?' : 'ما هي الوثائق المطلوبة للمشارك الجزائري والمشارك الأجنبي؟') }}
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed font-medium">
@@ -31,7 +31,7 @@
             </div>
 
             <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-md hover:shadow-lg transition space-y-2">
-                <h3 class="text-base font-black text-[#06205C]">
+                <h3 class="text-base font-black text-[#0B2A6F]">
                     {{ app()->getLocale() === 'fr' ? 'Peut-on modifier la spécialité après soumission ?' : (app()->getLocale() === 'en' ? 'Can the skill discipline be changed after submission?' : 'هل يمكن تعديل التخصص بعد إرسال الطلب؟') }}
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed font-medium">

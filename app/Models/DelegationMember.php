@@ -28,6 +28,7 @@ class DelegationMember extends Model
         'email',
         'arrival_flight',
         'departure_flight',
+        'flight_ticket_path',
         'rejection_reason',
         'photo_path',
     ];

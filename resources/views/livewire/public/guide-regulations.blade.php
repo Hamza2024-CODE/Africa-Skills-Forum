@@ -3,19 +3,19 @@
     {{-- ===== HEADER ===== --}}
     <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-2xl bg-[#EEF6FF] border border-[#0066FF]/30 flex items-center justify-center text-[#0066FF] shadow-sm">
-                <svg class="w-8 h-8 text-[#0066FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-14 h-14 rounded-2xl bg-emerald-50 border border-[#35A536]/30 flex items-center justify-center text-[#35A536] shadow-sm">
+                <svg class="w-8 h-8 text-[#35A536]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                 </svg>
             </div>
             <div>
-                <h1 class="text-xl font-black text-[#06205C] tracking-wide">{{ __('messages.guide_regulations_title') }} — WorldSkills Algeria</h1>
-                <p class="text-xs text-[#0066FF] font-bold mt-0.5">{{ __('messages.guide_regulations_subtitle') }}</p>
+                <h1 class="text-xl font-black text-[#0B2A6F] tracking-wide">{{ __('messages.guide_regulations_title') }} — {{ platform()->name() }}</h1>
+                <p class="text-xs text-[#35A536] font-bold mt-0.5">{{ __('messages.guide_regulations_subtitle') }}</p>
             </div>
         </div>
         <div class="flex items-center gap-2">
-            <button @click="currentPdfUrl = '{{ route('td.viewer', ['key' => $activeSection]) }}'; showPdfReader = true;" class="px-4 py-2 rounded-2xl bg-[#0066FF] hover:bg-[#0052CC] text-white text-xs font-black shadow-md transition flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <button @click="currentPdfUrl = '{{ route('td.viewer', ['key' => $activeSection]) }}'; showPdfReader = true;" class="px-4 py-2 rounded-2xl bg-[#0B2A6F] hover:bg-[#071E52] text-white text-xs font-black shadow-md transition flex items-center gap-2 border border-[#35A536]/40">
+                <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                 <span>{{ app()->getLocale() === 'fr' ? 'Consulter le document (Lecteur PDF)' : (app()->getLocale() === 'en' ? 'Read Official Document (PDF Viewer)' : 'استعراض الكراسة الرسمية (قارئ المستند المباشر)') }}</span>
             </button>
         </div>

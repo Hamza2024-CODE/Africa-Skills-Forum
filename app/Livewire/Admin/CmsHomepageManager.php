@@ -5,10 +5,12 @@ namespace App\Livewire\Admin;
 use App\Services\SettingsEngine;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 #[Layout('components.dashboard.app-shell')]
 class CmsHomepageManager extends Component
 {
+    use WithFileUploads;
     public $hero_title_ar;
     public $hero_title_fr;
     public $hero_title_en;
@@ -18,6 +20,20 @@ class CmsHomepageManager extends Component
     public $cta_text_ar;
     public $cta_text_fr;
     public $cta_text_en;
+
+    // Hero Slider Images — Admin-controlled (stored in GlobalSettings)
+    public $hero_slide_1_url;
+    public $hero_slide_2_url;
+    public $hero_slide_3_url;
+    public $hero_slide_4_url;
+    public $hero_slide_5_url;
+
+    // File uploads for hero slides
+    public $hero_slide_1_file;
+    public $hero_slide_2_file;
+    public $hero_slide_3_file;
+    public $hero_slide_4_file;
+    public $hero_slide_5_file;
 
     public $featured_video_url;
     public $featured_video_title_ar;
@@ -43,6 +59,7 @@ class CmsHomepageManager extends Component
     public $countdown_show_icons = true;
     public $countdown_flip_animation = true;
     public $countdown_enabled = true;
+    public $show_partners_section = true;
 
     public $activeTab = 'countdown';
     public $savedMessage = '';
@@ -66,6 +83,13 @@ class CmsHomepageManager extends Component
         $this->cta_text_fr = $settings->get('home_cta_text_fr', 'Faites partie du plus grand événement des compétences en Afrique!');
         $this->cta_text_en = $settings->get('home_cta_text_en', 'Be part of the largest skills event in Africa!');
 
+        // Hero Slider image URLs from DB
+        $this->hero_slide_1_url = $settings->get('hero_slide_1', '/images/hero_slide_1.png');
+        $this->hero_slide_2_url = $settings->get('hero_slide_2', '/images/hero_slide_2.png');
+        $this->hero_slide_3_url = $settings->get('hero_slide_3', '/images/hero_slide_3.png');
+        $this->hero_slide_4_url = $settings->get('hero_slide_4', '');
+        $this->hero_slide_5_url = $settings->get('hero_slide_5', '');
+
         $this->featured_video_url = $settings->get('featured_video_url', 'https://www.youtube.com/watch?v=ee7fzNFUKIM');
         $this->featured_video_title_ar = $settings->get('featured_video_title_ar', 'أجواء أولمبياد المهن العالمي بالجزائر');
         $this->featured_video_title_fr = $settings->get('featured_video_title_fr', 'Ambiance des Olympiades des Métiers en Algérie');
@@ -80,7 +104,7 @@ class CmsHomepageManager extends Component
         $this->countdown_subtitle_fr   = $settings->get('countdown_subtitle_fr', 'WorldSkills Algeria 2026 – 2026');
         $this->countdown_subtitle_en   = $settings->get('countdown_subtitle_en', 'WorldSkills Algeria 2026 – 2026');
 
-        $this->countdown_target_date   = $settings->get('countdown_target_date', '2026-09-15 09:00:00');
+        $this->countdown_target_date   = $settings->get('countdown_target_date', '2026-11-16 09:00:00');
         $this->countdown_timezone      = $settings->get('countdown_timezone', 'Africa/Algiers');
         $this->countdown_status        = $settings->get('countdown_status', 'COUNTDOWN'); // COUNTDOWN, LIVE, COMPLETED, DISABLED
         $this->countdown_theme         = $settings->get('countdown_theme', 'vintage_spiral_notebook');
@@ -91,10 +115,12 @@ class CmsHomepageManager extends Component
         $this->countdown_color_hrs     = $settings->get('countdown_color_hrs', '#D97706'); // Amber Gold
         $this->countdown_color_days    = $settings->get('countdown_color_days', '#7C3AED'); // Deep Purple
 
-        $this->countdown_show_icons    = (bool) $settings->get('countdown_show_icons', true);
-        $this->countdown_flip_animation = (bool) $settings->get('countdown_flip_animation', true);
-        $this->countdown_enabled       = (bool) $settings->get('countdown_enabled', true);
+        $this->countdown_show_icons    = filter_var($settings->get('countdown_show_icons', true), FILTER_VALIDATE_BOOLEAN);
+        $this->countdown_flip_animation = filter_var($settings->get('countdown_flip_animation', true), FILTER_VALIDATE_BOOLEAN);
+        $this->countdown_enabled       = filter_var($settings->get('countdown_enabled', true), FILTER_VALIDATE_BOOLEAN);
+        $this->show_partners_section   = filter_var($settings->get('show_partners_section', true), FILTER_VALIDATE_BOOLEAN);
     }
+
 
     public function saveSettings(SettingsEngine $settings)
     {
@@ -121,6 +147,20 @@ class CmsHomepageManager extends Component
         $settings->set('home_cta_text_ar', $this->cta_text_ar);
         $settings->set('home_cta_text_fr', $this->cta_text_fr);
         $settings->set('home_cta_text_en', $this->cta_text_en);
+
+        // Save hero slide image URLs (upload or keep existing URL)
+        for ($i = 1; $i <= 5; $i++) {
+            $fileKey  = "hero_slide_{$i}_file";
+            $urlKey   = "hero_slide_{$i}_url";
+            $settingKey = "hero_slide_{$i}";
+
+            if (!empty($this->$fileKey)) {
+                $path = $this->$fileKey->store('images/hero-slides', 'public');
+                $this->$urlKey = '/storage/' . $path;
+            }
+
+            $settings->set($settingKey, $this->$urlKey ?? '');
+        }
 
         $settings->set('featured_video_url', $this->featured_video_url);
         $settings->set('featured_video_title_ar', $this->featured_video_title_ar);
@@ -150,9 +190,11 @@ class CmsHomepageManager extends Component
         $settings->set('countdown_show_icons', $this->countdown_show_icons);
         $settings->set('countdown_flip_animation', $this->countdown_flip_animation);
         $settings->set('countdown_enabled', $this->countdown_enabled);
+        $settings->set('show_partners_section', $this->show_partners_section);
 
-        $this->savedMessage = 'تم حفظ كافة إعدادات العداد التنازلي التفاعلي (WSAP V8.4) والصفحة الرئيسية بنجاح، وتطبيق التعديلات بالمنصة.';
+        $this->savedMessage = 'تم حفظ كافة إعدادات العداد التنازلي والشركاء والصفحة الرئيسية بنجاح، وتطبيق التعديلات بالمنصة.';
     }
+
 
     public function resetSettings(SettingsEngine $settings)
     {

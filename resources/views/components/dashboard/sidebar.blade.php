@@ -48,23 +48,42 @@ if (count($items) > 0) {
 
     if ($isAdmin) {
         $loc = app()->getLocale();
-        if ($loc === 'fr') {
-            $labels = ['WORKSPACE & DASHBOARD', 'GESTION & LOGISTIQUE', 'ADMINISTRATION & CMS', 'GOUVERNANCE & PROTOCOLE'];
-        } elseif ($loc === 'en') {
-            $labels = ['WORKSPACE & DASHBOARD', 'MANAGEMENT & LOGISTICS', 'ADMINISTRATION & CMS', 'GOVERNANCE & PROTOCOL'];
-        } else {
-            $labels = ['مساحة العمل والقيادة', 'الإدارة واللوجستيات', 'الإشراف والإعلام', 'حوكمة المنافسة والبروتوكول'];
-        }
-        $sections = [
-            $labels[0] => array_slice($items, 0, 10),
-            $labels[1] => array_slice($items, 10, 10),
-            $labels[2] => array_slice($items, 20, 8),
-            $labels[3] => array_slice($items, 28),
+        $sectionMeta = [
+            1 => [
+                'label' => $loc === 'fr' ? 'CENTRES DE COMMANDEMENT & CONTRÔLE' : ($loc === 'en' ? 'EXECUTIVE COMMAND & CONTROL CENTERS' : 'مراكز التحكم والقيادة التنفيذية'),
+                'icon'  => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>',
+            ],
+            2 => [
+                'label' => $loc === 'fr' ? 'INTERVENANTS & DÉLÉGATIONS' : ($loc === 'en' ? 'SPEAKERS & DELEGATIONS' : 'إدارة المحاضرين والضيوف والوفود'),
+                'icon'  => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>',
+            ],
+            3 => [
+                'label' => $loc === 'fr' ? 'MÉDIAS, CMS & THÈME' : ($loc === 'en' ? 'MEDIA, CMS & THEME' : 'الإعلام والمحتوى والـ CMS'),
+                'icon'  => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>',
+            ],
+            4 => [
+                'label' => $loc === 'fr' ? 'ACCRÉDITATIONS & SÉCURITÉ' : ($loc === 'en' ? 'ACCREDITATIONS & SECURITY' : 'الاعتمادات والأمان والحوكمة'),
+                'icon'  => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>',
+            ],
         ];
+
+        foreach ($items as $item) {
+            $secIdx = $item['section'] ?? 1;
+            $meta = $sectionMeta[$secIdx] ?? $sectionMeta[1];
+            $key = $meta['label'];
+            if (!isset($sections[$key])) {
+                $sections[$key] = [
+                    'icon'  => $meta['icon'],
+                    'label' => $meta['label'],
+                    'items' => [],
+                ];
+            }
+            $sections[$key]['items'][] = $item;
+        }
     } else {
         $loc = app()->getLocale();
         $label = $loc === 'fr' ? 'NAVIGATION' : ($loc === 'en' ? 'NAVIGATION' : 'التنقل الرئيسي');
-        $sections = [$label => $items];
+        $sections = [$label => ['icon' => null, 'label' => $label, 'items' => $items]];
     }
 }
 
@@ -78,7 +97,7 @@ $locale = app()->getLocale();
         toggle()  { this.collapsed = !this.collapsed; localStorage.setItem('wsap_sidebar', this.collapsed); }
     }"
     :class="collapsed ? 'w-[70px]' : 'w-64'"
-    class="bg-white dark:bg-slate-900 border-e border-slate-200 dark:border-slate-800 flex flex-col shrink-0 h-[calc(100vh-64px)] sticky top-16 transition-all duration-300 ease-in-out overflow-hidden z-20"
+    class="hidden lg:flex bg-white dark:bg-slate-900 border-e border-slate-200 dark:border-slate-800 flex-col shrink-0 h-[calc(100vh-64px)] sticky top-16 transition-all duration-300 ease-in-out overflow-hidden z-20"
 >
 
     {{-- ── Collapse Toggle ── --}}
@@ -98,19 +117,42 @@ $locale = app()->getLocale();
     {{-- ── Scrollable Nav ── --}}
     <nav class="flex-1 overflow-y-auto overflow-x-hidden px-2.5 py-4 space-y-5 scrollbar-none">
 
-        @foreach($sections as $sectionLabel => $sectionItems)
-            @if(count($sectionItems) === 0) @continue @endif
+        @foreach($sections as $secKey => $secData)
+            @php 
+                $secItems = $secData['items'] ?? []; 
+                $hasActiveItem = false;
+                foreach ($secItems as $itemCheck) {
+                    if (request()->routeIs($itemCheck['route'] ?? '')) {
+                        $hasActiveItem = true;
+                        break;
+                    }
+                }
+            @endphp
+            @if(count($secItems) === 0) @continue @endif
 
-            {{-- Section Label --}}
-            <div x-show="!collapsed" x-transition:enter="transition-opacity duration-200" x-transition:leave="transition-opacity duration-100">
-                <span class="block px-3 mb-1.5 text-[9px] font-black uppercase tracking-[0.15em] text-slate-400 dark:text-slate-500">
-                    {{ $sectionLabel }}
-                </span>
-            </div>
+            <div x-data="{ sectionOpen: {{ $hasActiveItem ? 'true' : 'false' }} }" class="space-y-1">
+                {{-- Section Header Button --}}
+                <div x-show="!collapsed" x-transition:enter="transition-opacity duration-200" x-transition:leave="transition-opacity duration-100">
+                    <button @click="sectionOpen = !sectionOpen" type="button"
+                            class="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-[10px] font-black uppercase text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition group cursor-pointer select-none">
+                        <span class="flex items-center min-w-0 leading-relaxed" style="letter-spacing: normal !important;">
+                            @if(!empty($secData['icon']))
+                                <svg class="w-3.5 h-3.5 shrink-0 text-slate-400 group-hover:text-blue-600 dark:group-hover:text-sky-400 me-1.5 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    {!! $secData['icon'] !!}
+                                </svg>
+                            @endif
+                            <span class="truncate">{{ $secData['label'] }}</span>
+                        </span>
+                        <svg class="w-3 h-3 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 transition-transform duration-200 shrink-0 ms-1"
+                             :class="sectionOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
 
-            {{-- Nav Items --}}
-            <div class="space-y-0.5">
-                @foreach($sectionItems as $item)
+                {{-- Nav Items Container --}}
+                <div x-show="sectionOpen || collapsed" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-0.5">
+                    @foreach($secItems as $item)
                     @php
                         try {
                             $isActive = request()->routeIs($item['route'] ?? '');
@@ -142,7 +184,8 @@ $locale = app()->getLocale();
                         <span x-show="!collapsed"
                               x-transition:enter="transition-opacity duration-200 delay-75"
                               x-transition:leave="transition-opacity duration-100"
-                              class="truncate leading-none">
+                              class="truncate leading-relaxed py-0.5"
+                              style="letter-spacing: normal !important;">
                             {{ $item['label'] }}
                         </span>
 
@@ -159,6 +202,7 @@ $locale = app()->getLocale();
 
             {{-- Section Divider --}}
             <div class="border-t border-slate-200 dark:border-slate-800 mx-2"></div>
+            </div>
         @endforeach
 
     </nav>

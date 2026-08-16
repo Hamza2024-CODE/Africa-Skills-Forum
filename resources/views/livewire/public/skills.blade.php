@@ -45,18 +45,16 @@ $getSkillImageUrl = function($skill) {
 
             {{-- Header Content --}}
             <div class="relative z-10 text-center max-w-3xl mx-auto space-y-5">
-                <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/15 backdrop-blur-xl border border-white/30 text-white text-xs font-black uppercase tracking-wider shadow-lg">
-                    <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 00-1.11.258l-1.012.607a2 2 0 00-.77 2.12l.74 2.96a2 2 0 001.94 1.515h13.224a2 2 0 001.94-1.515l.74-2.96a2 2 0 00-.77-2.12l-1.012-.607z"/>
-                    </svg>
-                    <span>{{ $t('دليل التخصصات والمهارات الرسمية', 'Guide des Métiers Officiels', 'Official Trade Skills & Occupations') }}</span>
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 backdrop-blur-md text-blue-200 text-xs font-black">
+                    <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>{{ $t('حالة تعريفية استعراضية للمنتدى', 'Aperçu Descriptif Officiel', 'Official Descriptive Showcase') }}</span>
                 </div>
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-2xl">
-                    {{ $t('تخصصات أولمبياد المهن', 'Métiers & Compétences Olympiques', 'Olympic Trade Skills & Occupations') }}
+                    {{ $t('الدليل التعريفي للتخصصات والمهن', 'Guide Descriptif des Métiers & Compétences', 'Descriptive Guide to Trade Skills & Specializations') }}
                 </h1>
                 <p class="text-xs sm:text-base text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto drop-shadow-md">
-                    {{ $t('استكشف جميع التخصصات الـ 64 المعتمدة مصنفة حسب القطاعات مع الصور التخصصية والكراسات التقنية.', 'Explorez les 64 métiers officiels classés par secteur avec photos spécialisées et descriptifs techniques.', 'Explore all 64 official competition skills categorized by sector with specialized trade photos and technical specifications.') }}
+                    {{ $t('عرض تعريفي استعراضي شامل للتخصصات والمهن الـ 64 المعتمدة مصنفة حسب القطاعات مع الصور التوصيفية والكراسات التقنية الرسمية.', 'Présentation descriptive et fiche technique officielle des 64 métiers classés par secteur.', 'Comprehensive descriptive showcase of the 64 official trade skills categorized by sector with technical specifications.') }}
                 </p>
             </div>
         </div>
@@ -243,7 +241,7 @@ $getSkillImageUrl = function($skill) {
                                 @foreach($selectedSkillEquipments as $eq)
                                     <div class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
                                         <span class="w-2 h-2 rounded-full bg-[#0066FF]"></span>
-                                        <span class="font-bold">{{ optional($eq->equipmentItem)->getLocalized('name') ?? $eq->getLocalized('name') ?? $t('تجهيزات ومعدات فنية', 'Équipement Technique', 'Technical Equipment') }}</span>
+                                        <span class="font-bold">{{ !empty($eq->equipmentItem) ? $eq->equipmentItem->getLocalized('name') : ($eq->getLocalized('name') ?: $t('تجهيزات ومعدات فنية', 'Équipement Technique', 'Technical Equipment')) }}</span>
                                     </div>
                                 @endforeach
                             </div>

@@ -3,35 +3,81 @@ $locale = app()->getLocale();
 $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => $ar };
 @endphp
 
-<div class="min-h-screen bg-gradient-to-b from-slate-50 via-blue-50/20 to-slate-100 py-12 px-4 sm:px-6 lg:px-8 font-sans">
+<div style="min-height:100vh; background:linear-gradient(180deg,#f8fafc 0%,#eff6ff 40%,#f1f5f9 100%); padding:3rem 1rem 4rem; font-family:system-ui,sans-serif;">
     <div class="max-w-3xl mx-auto space-y-8">
 
         <!-- Header Bar with Language Switcher & Branding -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/80 backdrop-blur-md p-4 rounded-3xl border border-slate-200/80 shadow-xs">
-            <a href="{{ route('home') }}" class="flex items-center gap-3">
-                <img src="/logo.svg" alt="WorldSkills Algeria" class="h-11 w-auto">
-                <div class="flex flex-col text-start">
-                    <span class="font-black text-base text-[#06205C] leading-none">WorldSkills Algeria</span>
-                    <span class="text-[9px] font-black text-brand-500 uppercase tracking-widest mt-0.5">ACCREDITATION PORTAL 2026</span>
-                </div>
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/90 backdrop-blur-md p-4 rounded-3xl border border-slate-200/80 shadow-md">
+            <a href="{{ route('home') }}" class="flex items-center gap-3 bg-slate-50 hover:bg-slate-100 p-2 px-3.5 rounded-2xl border border-slate-200/70 transition">
+                <img src="{{ asset('ministry-logo-trimmed.png') }}" alt="وزارة التكوين والتعليم المهنيين" class="h-8 sm:h-9 w-auto object-contain">
+                <div class="h-6 w-px bg-slate-300"></div>
+                <img src="{{ asset('africa-logo-trimmed.png') }}" alt="African Union - Africa Skills Forum" class="h-8 sm:h-9 w-auto object-contain">
             </a>
 
             <div class="flex items-center gap-2">
-                <a href="{{ route('lang.switch', ['locale' => 'ar']) }}" class="px-2.5 py-1 rounded-lg text-xs font-black {{ $locale === 'ar' ? 'bg-[#06205C] text-white shadow-xs' : 'text-slate-600 hover:bg-slate-100' }}">عربي</a>
-                <a href="{{ route('lang.switch', ['locale' => 'fr']) }}" class="px-2.5 py-1 rounded-lg text-xs font-black {{ $locale === 'fr' ? 'bg-[#06205C] text-white shadow-xs' : 'text-slate-600 hover:bg-slate-100' }}">FR</a>
-                <a href="{{ route('lang.switch', ['locale' => 'en']) }}" class="px-2.5 py-1 rounded-lg text-xs font-black {{ $locale === 'en' ? 'bg-[#06205C] text-white shadow-xs' : 'text-slate-600 hover:bg-slate-100' }}">EN</a>
+                <a href="{{ route('lang.switch', ['locale' => 'ar']) }}" class="px-2.5 py-1 rounded-lg text-xs font-black {{ $locale === 'ar' ? 'bg-[#0B2A6F] text-white shadow-xs' : 'text-slate-600 hover:bg-slate-100' }}">عربي</a>
+                <a href="{{ route('lang.switch', ['locale' => 'fr']) }}" class="px-2.5 py-1 rounded-lg text-xs font-black {{ $locale === 'fr' ? 'bg-[#0B2A6F] text-white shadow-xs' : 'text-slate-600 hover:bg-slate-100' }}">FR</a>
+                <a href="{{ route('lang.switch', ['locale' => 'en']) }}" class="px-2.5 py-1 rounded-lg text-xs font-black {{ $locale === 'en' ? 'bg-[#0B2A6F] text-white shadow-xs' : 'text-slate-600 hover:bg-slate-100' }}">EN</a>
             </div>
         </div>
 
-        <!-- Title Banner -->
-        <div class="text-center space-y-2">
-            <h1 class="text-2xl sm:text-3xl font-black text-[#06205C] tracking-tight">
-                {{ $t('بوابة الاعتماد والتسجيل الرسمي للحكام والوفود والصحافة', 'Portail d’Accréditation et d’Inscription Officielle', 'Official Accreditation & Registration Portal') }}
-            </h1>
-            <p class="text-xs text-slate-500 font-bold max-w-xl mx-auto">
-                {{ $t('نظام تسجيل وتوثيق صفة المحكمين والخبراء ومسؤولي الوفود والإعلاميين مع الحفظ الأمني التلقائي', 'Système d’inscription officiel pour Juges, Chefs de Délégation et Presse.', 'Official registration system for Jury Experts, Delegation Heads, and Press.') }}
-            </p>
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- HERO BANNER — صورة الغلاف (يمكن تغييرها من الأدمين)          -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        @php
+            $bannerImg = platform()->get('accreditation_banner_image', '/images/channels4_banner.jpg');
+            $bannerLabel = platform()->get("accreditation_header_badge_{$locale}", $t('البوابة الوطنية للاعتماد الرسمي — 2026', 'Portail Officiel d\'Accréditation 2026', 'Official Accreditation Portal 2026'));
+            $bannerTitle = platform()->get("accreditation_header_title_{$locale}", $t('التسجيل والاعتماد الرسمي — منتدى المهارات الإفريقية 2026', 'Accréditation & Inscription Officielle — Africa Skills Forum 2026', 'Official Accreditation & Registration — Africa Skills Forum 2026'));
+            $bannerSubtitle = platform()->get("accreditation_header_subtitle_{$locale}", $t('سجّل بياناتك الرسمية للحصول على اعتماد الوفود والضيوف والإعلاميين لمنتدى المهارات الإفريقية 2026 بمركز المؤتمرات CCO — وهران.', 'Enregistrez vos données officielles pour obtenir l\'accréditation au CCO d\'Oran pour Africa Skills Forum 2026.', 'Register your official credentials to attend and participate in Africa Skills Forum at Mohamed Ben Ahmed Convention Center in Oran.'));
+        @endphp
+
+        <div class="relative rounded-3xl overflow-hidden shadow-2xl"
+             style="min-height: 340px; background: #0B2A6F;">
+
+            {{-- BACKGROUND IMAGE --}}
+            <div class="absolute inset-0"
+                 style="background-image: url('{{ asset($bannerImg) }}'); background-size: cover; background-position: center; opacity: 0.55;"></div>
+
+            {{-- GRADIENT OVERLAY --}}
+            <div class="absolute inset-0"
+                 style="background: linear-gradient(135deg, rgba(11,42,111,0.92) 0%, rgba(8,31,84,0.82) 50%, rgba(53,165,54,0.25) 100%);"></div>
+
+            {{-- GRID PATTERN --}}
+            <div class="absolute inset-0 pointer-events-none"
+                 style="opacity:0.07; background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+            {{-- AMBIENT ORBS --}}
+            <div class="absolute" style="top:-60px; right:-60px; width:280px; height:280px; background:rgba(53,165,54,0.2); border-radius:50%; filter:blur(60px); pointer-events:none;"></div>
+            <div class="absolute" style="bottom:-60px; left:-60px; width:240px; height:240px; background:rgba(245,168,0,0.15); border-radius:50%; filter:blur(60px); pointer-events:none;"></div>
+
+            {{-- CONTENT --}}
+            <div class="relative" style="z-index:10; padding: 3rem 2rem 2.5rem;">
+
+                {{-- BADGE --}}
+                <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border-radius:999px; background:rgba(53,165,54,0.22); border:1px solid rgba(53,165,54,0.5); margin-bottom:1.25rem;">
+                    <span style="width:10px; height:10px; border-radius:50%; background:#35A536; display:inline-block; animation: ping 1.5s infinite;"></span>
+                    <span style="font-size:11px; font-weight:900; color:#4ADE80; letter-spacing:0.08em; text-transform:uppercase;">{{ $bannerLabel }}</span>
+                </div>
+
+                {{-- TITLE --}}
+                <h1 style="font-size:clamp(1.5rem, 4vw, 2.3rem); font-weight:900; color:#FFFFFF; line-height:1.25; margin-bottom:1rem; text-shadow:0 2px 20px rgba(0,0,0,0.5); max-width:600px;">
+                    {{ $bannerTitle }}
+                </h1>
+
+                {{-- SUBTITLE --}}
+                <p style="font-size:0.875rem; color:rgba(219,234,254,0.85); font-weight:500; line-height:1.65; max-width:520px; margin-bottom:1.5rem;">
+                    {{ $bannerSubtitle }}
+                </p>
+            </div>
+
+            {{-- AFRICA MAP DECORATION --}}
+            <div class="absolute hidden lg:block" style="right:24px; top:50%; transform:translateY(-50%); opacity:0.08; pointer-events:none;">
+                <img src="/AFRICA.png" alt="" style="width:160px; height:160px; object-fit:contain; filter:invert(1);">
+            </div>
         </div>
+
+        <style>@keyframes ping { 0%, 100% { opacity:1; transform:scale(1); } 50% { opacity:0.6; transform:scale(1.3); } }</style>
+
 
         @if(!$isOpen)
             <!-- Locked / Closed Registration Banner -->
@@ -101,29 +147,20 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                     <label class="block text-xs font-black text-slate-700 uppercase tracking-wider mb-2.5">
                         {{ $t('اختر الصفة الرسمية المعتمدة *', 'Sélectionnez votre rôle officiel *', 'Select Your Official Role *') }}
                     </label>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <!-- Judge Button -->
-                        <button type="button" wire:click="$set('role', 'JUDGE')"
-                            class="p-4 rounded-2xl border-2 text-center transition flex flex-col items-center justify-center gap-2 {{ $role === 'JUDGE' ? 'border-indigo-600 bg-indigo-50/70 text-indigo-950 font-black shadow-xs ring-1 ring-indigo-500' : 'border-slate-200 bg-slate-50/60 text-slate-600 font-bold hover:bg-slate-100' }}">
-                            <div class="w-10 h-10 rounded-xl {{ $role === 'JUDGE' ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-600' }} flex items-center justify-center transition">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.97zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.97z"/></svg>
-                            </div>
-                            <span class="text-xs font-black">{{ $t('حكم / خبير تقييم', 'Juge / Expert', 'Jury Expert / Judge') }}</span>
-                        </button>
-
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <!-- Delegation Button -->
                         <button type="button" wire:click="$set('role', 'COUNTRY_ADMIN')"
-                            class="p-4 rounded-2xl border-2 text-center transition flex flex-col items-center justify-center gap-2 {{ $role === 'COUNTRY_ADMIN' ? 'border-blue-600 bg-blue-50/70 text-blue-950 font-black shadow-xs ring-1 ring-blue-500' : 'border-slate-200 bg-slate-50/60 text-slate-600 font-bold hover:bg-slate-100' }}">
-                            <div class="w-10 h-10 rounded-xl {{ $role === 'COUNTRY_ADMIN' ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-600' }} flex items-center justify-center transition">
+                            class="p-4 rounded-2xl border-2 text-center transition flex flex-col items-center justify-center gap-2 {{ $role === 'COUNTRY_ADMIN' ? 'border-[#0B2A6F] bg-blue-50/70 text-[#0B2A6F] font-black shadow-xs ring-2 ring-[#0B2A6F]' : 'border-slate-200 bg-slate-50/60 text-slate-600 font-bold hover:bg-slate-100' }}">
+                            <div class="w-10 h-10 rounded-xl {{ $role === 'COUNTRY_ADMIN' ? 'bg-[#0B2A6F] text-white' : 'bg-slate-200 text-slate-600' }} flex items-center justify-center transition">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V8.5dM12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
                             </div>
-                            <span class="text-xs font-black">{{ $t('مسؤول وفد وطني / دولي', 'Chef de Délégation', 'Delegation Head') }}</span>
+                            <span class="text-xs font-black">{{ $t('الوفود الوطنية والضيوف والدبلوماسيون', 'Délégation Nationale & Invités', 'National Delegation & Guests') }}</span>
                         </button>
 
                         <!-- Media Button -->
                         <button type="button" wire:click="$set('role', 'MEDIA_MANAGER')"
-                            class="p-4 rounded-2xl border-2 text-center transition flex flex-col items-center justify-center gap-2 {{ $role === 'MEDIA_MANAGER' ? 'border-amber-600 bg-amber-50/70 text-amber-950 font-black shadow-xs ring-1 ring-amber-500' : 'border-slate-200 bg-slate-50/60 text-slate-600 font-bold hover:bg-slate-100' }}">
-                            <div class="w-10 h-10 rounded-xl {{ $role === 'MEDIA_MANAGER' ? 'bg-amber-600 text-white' : 'bg-slate-200 text-slate-600' }} flex items-center justify-center transition">
+                            class="p-4 rounded-2xl border-2 text-center transition flex flex-col items-center justify-center gap-2 {{ $role === 'MEDIA_MANAGER' ? 'border-[#F5A800] bg-amber-50/70 text-amber-950 font-black shadow-xs ring-2 ring-[#F5A800]' : 'border-slate-200 bg-slate-50/60 text-slate-600 font-bold hover:bg-slate-100' }}">
+                            <div class="w-10 h-10 rounded-xl {{ $role === 'MEDIA_MANAGER' ? 'bg-[#F5A800] text-slate-950' : 'bg-slate-200 text-slate-600' }} flex items-center justify-center transition">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
                             </div>
                             <span class="text-xs font-black">{{ $t('صحافة وإعلام معتمد', 'Presse & Média', 'Media & Press') }}</span>
@@ -193,16 +230,16 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                         </div>
 
                         <!-- Upload File Input / Preview -->
-                        <div x-show="mode !== 'camera'" class="flex flex-col sm:flex-row items-center gap-4">
+                        <div x-show="mode !== 'camera'" class="flex flex-col sm:flex-row items-center gap-4 pt-1">
                             <div class="shrink-0">
-                                @if ($captured_photo_data)
-                                    <img src="{{ $captured_photo_data }}" alt="Captured" class="w-20 h-20 rounded-2xl object-cover border-2 border-emerald-600 shadow-md">
-                                @elseif ($photo)
-                                    <img src="{{ $photo->temporaryUrl() }}" alt="Preview" class="w-20 h-20 rounded-2xl object-cover border-2 border-indigo-600 shadow-md">
+                                @if($captured_photo_data)
+                                    <img src="{{ $captured_photo_data }}" alt="Captured Photo" class="w-20 h-20 rounded-2xl object-cover border-2 border-indigo-600 shadow-md">
+                                @elseif($photo)
+                                    <img src="{{ $photo->temporaryUrl() }}" alt="Preview" class="w-20 h-20 rounded-2xl object-cover border-2 border-slate-200 shadow-sm">
                                 @else
                                     <div class="w-20 h-20 rounded-2xl bg-slate-200 text-slate-500 flex flex-col items-center justify-center border-2 border-dashed border-slate-300">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                                        <span class="text-[9px] font-bold mt-1">صورة رسمية</span>
+                                        <span class="text-[9px] font-bold mt-1">{{ $t('صورة رسمية', 'Photo officielle', 'Official Photo') }}</span>
                                     </div>
                                 @endif
                             </div>
@@ -260,7 +297,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                             <label class="block text-slate-700 font-bold mb-1">
                                 {{ $t('رقم الهاتف / الواتساب الرسمي *', 'N° Téléphone / WhatsApp *', 'Phone / WhatsApp Number *') }}
                             </label>
-                            <input wire:model.blur="phone" type="text" placeholder="{{ $isAlgeria ? '0550000000 / +213' : '+213 550 00 00 00' }}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-bold">
+                            <input wire:model.blur="phone" type="text" required placeholder="{{ $this->phonePlaceholder }}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-bold">
                             @error('phone') <span class="text-rose-500 text-[10px] font-bold">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -273,23 +310,25 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                             </label>
                             <select wire:model.live="country_id" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-bold">
                                 @foreach($countries as $c)
-                                    <option value="{{ $c->id }}">{{ $c->name_ar }} ({{ $c->code }})</option>
+                                    <option value="{{ $c->id }}">{{ app()->getLocale() === 'fr' ? $c->name_fr : (app()->getLocale() === 'en' ? $c->name_en : $c->name_ar) }} ({{ $c->code }})</option>
                                 @endforeach
                             </select>
                             @error('country_id') <span class="text-rose-500 text-[10px] font-bold">{{ $message }}</span> @enderror
                         </div>
 
-                        @if($role === 'JUDGE')
+                        @if($role === 'COUNTRY_ADMIN')
                             <div>
                                 <label class="block text-slate-700 font-bold mb-1">
-                                    {{ $t('التخصص المهني المراد التحكيم فيه *', 'Métier / Compétence d’Arbitrage *', 'Assigned Trade Skill *') }}
+                                    {{ $t('الصفة والتوصيف التشاركي في الوفد *', 'Qualité / Capacité dans la Délégation *', 'Position / Role in Delegation *') }}
                                 </label>
-                                <select wire:model="skill_id" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-bold text-indigo-900 border-indigo-200">
-                                    @foreach($skills as $s)
-                                        <option value="{{ $s->id }}">{{ $s->name_ar }} ({{ $s->code }})</option>
-                                    @endforeach
+                                <select wire:model="delegation_capacity" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-bold text-blue-900 border-blue-200">
+                                    <option value="DIPLOMAT">{{ $t('دبلوماسي / مبعوث سفارة رسمية', 'Diplomate / Envoyé Diplomatique', 'Diplomat / Diplomatic Envoy') }}</option>
+                                    <option value="DELEGATION_HEAD">{{ $t('مسؤول / رئيس الوفد الوطني', 'Chef de Délégation', 'Delegation Head') }}</option>
+                                    <option value="OFFICIAL_MEMBER">{{ $t('عضو وفد رسمي مشارك', 'Membre Officiel de la Délégation', 'Official Delegation Member') }}</option>
+                                    <option value="VIP_GUEST">{{ $t('ضيف شرف / شخصية سامية (VIP)', 'Invité d\'Honneur (VIP)', 'Guest of Honor (VIP)') }}</option>
+                                    <option value="COORDINATOR">{{ $t('مؤطر ومرافق تنفيذي للوفد', 'Coordinateur de Délégation', 'Delegation Coordinator') }}</option>
                                 </select>
-                                @error('skill_id') <span class="text-rose-500 text-[10px] font-bold">{{ $message }}</span> @enderror
+                                @error('delegation_capacity') <span class="text-rose-500 text-[10px] font-bold">{{ $message }}</span> @enderror
                             </div>
                         @endif
 
@@ -317,7 +356,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                                     $refs.docVideo.srcObject = s;
                                     this.cameraOpen = true;
                                 }).catch(err => {
-                                    alert('تعذر فتح الكاميرا: ' + err.message);
+                                    alert('{{ __('messages.camera_access_error') }}');
                                     this.mode = 'upload';
                                 });
                             },
@@ -356,7 +395,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                                 <div class="relative w-full max-w-md rounded-2xl overflow-hidden border-2 border-amber-500 shadow-lg bg-black aspect-video flex items-center justify-center">
                                     <video x-ref="docVideo" autoplay playsinline class="w-full h-full object-cover"></video>
                                     <div class="absolute inset-4 border-2 border-dashed border-amber-300 rounded-xl pointer-events-none flex items-center justify-center text-white/70 text-xs font-bold">
-                                        ضع بطاقة الصحافة داخل الإطار
+                                        {{ $t('ضع بطاقة الصحافة داخل الإطار', 'Placez la carte de presse dans le cadre', 'Place press card inside frame') }}
                                     </div>
                                 </div>
                                 <button type="button" @click="capture()" class="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-black text-xs shadow-md transition flex items-center gap-1.5">
@@ -391,7 +430,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                                     $refs.docVideo.srcObject = s;
                                     this.cameraOpen = true;
                                 }).catch(err => {
-                                    alert('تعذر فتح الكاميرا: ' + err.message);
+                                    alert('{{ __('messages.camera_access_error') }}');
                                     this.mode = 'upload';
                                 });
                             },
@@ -433,7 +472,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                                 <div class="relative w-full max-w-md rounded-2xl overflow-hidden border-2 border-blue-600 shadow-lg bg-black aspect-video flex items-center justify-center">
                                     <video x-ref="docVideo" autoplay playsinline class="w-full h-full object-cover"></video>
                                     <div class="absolute inset-4 border-2 border-dashed border-white/60 rounded-xl pointer-events-none flex items-center justify-center text-white/80 text-xs font-bold">
-                                        ضع بطاقة التعريف أو جواز السفر داخل الإطار
+                                        {{ $t('ضع بطاقة التعريف أو جواز السفر داخل الإطار', 'Placez la carte d\'identité ou passeport dans le cadre', 'Place ID card or passport inside frame') }}
                                     </div>
                                 </div>
                                 <button type="button" @click="capture()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-md transition flex items-center gap-1.5">

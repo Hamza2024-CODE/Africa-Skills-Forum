@@ -22,18 +22,13 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
 
             {{-- Header Content --}}
             <div class="relative z-10 text-center max-w-3xl mx-auto space-y-5">
-                <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/15 backdrop-blur-xl border border-white/30 text-white text-xs font-black uppercase tracking-wider shadow-lg">
-                    <svg class="w-4 h-4 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                    </svg>
-                    <span>{{ $t('معرض الصور والتغطيات الميدانية', 'Galerie Photos & Couverture Média', 'Photo Gallery & Field Coverage') }}</span>
-                </div>
+
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-2xl">
-                    {{ $t('ألبومات وتغطيات أولمبياد المهن', 'Albums & Couverture Média Officiels', 'Official WorldSkills Media Albums') }}
+                    {{ $t('ألبومات وتغطيات منتدى المهارات الإفريقية', 'Albums & Couverture Média — Africa Skills Forum', 'Official Africa Skills Forum Media Albums') }}
                 </h1>
                 <p class="text-xs sm:text-base text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto drop-shadow-md">
-                    {{ $t('استعرض ألبومات الصور والتغطيات الإعلامية للمنافسات والفعاليات والورشات عبر جميع الولايات والمراكز.', 'Explorez les moments forts des compétitions, ateliers et cérémonies à travers l\'Algérie.', 'Browse competition highlights, technical workshops and ceremonies across Algeria.') }}
+                    {{ $t('استعرض ألبومات الصور والتغطيات الإعلامية للمؤتمرات والفعاليات والورشات.', 'Explorez les moments forts des conférences, ateliers et cérémonies.', 'Browse conference highlights, technical workshops and ceremonies.') }}
                 </p>
             </div>
         </div>
@@ -50,7 +45,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                     <span class="px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-black uppercase tracking-wider">
                         {{ $t('الصفحة الرسمية على الفيسبوك', 'Page Facebook Officielle', 'Official Facebook Page') }}
                     </span>
-                    <h2 class="text-xl sm:text-2xl font-black mt-1.5 drop-shadow">WorldSkills Algeria — Facebook @WorldSkillsAlgeria</h2>
+                    <h2 class="text-xl sm:text-2xl font-black mt-1.5 drop-shadow">{{ platform()->name() }}</h2>
                     <p class="text-xs text-blue-100 mt-0.5 font-medium">
                         {{ $t('تابع جميع التغطيات الميدانية بالصور المباشرة والأخبار اليومية عبر صفحتنا الرسمية على الفيسبوك.', 'Suivez toute la couverture photos et actualités quotidiennes sur Facebook.', 'Follow live photo coverage and news on our official Facebook page.') }}
                     </p>

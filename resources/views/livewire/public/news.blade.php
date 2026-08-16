@@ -31,18 +31,13 @@ $ministerGallery = [
 
             {{-- Header Content --}}
             <div class="relative z-10 text-center max-w-3xl mx-auto space-y-5">
-                <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/15 backdrop-blur-xl border border-white/30 text-white text-xs font-black uppercase tracking-wider shadow-lg">
-                    <svg class="w-4 h-4 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
-                    </svg>
-                    <span>{{ $t('المركز الإعلامي والمستجدات الرسمية', 'Centre de Presse & Actualités', 'Press Center & Official News') }}</span>
-                </div>
+
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-2xl">
-                    {{ $t('مستجدات وإعلانات أولمبياد المهن', 'Actualités & Communiqués Officiels', 'WorldSkills News & Official Announcements') }}
+                    {{ $t('مستجدات وإعلانات منتدى المهارات الإفريقية', 'Actualités & Communiqués Officiels — ASF', 'Africa Skills Forum News & Official Announcements') }}
                 </h1>
                 <p class="text-xs sm:text-base text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto drop-shadow-md">
-                    {{ $t('تابع التغطية الحية والحوارات الرسمية الصادرة عن وزارة التعليم والتكوين المهنيين واللجنة العليا.', 'Suivez la couverture en direct et les entretiens officiels du Ministère.', 'Follow live coverage and official ministerial interviews from WorldSkills Algeria.') }}
+                    {{ $t('تابع التغطية الحية والحوارات الرسمية الصادرة عن اللجنة العليا لمنتدى المهارات الإفريقية.', 'Suivez la couverture en direct du Forum des Compétences Africaines.', 'Follow live coverage and official interviews from Africa Skills Forum.') }}
                 </p>
             </div>
         </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'منصة أولمبياد المهن — WorldSkills Algeria' }}</title>
+    <title>{{ $title ?? platform()->name() }}</title>
 
     <!-- Google Fonts: Outfit & Cairo -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,14 +20,19 @@
             theme: {
                 extend: {
                     colors: {
+                        navy: '#0B2A6F',
+                        green: '#35A536',
+                        gold: '#F5A800',
                         brand: {
                             50: '#EEF6FF',
                             100: '#E0F0FF',
-                            500: '#0066FF',
-                            600: '#0052CC',
-                            700: '#063B8F',
-                            sky: '#00B8FF',
-                            dark: '#0B1F3A',
+                            500: '#0B2A6F',
+                            600: '#071E52',
+                            700: '#05153B',
+                            green: '#35A536',
+                            gold: '#F5A800',
+                            sky: '#35A536',
+                            dark: '#0B2A6F',
                             muted: '#5B6B82',
                             bg: '#F5F9FF'
                         }
@@ -95,11 +100,11 @@
             <div class="flex items-center gap-4">
                 <a href="/" class="flex items-center gap-3 group">
                     <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-700 via-brand-500 to-brand-sky flex items-center justify-center text-white font-black text-xl shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
-                        W
+                        A
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-xl font-black text-brand-dark tracking-tight leading-none">WorldSkills <span class="text-brand-500">Algeria</span></span>
-                        <span class="text-xs font-semibold text-brand-muted mt-1">منصة إدارة أولمبياد المهن — WSAP</span>
+                        <span class="text-xl font-black text-brand-dark tracking-tight leading-none">Africa Skills <span class="text-brand-500">Forum</span></span>
+                        <span class="text-xs font-semibold text-brand-muted mt-1">منصة إدارة منتدى المهارات الإفريقية</span>
                     </div>
                 </a>
             </div>
@@ -133,15 +138,6 @@
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                             <span>{{ app()->getLocale() === 'fr' ? 'Membres' : (app()->getLocale() === 'en' ? 'Roster' : 'إدارة الوفد') }}</span>
                         </a>
-                    @elseif(auth()->user()->hasRole(\App\Enums\RoleEnum::JUDGE->value))
-                        <a href="{{ route('judge.dashboard') }}" class="flex items-center gap-2 {{ request()->routeIs('judge.dashboard') ? 'text-brand-500 border-b-2 border-brand-500 pb-1' : 'text-slate-600 hover:text-brand-500' }}">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Centre du Jury' : (app()->getLocale() === 'en' ? 'Jury Center' : 'مركز لجنة التحكيم') }}</span>
-                        </a>
-                        <a href="{{ route('my.badge') }}" class="flex items-center gap-2 {{ request()->routeIs('my.badge') || request()->routeIs('accreditation.badge') ? 'text-brand-500 border-b-2 border-brand-500 pb-1' : 'text-slate-600 hover:text-brand-500' }}">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Badge du Juge' : (app()->getLocale() === 'en' ? 'Judge Badge' : 'شارة الاعتماد للحكم') }}</span>
-                        </a>
                     @else
                         <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 text-brand-500 font-bold">
                             <span>{{ app()->getLocale() === 'fr' ? 'Panneau d\'Administration' : (app()->getLocale() === 'en' ? 'Admin Dashboard' : 'مركز الإدارة الوطنية') }}</span>
@@ -167,15 +163,15 @@
                     </button>
                     <div x-show="open" x-transition x-cloak
                         class="absolute top-full {{ app()->getLocale() === 'ar' ? 'left-0' : 'right-0' }} mt-1.5 w-32 rounded-xl bg-white shadow-xl border border-slate-100 py-1 z-50">
-                        <a href="{{ route('lang.switch', 'ar') }}"
+                        <a href="{{ route('lang.switch', 'ar') }}" data-navigate-ignore rel="external"
                             class="flex items-center gap-2 px-3 py-2 text-xs font-bold hover:bg-slate-50 {{ app()->getLocale() === 'ar' ? 'text-brand-500 bg-brand-50' : 'text-[#06205C]' }}">
                             <span class="text-base leading-none">🇩🇿</span> العربية
                         </a>
-                        <a href="{{ route('lang.switch', 'fr') }}"
+                        <a href="{{ route('lang.switch', 'fr') }}" data-navigate-ignore rel="external"
                             class="flex items-center gap-2 px-3 py-2 text-xs font-bold hover:bg-slate-50 {{ app()->getLocale() === 'fr' ? 'text-brand-500 bg-brand-50' : 'text-[#06205C]' }}">
                             <span class="text-base leading-none">🇫🇷</span> Français
                         </a>
-                        <a href="{{ route('lang.switch', 'en') }}"
+                        <a href="{{ route('lang.switch', 'en') }}" data-navigate-ignore rel="external"
                             class="flex items-center gap-2 px-3 py-2 text-xs font-bold hover:bg-slate-50 {{ app()->getLocale() === 'en' ? 'text-brand-500 bg-brand-50' : 'text-[#06205C]' }}">
                             <span class="text-base leading-none">🇬🇧</span> English
                         </a>

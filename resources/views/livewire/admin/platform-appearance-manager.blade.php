@@ -66,6 +66,70 @@
                 </div>
             </div>
 
+            <!-- ═══ Registration Page Banner Section ═══ -->
+            <div class="glass-card rounded-2xl p-6 border border-amber-200/80 shadow-xs space-y-5 bg-amber-50/30">
+                <h2 class="text-base font-black text-slate-900 flex items-center gap-2">
+                    <span>🖼️</span>
+                    <span>{{ app()->getLocale() === 'fr' ? 'Bannière Page d\'Inscription' : (app()->getLocale() === 'en' ? 'Registration Page Banner' : 'صورة بانر صفحة التسجيل الرسمي') }}</span>
+                </h2>
+
+                <p class="text-[11px] text-slate-500 font-semibold">
+                    {{ app()->getLocale() === 'en' ? 'This image appears as the hero banner on the Official Registration page (/registration). Recommended: 1920×500px, JPG/PNG/WEBP.' : 'هذه الصورة تظهر كخلفية في هيدر صفحة التسجيل الرسمي (/registration). المقترح: 1920×500 بكسل، JPG/PNG/WEBP.' }}
+                </p>
+
+                <!-- Live Preview -->
+                @if($accreditation_banner_url)
+                <div class="relative rounded-2xl overflow-hidden h-40 border border-slate-200 shadow-inner bg-slate-900">
+                    <img src="{{ asset($accreditation_banner_url) }}" alt="Registration Banner Preview"
+                         class="w-full h-full object-cover object-center opacity-70">
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#0B2A6F]/80 to-transparent flex items-center px-6">
+                        <div class="space-y-1">
+                            <div class="text-white text-xs font-black opacity-90">{{ __('معاينة بانر التسجيل') }}</div>
+                            <div class="text-[#4ADE80] text-[10px] font-bold">{{ $accreditation_banner_url }}</div>
+                        </div>
+                    </div>
+                    <div class="absolute top-2 right-2 px-2 py-1 bg-emerald-500 text-white text-[9px] font-black rounded-lg shadow">LIVE</div>
+                </div>
+                @endif
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Upload File -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-extrabold text-slate-700">{{ __('رفع صورة جديدة (JPG/PNG/WEBP)') }}</label>
+                        <input type="file" wire:model="accreditation_banner_file" accept="image/*"
+                               class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-[#0B2A6F]/10 file:text-[#0B2A6F] hover:file:bg-[#0B2A6F]/20 transition">
+                        <div wire:loading wire:target="accreditation_banner_file" class="text-xs text-amber-600 font-bold flex items-center gap-1.5">
+                            <svg class="animate-spin w-3.5 h-3.5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+                            {{ __('جاري رفع الصورة...') }}
+                        </div>
+                        @error('accreditation_banner_file') <span class="text-[11px] text-rose-600 font-semibold">{{ $message }}</span> @enderror
+                    </div>
+
+                    <!-- Or URL -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-extrabold text-slate-700">{{ __('أو أدخل رابط URL للصورة') }}</label>
+                        <input type="text" wire:model="accreditation_banner_url"
+                               placeholder="/images/channels4_banner.jpg"
+                               class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-mono text-slate-700 focus:ring-2 focus:ring-[#0B2A6F] bg-white">
+                        <p class="text-[10px] text-slate-400 font-semibold">{{ __('مسار نسبي من public/ أو رابط خارجي') }}</p>
+                    </div>
+                </div>
+
+                <!-- Quick select from existing images -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-extrabold text-slate-600">{{ __('اختيار سريع من الصور المتوفرة') }}</label>
+                    <div class="flex flex-wrap gap-2">
+                        @foreach(['/images/channels4_banner.jpg', '/images/hero_slide_1.png', '/images/hero_slide_2.png', '/images/hero_slide_3.png', '/images/gallery_header_bg.png', '/images/news_header_bg.png'] as $img)
+                        <button type="button" wire:click="$set('accreditation_banner_url', '{{ $img }}')"
+                                class="px-3 py-1.5 rounded-xl text-[10px] font-black border transition {{ $accreditation_banner_url === $img ? 'bg-[#0B2A6F] text-white border-[#0B2A6F]' : 'bg-white text-slate-600 border-slate-200 hover:border-[#0B2A6F] hover:text-[#0B2A6F]' }}">
+                            {{ basename($img) }}
+                        </button>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+
             <!-- Color Tokens Studio -->
             <div class="glass-card rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-6">
                 <h2 class="text-base font-black text-slate-900 flex items-center gap-2">

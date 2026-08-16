@@ -19,8 +19,9 @@ class OfficialRegistration extends Component
 
     public bool $isOpen = true;
 
-    // Role selection: JUDGE, COUNTRY_ADMIN, MEDIA_MANAGER
-    public string $role = 'JUDGE';
+    // Role selection: COUNTRY_ADMIN, MEDIA_MANAGER
+    public string $role = 'COUNTRY_ADMIN';
+    public string $delegation_capacity = 'OFFICIAL_MEMBER';
 
     // Personal & Identity Fields
     public string $name = '';
@@ -75,15 +76,20 @@ class OfficialRegistration extends Component
 
     public function runInstantVerification(): void
     {
+        $locale = app()->getLocale();
         if (!empty($this->name) && (!empty($this->national_id) || $this->role === 'MEDIA_MANAGER')) {
             $this->instant_verified = true;
-            $this->verification_message = 'تم الفحص التلقائي الآني: الصورة الملتصقة/المرفقة متطابقة 100% مع الاسم والرقم التعريفي/الجواز المدخل.';
+            $this->verification_message = $locale === 'fr' 
+                ? 'Vérification automatique en temps réel : La photo téléchargée/capturée correspond à 100% avec les données saisies.' 
+                : ($locale === 'en' 
+                    ? 'Instant automated check: Attached photo/document matches 100% with the provided identity details.' 
+                    : 'تم الفحص التلقائي الآني: الصورة الملتصقة/المرفقة متطابقة 100% مع الاسم والرقم التعريفي/الجواز المدخل.');
         }
     }
 
     public function mount(): void
     {
-        $status = GlobalSetting::getByKey('official_registration_open', '1');
+        $status = GlobalSetting::getByKey('official_registration_open', '0');
         $this->isOpen = ($status === '1');
 
         $algeria = Country::where('iso2', 'DZ')->first();
@@ -103,6 +109,30 @@ class OfficialRegistration extends Component
         }
     }
 
+    public function getPhonePlaceholderProperty(): string
+    {
+        $country = Country::find($this->country_id);
+        $locale = app()->getLocale();
+        if (!$country) {
+            return $locale === 'fr' ? 'Ex: 0550123456 ou +213550123456' : ($locale === 'en' ? 'Ex: 0550123456 or +213550123456' : 'مثال: 0550123456 أو +213550123456');
+        }
+
+        $code = $country->phone_code ?: ($country->is_algeria ? '+213' : '');
+
+        return match($country->iso2) {
+            'DZ' => $locale === 'fr' ? 'Ex: 0550123456 ou +213550123456' : ($locale === 'en' ? 'Ex: 0550123456 or +213550123456' : 'مثال: 0550123456 أو +213550123456'),
+            'TN' => "{$code} 20 123 456",
+            'MA' => "{$code} 6 12 34 56 78",
+            'EG' => "{$code} 10 1234 5678",
+            'LY' => "{$code} 91 123 4567",
+            'MR' => "{$code} 45 12 34 56",
+            'SD' => "{$code} 91 234 5678",
+            default => !empty($code) 
+                ? ($locale === 'fr' ? "Ex: {$code} 55 000 0000" : ($locale === 'en' ? "Ex: {$code} 55 000 0000" : "مثال: {$code} 55 000 0000"))
+                : ($locale === 'fr' ? 'Ex: +213 550 00 00 00' : ($locale === 'en' ? 'Ex: +213 550 00 00 00' : 'مثال: 0550000000 / +213'))
+        };
+    }
+
     public function updatedCountryId($val): void
     {
         $country = Country::find($val);
@@ -116,6 +146,7 @@ class OfficialRegistration extends Component
 
     public function updatedNationalId($val): void
     {
+        $locale = app()->getLocale();
         if ($this->isAlgeria) {
             $cleaned = preg_replace('/[^0-9]/', '', $val);
             if (strlen($cleaned) > 18) {
@@ -124,7 +155,12 @@ class OfficialRegistration extends Component
             $this->national_id = $cleaned;
 
             if (strlen($cleaned) !== 18 && !empty($cleaned)) {
-                $this->addError('national_id', 'يجب أن يتكون رقم بطاقة التعريف الوطنية (NIN) من 18 رقماً بالضبط دون زيادة أو نقصان (الحالي: ' . strlen($cleaned) . ' رقم).');
+                $msg = $locale === 'fr' 
+                    ? 'Le numéro NIN doit comporter exactement 18 chiffres (actuel : ' . strlen($cleaned) . ').' 
+                    : ($locale === 'en' 
+                        ? 'National ID Number (NIN) must be exactly 18 digits (current: ' . strlen($cleaned) . ').' 
+                        : 'يجب أن يتكون رقم بطاقة التعريف الوطنية (NIN) من 18 رقماً بالضبط دون زيادة أو نقصان (الحالي: ' . strlen($cleaned) . ' رقم).');
+                $this->addError('national_id', $msg);
             } else {
                 $this->resetErrorBag('national_id');
             }
@@ -134,6 +170,7 @@ class OfficialRegistration extends Component
 
     public function updated($propertyName): void
     {
+        $locale = app()->getLocale();
         $emailRegex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
         $phoneRegex = $this->isAlgeria
             ? '/^(?:(?:\+?213|00213|0)[567][0-9]{8})$/'
@@ -147,14 +184,14 @@ class OfficialRegistration extends Component
         ];
 
         $messages = [
-            'name.regex'        => 'الاسم يجب أن يتكون من أحرف عربية أو لاتينية فقط دون رموز خاصة.',
-            'email.email'       => 'صيغة البريد الإلكتروني غير صحيحة.',
-            'email.unique'      => 'هذا البريد الإلكتروني مسجل مسبقاً في المنصة.',
-            'email.regex'       => 'يرجى إدخال بريد إلكتروني صحيح ومعتمد عالمياً (مثل Gmail / Yahoo / Outlook).',
+            'name.regex'        => $locale === 'fr' ? 'Le nom doit contenir uniquement des lettres arabes ou latines.' : ($locale === 'en' ? 'Name must contain Arabic or Latin letters only.' : 'الاسم يجب أن يتكون من أحرف عربية أو لاتينية فقط دون رموز خاصة.'),
+            'email.email'       => $locale === 'fr' ? 'Format d\'email invalide.' : ($locale === 'en' ? 'Invalid email format.' : 'صيغة البريد الإلكتروني غير صحيحة.'),
+            'email.unique'      => $locale === 'fr' ? 'Cet email est déjà enregistré sur la plateforme.' : ($locale === 'en' ? 'This email is already registered.' : 'هذا البريد الإلكتروني مسجل مسبقاً في المنصة.'),
+            'email.regex'       => $locale === 'fr' ? 'Veuillez saisir une adresse email valide.' : ($locale === 'en' ? 'Please enter a valid email address.' : 'يرجى إدخال بريد إلكتروني صحيح ومعتمد عالمياً (مثل Gmail / Yahoo / Outlook).'),
             'phone.regex'       => $this->isAlgeria
-                                     ? 'رقم الهاتف غير صحيح. يجب أن يتكون من 10 أرقام ويبدأ بـ (05 أو 06 أو 07) أو الصيغة الدولية (+213).'
-                                     : 'يرجى إدخال رقم هاتف صحيح برمز الدولة.',
-            'national_id.regex' => 'يجب أن يتكون رقم بطاقة التعريف الوطنية (NIN) من 18 رقماً بالضبط دون زيادة أو نقصان (18 أرقام).',
+                                     ? ($locale === 'fr' ? 'Numéro de téléphone invalide (10 chiffres commençant par 05/06/07).' : ($locale === 'en' ? 'Invalid phone number (10 digits starting with 05/06/07).' : 'رقم الهاتف غير صحيح. يجب أن يتكون من 10 أرقام ويبدأ بـ (05 أو 06 أو 07) أو الصيغة الدولية (+213).'))
+                                     : ($locale === 'fr' ? 'Veuillez saisir un numéro de téléphone valide avec code pays.' : ($locale === 'en' ? 'Please enter a valid phone number with country code.' : 'يرجى إدخال رقم هاتف صحيح برمز الدولة.')),
+            'national_id.regex' => $locale === 'fr' ? 'Le numéro NIN doit comporter exactement 18 chiffres.' : ($locale === 'en' ? 'National ID Number (NIN) must be exactly 18 digits.' : 'يجب أن يتكون رقم بطاقة التعريف الوطنية (NIN) من 18 رقماً بالضبط دون زيادة أو نقصان (18 أرقام).'),
         ];
 
         if (array_key_exists($propertyName, $rules)) {
@@ -164,8 +201,9 @@ class OfficialRegistration extends Component
 
     public function registerOfficial(): void
     {
+        $locale = app()->getLocale();
         if (!$this->isOpen) {
-            session()->flash('error', 'التسجيل الرسمي مغلق حالياً من طرف الإدارة العليا.');
+            session()->flash('error', $locale === 'fr' ? 'L\'inscription officielle est actuellement fermée par la direction.' : ($locale === 'en' ? 'Official registration is currently closed by administration.' : 'التسجيل الرسمي مغلق حالياً من طرف الإدارة العليا.'));
             return;
         }
 
@@ -183,37 +221,37 @@ class OfficialRegistration extends Component
         ];
 
         $messages = [
-            'name.required'       => 'يرجى إدخال الاسم واللقب الكامل.',
-            'name.regex'          => 'الاسم يجب أن يتكون من أحرف عربية أو لاتينية فقط دون رموز خاصة.',
-            'email.required'      => 'يرجى إدخال البريد الإلكتروني الرسمي.',
-            'email.email'         => 'صيغة البريد الإلكتروني غير صحيحة.',
-            'email.unique'        => 'هذا البريد الإلكتروني مسجل مسبقاً في المنصة.',
-            'email.regex'         => 'يرجى إدخال بريد إلكتروني صحيح ومعتمد (مثل Gmail / Yahoo / Outlook).',
-            'phone.required'      => 'يرجى إدخال رقم الهاتف.',
+            'name.required'       => $locale === 'fr' ? 'Veuillez saisir le nom et prénom complet.' : ($locale === 'en' ? 'Please enter full name.' : 'يرجى إدخال الاسم واللقب الكامل.'),
+            'name.regex'          => $locale === 'fr' ? 'Le nom doit contenir uniquement des lettres arabes ou latines.' : ($locale === 'en' ? 'Name must contain Arabic or Latin letters only.' : 'الاسم يجب أن يتكون من أحرف عربية أو لاتينية فقط دون رموز خاصة.'),
+            'email.required'      => $locale === 'fr' ? 'Veuillez saisir l\'adresse email officielle.' : ($locale === 'en' ? 'Please enter official email address.' : 'يرجى إدخال البريد الإلكتروني الرسمي.'),
+            'email.email'         => $locale === 'fr' ? 'Format d\'email invalide.' : ($locale === 'en' ? 'Invalid email format.' : 'صيغة البريد الإلكتروني غير صحيحة.'),
+            'email.unique'        => $locale === 'fr' ? 'Cet email est déjà enregistré.' : ($locale === 'en' ? 'This email is already registered.' : 'هذا البريد الإلكتروني مسجل مسبقاً في المنصة.'),
+            'email.regex'         => $locale === 'fr' ? 'Veuillez saisir un email valide.' : ($locale === 'en' ? 'Please enter a valid email address.' : 'يرجى إدخال بريد إلكتروني صحيح ومعتمد (مثل Gmail / Yahoo / Outlook).'),
+            'phone.required'      => $locale === 'fr' ? 'Le numéro de téléphone est requis.' : ($locale === 'en' ? 'Phone number is required.' : 'يرجى إدخال رقم الهاتف.'),
             'phone.regex'         => $this->isAlgeria
-                                     ? 'رقم الهاتف غير صحيح. يجب أن يتكون من 10 أرقام ويبدأ بـ (05 أو 06 أو 07) أو +213.'
-                                     : 'يرجى إدخال رقم هاتف صحيح برمز الدولة.',
-            'photo.required'      => 'يرجى تحميل الصورة الشخصية الرسمية أو التقاطها عبر الكاميرا المباشرة.',
-            'photo.image'         => 'الملف المرفق للصورة يجب أن يكون صورة بحجم مناسب (JPG / PNG / WEBP).',
+                                     ? ($locale === 'fr' ? 'Numéro de téléphone invalide.' : ($locale === 'en' ? 'Invalid phone number.' : 'رقم الهاتف غير صحيح. يجب أن يتكون من 10 أرقام ويبدأ بـ (05 أو 06 أو 07) أو +213.'))
+                                     : ($locale === 'fr' ? 'Veuillez saisir un numéro de téléphone valide.' : ($locale === 'en' ? 'Please enter a valid phone number.' : 'يرجى إدخال رقم هاتف صحيح برمز الدولة.')),
+            'photo.required'      => $locale === 'fr' ? 'Veuillez téléverser ou capturer la photo officielle.' : ($locale === 'en' ? 'Please upload or capture official photo.' : 'يرجى تحميل الصورة الشخصية الرسمية أو التقاطها عبر الكاميرا المباشرة.'),
+            'photo.image'         => $locale === 'fr' ? 'Le fichier photo doit être une image valide.' : ($locale === 'en' ? 'Uploaded file must be a valid image.' : 'الملف المرفق للصورة يجب أن يكون صورة بحجم مناسب (JPG / PNG / WEBP).'),
         ];
 
         if ($this->role === 'MEDIA_MANAGER') {
             // Media Press specific rules
             $rules['organization_name'] = ['required', 'string', 'min:2'];
-            $messages['organization_name.required'] = 'يرجى إدخال اسم المؤسسة الإعلامية أو الجريدة أو القناة.';
+            $messages['organization_name.required'] = $locale === 'fr' ? 'Veuillez saisir le nom de l\'organisme de presse.' : ($locale === 'en' ? 'Please enter press organization name.' : 'يرجى إدخال اسم المؤسسة الإعلامية أو الجريدة أو القناة.');
 
             if ($this->isAlgeria) {
                 $rules['national_id'] = ['required', 'regex:/^[0-9]{18}$/'];
-                $messages['national_id.required'] = 'يرجى إدخال رقم بطاقة التعريف الوطنية (NIN).';
-                $messages['national_id.regex'] = 'يجب أن يتكون رقم بطاقة التعريف الوطنية (NIN) من 18 رقماً بالضبط.';
+                $messages['national_id.required'] = $locale === 'fr' ? 'Le numéro NIN (18 chiffres) est requis.' : ($locale === 'en' ? 'NIN number (18 digits) is required.' : 'يرجى إدخال رقم بطاقة التعريف الوطنية (NIN).');
+                $messages['national_id.regex'] = $locale === 'fr' ? 'Le numéro NIN doit comporter exactement 18 chiffres.' : ($locale === 'en' ? 'National ID Number (NIN) must be exactly 18 digits.' : 'يجب أن يتكون رقم بطاقة التعريف الوطنية (NIN) من 18 رقماً بالضبط.');
             } else {
                 $rules['national_id'] = ['required', 'min:6'];
-                $messages['national_id.required'] = 'يرجى إدخال رقم جواز السفر أو بطاقة الهوية.';
+                $messages['national_id.required'] = $locale === 'fr' ? 'Le numéro de passeport ou carte d\'identité est requis.' : ($locale === 'en' ? 'Passport or ID number is required.' : 'يرجى إدخال رقم جواز السفر أو بطاقة الهوية.');
             }
 
             // Require Press Card OR ID Document (or camera capture)
             $rules['press_card_file'] = $this->captured_id_card_data ? ['nullable'] : ['required', 'file', 'mimes:pdf,jpg,jpeg,png,webp', 'max:10240'];
-            $messages['press_card_file.required'] = 'يرجى رفع ملف بطاقة الصحافة المهنية أو بطاقة الهوية/الجواز المعتمدة أو تصويرها بالكاميرا المباشرة.';
+            $messages['press_card_file.required'] = $locale === 'fr' ? 'Veuillez fournir la carte de presse ou pièce d\'identité.' : ($locale === 'en' ? 'Please upload or capture press card / ID document.' : 'يرجى رفع ملف بطاقة الصحافة المهنية أو بطاقة الهوية/الجواز المعتمدة أو تصويرها بالكاميرا المباشرة.');
         } else {
             // JUDGE and COUNTRY_ADMIN require Password
             $rules['password'] = ['required', 'string', 'min:6', 'confirmed'];
@@ -221,19 +259,15 @@ class OfficialRegistration extends Component
 
             if ($this->isAlgeria) {
                 $rules['national_id'] = ['required', 'regex:/^[0-9]{18}$/'];
-                $messages['national_id.required'] = 'يرجى إدخال رقم بطاقة التعريف الوطنية (NIN 18 رقم).';
-                $messages['national_id.regex'] = 'يجب أن يتكون رقم بطاقة التعريف الوطنية (NIN) من 18 رقماً بالضبط.';
-                $messages['id_card_file.required'] = 'يرجى رفع أو تصوير بطاقة التعريف الوطنية (NIN) أو جواز السفر (PDF / صورة / كاميرا).';
+                $messages['national_id.required'] = $locale === 'fr' ? 'Le numéro NIN (18 chiffres) est requis.' : ($locale === 'en' ? 'NIN number (18 digits) is required.' : 'يرجى إدخال رقم بطاقة التعريف الوطنية (NIN 18 رقم).');
+                $messages['national_id.regex'] = $locale === 'fr' ? 'Le numéro NIN doit comporter exactement 18 chiffres.' : ($locale === 'en' ? 'National ID Number (NIN) must be exactly 18 digits.' : 'يجب أن يتكون رقم بطاقة التعريف الوطنية (NIN) من 18 رقماً بالضبط.');
+                $messages['id_card_file.required'] = $locale === 'fr' ? 'Veuillez joindre la carte d\'identité ou le passeport.' : ($locale === 'en' ? 'Please attach National ID or Passport.' : 'يرجى رفع أو تصوير بطاقة التعريف الوطنية (NIN) أو جواز السفر (PDF / صورة / كاميرا).');
             } else {
                 $rules['national_id'] = ['required', 'min:6'];
-                $messages['national_id.required'] = 'يرجى إدخال رقم جواز السفر الدولي.';
-                $messages['id_card_file.required'] = 'يرجى رفع أو تصوير النسخة الممسوحة ضوئياً لجواز السفر الدولي المعتمد.';
+                $messages['national_id.required'] = $locale === 'fr' ? 'Le numéro de passeport est requis.' : ($locale === 'en' ? 'Passport number is required.' : 'يرجى إدخال رقم جواز السفر الدولي.');
+                $messages['id_card_file.required'] = $locale === 'fr' ? 'Veuillez téléverser le passeport international.' : ($locale === 'en' ? 'Please upload international passport.' : 'يرجى رفع أو تصوير النسخة الممسوحة ضوئياً لجواز السفر الدولي المعتمد.');
             }
 
-            if ($this->role === 'JUDGE') {
-                $rules['skill_id'] = ['required', 'exists:skills,id'];
-                $messages['skill_id.required'] = 'يرجى تحديد التخصص المهني المراد التحكيم فيه.';
-            }
         }
 
         $this->validate($rules, $messages);
@@ -262,26 +296,73 @@ class OfficialRegistration extends Component
             $idCardPath = $this->id_card_file ? $this->id_card_file->store('official_id_cards', 'public') : null;
         }
 
-        // Auto-generate secure password for Media Press (since no password field)
-        $userPassword = ($this->role === 'MEDIA_MANAGER')
-            ? Str::random(12) . '!'
-            : $this->password;
+        // Auto-generate secure password if not provided
+        $userPassword = !empty($this->password)
+            ? $this->password
+            : Str::random(12) . '!';
+
+        $positionTitle = match($this->delegation_capacity) {
+            'DIPLOMAT' => 'دبلوماسي / مبعوث سفارة',
+            'DELEGATION_HEAD' => 'مسؤول الوفد الوطني',
+            'VIP_GUEST' => 'ضيف شرف (VIP)',
+            'COORDINATOR' => 'مؤطر ومرافق تنفيذي',
+            default => 'عضو وفد رسمي',
+        };
 
         $user = User::create([
             'uuid'        => (string) Str::uuid(),
             'name'        => $this->name,
             'email'       => $this->email,
             'country_id'  => $this->country_id,
+            'position'    => $this->role === 'MEDIA_MANAGER' ? 'صحفي / إعلامي معتمد' : $positionTitle,
             'avatar_path' => $photoPath,
             'password'    => Hash::make($userPassword),
             'is_active'   => false, // Requires Super Admin Activation
-            'can_scan_qr' => ($this->role === 'JUDGE'),
+            'can_scan_qr' => false,
         ]);
 
         $user->assignRole($this->role);
 
+        // Auto-create ParticipantProfile and Registration record so official registrants appear in Admin Hub
+        $nameParts = explode(' ', trim($this->name), 2);
+        $firstName = $nameParts[0] ?? $this->name;
+        $lastName  = $nameParts[1] ?? '';
+
+        $profile = \App\Models\ParticipantProfile::create([
+            'uuid'          => (string) Str::uuid(),
+            'user_id'       => $user->id,
+            'first_name_ar' => $firstName,
+            'last_name_ar'  => $lastName,
+            'phone'         => $this->phone,
+            'email'         => $this->email,
+            'national_id'   => $this->national_id,
+        ]);
+
+        $targetCountryId = $this->country_id ?: (\App\Models\Country::where('iso2', 'DZ')->first()?->id ?? 1);
+        $countryIso = 'DZ';
+        $country = \App\Models\Country::find($targetCountryId);
+        if ($country) {
+            $countryIso = $country->code ?: $country->iso2 ?: 'DZ';
+        }
+
+        \App\Models\Registration::create([
+            'uuid'                 => (string) Str::uuid(),
+            'edition_id'           => \App\Models\Edition::first()?->id ?? 1,
+            'registration_number'  => 'WSAP-' . date('Y') . '-' . strtoupper($countryIso) . '-' . rand(100000, 999999),
+            'verification_token'   => Str::random(40),
+            'participant_id'       => $profile->id,
+            'country_id'           => $targetCountryId,
+            'skill_id'             => $this->skill_id,
+            'status'               => \App\Enums\ParticipantStatus::PENDING,
+            'photo_url'            => $photoPath ? asset('storage/' . ltrim($photoPath, '/')) : null,
+            'organization_name'    => $this->organization_name ?: $positionTitle,
+            'job_title'            => $positionTitle,
+            'national_id_pdf_path' => $idCardPath ?? $pressCardPath,
+            'submitted_at'         => now(),
+        ]);
+
         $this->submitted = true;
-        session()->flash('success', 'تم تقديم طلب الاعتماد والتسجيل الرسمي بنجاح.');
+        session()->flash('success', $locale === 'fr' ? 'Demande d\'accréditation soumise avec succès.' : ($locale === 'en' ? 'Accreditation request submitted successfully.' : 'تم تقديم طلب الاعتماد والتسجيل الرسمي بنجاح.'));
     }
 
     public function render()

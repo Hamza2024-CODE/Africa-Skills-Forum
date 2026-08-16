@@ -15,9 +15,13 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+use Livewire\WithFileUploads;
+
 #[Layout('components.dashboard.app-shell')]
 class CountryDashboard extends Component
 {
+    use WithFileUploads;
+
     public ?Edition $edition = null;
     public ?Country $country = null;
     public ?CountryDelegation $delegation = null;
@@ -38,17 +42,19 @@ class CountryDashboard extends Component
     public string $filterStatus = 'ALL';
     public string $flashMessage = '';
 
-    // Active Tab for Dashboard (Roster vs Appeals vs Venue Map vs Regulations)
+    // Active Tab for Dashboard (Roster vs Flight Tickets)
     public string $activeTab = 'roster';
 
-    // Add / Edit Member Modal State
+    // Add / Edit / View / Flight Ticket Modal State
     public bool $showAddModal = false;
     public bool $showEditModal = false;
     public bool $showViewModal = false;
-    public bool $showAppealModal = false;
+    public bool $showFlightTicketModal = false;
 
     public ?int $editingMemberId = null;
     public ?DelegationMember $viewingMember = null;
+    public ?int $ticketMemberId = null;
+    public ?DelegationMember $ticketMember = null;
 
     // Member Form Fields
     public string $firstName = '';
@@ -63,6 +69,10 @@ class CountryDashboard extends Component
     public string $suitSize = '';
     public string $shoeSize = '';
     public string $status = 'APPROVED';
+    public string $arrivalFlight = '';
+    public string $departureFlight = '';
+    public mixed $photoFile = null;
+    public mixed $flightTicketFile = null;
 
     // Appeal Form Fields
     public ?int $appealSkillId = null;
@@ -288,6 +298,55 @@ class CountryDashboard extends Component
         }
     }
 
+    public function openFlightTicketModal(int $memberId): void
+    {
+        $this->ticketMemberId = $memberId;
+        $this->ticketMember   = DelegationMember::find($memberId);
+        $this->flightTicketFile = null;
+        if ($this->ticketMember) {
+            $this->arrivalFlight   = $this->ticketMember->arrival_flight ?? '';
+            $this->departureFlight = $this->ticketMember->departure_flight ?? '';
+            $this->showFlightTicketModal = true;
+        }
+    }
+
+    public function uploadFlightTicket(): void
+    {
+        $this->validate([
+            'flightTicketFile' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+            'arrivalFlight'    => 'nullable|string|max:255',
+            'departureFlight'  => 'nullable|string|max:255',
+        ]);
+
+        $member = DelegationMember::find($this->ticketMemberId);
+        if (!$member) return;
+
+        $ticketPath = $member->flight_ticket_path;
+        if ($this->flightTicketFile) {
+            $ticketPath = '/storage/' . $this->flightTicketFile->store('delegation/flight_tickets', 'public');
+        }
+
+        $member->update([
+            'arrival_flight'     => $this->arrivalFlight,
+            'departure_flight'   => $this->departureFlight,
+            'flight_ticket_path' => $ticketPath,
+        ]);
+
+        $this->showFlightTicketModal = false;
+        $this->flashMessage = 'تم رفع وتحديث بيانات وتذكرة الطيران بنجاح.';
+        $this->loadMetrics();
+    }
+
+    public function deleteFlightTicket(int $memberId): void
+    {
+        $member = DelegationMember::find($memberId);
+        if ($member) {
+            $member->update(['flight_ticket_path' => null]);
+            $this->flashMessage = 'تم إزالة ملف تذكرة الطيران.';
+            $this->loadMetrics();
+        }
+    }
+
     public function submitTechnicalAppeal(): void
     {
         $this->validate([
@@ -359,7 +418,9 @@ class CountryDashboard extends Component
 
         $members = $query->orderBy('id', 'desc')->get();
         $skills  = Skill::where('is_active', true)->orderBy('sort_order')->get();
-        $appeals = TechnicalAppeal::with(['skill', 'submittedBy', 'decision'])->orderBy('id', 'desc')->get();
+        $appeals = \Illuminate\Support\Facades\Schema::hasTable('technical_appeals')
+            ? TechnicalAppeal::with(['skill', 'submittedBy', 'decision'])->orderBy('id', 'desc')->get()
+            : collect();
 
         return view('livewire.country.country-dashboard', [
             'members' => $members,

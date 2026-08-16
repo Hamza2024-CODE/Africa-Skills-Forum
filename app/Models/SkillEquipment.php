@@ -29,4 +29,13 @@ class SkillEquipment extends Model
     {
         return $this->belongsTo(EquipmentItem::class);
     }
+
+    public function getLocalized(string $attribute = 'name'): string
+    {
+        if ($this->equipmentItem) {
+            return $this->equipmentItem->getLocalized($attribute);
+        }
+
+        return $this->notes ?? '';
+    }
 }

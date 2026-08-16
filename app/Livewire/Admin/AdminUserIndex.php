@@ -35,6 +35,10 @@ class AdminUserIndex extends Component
     public string $create_role     = 'COUNTRY_ADMIN';
     public string $create_password = '';
 
+    // Delete User Modal
+    public bool   $deleteConfirmOpen = false;
+    public ?int   $deleteTargetId    = null;
+
     // Official Registration Status
     public bool $officialRegistrationOpen = true;
 
@@ -42,17 +46,18 @@ class AdminUserIndex extends Component
 
     public function mount(): void
     {
-        $status = \App\Models\GlobalSetting::getByKey('official_registration_open', '1');
+        $status = \App\Models\GlobalSetting::getByKey('official_registration_open', '0');
         $this->officialRegistrationOpen = ($status === '1');
     }
 
     public function toggleOfficialRegistration(): void
     {
-        $current = \App\Models\GlobalSetting::getByKey('official_registration_open', '1');
+        $current = \App\Models\GlobalSetting::getByKey('official_registration_open', '0');
         $newStatus = ($current === '1') ? '0' : '1';
         \App\Models\GlobalSetting::setByKey('official_registration_open', $newStatus);
+        \App\Models\GlobalSetting::setByKey('public_registration_open', $newStatus);
         $this->officialRegistrationOpen = ($newStatus === '1');
-        session()->flash('success', $newStatus === '1' ? 'تم فتح وتفعيل صفحة التسجيل الرسمي للحكام والوفود والصحافة.' : 'تم توقيف وإغلاق صفحة التسجيل الرسمي واختفائها.');
+        session()->flash('success', $newStatus === '1' ? 'تم فتح وتفعيل جميع بوابات التسجيل المباشرة.' : 'تم توقيف وإغلاق جميع بوابات التسجيل المباشرة بالكامل في المنصة.');
     }
 
     public function updatingSearch(): void       { $this->resetPage(); }
@@ -206,6 +211,7 @@ class AdminUserIndex extends Component
     public function render()
     {
         $query = User::with('roles')
+            ->whereDoesntHave('roles', fn($r) => $r->where('name', 'EXECUTIVE_VIEWER'))
             ->when($this->search, fn($q) => $q->where(function ($q) {
                 $q->where('name', 'like', '%'.$this->search.'%')
                   ->orWhere('email', 'like', '%'.$this->search.'%');
@@ -214,11 +220,17 @@ class AdminUserIndex extends Component
             ->when($this->filterStatus !== '', fn($q) => $q->where('is_active', $this->filterStatus === '1'))
             ->latest();
 
+        $allRoles = Role::where('name', '!=', 'EXECUTIVE_VIEWER')->pluck('name');
+
         return view('livewire.admin.users.index', [
-            'users'       => $query->paginate(15),
-            'allRoles'    => Role::pluck('name'),
-            'totalUsers'  => User::count(),
-            'activeUsers' => User::where('is_active', true)->count(),
+            'users'             => $query->paginate(15),
+            'allRoles'          => $allRoles,
+            'totalUsers'        => User::whereDoesntHave('roles', fn($r) => $r->where('name', 'EXECUTIVE_VIEWER'))->count(),
+            'activeUsers'       => User::where('is_active', true)->whereDoesntHave('roles', fn($r) => $r->where('name', 'EXECUTIVE_VIEWER'))->count(),
+            'drawerOpen'        => $this->drawerOpen,
+            'roleModalOpen'     => $this->roleModalOpen,
+            'createModalOpen'   => $this->createModalOpen,
+            'deleteConfirmOpen' => $this->deleteConfirmOpen,
         ]);
     }
 }

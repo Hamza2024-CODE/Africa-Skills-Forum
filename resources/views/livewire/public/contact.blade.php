@@ -4,7 +4,7 @@
         <!-- Header -->
         <div class="text-center max-w-3xl mx-auto space-y-3">
             <h1 class="text-3xl sm:text-4xl font-black text-[#06205C]">
-                {{ app()->getLocale() === 'fr' ? 'Contactez le Comité d\'Organisation' : (app()->getLocale() === 'en' ? 'Contact WorldSkills Algeria Committee' : 'الاتصال باللجنة التنظيمية لأولمبياد المهن') }}
+                {{ app()->getLocale() === 'fr' ? 'Contactez le Comité d\'Organisation — Africa Skills Forum' : (app()->getLocale() === 'en' ? 'Contact Africa Skills Forum Executive Committee' : 'الاتصال باللجنة التنفيذية لمنتدى المهارات الإفريقية') }}
             </h1>
             <p class="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
                 {{ app()->getLocale() === 'fr' ? 'Nous sommes à votre disposition pour toute question concernant la compétition et les délégations.' : (app()->getLocale() === 'en' ? 'We are at your disposal for any inquiries regarding the competition and delegations.' : 'يسعدنا استقبال استفسارات المتربصين والوفود المشاركة والشركاء.') }}

@@ -18,11 +18,11 @@ use Livewire\Component;
 #[Layout('components.dashboard.app-shell')]
 class SuperAdminDashboard extends Component
 {
-    public string $activeTab = 'operations';
+    public string $activeTab = 'overview';
 
     public function setTab(string $tab): void
     {
-        $validTabs = ['operations', 'users_access', 'appearance', 'cms_media', 'security_governance'];
+        $validTabs = ['overview', 'accreditations_delegations', 'users_access', 'cms_media', 'security_governance'];
         if (in_array($tab, $validTabs, true)) {
             $this->activeTab = $tab;
         }
@@ -50,6 +50,8 @@ class SuperAdminDashboard extends Component
             ->take(4)
             ->get();
 
+        $settings = app(\App\Services\SettingsEngine::class);
+
         return view('livewire.admin.super-admin-dashboard', [
             'totalUsers'                => User::count(),
             'totalParticipants'         => ParticipantProfile::count(),
@@ -71,6 +73,9 @@ class SuperAdminDashboard extends Component
             'activeEdition'             => Edition::where('is_active', true)->first(),
             'systemHealth'              => ['score' => '99.9%'],
             'activeTab'                 => $this->activeTab,
+            'countdownEnabled'          => filter_var($settings->get('countdown_enabled', true), FILTER_VALIDATE_BOOLEAN),
+            'showPartnersSection'       => filter_var($settings->get('show_partners_section', true), FILTER_VALIDATE_BOOLEAN),
         ]);
     }
 }
+

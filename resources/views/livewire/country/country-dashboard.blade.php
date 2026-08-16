@@ -19,19 +19,11 @@
         <div class="flex flex-wrap items-center gap-2">
             <button wire:click="openAddModal" class="px-4 py-2.5 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white font-bold text-xs shadow-md transition flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
-                <span>{{ app()->getLocale() === 'fr' ? 'Ajouter Membre (Juge / Presse / Encadrant)' : (app()->getLocale() === 'en' ? 'Add Member (Judge / Press / Supervisor)' : 'إضافة عضو (حكم / صحفي / مؤطر / VIP)') }}</span>
-            </button>
-            <button wire:click="$set('showAppealModal', true)" class="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                <span>{{ app()->getLocale() === 'fr' ? 'Déposer un Recours Technique' : (app()->getLocale() === 'en' ? 'Submit Technical Appeal' : 'تقديم طعن فني') }}</span>
+                <span>{{ app()->getLocale() === 'fr' ? 'Ajouter Membre (Juge / Presse / Encadrant / VIP)' : (app()->getLocale() === 'en' ? 'Add Member (Judge / Press / Supervisor / VIP)' : 'إضافة عضو (حكم / صحفي / مؤطر / VIP)') }}</span>
             </button>
             <a href="{{ route('country.dietary') }}" class="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5">
                 <span>🥗</span>
                 <span>{{ app()->getLocale() === 'fr' ? 'Allergies & Restauration' : (app()->getLocale() === 'en' ? 'Dietary & Allergies' : 'حساسية الطعام والإطعام') }}</span>
-            </a>
-            <a href="{{ route('country.skills') }}" class="px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                <span>{{ app()->getLocale() === 'fr' ? 'Sélection Métiers' : (app()->getLocale() === 'en' ? 'Select Trades' : 'تحديد المهن') }}</span>
             </a>
         </div>
     </div>
@@ -54,13 +46,6 @@
             <span class="text-slate-400 dark:text-slate-400 block text-[10px] font-bold">{{ app()->getLocale() === 'fr' ? 'Total Délégation' : (app()->getLocale() === 'en' ? 'Total Delegation' : 'إجمالي الوفد') }}</span>
             <p class="text-2xl font-black text-[#06205C] dark:text-white mt-1">{{ $totalDelegationMembers ?? 0 }}</p>
             <span class="text-[9px] font-bold text-emerald-600 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-full inline-block mt-1">{{ app()->getLocale() === 'fr' ? 'Accrédité' : (app()->getLocale() === 'en' ? 'Accredited' : 'وفد موثق') }}</span>
-        </div>
-
-        <!-- Competitors -->
-        <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 shadow-xs text-center">
-            <span class="text-slate-400 dark:text-slate-400 block text-[10px] font-bold">{{ app()->getLocale() === 'fr' ? 'Compétiteurs' : (app()->getLocale() === 'en' ? 'Competitors' : 'المتنافسون') }}</span>
-            <p class="text-2xl font-black text-blue-600 dark:text-sky-400 mt-1">{{ $participantsCount ?? 0 }}</p>
-            <span class="text-[9px] font-bold text-blue-600 dark:text-sky-300 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded-full inline-block mt-1">{{ app()->getLocale() === 'fr' ? 'Candidats' : (app()->getLocale() === 'en' ? 'Candidates' : 'مترشحون') }}</span>
         </div>
 
         <!-- Judges -->
@@ -99,27 +84,13 @@
         </div>
     </div>
 
-    <!-- Navigation Tabs (Roster | Appeals | Venue Map | Regulations) -->
+    <!-- Navigation Tabs (Roster | Venue Map | Regulations) -->
     <div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-700 pb-2">
         <button wire:click="$set('activeTab', 'roster')" class="px-5 py-2.5 rounded-2xl font-black text-xs transition border-b-2 flex items-center gap-2 {{ ($activeTab ?? 'roster') === 'roster' ? 'bg-white dark:bg-slate-800 text-[#0066FF] dark:text-sky-400 border-[#0066FF] dark:border-sky-400 shadow-xs' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent' }}">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             <span>{{ app()->getLocale() === 'fr' ? 'Membres & Approbation' : (app()->getLocale() === 'en' ? 'Delegation Members & Approval' : 'أعضاء الوفد والموافقة') }}</span>
         </button>
 
-        <button wire:click="$set('activeTab', 'appeals')" class="px-5 py-2.5 rounded-2xl font-black text-xs transition border-b-2 flex items-center gap-2 {{ ($activeTab ?? 'roster') === 'appeals' ? 'bg-white dark:bg-slate-800 text-purple-600 dark:text-purple-400 border-purple-600 dark:border-purple-400 shadow-xs' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent' }}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-            <span>{{ app()->getLocale() === 'fr' ? 'Suivi des Recours Techniques (' . ($appeals->count() ?? 0) . ')' : (app()->getLocale() === 'en' ? 'Technical Appeals Tracking (' . ($appeals->count() ?? 0) . ')' : 'متابعة الطعون والتظلمات الفنية (' . ($appeals->count() ?? 0) . ')') }}</span>
-        </button>
-
-        <button wire:click="$set('activeTab', 'map')" class="px-5 py-2.5 rounded-2xl font-black text-xs transition border-b-2 flex items-center gap-2 {{ ($activeTab ?? 'roster') === 'map' ? 'bg-white dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 border-emerald-600 dark:border-emerald-400 shadow-xs' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent' }}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
-            <span>{{ app()->getLocale() === 'fr' ? 'Carte 3D du Village' : (app()->getLocale() === 'en' ? '3D Venue Map' : 'خرائط القرية والتوأم الرقمي') }}</span>
-        </button>
-
-        <button wire:click="$set('activeTab', 'rules')" class="px-5 py-2.5 rounded-2xl font-black text-xs transition border-b-2 flex items-center gap-2 {{ ($activeTab ?? 'roster') === 'rules' ? 'bg-white dark:bg-slate-800 text-amber-600 dark:text-amber-400 border-amber-600 dark:border-amber-400 shadow-xs' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent' }}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-            <span>{{ app()->getLocale() === 'fr' ? 'Règlements & Conditions' : (app()->getLocale() === 'en' ? 'Rules & Regulations' : 'الشروط واللوائح القانونية') }}</span>
-        </button>
     </div>
 
     <!-- TAB 1: ROSTER & MEMBERS MANAGEMENT -->
@@ -135,7 +106,7 @@
                 <div class="flex flex-wrap items-center gap-2">
                     <select wire:model.live="filterRole" class="px-3 py-2 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-[#06205C] dark:text-white">
                         <option value="ALL">{{ app()->getLocale() === 'fr' ? 'Toutes les catégories' : (app()->getLocale() === 'en' ? 'All Roles' : 'كل الفئات والأدوار') }}</option>
-                        <option value="PARTICIPANT">PARTICIPANT — {{ app()->getLocale() === 'fr' ? 'Compétiteurs' : (app()->getLocale() === 'en' ? 'Competitors' : 'المتنافسون') }}</option>
+                        <option value="PARTICIPANT">PARTICIPANT — {{ app()->getLocale() === 'fr' ? 'Participants Accrédités' : (app()->getLocale() === 'en' ? 'Accredited Participants' : 'المشاركون والوفود') }}</option>
                         <option value="JUDGE">JUDGE — {{ app()->getLocale() === 'fr' ? 'Juges Officiels' : (app()->getLocale() === 'en' ? 'Official Judges' : 'الحكام') }}</option>
                         <option value="PRESS">PRESS — {{ app()->getLocale() === 'fr' ? 'Presse & Médias' : (app()->getLocale() === 'en' ? 'Press & Media' : 'الصحافيون والإعلام') }}</option>
                         <option value="SUPERVISOR">SUPERVISOR — {{ app()->getLocale() === 'fr' ? 'Encadrants' : (app()->getLocale() === 'en' ? 'Supervisors' : 'المؤطرون والقادة') }}</option>
@@ -215,6 +186,10 @@
                                         <div class="flex items-center justify-center gap-1.5">
                                             <button wire:click="viewMemberDetails({{ $m->id }})" title="Voir Dossier" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                            </button>
+
+                                            <button wire:click="openFlightTicketModal({{ $m->id }})" title="Titre de vol / Flight Ticket" class="p-1.5 rounded-lg {{ $m->flight_ticket_path ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-sky-50 text-sky-700 border border-sky-200' }} hover:opacity-80 transition flex items-center gap-1">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
                                             </button>
 
                                             @if($m->status !== 'APPROVED')
@@ -329,93 +304,6 @@
                         {{ app()->getLocale() === 'fr' ? 'Aucun recours enregistré.' : (app()->getLocale() === 'en' ? 'No technical appeals logged.' : 'لا توجد طعون فنية مسجلة حالياً للوفد.') }}
                     </div>
                 @endforelse
-            </div>
-        </div>
-    @endif
-
-    <!-- TAB 3: 3D VENUE & VILLAGE DIGITAL TWIN MAP -->
-    @if(($activeTab ?? 'roster') === 'map')
-        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
-                <div>
-                    <h3 class="text-lg font-black text-[#06205C]">{{ app()->getLocale() === 'fr' ? 'Carte du Village & Jumeau Numérique 3D' : (app()->getLocale() === 'en' ? '3D Digital Twin & Venue Map' : 'خريطة القرية والتوأم الرقمي (3D Venue Map)') }}</h3>
-                    <p class="text-xs text-slate-500 font-medium mt-0.5">{{ app()->getLocale() === 'fr' ? 'Localisation des ateliers, pavillons d\'hébergement et zones de restauration.' : (app()->getLocale() === 'en' ? 'Locate workshops, accommodation wings, and dining halls.' : 'استعراض ورشات التخصصات، أماكن المبيت والإطعام، والمباني المخصصة للوفد') }}</p>
-                </div>
-                <div class="flex gap-2">
-                    <a href="{{ route('my.venue-map') }}" class="px-4 py-2 rounded-xl bg-[#0066FF] text-white font-bold text-xs shadow-md flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <span>{{ app()->getLocale() === 'fr' ? 'Ma Carte 3D' : (app()->getLocale() === 'en' ? 'My 3D Map' : 'خريطتي التفاعلية') }}</span>
-                    </a>
-                    <a href="{{ route('kiosk.venue-map') }}" target="_blank" class="px-4 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs shadow-md flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                        <span>{{ app()->getLocale() === 'fr' ? 'Borne Kiosque' : (app()->getLocale() === 'en' ? 'Kiosk Mode' : 'شاشة الكشك Kiosk') }}</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="bg-slate-900 rounded-3xl p-8 text-center text-white space-y-4 border border-slate-800">
-                <div class="w-16 h-16 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
-                </div>
-                <h4 class="text-xl font-black">{{ app()->getLocale() === 'fr' ? 'Centre d\'Exploration Spatial & Jumeau Numérique' : (app()->getLocale() === 'en' ? 'Spatial Exploration Center & Digital Twin' : 'مركز الاستكشاف المكاني والتوأم الرقمي للقرية') }}</h4>
-                <p class="text-xs text-slate-400 max-w-lg mx-auto leading-relaxed">
-                    {{ app()->getLocale() === 'fr' ? 'Système 3D interactif permettant de visualiser les trajets, pavillons d\'hébergement et ateliers.' : (app()->getLocale() === 'en' ? 'Interactive 3D system to visualize routes, accommodation wings and trade workshops.' : 'يتيح نظام التوأم الرقمي للوفد معرفة المسارات، مواقع ورش المنافسة الخاصة بكل مهنة، مطاعم القرية والأجنحة المخصصة للإقامة.') }}
-                </p>
-                <a href="{{ route('venue-map') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-[#0066FF] hover:bg-[#0052CC] text-white font-black text-xs shadow-lg transition">
-                    <span>{{ app()->getLocale() === 'fr' ? 'Ouvrir la Carte 3D Interactive' : (app()->getLocale() === 'en' ? 'Open Interactive 3D Map' : 'الانتقال للخريطة الثلاثية الأبعاد المباشرة') }}</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </a>
-            </div>
-        </div>
-    @endif
-
-    <!-- TAB 4: LEGAL REGULATIONS & CONSTITUTIONAL RULES -->
-    @if(($activeTab ?? 'roster') === 'rules')
-        <div class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="{{ route('guide.regulations') }}" target="_blank" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-3 block group">
-                    <div class="w-10 h-10 rounded-2xl bg-blue-50 text-[#0066FF] flex items-center justify-center font-bold">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                    </div>
-                    <h4 class="text-base font-black text-[#06205C] group-hover:text-[#0066FF] transition flex items-center justify-between">
-                        <span>{{ app()->getLocale() === 'fr' ? 'Guide & Règlements Officiels' : (app()->getLocale() === 'en' ? 'Official Guide & Regulations' : 'الدليل واللوائح التنظيمية الرسمية') }}</span>
-                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                    </h4>
-                    <p class="text-xs text-slate-500 leading-relaxed font-medium">{{ app()->getLocale() === 'fr' ? 'Référence complète des 12 sections d\'organisation, critères de notation et normes HSE.' : (app()->getLocale() === 'en' ? 'Comprehensive reference covering 12 organizational sections, scoring criteria, and HSE safety rules.' : 'المرجع الشامل للـ 12 قسم المنظمة للمنافسة، معايير التحكيم والتنقيط، والسلامة والبيئة (HSE).') }}</p>
-                </a>
-
-                <a href="{{ route('regulations') }}" target="_blank" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-3 block group">
-                    <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                    </div>
-                    <h4 class="text-base font-black text-[#06205C] group-hover:text-amber-600 transition flex items-center justify-between">
-                        <span>{{ app()->getLocale() === 'fr' ? 'Télécharger Règlements PDF' : (app()->getLocale() === 'en' ? 'Download Regulations PDF' : 'تحميل ملفات اللوائح PDF') }}</span>
-                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                    </h4>
-                    <p class="text-xs text-slate-500 leading-relaxed font-medium">{{ app()->getLocale() === 'fr' ? 'Téléchargement du règlement général et du guide des équipements PPE.' : (app()->getLocale() === 'en' ? 'Download general competition rules and PPE safety equipment guidelines.' : 'تحميل ملف اللوائح العامة المعتمدة لمسابقات أولمبياد المهن ودليل معدات السلامة PPE.') }}</p>
-                </a>
-
-                <a href="{{ route('privacy') }}" target="_blank" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-3 block group">
-                    <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    </div>
-                    <h4 class="text-base font-black text-[#06205C] group-hover:text-emerald-600 transition flex items-center justify-between">
-                        <span>{{ app()->getLocale() === 'fr' ? 'Politique de Confidentialité' : (app()->getLocale() === 'en' ? 'Privacy Policy' : 'سياسة الخصوصية وحماية البيانات') }}</span>
-                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                    </h4>
-                    <p class="text-xs text-slate-500 leading-relaxed font-medium">{{ app()->getLocale() === 'fr' ? 'Protection des données personnelles conformément aux réglementations.' : (app()->getLocale() === 'en' ? 'Personal data protection compliance with national standards.' : 'التزام المنصة بحماية البيانات الشخصية وفق التشريعات الوطنية والتنظيمية.') }}</p>
-                </a>
-
-                <a href="{{ route('terms') }}" target="_blank" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-3 block group">
-                    <div class="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
-                    </div>
-                    <h4 class="text-base font-black text-[#06205C] group-hover:text-purple-600 transition flex items-center justify-between">
-                        <span>{{ app()->getLocale() === 'fr' ? 'Conditions d\'Utilisation' : (app()->getLocale() === 'en' ? 'Terms & Conditions' : 'شروط وأحكام الاستخدام') }}</span>
-                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                    </h4>
-                    <p class="text-xs text-slate-500 leading-relaxed font-medium">{{ app()->getLocale() === 'fr' ? 'Règles d\'utilisation du portail officiel et droits des délégations.' : (app()->getLocale() === 'en' ? 'Official portal usage rules and delegation user rights.' : 'قواعد استخدام المنصة الرسمية وحقوق الوفود والمشاركين.') }}</p>
-                </a>
             </div>
         </div>
     @endif
@@ -706,4 +594,66 @@
         </div>
     @endif
 
+    <!-- MODAL 4: FLIGHT TICKET MANAGEMENT MODAL -->
+    @if($showFlightTicketModal ?? false)
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm" x-data>
+            <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-6 shadow-2xl border border-slate-200">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <div class="flex items-center gap-2">
+                        <div class="w-9 h-9 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold">✈️</div>
+                        <div>
+                            <h3 class="text-sm font-black text-[#06205C]">{{ app()->getLocale() === 'fr' ? 'Gestion de la Billet de Vol' : (app()->getLocale() === 'en' ? 'Flight Ticket Management' : 'إدارة وتوثيق تذكرة الطيران وسجل السفر') }}</h3>
+                            <p class="text-[11px] text-slate-500 font-bold mt-0.5">{{ $ticketMember?->first_name }} {{ $ticketMember?->last_name }} ({{ $ticketMember?->member_type }})</p>
+                        </div>
+                    </div>
+                    <button wire:click="$set('showFlightTicketModal', false)" class="text-slate-400 hover:text-slate-600 font-bold text-sm">✕</button>
+                </div>
+
+                @if($ticketMember?->flight_ticket_path)
+                    <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span class="text-xs font-bold text-emerald-900">{{ app()->getLocale() === 'fr' ? 'Billet de vol téléversé' : (app()->getLocale() === 'en' ? 'Flight Ticket Uploaded' : 'تذكرة الطيران مرفوعة في النظام 📄') }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <a href="{{ $ticketMember->flight_ticket_path }}" target="_blank" class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white font-black text-[11px] shadow-xs">
+                                {{ app()->getLocale() === 'fr' ? 'Voir PDF/Image' : (app()->getLocale() === 'en' ? 'View Ticket' : 'معاينة التذكرة') }}
+                            </a>
+                            <button type="button" wire:click="deleteFlightTicket({{ $ticketMember->id }})" class="p-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 transition" title="Supprimer">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                @endif
+
+                <form wire:submit.prevent="uploadFlightTicket" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">{{ app()->getLocale() === 'fr' ? 'N° Vol Arrivée' : (app()->getLocale() === 'en' ? 'Arrival Flight N°' : 'رقم رحلة الوصول (Arrival Flight)') }}</label>
+                            <input type="text" wire:model.live="arrivalFlight" placeholder="Ex: AH 1002" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold font-mono">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">{{ app()->getLocale() === 'fr' ? 'N° Vol Départ' : (app()->getLocale() === 'en' ? 'Departure Flight N°' : 'رقم رحلة المغادرة (Departure Flight)') }}</label>
+                            <input type="text" wire:model.live="departureFlight" placeholder="Ex: AH 1003" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold font-mono">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">{{ app()->getLocale() === 'fr' ? 'Téléverser fichier تذكرة الطيران (PDF / PNG / JPG)' : (app()->getLocale() === 'en' ? 'Upload Flight Ticket File (PDF / Image)' : 'رفع ملف تذكرة الطيران الرسمية (PDF / صورة E-Ticket)') }}</label>
+                        <input type="file" wire:model="flightTicketFile" accept=".pdf,image/*" class="w-full text-xs text-slate-500 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                        @error('flightTicketFile') <span class="text-[11px] text-rose-600 font-bold block mt-1">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+                        <button type="button" wire:click="$set('showFlightTicketModal', false)" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs">
+                            {{ app()->getLocale() === 'fr' ? 'Annuler' : (app()->getLocale() === 'en' ? 'Cancel' : 'إلغاء') }}
+                        </button>
+                        <button type="submit" class="px-5 py-2 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white font-bold text-xs shadow-md">
+                            {{ app()->getLocale() === 'fr' ? 'Enregistrer & Téléverser' : (app()->getLocale() === 'en' ? 'Save & Upload' : 'حفظ وتحديث تذكرة الطيران') }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
 </div>

@@ -53,15 +53,15 @@ class Home extends Component
         $this->featuredVideoUrl = $settings->get('featured_video_url', 'https://www.youtube.com/embed/ee7fzNFUKIM');
 
         // Retrieve Admin Settings for Countdown Chronometer V8.4
-        $this->countdownTitleAr     = $settings->get('countdown_title_ar', 'الحدث القادم - العد التنازلي لافتتاح الأولمبياد الإفريقي');
-        $this->countdownTitleFr     = $settings->get('countdown_title_fr', 'Événement à venir — Décompte du Lancement des Olympiades Africaines 2026');
-        $this->countdownTitleEn     = $settings->get('countdown_title_en', 'Upcoming Event — Countdown to African Skills Competition 2026');
+        $this->countdownTitleAr     = $settings->get('countdown_title_ar', 'الحدث القادم - العد التنازلي لافتتاح منتدى المهارات الإفريقية 2026');
+        $this->countdownTitleFr     = $settings->get('countdown_title_fr', 'Événement à venir — Décompte du Lancement d\'Africa Skills Forum 2026');
+        $this->countdownTitleEn     = $settings->get('countdown_title_en', 'Upcoming Event — Countdown to Africa Skills Forum 2026');
 
-        $this->countdownSubtitleAr  = $settings->get('countdown_subtitle_ar', 'WorldSkills Algeria 2026 – 2026');
-        $this->countdownSubtitleFr  = $settings->get('countdown_subtitle_fr', 'WorldSkills Algeria 2026 – 2026');
-        $this->countdownSubtitleEn  = $settings->get('countdown_subtitle_en', 'WorldSkills Algeria 2026 – 2026');
+        $this->countdownSubtitleAr  = $settings->get('countdown_subtitle_ar', 'Africa Skills Forum 2026 — مركز المؤتمرات محمد بن أحمد - وهران');
+        $this->countdownSubtitleFr  = $settings->get('countdown_subtitle_fr', 'Africa Skills Forum 2026 — Centre des Conventions Mohamed Ben Ahmed - Oran');
+        $this->countdownSubtitleEn  = $settings->get('countdown_subtitle_en', 'Africa Skills Forum 2026 — Mohamed Ben Ahmed Convention Center - Oran');
 
-        $this->countdownTargetDate  = $settings->get('countdown_target_date', '2026-09-15 09:00:00');
+        $this->countdownTargetDate  = $settings->get('countdown_target_date', '2026-11-16 09:00:00');
         $this->countdownTimezone     = $settings->get('countdown_timezone', 'Africa/Algiers');
         $this->countdownStatus       = $settings->get('countdown_status', 'COUNTDOWN');
         $this->countdownTheme        = $settings->get('countdown_theme', 'vintage_spiral_notebook');
@@ -93,12 +93,9 @@ class Home extends Component
 
     public function render()
     {
-        $skills = Skill::where('is_active', true)
-            ->whereIn('code', ['SKILL-16', 'SKILL-14', 'SKILL-13', 'SKILL-15', 'SKILL-39', 'SKILL-54'])
-            ->get();
-
+        $skills = Skill::where('is_active', true)->limit(6)->get();
         if ($skills->isEmpty()) {
-            $skills = Skill::where('is_active', true)->limit(6)->get();
+            $skills = Skill::limit(6)->get();
         }
 
         $news = NewsArticle::where('status', 'PUBLISHED')->orderBy('published_at', 'desc')->limit(3)->get();

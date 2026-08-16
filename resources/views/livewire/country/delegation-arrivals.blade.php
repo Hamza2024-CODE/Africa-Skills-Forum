@@ -17,7 +17,7 @@ $confirmedShuttles = $uploaded_tickets->where('status', 'APPROVED')->count();
                 <div class="space-y-2">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300 text-xs font-black">
                         <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
-                        <span>WORLDSKILLS AFRICA 2027 LOGISTICS SUITE</span>
+                        <span>AFRICA SKILLS FORUM LOGISTICS SUITE</span>
                     </div>
                     <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
                         {{ $t('إدارة وصول الوفود الإفريقية وتذاكر الطيران الرسمية', 'Gestion des Arrivées & Billets d\'Avion Officiels', 'African Delegations Arrival & Official Flight Tickets Portal') }}
@@ -28,8 +28,7 @@ $confirmedShuttles = $uploaded_tickets->where('status', 'APPROVED')->count();
                 </div>
                 
                 <div class="shrink-0 flex items-center gap-3">
-                    <img src="/LOGO01.png" alt="State Seal" class="h-16 w-auto object-contain filter drop-shadow-md">
-                    <img src="/logo.svg" alt="WorldSkills Logo" class="h-12 w-auto filter brightness-0 invert">
+                    <img src="/AFRICA.png" alt="{{ platform()->name() }}" class="h-16 w-auto object-contain drop-shadow-md">
                 </div>
             </div>
         </div>

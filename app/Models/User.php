@@ -17,6 +17,7 @@ class User extends Authenticatable
         'uuid',
         'name',
         'email',
+        'position',
         'avatar_path',
         'password',
         'country_id',
@@ -31,20 +32,15 @@ class User extends Authenticatable
 
     public function getAvatarUrlAttribute(): string
     {
-        if ($this->avatar_path) {
-            if (str_starts_with($this->avatar_path, 'http://') || str_starts_with($this->avatar_path, 'https://')) {
-                return $this->avatar_path;
-            }
-            $cleanPath = ltrim($this->avatar_path, '/');
-            if (str_starts_with($cleanPath, 'storage/')) {
-                $cleanPath = substr($cleanPath, 8);
-            }
-            return asset('storage/' . ltrim($cleanPath, '/'));
-        }
+        $path = $this->avatar_path ?: ($this->participant?->registrations?->first()?->photo_url);
 
-        $participantPhoto = $this->participant?->registrations?->first()?->photo_url;
-        if ($participantPhoto) {
-            return $participantPhoto;
+        if ($path) {
+            if (str_contains($path, 'ui-avatars.com')) {
+                return $path;
+            }
+            $cleanPath = preg_replace('/^.*?storage\//', '', $path);
+            $cleanPath = ltrim($cleanPath, '/');
+            return '/storage/' . $cleanPath;
         }
 
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=06205C&color=fff&bold=true&size=200';

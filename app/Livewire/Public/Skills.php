@@ -20,11 +20,31 @@ class Skills extends Component
     public ?\App\Models\GuideSection $selectedGuideSection = null;
     public $selectedSkillEquipments = [];
 
+    public function mount(): void
+    {
+        if (request()->has('skill')) {
+            $this->openSkillDetails((int) request('skill'));
+        }
+    }
+
+    private function findSkillWithRelations(int $skillId): ?Skill
+    {
+        $relations = ['category'];
+        if (\Illuminate\Support\Facades\Schema::hasTable('competition_assessment_modules')) {
+            $relations[] = 'assessmentModules.criteria';
+        }
+        return Skill::with($relations)->find($skillId);
+    }
+
     public function openSkillDetails(int $skillId): void
     {
-        $this->selectedSkill = Skill::with(['category', 'assessmentModules.criteria'])->find($skillId);
+        $this->selectedSkill = $this->findSkillWithRelations($skillId);
         if ($this->selectedSkill) {
-            $this->selectedSkillEquipments = SkillEquipment::with('equipmentItem')->where('skill_id', $skillId)->get();
+            if (\Illuminate\Support\Facades\Schema::hasTable('skill_equipment')) {
+                $this->selectedSkillEquipments = SkillEquipment::with('equipmentItem')->where('skill_id', $skillId)->get();
+            } else {
+                $this->selectedSkillEquipments = collect();
+            }
             
             if (preg_match('/(?:SKILL|TD)-?(\d+)/i', $this->selectedSkill->code, $m)) {
                 $prefix = 'td' . str_pad($m[1], 2, '0', STR_PAD_LEFT) . '_';
@@ -39,7 +59,7 @@ class Skills extends Component
 
     public function openPdfViewer(int $skillId): void
     {
-        $this->selectedSkill = Skill::with(['category', 'assessmentModules.criteria'])->find($skillId);
+        $this->selectedSkill = $this->findSkillWithRelations($skillId);
         if ($this->selectedSkill) {
             if (preg_match('/(?:SKILL|TD)-?(\d+)/i', $this->selectedSkill->code, $m)) {
                 $prefix = 'td' . str_pad($m[1], 2, '0', STR_PAD_LEFT) . '_';

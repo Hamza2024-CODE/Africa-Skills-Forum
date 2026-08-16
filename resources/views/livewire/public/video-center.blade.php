@@ -22,18 +22,13 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
 
             {{-- Header Content --}}
             <div class="relative z-10 text-center max-w-3xl mx-auto space-y-5">
-                <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/15 backdrop-blur-xl border border-white/30 text-white text-xs font-black uppercase tracking-wider shadow-lg">
-                    <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                    </svg>
-                    <span>{{ $t('مركز الفيديوهات والبث المباشر', 'Centre Vidéos & Direct', 'Video Center & Live Streams') }}</span>
-                </div>
+
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-2xl">
-                    {{ $t('فيديوهات وبث أولمبياد المهن المباشرة من يوتيوب', 'Vidéos & Couverture Média Directe', 'WorldSkills Videos & Media Coverage') }}
+                    {{ $t('فيديوهات وبث منتدى المهارات الإفريقية المباشرة', 'Vidéos & Couverture Média — Africa Skills Forum', 'Africa Skills Forum Videos & Live Coverage') }}
                 </h1>
                 <p class="text-xs sm:text-base text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto drop-shadow-md">
-                    {{ $t('انقر على أي فيديو لمشاهدته مباشرة من القناة الرسمية داخل المنصة بدقة عالية.', 'Regardez les reportages vidéo et directes depuis la chaîne officielle.', 'Watch live video streams and competition highlights directly from YouTube.') }}
+                    {{ $t('انقر على أي فيديو لمشاهدته مباشرة من القناة الرسمية داخل المنصة بدقة عالية.', 'Regardez les reportages vidéo et directes depuis la chaîne officielle.', 'Watch live video streams and forum highlights directly on the platform.') }}
                 </p>
             </div>
         </div>
@@ -48,9 +43,9 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                 </div>
                 <div>
                     <span class="px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-black uppercase tracking-wider">
-                        {{ $t('القناة الرسمية المعتمدة', 'Chaîne Officielle', 'Official YouTube Channel') }}
+                        {{ $t('القناة الرسمية المعتمدة', 'Chaîne Officielle', 'Official Channel') }}
                     </span>
-                    <h2 class="text-xl sm:text-2xl font-black mt-1.5 drop-shadow">WorldSkills Algeria — @WorldSkillsAlgeria</h2>
+                    <h2 class="text-xl sm:text-2xl font-black mt-1.5 drop-shadow">{{ platform()->name() }}</h2>
                     <p class="text-xs text-red-100 mt-0.5 font-medium">
                         {{ $t('جميع الفيديوهات مربوطة بقاعدة البيانات وتعمل مباشرة عبر مشغل اليوتيوب بالمنصة.', 'Toutes les vidéos sont liées à la base de données et diffusées directement.', 'All videos are linked to the database and streamed directly from YouTube.') }}
                     </p>

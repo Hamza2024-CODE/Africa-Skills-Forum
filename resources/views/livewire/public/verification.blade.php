@@ -166,7 +166,7 @@
             <div class="p-8 bg-rose-50 border border-rose-200 rounded-3xl text-center space-y-2">
                 <span class="text-2xl">⚠️</span>
                 <h3 class="text-base font-black text-rose-800">لم يتم العثور على أي ملف معتمد بهذا الكود</h3>
-                <p class="text-xs text-rose-600">يرجى التأكد من مسح شارة رسمية معتمدة صادرة عن منصة WorldSkills Algeria.</p>
+                <p class="text-xs text-rose-600">يرجى التأكد من مسح شارة رسمية معتمدة صادرة عن منصة Africa Skills Forum.</p>
             </div>
         @endif
     @endif

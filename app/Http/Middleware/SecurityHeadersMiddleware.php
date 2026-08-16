@@ -19,7 +19,7 @@ class SecurityHeadersMiddleware
         $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
         $response->headers->set(
             'Content-Security-Policy',
-            "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self' https:; img-src 'self' data: https: blob:; font-src 'self' data: https:; connect-src 'self' https: wss:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:;"
+            "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; base-uri 'self'; object-src 'self' data: blob: http: https:; frame-ancestors 'self'; form-action 'self' https:; img-src 'self' data: https: blob:; font-src 'self' data: https:; connect-src 'self' https: wss:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:;"
         );
 
         return $response;

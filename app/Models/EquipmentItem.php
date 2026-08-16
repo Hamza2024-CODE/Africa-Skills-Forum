@@ -26,4 +26,16 @@ class EquipmentItem extends Model
     {
         return $this->belongsTo(Skill::class, 'skill_id');
     }
+
+    public function getLocalized(string $attribute = 'name'): string
+    {
+        $locale = app()->getLocale();
+        $field = "{$attribute}_{$locale}";
+
+        if (!empty($this->$field)) {
+            return $this->$field;
+        }
+
+        return $this->name_ar ?? $this->name_fr ?? $this->name_en ?? '';
+    }
 }

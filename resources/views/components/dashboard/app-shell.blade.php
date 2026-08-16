@@ -15,8 +15,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title }} — WorldSkills Algeria</title>
-    <meta name="description" content="WSAP — المنصة الوطنية الرسمية لأولمبياد المهن الجزائرية">
+    <title>{{ $title }} — Africa Skills Forum</title>
+    <meta name="description" content="Africa Skills Forum — المنصة الرسمية لمنتدى المهارات الإفريقية">
     <meta name="theme-color" content="#020A24">
 
     {{-- PWA --}}
@@ -102,16 +102,39 @@
         }
         .animate-fade-slide-in { animation: fadeSlideIn 0.3s ease both; }
 
-        /* ── Reduced Motion ── */
-        @media (prefers-reduced-motion: reduce) {
-            *, ::before, ::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
+        /* ── Global Mobile Responsiveness Engine ── */
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden !important;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
-        /* ── Touch Targets ── */
+        img, svg, video, iframe {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Responsive Table Containers */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Touch Targets */
         .touch-target { min-width: 44px; min-height: 44px; }
+
+        @media (max-width: 640px) {
+            main {
+                padding-left: 0.75rem !important;
+                padding-right: 0.75rem !important;
+                padding-top: 1rem !important;
+                padding-bottom: 1.5rem !important;
+            }
+            h1 { font-size: 1.5rem !important; line-height: 1.25 !important; }
+            h2 { font-size: 1.25rem !important; line-height: 1.3 !important; }
+        }
     </style>
 
     @livewireStyles
@@ -133,10 +156,13 @@
         <x-dashboard.mobile-nav :items="$items" />
 
         {{-- Main Content --}}
-        <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 space-y-6 animate-fade-slide-in overflow-x-hidden">
+        <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 pb-20 md:pb-8 space-y-6 animate-fade-slide-in overflow-x-hidden">
             {{ $slot }}
         </main>
     </div>
+
+    {{-- Native Smartphone Mobile App Bottom Tab Bar Navigation --}}
+    <x-mobile-bottom-nav />
 
     @livewireScripts
 
@@ -198,5 +224,6 @@
             document.documentElement.classList.toggle('dark', dark);
         })();
     </script>
+    <x-pwa-installer />
 </body>
 </html>
