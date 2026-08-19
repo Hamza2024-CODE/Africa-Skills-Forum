@@ -1,6 +1,6 @@
 @php
 $locale = app()->getLocale();
-$t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => $ar };
+$t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr, 'en' => $en, default => $ar }; };
 @endphp
 
 <div style="min-height:100vh; background:linear-gradient(180deg,#f8fafc 0%,#eff6ff 40%,#f1f5f9 100%); padding:3rem 1rem 4rem; font-family:system-ui,sans-serif;">

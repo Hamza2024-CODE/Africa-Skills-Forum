@@ -1,6 +1,6 @@
 @php
     $locale = app()->getLocale();
-    $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => $ar };
+    $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr, 'en' => $en, default => $ar }; };
 
     $title = platform()->get("guide_title_{$locale}", $t('منتدى السياسات الأفريقية للمهارات 2026', 'Forum des Politiques Africaines des Compétences 2026', 'Africa Skills Policy Forum 2026'));
     $subtitle = platform()->get("guide_subtitle_{$locale}", $t('صياغة مستقبل المهارات، تمكين الشباب الأفريقي — البوابة الرسمية للرؤية القارية والأهداف والمحاور الاستراتيجية', 'Façonner l\'avenir des compétences, autonomiser la jeunesse africaine — Portail officiel de la vision continentale.', 'Shaping the Future of Skills, Empowering Africa\'s Youth — Official portal for continental vision and strategic objectives.'));

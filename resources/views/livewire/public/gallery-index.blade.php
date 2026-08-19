@@ -1,6 +1,6 @@
 @php
 $locale = app()->getLocale();
-$t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => $ar };
+$t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr, 'en' => $en, default => $ar }; };
 @endphp
 
 <div class="py-12" x-data="{ activePhotoIndex: 0, photos: [] }">

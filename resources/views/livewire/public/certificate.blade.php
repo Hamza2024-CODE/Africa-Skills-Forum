@@ -1,7 +1,7 @@
 <div class="py-12 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
     @php
         $locale = app()->getLocale();
-        $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => $ar };
+        $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr, 'en' => $en, default => $ar }; };
     @endphp
     
     <!-- Printable Trilingual Certificate Container -->

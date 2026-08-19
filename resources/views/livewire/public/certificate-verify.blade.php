@@ -1,7 +1,7 @@
 <div class="min-h-screen bg-[#F4F7FC] flex items-center justify-center p-4 sm:p-8" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
     @php
         $locale = app()->getLocale();
-        $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => $ar };
+        $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr, 'en' => $en, default => $ar }; };
     @endphp
 
     <div class="w-full max-w-xl">
