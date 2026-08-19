@@ -21,7 +21,11 @@ class Verification extends Component
 
     public function mount()
     {
-        $this->isAuthorizedScanner = true;
+        $this->isAuthorizedScanner = Auth::check() && (
+            Auth::user()->hasAnyRole(['SUPER_ADMIN', 'ADMIN', 'SECURITY_OFFICER', 'DELEGATION_HEAD', 'SUPERVISOR']) ||
+            Auth::user()->can('scan-qr') ||
+            Auth::user()->is_active
+        );
 
         $token = request()->query('identifier') 
             ?? request()->query('token') 
@@ -53,8 +57,6 @@ class Verification extends Component
         
         $this->result = $service->verifyByToken($cleanQuery) 
             ?? $service->verifyByNumber($cleanQuery);
-
-        $this->isAuthorizedScanner = true;
 
         if ($this->result) {
             $this->lifecycleStatus = $service->getLifecycleStatus($this->result);
