@@ -88,7 +88,6 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                          if (this.lastScannedCode === decodedText) return;
                          this.lastScannedCode = decodedText;
                          this.playBeep(true);
-                         $wire.set('query', decodedText);
                          $wire.scan(decodedText);
                          setTimeout(() => { this.lastScannedCode = null; }, 2500);
                      },
@@ -106,7 +105,6 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                                  if (this.lastScannedCode === decodedText) return;
                                  this.lastScannedCode = decodedText;
                                  this.playBeep(true);
-                                 $wire.set('query', decodedText);
                                  $wire.scan(decodedText);
                                  setTimeout(() => { this.lastScannedCode = null; }, 2500);
                              },
@@ -141,7 +139,6 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                  html5QrCodeScanner.scanFile(file, true)
                      .then(decodedText => {
                          this.playBeep(true);
-                         $wire.set('query', decodedText);
                          $wire.scan(decodedText);
                      })
                      .catch(err => {
@@ -168,7 +165,6 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                          if (code && code.data && code.data.trim().length > 0) {
                              const cleanVal = code.data.trim();
                              this.playBeep(true);
-                             $wire.set('query', cleanVal);
                              $wire.scan(cleanVal);
                              return;
                          }
