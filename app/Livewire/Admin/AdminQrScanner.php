@@ -19,8 +19,14 @@ class AdminQrScanner extends Component
 
     public function mount(): void
     {
-        $this->query = '';
-        $this->scanResult = null;
+        $input = request('q') ?? request('code') ?? request('identifier') ?? request('uuid') ?? request('id') ?? request('search') ?? '';
+        if (is_string($input) && trim($input) !== '') {
+            $this->query = trim($input);
+            $this->scan(trim($input));
+        } else {
+            $this->query = '';
+            $this->scanResult = null;
+        }
     }
 
     public function updatedQuery(mixed $value): void

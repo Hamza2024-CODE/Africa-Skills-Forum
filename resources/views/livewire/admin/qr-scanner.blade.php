@@ -101,7 +101,8 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                  scanner.scanFile(file, true)
                      .then(text => {
                          this.playBeep();
-                         $wire.scan(text);
+                         try { $wire.scan(text); } catch(e) {}
+                         window.location.href = '{{ url('/panel/scanner') }}?q=' + encodeURIComponent(text);
                      })
                      .catch(err => {
                          alert('{{ $t('لم يتم العثور على كود QR واضح في الصورة.', 'Aucun code QR détecté.', 'No QR code detected.') }}');
@@ -163,9 +164,9 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
         </div>
 
         <!-- MANUAL INPUT FORM -->
-        <form wire:submit.prevent="scan($wire.query)" class="space-y-3">
+        <form method="GET" action="{{ url('/panel/scanner') }}" class="space-y-3">
             <div class="flex gap-2">
-                <input type="text" wire:model.live.debounce.300ms="query" autofocus
+                <input type="text" name="q" wire:model.live.debounce.300ms="query" value="{{ $query ?? '' }}" autofocus
                     placeholder="{{ $t('أدخل UUID الشارة، البريد الإلكتروني، أو كود المستخدم...', 'Saisissez le code UUID ou ID...', 'Enter Badge UUID, Email or User Code...') }}"
                     class="flex-1 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700 text-sm font-bold bg-slate-50 dark:bg-slate-900 dark:text-slate-100 focus:bg-white transition">
                 <button type="submit" class="px-6 py-3 rounded-2xl bg-[#06205C] hover:bg-[#041640] text-white font-black text-xs transition shadow-md">
@@ -177,11 +178,11 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
         <!-- QUICK TEST DELEGATION BUTTONS -->
         <div class="pt-2 flex flex-wrap items-center gap-1.5 border-t border-slate-100 dark:border-slate-700/60">
             <span class="text-[11px] font-bold text-slate-400">اختبار الفحص السريع:</span>
-            <button type="button" wire:click="scan('USR-00103')" class="px-2.5 py-1 rounded-xl bg-blue-50 text-blue-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-blue-200">🇲🇷 موريتانيا (103)</button>
-            <button type="button" wire:click="scan('USR-00104')" class="px-2.5 py-1 rounded-xl bg-emerald-50 text-emerald-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-emerald-200">🇲🇿 موزمبيق (104)</button>
-            <button type="button" wire:click="scan('USR-00105')" class="px-2.5 py-1 rounded-xl bg-purple-50 text-purple-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-purple-200">🇳🇦 ناميبيا (105)</button>
-            <button type="button" wire:click="scan('USR-00106')" class="px-2.5 py-1 rounded-xl bg-amber-50 text-amber-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-amber-200">🇳🇬 نيجيريا (106)</button>
-            <button type="button" wire:click="scan('USR-00098')" class="px-2.5 py-1 rounded-xl bg-rose-50 text-rose-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-rose-200">🇲🇱 مالي (98)</button>
+            <a href="{{ url('/panel/scanner') }}?q=USR-00103" class="px-2.5 py-1 rounded-xl bg-blue-50 text-blue-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-blue-200">🇲🇷 موريتانيا (103)</a>
+            <a href="{{ url('/panel/scanner') }}?q=USR-00104" class="px-2.5 py-1 rounded-xl bg-emerald-50 text-emerald-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-emerald-200">🇲🇿 موزمبيق (104)</a>
+            <a href="{{ url('/panel/scanner') }}?q=USR-00105" class="px-2.5 py-1 rounded-xl bg-purple-50 text-purple-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-purple-200">🇳🇦 ناميبيا (105)</a>
+            <a href="{{ url('/panel/scanner') }}?q=USR-00106" class="px-2.5 py-1 rounded-xl bg-amber-50 text-amber-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-amber-200">🇳🇬 نيجيريا (106)</a>
+            <a href="{{ url('/panel/scanner') }}?q=USR-00098" class="px-2.5 py-1 rounded-xl bg-rose-50 text-rose-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-rose-200">🇲🇱 مالي (98)</a>
         </div>
     </div>
 
