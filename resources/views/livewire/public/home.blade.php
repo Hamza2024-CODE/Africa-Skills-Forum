@@ -874,53 +874,55 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @forelse($skills as $skill)
-                <a wire:key="skill-card-{{ $skill->id }}" href="{{ route('skills', ['skill' => $skill->id]) }}" class="bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-200/90 hover:shadow-2xl transition-all duration-400 transform hover:-translate-y-2 group cursor-pointer flex flex-col justify-between hover:border-[#35A536] wsap-hover-card">
-                    
-                    {{-- Photo Banner Header --}}
-                    <div class="h-48 bg-slate-950 relative overflow-hidden">
-                        <img src="{{ asset($skill->image_path ?: 'images/skills/trade_16.png') }}"
-                             onerror="this.onerror=null; this.src='/images/skills/ict.png';"
-                             alt="{{ $skill->getLocalized('name') }}"
-                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-95">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-black/20 to-black/10"></div>
+            @if(count($skills) > 0)
+                @foreach($skills as $skill)
+                    <a wire:key="skill-card-{{ $skill->id }}" href="{{ route('skills', ['skill' => $skill->id]) }}" class="bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-200/90 hover:shadow-2xl transition-all duration-400 transform hover:-translate-y-2 group cursor-pointer flex flex-col justify-between hover:border-[#35A536] wsap-hover-card">
+                        
+                        {{-- Photo Banner Header --}}
+                        <div class="h-48 bg-slate-950 relative overflow-hidden">
+                            <img src="{{ asset($skill->image_path ?: 'images/skills/trade_16.png') }}"
+                                 onerror="this.onerror=null; this.src='/images/skills/ict.png';"
+                                 alt="{{ $skill->getLocalized('name') }}"
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-95">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-black/20 to-black/10"></div>
 
-                        {{-- Code Badge (Top-Start) --}}
-                        <div class="absolute top-4 start-4 px-3.5 py-1.5 rounded-full bg-[#0B2A6F] text-white font-mono font-black text-xs shadow-md border border-white/30">
-                            {{ $skill->code }}
+                            {{-- Code Badge (Top-Start) --}}
+                            <div class="absolute top-4 start-4 px-3.5 py-1.5 rounded-full bg-[#0B2A6F] text-white font-mono font-black text-xs shadow-md border border-white/30">
+                                {{ $skill->code }}
+                            </div>
+
+                            {{-- Sector Badge (Top-End) --}}
+                            <div class="absolute top-4 end-4 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-wider border border-white/20">
+                                {{ $skill->category ? $skill->category->getLocalized('name') : 'تكنولوجيا المعلومات والاتصالات' }}
+                            </div>
                         </div>
 
-                        {{-- Sector Badge (Top-End) --}}
-                        <div class="absolute top-4 end-4 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-wider border border-white/20">
-                            {{ $skill->category ? $skill->category->getLocalized('name') : 'تكنولوجيا المعلومات والاتصالات' }}
-                        </div>
-                    </div>
+                        {{-- Card Body Details --}}
+                        <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+                            <div class="space-y-2">
+                                <h3 class="text-lg font-black text-[#0B2A6F] group-hover:text-[#35A536] transition-colors leading-snug">
+                                    {{ $skill->getLocalized('name') }}
+                                </h3>
+                                <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium">
+                                    {{ $skill->getLocalized('description') }}
+                                </p>
+                            </div>
 
-                    {{-- Card Body Details --}}
-                    <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
-                        <div class="space-y-2">
-                            <h3 class="text-lg font-black text-[#0B2A6F] group-hover:text-[#35A536] transition-colors leading-snug">
-                                {{ $skill->getLocalized('name') }}
-                            </h3>
-                            <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium">
-                                {{ $skill->getLocalized('description') }}
-                            </p>
+                            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                                <span class="inline-flex items-center gap-1.5 text-xs font-black text-[#0B2A6F] group-hover:text-[#35A536] transition">
+                                    <span>{{ __('messages.skills') }} — {{ app()->getLocale() === 'fr' ? 'Détails & Cahier des charges' : (app()->getLocale() === 'en' ? 'Details & Specs' : 'عرض التفاصيل والمعايير التقنية') }}</span>
+                                    <svg class="w-4 h-4 text-[#35A536] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                                </span>
+                            </div>
                         </div>
 
-                        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                            <span class="inline-flex items-center gap-1.5 text-xs font-black text-[#0B2A6F] group-hover:text-[#35A536] transition">
-                                <span>{{ __('messages.skills') }} — {{ app()->getLocale() === 'fr' ? 'Détails & Cahier des charges' : (app()->getLocale() === 'en' ? 'Details & Specs' : 'عرض التفاصيل والمعايير التقنية') }}</span>
-                                <svg class="w-4 h-4 text-[#35A536] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                            </span>
-                        </div>
-                    </div>
-
-                </a>
-            @empty
+                    </a>
+                @endforeach
+            @else
                 <div class="col-span-3 bg-white rounded-3xl p-8 text-center text-slate-400 font-medium text-sm">
                     {{ app()->getLocale() === 'fr' ? 'Aucune discipline disponible actuellement.' : (app()->getLocale() === 'en' ? 'No trade categories added yet.' : 'لا توجد تخصصات مضافة حالياً.') }}
                 </div>
-            @endforelse
+            @endif
         </div>
     </section>
 
@@ -958,21 +960,23 @@
                         {{ app()->getLocale() === 'fr' ? 'Galerie Photos' : (app()->getLocale() === 'en' ? 'Photo Gallery' : 'معرض الصور') }}
                     </h3>
                     <div class="space-y-3">
-                        @forelse($albums as $album)
-                            <a wire:key="album-card-{{ $album->id }}" href="{{ route('gallery') }}" class="flex items-center gap-3 group">
-                                @if($album->coverMedia?->storage_path || $album->mediaItems->first()?->storage_path)
-                                    <img src="{{ $album->cover_url }}" alt="{{ $album->getLocalized('title') }}" class="w-12 h-10 rounded-lg object-cover flex-shrink-0 bg-slate-200 border border-slate-200">
-                                @else
-                                    <div class="w-12 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 border border-amber-200/60 shadow-xs">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        @if(count($albums) > 0)
+                            @foreach($albums as $album)
+                                <a wire:key="album-card-{{ $album->id }}" href="{{ route('gallery') }}" class="flex items-center gap-3 group">
+                                    @if($album->coverMedia?->storage_path || $album->mediaItems->first()?->storage_path)
+                                        <img src="{{ $album->cover_url }}" alt="{{ $album->getLocalized('title') }}" class="w-12 h-10 rounded-lg object-cover flex-shrink-0 bg-slate-200 border border-slate-200">
+                                    @else
+                                        <div class="w-12 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 border border-amber-200/60 shadow-xs">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                        </div>
+                                    @endif
+                                    <div class="min-w-0">
+                                        <h4 class="text-xs font-bold text-[#06205C] group-hover:text-brand-500 transition-colors leading-snug line-clamp-1">{{ $album->getLocalized('title') }}</h4>
+                                        <span class="text-[10px] text-slate-400">{{ optional($album->published_at)->format('Y-m-d') ?? now()->format('Y-m-d') }}</span>
                                     </div>
-                                @endif
-                                <div class="min-w-0">
-                                    <h4 class="text-xs font-bold text-[#06205C] group-hover:text-brand-500 transition-colors leading-snug line-clamp-1">{{ $album->getLocalized('title') }}</h4>
-                                    <span class="text-[10px] text-slate-400">{{ optional($album->published_at)->format('Y-m-d') ?? now()->format('Y-m-d') }}</span>
-                                </div>
-                            </a>
-                        @empty
+                                </a>
+                            @endforeach
+                        @else
                             <div class="flex items-center gap-3">
                                 <div class="w-12 h-10 rounded-lg bg-slate-100 text-slate-400 flex items-center justify-center flex-shrink-0 border border-slate-200">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
@@ -982,7 +986,7 @@
                                     <span class="text-[10px] text-slate-400">2026-08-04</span>
                                 </div>
                             </div>
-                        @endforelse
+                        @endif
                     </div>
                 </div>
                 <a href="{{ route('gallery') }}" class="text-xs font-bold text-brand-500 hover:text-brand-600 mt-6 inline-flex items-center gap-1">
@@ -1025,21 +1029,23 @@
                         {{ app()->getLocale() === 'fr' ? 'Actualités & Articles' : (app()->getLocale() === 'en' ? 'News & Updates' : 'الأخبار والمشاركات') }}
                     </h3>
                     <div class="space-y-3">
-                        @forelse($news as $article)
-                            <a wire:key="news-card-{{ $article->id }}" href="{{ route('news') }}" class="flex items-center gap-3 group">
-                                @if($article->featured_image)
-                                    <img src="{{ $article->cover_url }}" alt="{{ $article->getLocalized('title') }}" class="w-12 h-10 rounded-lg object-cover flex-shrink-0 bg-slate-200 border border-slate-200">
-                                @else
-                                    <div class="w-12 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 border border-blue-200/60 shadow-xs">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                        @if(count($news) > 0)
+                            @foreach($news as $article)
+                                <a wire:key="news-card-{{ $article->id }}" href="{{ route('news') }}" class="flex items-center gap-3 group">
+                                    @if($article->featured_image)
+                                        <img src="{{ $article->cover_url }}" alt="{{ $article->getLocalized('title') }}" class="w-12 h-10 rounded-lg object-cover flex-shrink-0 bg-slate-200 border border-slate-200">
+                                    @else
+                                        <div class="w-12 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 border border-blue-200/60 shadow-xs">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                                        </div>
+                                    @endif
+                                    <div class="min-w-0">
+                                        <h4 class="text-xs font-bold text-[#06205C] group-hover:text-brand-500 transition-colors leading-snug line-clamp-1">{{ $article->getLocalized('title') }}</h4>
+                                        <span class="text-[10px] text-slate-400">{{ optional($article->published_at)->format('Y-m-d') ?? now()->format('Y-m-d') }}</span>
                                     </div>
-                                @endif
-                                <div class="min-w-0">
-                                    <h4 class="text-xs font-bold text-[#06205C] group-hover:text-brand-500 transition-colors leading-snug line-clamp-1">{{ $article->getLocalized('title') }}</h4>
-                                    <span class="text-[10px] text-slate-400">{{ optional($article->published_at)->format('Y-m-d') ?? now()->format('Y-m-d') }}</span>
-                                </div>
-                            </a>
-                        @empty
+                                </a>
+                            @endforeach
+                        @else
                             <div class="flex items-center gap-3">
                                 <div class="w-12 h-10 rounded-lg bg-slate-100 text-slate-400 flex items-center justify-center flex-shrink-0 border border-slate-200">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
@@ -1049,7 +1055,7 @@
                                     <span class="text-[10px] text-slate-400">2026-08-04</span>
                                 </div>
                             </div>
-                        @endforelse
+                        @endif
                     </div>
                 </div>
                 <a href="{{ route('news') }}" class="text-xs font-bold text-brand-500 hover:text-brand-600 mt-6 inline-flex items-center gap-1">
@@ -1116,26 +1122,28 @@
         </div>
 
         <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-slate-200/80 flex items-center justify-center flex-wrap gap-8 sm:gap-12">
-            @forelse($partners as $p)
-                <div wire:key="partner-card-{{ $p->id }}" class="flex flex-col items-center justify-center gap-2 group transition transform hover:scale-105 py-2 px-3">
-                    <div class="h-10 sm:h-12 w-auto flex items-center justify-center">
-                        @if($p->logo_path)
-                            <img src="{{ asset($p->logo_path) }}" alt="{{ $p->getLocalized('name') }}" class="h-10 sm:h-12 w-auto object-contain filter grayscale group-hover:grayscale-0 transition duration-300">
-                        @else
-                            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 font-black text-sm flex items-center justify-center border border-blue-100">
-                                {{ mb_substr($p->getLocalized('name'), 0, 1) }}
-                            </div>
-                        @endif
+            @if(count($partners) > 0)
+                @foreach($partners as $p)
+                    <div wire:key="partner-card-{{ $p->id }}" class="flex flex-col items-center justify-center gap-2 group transition transform hover:scale-105 py-2 px-3">
+                        <div class="h-10 sm:h-12 w-auto flex items-center justify-center">
+                            @if($p->logo_path)
+                                <img src="{{ asset($p->logo_path) }}" alt="{{ $p->getLocalized('name') }}" class="h-10 sm:h-12 w-auto object-contain filter grayscale group-hover:grayscale-0 transition duration-300">
+                            @else
+                                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 font-black text-sm flex items-center justify-center border border-blue-100">
+                                    {{ mb_substr($p->getLocalized('name'), 0, 1) }}
+                                </div>
+                            @endif
+                        </div>
+                        <span class="text-xs font-black text-[#06205C] group-hover:text-blue-600 transition tracking-tight text-center block">
+                            {{ $p->getLocalized('name') }}
+                        </span>
                     </div>
-                    <span class="text-xs font-black text-[#06205C] group-hover:text-blue-600 transition tracking-tight text-center block">
-                        {{ $p->getLocalized('name') }}
-                    </span>
-                </div>
-            @empty
+                @endforeach
+            @else
                 <div class="text-xs text-slate-400 font-bold">
                     {{ app()->getLocale() === 'fr' ? 'Aucun partenaire disponible' : (app()->getLocale() === 'en' ? 'No featured partners yet' : 'لا يوجد شركاء مميزون حالياً.') }}
                 </div>
-            @endforelse
+            @endif
         </div>
     </section>
     @endif
