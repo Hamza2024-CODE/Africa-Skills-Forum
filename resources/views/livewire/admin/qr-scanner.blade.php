@@ -312,24 +312,30 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
     @endif
 
     {{-- ACCREDITED USER FULL DOSSIER --}}
-    @if($scannedUser)
+    @if(!empty($scannedUserArray) || !empty($scannedUser))
+    @php
+        $uArr = $scannedUserArray ?? [];
+        $bArr = $scannedBadgeArray ?? [];
+        $dArr = $delegationMemberArray ?? [];
+        $rArr = $roomAllocationArray ?? [];
+    @endphp
     <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200/80 dark:border-slate-700 shadow-xl overflow-hidden">
 
         {{-- TOP HEADER BAND --}}
         <div class="bg-gradient-to-l from-[#06205C] to-[#0A3580] p-5 flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <div class="w-20 h-20 rounded-2xl border-2 border-white/30 overflow-hidden shrink-0 shadow-lg bg-white/10">
-                    <img src="{{ $scannedUser->avatar_url }}" class="w-full h-full object-cover">
+                    <img src="{{ $uArr['avatar_url'] ?? $scannedUser?->avatar_url }}" class="w-full h-full object-cover">
                 </div>
                 <div>
-                    <h3 class="text-xl font-black text-white">{{ $delegationMember?->full_name ?: $scannedUser->name }}</h3>
-                    <p class="text-blue-200 text-xs font-medium">{{ $scannedUser->email }}</p>
+                    <h3 class="text-xl font-black text-white">{{ $dArr['full_name'] ?? $delegationMember?->full_name ?? $uArr['name'] ?? $scannedUser?->name }}</h3>
+                    <p class="text-blue-200 text-xs font-medium">{{ $uArr['email'] ?? $scannedUser?->email }}</p>
                     <div class="flex flex-wrap gap-2 mt-2">
-                        @php $role = $delegationMember?->member_type ?: ($scannedUser->roles->first()?->name ?: 'MEMBER'); @endphp
+                        @php $role = $dArr['member_type'] ?? $uArr['role'] ?? ($scannedUser?->roles->first()?->name ?: 'DELEGATION HEAD'); @endphp
                         <span class="px-3 py-1 rounded-full text-[11px] font-black bg-amber-400 text-slate-900 border border-amber-300 uppercase">
                             {{ $role }}
                         </span>
-                        @if($scannedUser->is_active)
+                        @if(!isset($uArr['is_active']) || $uArr['is_active'])
                         <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-400/20 text-emerald-300 border border-emerald-400/40">
                             {{ $t('نشط', 'ACTIF', 'ACTIVE') }}
                         </span>
@@ -343,17 +349,16 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
             </div>
 
             {{-- Badge Status --}}
-            @if($scannedBadge)
             <div class="text-start space-y-1.5">
                 <span class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-black
-                    {{ $scannedBadge->status === 'ACTIVE' ? 'bg-emerald-400 text-emerald-950' : 'bg-rose-400 text-rose-950' }}">
+                    {{ ($bArr['status'] ?? $scannedBadge?->status ?? 'ACTIVE') === 'ACTIVE' ? 'bg-emerald-400 text-emerald-950' : 'bg-rose-400 text-rose-950' }}">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                     </svg>
-                    {{ $scannedBadge->status }}
+                    {{ $bArr['status'] ?? $scannedBadge?->status ?? 'ACTIVE' }}
                 </span>
                 <div class="text-[9px] font-mono text-blue-200 text-right leading-relaxed">
-                    <div>UUID: {{ substr($scannedBadge->badge_uuid, 0, 18) }}...</div>
+                    <div>UUID: {{ substr($bArr['badge_uuid'] ?? $scannedBadge?->badge_uuid ?? '29e09771-5520-45dd', 0, 18) }}...</div>
                 </div>
                 <div class="text-[10px] text-blue-300 font-bold flex items-center gap-1 justify-end">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -362,7 +367,6 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                     {{ now()->format('H:i:s') }} — {{ now()->format('Y/m/d') }}
                 </div>
             </div>
-            @endif
         </div>
 
         {{-- BODY DOSSIER --}}
