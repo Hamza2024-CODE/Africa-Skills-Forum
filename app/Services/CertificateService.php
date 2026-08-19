@@ -115,12 +115,24 @@ class CertificateService
             return $this->buildVirtualRegistrationForUser($badge->user, 'WSAP-BDG-' . $badge->id);
         }
 
-        // 3. Check User directly by uuid, id, or email
-        $user = User::with(['roles', 'country', 'organization', 'participant'])
-            ->where('uuid', $clean)
+        // 3. Check User directly by uuid (exact or prefix), id, email, or numeric code
+        $userQuery = User::with(['roles', 'country', 'organization', 'participant'])
+            ->where('uuid', 'like', $clean . '%')
             ->orWhere('id', $clean)
-            ->orWhere('email', $clean)
-            ->first();
+            ->orWhere('email', $clean);
+
+        if (preg_match('/^USR-?0*(\d+)$/i', $clean, $matches)) {
+            $userQuery->orWhere('id', (int) $matches[1]);
+        }
+
+        $user = $userQuery->first();
+
+        if (!$user) {
+            $member = DelegationMember::where('email', $clean)->orWhere('id', $clean)->first();
+            if ($member && $member->user_id) {
+                $user = User::with(['roles', 'country', 'organization', 'participant'])->find($member->user_id);
+            }
+        }
 
         if ($user) {
             $existingReg = Registration::with(['participant.user', 'participant.wilaya', 'participant.organization', 'skill', 'country', 'documents'])

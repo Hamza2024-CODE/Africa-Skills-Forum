@@ -76,11 +76,23 @@ class WsapAccessRulesEngine
 
         if (!$badge) {
             // Check lookup via Registration, User or DelegationMember
-            $user = User::where('uuid', $cleanBadge)
+            $userQuery = User::where('uuid', 'like', $cleanBadge . '%')
                 ->orWhere('email', $cleanBadge)
                 ->orWhere('id', $cleanBadge)
-                ->orWhereHas('participant.registrations', fn($r) => $r->where('registration_number', $cleanBadge)->orWhere('uuid', $cleanBadge)->orWhere('verification_token', $cleanBadge))
-                ->first();
+                ->orWhereHas('participant.registrations', fn($r) => $r->where('registration_number', $cleanBadge)->orWhere('uuid', $cleanBadge)->orWhere('verification_token', $cleanBadge));
+
+            if (preg_match('/^USR-?0*(\d+)$/i', $cleanBadge, $matches)) {
+                $userQuery->orWhere('id', (int) $matches[1]);
+            }
+
+            $user = $userQuery->first();
+
+            if (!$user) {
+                $delMember = DelegationMember::where('email', $cleanBadge)->orWhere('id', $cleanBadge)->first();
+                if ($delMember && $delMember->user_id) {
+                    $user = User::find($delMember->user_id);
+                }
+            }
 
             if (!$user) {
                 $reg = \App\Models\Registration::where('registration_number', $cleanBadge)
