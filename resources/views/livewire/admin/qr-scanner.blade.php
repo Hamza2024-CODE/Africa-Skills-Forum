@@ -63,6 +63,34 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
              };
              scanLoop();
          },
+         scanImageFile(event) {
+             const file = event.target.files[0];
+             if (!file) return;
+
+             const reader = new FileReader();
+             reader.onload = (e) => {
+                 const img = new Image();
+                 img.onload = () => {
+                     const canvas = document.createElement('canvas');
+                     canvas.width = img.width;
+                     canvas.height = img.height;
+                     const ctx = canvas.getContext('2d');
+                     ctx.drawImage(img, 0, 0);
+                     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                     if (typeof jsQR !== 'undefined') {
+                         const code = jsQR(imageData.data, imageData.width, imageData.height);
+                         if (code && code.data && code.data.trim().length > 0) {
+                             $wire.set('query', code.data);
+                             $wire.scan();
+                             return;
+                         }
+                     }
+                     alert('{{ $t('لم يتم العثور على كود QR واضح في الصورة المرفوعة.', 'Aucun code QR détecté dans l\'image.', 'No clear QR code detected in uploaded image.') }}');
+                 };
+                 img.src = e.target.result;
+             };
+             reader.readAsDataURL(file);
+         },
          stopCamera() {
              if (this.animFrame) cancelAnimationFrame(this.animFrame);
              if (this.stream) this.stream.getTracks().forEach(t => t.stop());
@@ -108,6 +136,12 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                     </svg>
                     <span x-text="cameraOpen ? '{{ $t('إغلاق الكاميرا', 'Fermer Caméra', 'Close Camera') }}' : '{{ $t('فتح الكاميرا لمسح الـ QR', 'Ouvrir Caméra QR', 'Open QR Camera') }}'"></span>
                 </button>
+
+                <label class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border text-xs font-black transition shadow-xs bg-slate-50 hover:bg-[#06205C] hover:text-white border-slate-200 text-slate-700 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span>{{ $t('رفع صورة QR للتثبت', 'Uploader Image QR', 'Upload QR Image') }}</span>
+                    <input type="file" accept="image/*" @change="scanImageFile($event)" class="hidden">
+                </label>
             </div>
         </div>
 
