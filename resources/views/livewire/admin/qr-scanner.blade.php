@@ -8,11 +8,20 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
 <div class="max-w-4xl mx-auto space-y-6 pb-12"
     x-data="{
          cameraOpen: false,
+         showPermissionModal: false,
          stream: null,
          animFrame: null,
          scanCanvas: null,
          scanCtx: null,
+         requestCameraPermission() {
+             if (this.cameraOpen) {
+                 this.stopCamera();
+             } else {
+                 this.showPermissionModal = true;
+             }
+         },
          async startCamera() {
+             this.showPermissionModal = false;
              this.cameraOpen = true;
              let s = null;
              try {
@@ -128,7 +137,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                 {{ $t('امسح الكود بالكاميرا المباشرة أو أدخل كود الشارة / UUID يدوياً *', 'Scannez le QR avec la caméra ou saisissez le code/UUID manuellement *', 'Scan QR via live camera or enter Badge UUID manually *') }}
             </label>
             <div class="flex items-center gap-2 flex-wrap">
-                <button type="button" @click="cameraOpen ? stopCamera() : startCamera()"
+                <button type="button" @click="requestCameraPermission()"
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border text-xs font-black transition shadow-xs bg-slate-50 hover:bg-[#06205C] hover:text-white border-slate-200 text-slate-700">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
@@ -142,6 +151,35 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                     <span>{{ $t('رفع صورة QR للتثبت', 'Uploader Image QR', 'Upload QR Image') }}</span>
                     <input type="file" accept="image/*" @change="scanImageFile($event)" class="hidden">
                 </label>
+            </div>
+        </div>
+
+        {{-- CAMERA PERMISSION PROMPT MODAL --}}
+        <div x-show="showPermissionModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-200 dark:border-slate-700 space-y-5 text-center">
+                <div class="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-slate-700 text-[#06205C] dark:text-blue-400 flex items-center justify-center mx-auto shadow-sm">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                </div>
+
+                <div class="space-y-2">
+                    <h3 class="text-lg font-black text-[#06205C] dark:text-white">
+                        {{ $t('السماح بتشغيل الكاميرا لمسح الـ QR؟', 'Autoriser l\'accès à la caméra ?', 'Allow camera access for QR scanning?') }}
+                    </h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                        {{ $t('يرجى الضغط على زر "السماح ومسح الـ QR الآن" أدناه لتأكيد طلب المتصفح وتفعيل الكاميرا المباشرة فوراً.', 'Veuillez cliquer sur "Autoriser & Scanner" pour activer la caméra immédiatement.', 'Please click "Allow & Scan Now" below to prompt browser permission and start the live camera.') }}
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-3 pt-2">
+                    <button type="button" @click="startCamera()" class="flex-1 py-3 rounded-2xl bg-[#06205C] text-white hover:bg-blue-900 font-black text-xs transition shadow-md">
+                        {{ $t('السماح ومسح الـ QR الآن 📸', 'Autoriser & Scanner 📸', 'Allow & Scan QR Now 📸') }}
+                    </button>
+                    <button type="button" @click="showPermissionModal = false" class="px-4 py-3 rounded-2xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-200">
+                        {{ $t('إلغاء', 'Annuler', 'Cancel') }}
+                    </button>
+                </div>
             </div>
         </div>
 
