@@ -441,14 +441,14 @@
                                 {{ app()->getLocale() === 'fr' ? 'Événement Politique de Haut Niveau' : (app()->getLocale() === 'en' ? 'Principal High-Level Political Summit' : 'الحدث السياسي الرفيع المستوى الرئيسي') }}
                             </span>
                             <h2 class="text-2xl sm:text-3xl font-black text-[#0B2A6F]">
-                                {{ $forumData['name'] ?? (app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences 2026' : (app()->getLocale() === 'en' ? 'Africa Skills Policy Forum 2026' : 'منتدى السياسات الأفريقية للمهارات 2026')) }}
+                                {{ !empty($forumData['name']) ? $forumData['name'] : (app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences 2026' : (app()->getLocale() === 'en' ? 'Africa Skills Policy Forum 2026' : 'منتدى السياسات الأفريقية للمهارات 2026')) }}
                             </h2>
                         </div>
                     </div>
 
                     <div class="px-5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-black text-[#0B2A6F] flex items-center gap-2 shadow-xs">
                         <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <span>{{ $forumData['dates'] ?? '16 - 18 نوفمبر 2026' }}</span>
+                        <span>{{ !empty($forumData['dates']) ? $forumData['dates'] : (app()->getLocale() === 'fr' ? '16 – 18 Novembre 2026' : (app()->getLocale() === 'en' ? '16 – 18 November 2026' : '16 - 18 نوفمبر 2026')) }}</span>
                     </div>
                 </div>
 
@@ -470,7 +470,7 @@
                                 <span>{{ app()->getLocale() === 'fr' ? 'Principe Fondateur' : (app()->getLocale() === 'en' ? 'Founding Principle' : 'المبدأ الأساسي للمنتدى') }}</span>
                             </div>
                             <blockquote class="text-base sm:text-lg font-black text-[#0B2A6F] italic">
-                                "{{ $forumData['principle'] ?? '' }}"
+                                "{{ !empty($forumData['principle']) ? $forumData['principle'] : (app()->getLocale() === 'fr' ? 'Façonner l\'avenir des compétences, autonomiser la jeunesse africaine' : (app()->getLocale() === 'en' ? 'Shaping the Future of Skills, Empowering Africa\'s Youth' : 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي')) }}"
                             </blockquote>
                         </div>
                     </div>

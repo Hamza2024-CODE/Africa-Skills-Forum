@@ -1258,3 +1258,1081 @@ CREATE TABLE `failed_jobs` (
 
 LOCK TABLES `failed_jobs` WRITE;
 /*!40000 ALTER TABLE `failed_jobs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `flights`
+--
+
+DROP TABLE IF EXISTS `flights`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `flights` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `country_id` bigint(20) unsigned NOT NULL,
+  `flight_number` varchar(255) NOT NULL,
+  `airline` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL DEFAULT 'ARRIVAL',
+  `airport` varchar(255) NOT NULL,
+  `scheduled_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `passengers_count` int(11) NOT NULL DEFAULT 1,
+  `status` varchar(255) NOT NULL DEFAULT 'CONFIRMED',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `flights_uuid_unique` (`uuid`),
+  KEY `flights_country_id_foreign` (`country_id`),
+  CONSTRAINT `flights_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `flights`
+--
+
+LOCK TABLES `flights` WRITE;
+/*!40000 ALTER TABLE `flights` DISABLE KEYS */;
+/*!40000 ALTER TABLE `flights` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `global_settings`
+--
+
+DROP TABLE IF EXISTS `global_settings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `global_settings` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) NOT NULL,
+  `value` longtext DEFAULT NULL,
+  `type` varchar(255) NOT NULL DEFAULT 'string',
+  `group` varchar(255) NOT NULL DEFAULT 'general',
+  `description` text DEFAULT NULL,
+  `is_editable` tinyint(1) NOT NULL DEFAULT 1,
+  `validation_rules` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `global_settings_key_unique` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `global_settings`
+--
+
+LOCK TABLES `global_settings` WRITE;
+/*!40000 ALTER TABLE `global_settings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `global_settings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `guide_sections`
+--
+
+DROP TABLE IF EXISTS `guide_sections`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `guide_sections` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `section_key` varchar(255) NOT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT 0,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `icon_svg` text DEFAULT NULL,
+  `title_ar` varchar(255) NOT NULL,
+  `title_fr` varchar(255) NOT NULL,
+  `title_en` varchar(255) NOT NULL,
+  `body_ar` longtext DEFAULT NULL,
+  `body_fr` longtext DEFAULT NULL,
+  `body_en` longtext DEFAULT NULL,
+  `meta` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`meta`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `guide_sections_section_key_unique` (`section_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `guide_sections`
+--
+
+LOCK TABLES `guide_sections` WRITE;
+/*!40000 ALTER TABLE `guide_sections` DISABLE KEYS */;
+/*!40000 ALTER TABLE `guide_sections` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `job_batches`
+--
+
+DROP TABLE IF EXISTS `job_batches`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `job_batches` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `total_jobs` int(11) NOT NULL,
+  `pending_jobs` int(11) NOT NULL,
+  `failed_jobs` int(11) NOT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
+  `cancelled_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `finished_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `job_batches`
+--
+
+LOCK TABLES `job_batches` WRITE;
+/*!40000 ALTER TABLE `job_batches` DISABLE KEYS */;
+/*!40000 ALTER TABLE `job_batches` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `jobs`
+--
+
+DROP TABLE IF EXISTS `jobs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `jobs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
+  `attempts` tinyint(3) unsigned NOT NULL,
+  `reserved_at` int(10) unsigned DEFAULT NULL,
+  `available_at` int(10) unsigned NOT NULL,
+  `created_at` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `jobs_queue_index` (`queue`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jobs`
+--
+
+LOCK TABLES `jobs` WRITE;
+/*!40000 ALTER TABLE `jobs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `jobs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `legal_contents`
+--
+
+DROP TABLE IF EXISTS `legal_contents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `legal_contents` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) NOT NULL,
+  `title_ar` varchar(255) NOT NULL,
+  `title_fr` varchar(255) DEFAULT NULL,
+  `title_en` varchar(255) DEFAULT NULL,
+  `content_ar` longtext NOT NULL,
+  `content_fr` longtext DEFAULT NULL,
+  `content_en` longtext DEFAULT NULL,
+  `is_published` tinyint(1) NOT NULL DEFAULT 1,
+  `version` varchar(255) NOT NULL DEFAULT '1.0',
+  `last_updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `legal_contents_key_unique` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `legal_contents`
+--
+
+LOCK TABLES `legal_contents` WRITE;
+/*!40000 ALTER TABLE `legal_contents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `legal_contents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `live_tv_announcements`
+--
+
+DROP TABLE IF EXISTS `live_tv_announcements`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `live_tv_announcements` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `ticker_text_ar` varchar(255) NOT NULL,
+  `ticker_text_fr` varchar(255) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `live_tv_announcements`
+--
+
+LOCK TABLES `live_tv_announcements` WRITE;
+/*!40000 ALTER TABLE `live_tv_announcements` DISABLE KEYS */;
+/*!40000 ALTER TABLE `live_tv_announcements` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `live_tv_slides`
+--
+
+DROP TABLE IF EXISTS `live_tv_slides`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `live_tv_slides` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title_ar` varchar(255) NOT NULL,
+  `title_fr` varchar(255) DEFAULT NULL,
+  `slide_type` enum('LEADERBOARD','MEDAL_TALLY','COUNTDOWN','ANNOUNCEMENT','SPONSOR') NOT NULL DEFAULT 'ANNOUNCEMENT',
+  `content` text DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `display_duration_sec` int(11) NOT NULL DEFAULT 10,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `sort_order` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `live_tv_slides`
+--
+
+LOCK TABLES `live_tv_slides` WRITE;
+/*!40000 ALTER TABLE `live_tv_slides` DISABLE KEYS */;
+/*!40000 ALTER TABLE `live_tv_slides` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `logistics_incidents`
+--
+
+DROP TABLE IF EXISTS `logistics_incidents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `logistics_incidents` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `reference` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL DEFAULT 'EQUIPMENT_MISSING',
+  `severity` varchar(255) NOT NULL DEFAULT 'MEDIUM',
+  `description` text NOT NULL,
+  `reported_by_user_id` bigint(20) unsigned DEFAULT NULL,
+  `assigned_to_user_id` bigint(20) unsigned DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'OPEN',
+  `resolved_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `logistics_incidents_uuid_unique` (`uuid`),
+  UNIQUE KEY `logistics_incidents_reference_unique` (`reference`),
+  KEY `logistics_incidents_reported_by_user_id_foreign` (`reported_by_user_id`),
+  KEY `logistics_incidents_assigned_to_user_id_foreign` (`assigned_to_user_id`),
+  CONSTRAINT `logistics_incidents_assigned_to_user_id_foreign` FOREIGN KEY (`assigned_to_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `logistics_incidents_reported_by_user_id_foreign` FOREIGN KEY (`reported_by_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `logistics_incidents`
+--
+
+LOCK TABLES `logistics_incidents` WRITE;
+/*!40000 ALTER TABLE `logistics_incidents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logistics_incidents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `meal_entitlements`
+--
+
+DROP TABLE IF EXISTS `meal_entitlements`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `meal_entitlements` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `meal_slot_id` bigint(20) unsigned NOT NULL,
+  `restaurant_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `country_id` bigint(20) unsigned DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'ACTIVE',
+  `created_by` bigint(20) unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `meal_entitlements_uuid_unique` (`uuid`),
+  UNIQUE KEY `unique_user_slot` (`meal_slot_id`,`user_id`),
+  KEY `meal_entitlements_restaurant_id_foreign` (`restaurant_id`),
+  KEY `meal_entitlements_user_id_foreign` (`user_id`),
+  KEY `meal_entitlements_country_id_foreign` (`country_id`),
+  KEY `meal_entitlements_created_by_foreign` (`created_by`),
+  CONSTRAINT `meal_entitlements_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `meal_entitlements_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `meal_entitlements_meal_slot_id_foreign` FOREIGN KEY (`meal_slot_id`) REFERENCES `meal_slots` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `meal_entitlements_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `meal_entitlements_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `meal_entitlements`
+--
+
+LOCK TABLES `meal_entitlements` WRITE;
+/*!40000 ALTER TABLE `meal_entitlements` DISABLE KEYS */;
+/*!40000 ALTER TABLE `meal_entitlements` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `meal_plans`
+--
+
+DROP TABLE IF EXISTS `meal_plans`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `meal_plans` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `participant_profile_id` bigint(20) unsigned DEFAULT NULL,
+  `country_id` bigint(20) unsigned DEFAULT NULL,
+  `date` date NOT NULL,
+  `meal_type` varchar(255) NOT NULL DEFAULT 'LUNCH',
+  `dietary_notes` varchar(255) DEFAULT NULL,
+  `is_served` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `meal_plans_uuid_unique` (`uuid`),
+  KEY `meal_plans_participant_profile_id_foreign` (`participant_profile_id`),
+  KEY `meal_plans_country_id_foreign` (`country_id`),
+  CONSTRAINT `meal_plans_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `meal_plans_participant_profile_id_foreign` FOREIGN KEY (`participant_profile_id`) REFERENCES `participant_profiles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `meal_plans`
+--
+
+LOCK TABLES `meal_plans` WRITE;
+/*!40000 ALTER TABLE `meal_plans` DISABLE KEYS */;
+/*!40000 ALTER TABLE `meal_plans` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `meal_scans`
+--
+
+DROP TABLE IF EXISTS `meal_scans`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `meal_scans` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `meal_slot_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `scanned_by_user_id` bigint(20) unsigned DEFAULT NULL,
+  `badge_code` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'AUTHORIZED',
+  `denial_reason` varchar(255) DEFAULT NULL,
+  `participant_name_snapshot` varchar(255) DEFAULT NULL,
+  `country_snapshot` varchar(255) DEFAULT NULL,
+  `restaurant_snapshot` varchar(255) DEFAULT NULL,
+  `meal_type_snapshot` varchar(255) DEFAULT NULL,
+  `scanned_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `meal_scans_uuid_unique` (`uuid`),
+  KEY `meal_scans_user_id_foreign` (`user_id`),
+  KEY `meal_scans_scanned_by_user_id_foreign` (`scanned_by_user_id`),
+  KEY `meal_scans_meal_slot_id_user_id_index` (`meal_slot_id`,`user_id`),
+  CONSTRAINT `meal_scans_meal_slot_id_foreign` FOREIGN KEY (`meal_slot_id`) REFERENCES `meal_slots` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `meal_scans_scanned_by_user_id_foreign` FOREIGN KEY (`scanned_by_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `meal_scans_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `meal_scans`
+--
+
+LOCK TABLES `meal_scans` WRITE;
+/*!40000 ALTER TABLE `meal_scans` DISABLE KEYS */;
+/*!40000 ALTER TABLE `meal_scans` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `meal_slots`
+--
+
+DROP TABLE IF EXISTS `meal_slots`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `meal_slots` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `restaurant_id` bigint(20) unsigned NOT NULL,
+  `date` date NOT NULL,
+  `meal_type` varchar(255) NOT NULL DEFAULT 'LUNCH',
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL,
+  `max_capacity` int(10) unsigned NOT NULL DEFAULT 500,
+  `is_open` tinyint(1) NOT NULL DEFAULT 1,
+  `notes` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `meal_slots_uuid_unique` (`uuid`),
+  KEY `meal_slots_date_meal_type_index` (`date`,`meal_type`),
+  KEY `meal_slots_restaurant_id_date_index` (`restaurant_id`,`date`),
+  CONSTRAINT `meal_slots_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `meal_slots`
+--
+
+LOCK TABLES `meal_slots` WRITE;
+/*!40000 ALTER TABLE `meal_slots` DISABLE KEYS */;
+/*!40000 ALTER TABLE `meal_slots` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `media`
+--
+
+DROP TABLE IF EXISTS `media`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `media` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `original_filename` varchar(255) NOT NULL,
+  `mime_type` varchar(255) NOT NULL,
+  `file_size` bigint(20) unsigned NOT NULL,
+  `width` int(11) DEFAULT NULL,
+  `height` int(11) DEFAULT NULL,
+  `duration` int(11) DEFAULT NULL,
+  `alt_text` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `storage_path` varchar(255) NOT NULL,
+  `visibility` varchar(255) NOT NULL DEFAULT 'public',
+  `status` varchar(255) NOT NULL DEFAULT 'active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `media_uuid_unique` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `media`
+--
+
+LOCK TABLES `media` WRITE;
+/*!40000 ALTER TABLE `media` DISABLE KEYS */;
+/*!40000 ALTER TABLE `media` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `migrations`
+--
+
+DROP TABLE IF EXISTS `migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `migrations`
+--
+
+LOCK TABLES `migrations` WRITE;
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+INSERT INTO `migrations` VALUES (1,'2026_08_04_000000_create_cache_table',1),(2,'2026_08_04_000000_create_jobs_table',1),(3,'2026_08_04_000001_create_users_table',1),(4,'2026_08_04_000002_create_permission_tables',1),(5,'2026_08_04_000003_create_editions_table',1),(6,'2026_08_04_000004_create_global_settings_table',1),(7,'2026_08_04_000005_create_edition_dates_table',1),(8,'2026_08_04_000006_create_countries_table',1),(9,'2026_08_04_000007_create_edition_countries_table',1),(10,'2026_08_04_000008_create_regions_table',1),(11,'2026_08_04_000009_create_wilayas_table',1),(12,'2026_08_04_000010_create_communes_table',1),(13,'2026_08_04_000011_create_organizations_table',1),(14,'2026_08_04_000012_create_skill_categories_table',1),(15,'2026_08_04_000013_create_skills_table',1),(16,'2026_08_04_000014_create_equipment_categories_table',1),(17,'2026_08_04_000015_create_equipment_items_table',1),(18,'2026_08_04_000016_create_skill_equipment_table',1),(19,'2026_08_04_000017_create_country_skill_selections_table',1),(20,'2026_08_04_000018_create_country_delegations_table',1),(21,'2026_08_04_000019_create_delegation_members_table',1),(22,'2026_08_04_000020_create_competition_assignments_table',1),(23,'2026_08_04_000021_create_notifications_table',1),(24,'2026_08_04_000022_create_notification_preferences_table',1),(25,'2026_08_04_000023_create_audit_logs_table',1),(26,'2026_08_04_000026_add_locale_to_users_table',1),(27,'2026_08_04_000027_create_participant_profiles_table',1),(28,'2026_08_04_000028_create_registrations_table',1),(29,'2026_08_04_000028a_create_competition_governance_tables',2),(30,'2026_08_04_000029_create_participant_documents_table',2),(31,'2026_08_04_000030_create_media_table',2),(32,'2026_08_04_000031_create_albums_table',2),(33,'2026_08_04_000032_create_events_table',2),(34,'2026_08_04_000033_create_videos_table',2),(35,'2026_08_04_000034_create_news_articles_table',2),(36,'2026_08_04_000035_create_partners_table',2),(37,'2026_08_04_000036_create_competition_equipment_requirements_table',2),(38,'2026_08_04_000037_create_participant_clothing_table',2),(39,'2026_08_04_000038_create_accommodations_and_rooms_table',2),(40,'2026_08_04_000039_create_transport_and_flights_table',2),(41,'2026_08_04_000040_create_meals_and_logistics_incidents_table',2),(42,'2026_08_04_000041_add_african_and_nationalities_to_countries_table',2),(43,'2026_08_04_000042_create_legal_contents_table',2),(44,'2026_08_04_000043_add_must_change_password_to_users_table',2),(45,'2026_08_04_000044_add_verification_and_clothing_to_registrations_table',2),(46,'2026_08_04_000045_create_audit_logs_and_revocation_table',2),(47,'2026_08_04_165212_add_can_scan_qr_to_users_table',2),(48,'2026_08_05_000001_add_skill_id_to_equipment_items_table',2),(49,'2026_08_05_000002_create_restaurants_and_meal_slots_table',2),(50,'2026_08_05_000003_add_avatar_path_to_users_table',2),(51,'2026_08_05_000004_create_wsap_notifications_tables',2),(52,'2026_08_05_000005_create_wsap_event_operations_tables',2),(53,'2026_08_05_000006_create_wsap_v84_hardened_operations_tables',2),(54,'2026_08_05_000007_create_wsap_v90_venue_digital_twin_tables',2),(55,'2026_08_05_000008_add_revision_and_transform_to_venue_tables',2),(56,'2026_08_05_000009_create_venue_boundaries_table',2),(57,'2026_08_05_135939_create_guide_sections_table',2),(58,'2026_08_05_140733_add_management_fields_to_delegation_members_table',2),(59,'2026_08_05_150000_add_security_hashes_to_members_and_profiles',2),(60,'2026_08_06_000001_create_delegation_arrivals_table',2),(61,'2026_08_06_000002_create_ministerial_officials_table',2),(62,'2026_08_06_000003_create_diplomatic_meetings_tables',2),(63,'2026_08_14_162000_make_skill_id_nullable_in_registrations_table',2),(64,'2026_08_15_001946_add_position_and_job_title_to_users_and_registrations',2);
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ministerial_officials`
+--
+
+DROP TABLE IF EXISTS `ministerial_officials`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ministerial_officials` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `country_id` bigint(20) unsigned DEFAULT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `title_ar` varchar(255) DEFAULT NULL,
+  `title_fr` varchar(255) DEFAULT NULL,
+  `title_en` varchar(255) DEFAULT NULL,
+  `ministry_name` varchar(255) DEFAULT NULL,
+  `availability_status` varchar(255) NOT NULL DEFAULT 'AVAILABLE',
+  `contact_phone` varchar(255) DEFAULT NULL,
+  `security_level` varchar(255) NOT NULL DEFAULT 'VIP',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ministerial_officials_uuid_unique` (`uuid`),
+  KEY `ministerial_officials_user_id_foreign` (`user_id`),
+  KEY `ministerial_officials_country_id_foreign` (`country_id`),
+  CONSTRAINT `ministerial_officials_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `ministerial_officials_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ministerial_officials`
+--
+
+LOCK TABLES `ministerial_officials` WRITE;
+/*!40000 ALTER TABLE `ministerial_officials` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ministerial_officials` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `model_has_permissions`
+--
+
+DROP TABLE IF EXISTS `model_has_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `model_has_permissions` (
+  `permission_id` bigint(20) unsigned NOT NULL,
+  `model_type` varchar(255) NOT NULL,
+  `model_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  KEY `model_has_permissions_permission_model_type_primary` (`model_id`,`model_type`),
+  CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `model_has_permissions`
+--
+
+LOCK TABLES `model_has_permissions` WRITE;
+/*!40000 ALTER TABLE `model_has_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `model_has_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `model_has_roles`
+--
+
+DROP TABLE IF EXISTS `model_has_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `model_has_roles` (
+  `role_id` bigint(20) unsigned NOT NULL,
+  `model_type` varchar(255) NOT NULL,
+  `model_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  KEY `model_has_roles_role_model_type_primary` (`model_id`,`model_type`),
+  CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `model_has_roles`
+--
+
+LOCK TABLES `model_has_roles` WRITE;
+/*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
+INSERT INTO `model_has_roles` VALUES (1,'App\\Models\\User',1),(3,'App\\Models\\User',2),(4,'App\\Models\\User',4),(12,'App\\Models\\User',3);
+/*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `news_articles`
+--
+
+DROP TABLE IF EXISTS `news_articles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `news_articles` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `title_ar` varchar(255) NOT NULL,
+  `title_fr` varchar(255) DEFAULT NULL,
+  `title_en` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) NOT NULL,
+  `excerpt_ar` text DEFAULT NULL,
+  `excerpt_fr` text DEFAULT NULL,
+  `excerpt_en` text DEFAULT NULL,
+  `content_ar` longtext NOT NULL,
+  `content_fr` longtext DEFAULT NULL,
+  `content_en` longtext DEFAULT NULL,
+  `featured_image` varchar(255) DEFAULT NULL,
+  `author_id` bigint(20) unsigned DEFAULT NULL,
+  `edition_id` bigint(20) unsigned DEFAULT NULL,
+  `event_id` bigint(20) unsigned DEFAULT NULL,
+  `category` varchar(255) NOT NULL DEFAULT 'news',
+  `status` varchar(255) NOT NULL DEFAULT 'PUBLISHED',
+  `published_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `news_articles_uuid_unique` (`uuid`),
+  UNIQUE KEY `news_articles_slug_unique` (`slug`),
+  KEY `news_articles_author_id_foreign` (`author_id`),
+  KEY `news_articles_edition_id_foreign` (`edition_id`),
+  KEY `news_articles_event_id_foreign` (`event_id`),
+  CONSTRAINT `news_articles_author_id_foreign` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `news_articles_edition_id_foreign` FOREIGN KEY (`edition_id`) REFERENCES `editions` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `news_articles_event_id_foreign` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `news_articles`
+--
+
+LOCK TABLES `news_articles` WRITE;
+/*!40000 ALTER TABLE `news_articles` DISABLE KEYS */;
+INSERT INTO `news_articles` VALUES (1,'f5c098b1-ac33-4bb2-b8e3-c8bf864279e6','الانطلاق الرسمي للتسجيلات والتصفيات الوطنية لأولمبياد المهن 2027','Lancement officiel des inscriptions pour WorldSkills Algeria 2027','Official Launch of Registrations for WorldSkills Algeria 2027','launch-of-worldskills-algeria-2027','أعلنت اللجنة الوطنية لأولمبياد المهن عن افتتاح باب التسجيل للمتربصين والشباب عبر 58 ولاية.','Le comité national annonce l\'ouverture des inscriptions à travers 58 wilayas.','The national committee announces the opening of registrations across 58 wilayas.','في إطار إستراتيجية تطوير التعليم والتكوين المهني بالجزائر، تم الإعلان رسمياً عن إطلاق أولمبياد المهن 2027.','Dans le cadre de la stratégie de développement de la formation professionnelle, WorldSkills Algeria 2027 est lancé.','Within the strategy of vocational education development, WorldSkills Algeria 2027 is officially launched.',NULL,NULL,NULL,NULL,'news','PUBLISHED','2026-08-19 16:21:34','2026-08-19 16:21:34','2026-08-19 16:21:34');
+/*!40000 ALTER TABLE `news_articles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notification_preferences`
+--
+
+DROP TABLE IF EXISTS `notification_preferences`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notification_preferences` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `email_enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `database_enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `push_enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `channels_config` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`channels_config`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notification_preferences_user_id_foreign` (`user_id`),
+  CONSTRAINT `notification_preferences_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notification_preferences`
+--
+
+LOCK TABLES `notification_preferences` WRITE;
+/*!40000 ALTER TABLE `notification_preferences` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notification_preferences` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notification_targets`
+--
+
+DROP TABLE IF EXISTS `notification_targets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notification_targets` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `notification_id` bigint(20) unsigned NOT NULL,
+  `target_type` varchar(255) NOT NULL,
+  `target_id` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notification_targets_notification_id_target_type_index` (`notification_id`,`target_type`),
+  CONSTRAINT `notification_targets_notification_id_foreign` FOREIGN KEY (`notification_id`) REFERENCES `wsap_notifications` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notification_targets`
+--
+
+LOCK TABLES `notification_targets` WRITE;
+/*!40000 ALTER TABLE `notification_targets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notification_targets` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notifications`
+--
+
+DROP TABLE IF EXISTS `notifications`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notifications` (
+  `id` char(36) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `notifiable_type` varchar(255) NOT NULL,
+  `notifiable_id` bigint(20) unsigned NOT NULL,
+  `data` text NOT NULL,
+  `read_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notifications_notifiable_type_notifiable_id_index` (`notifiable_type`,`notifiable_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notifications`
+--
+
+LOCK TABLES `notifications` WRITE;
+/*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `organizations`
+--
+
+DROP TABLE IF EXISTS `organizations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `organizations` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `name_ar` varchar(255) NOT NULL,
+  `name_fr` varchar(255) NOT NULL,
+  `name_en` varchar(255) DEFAULT NULL,
+  `type` varchar(255) NOT NULL DEFAULT 'vocational_center',
+  `country_id` bigint(20) unsigned NOT NULL,
+  `wilaya_id` bigint(20) unsigned DEFAULT NULL,
+  `commune_id` bigint(20) unsigned DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `organizations_uuid_unique` (`uuid`),
+  UNIQUE KEY `organizations_code_unique` (`code`),
+  KEY `organizations_country_id_foreign` (`country_id`),
+  KEY `organizations_wilaya_id_foreign` (`wilaya_id`),
+  KEY `organizations_commune_id_foreign` (`commune_id`),
+  CONSTRAINT `organizations_commune_id_foreign` FOREIGN KEY (`commune_id`) REFERENCES `communes` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `organizations_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `organizations_wilaya_id_foreign` FOREIGN KEY (`wilaya_id`) REFERENCES `wilayas` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `organizations`
+--
+
+LOCK TABLES `organizations` WRITE;
+/*!40000 ALTER TABLE `organizations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `organizations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `participant_assessments`
+--
+
+DROP TABLE IF EXISTS `participant_assessments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `participant_assessments` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `registration_id` bigint(20) unsigned NOT NULL,
+  `module_id` bigint(20) unsigned NOT NULL,
+  `total_score` decimal(8,2) NOT NULL DEFAULT 0.00,
+  `is_locked` tinyint(1) NOT NULL DEFAULT 0,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by_user_id` bigint(20) unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `participant_assessments_registration_id_foreign` (`registration_id`),
+  KEY `participant_assessments_module_id_foreign` (`module_id`),
+  KEY `participant_assessments_locked_by_user_id_foreign` (`locked_by_user_id`),
+  CONSTRAINT `participant_assessments_locked_by_user_id_foreign` FOREIGN KEY (`locked_by_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `participant_assessments_module_id_foreign` FOREIGN KEY (`module_id`) REFERENCES `competition_assessment_modules` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `participant_assessments_registration_id_foreign` FOREIGN KEY (`registration_id`) REFERENCES `registrations` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `participant_assessments`
+--
+
+LOCK TABLES `participant_assessments` WRITE;
+/*!40000 ALTER TABLE `participant_assessments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `participant_assessments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `participant_clothing`
+--
+
+DROP TABLE IF EXISTS `participant_clothing`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `participant_clothing` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `participant_profile_id` bigint(20) unsigned NOT NULL,
+  `item_name_ar` varchar(255) NOT NULL,
+  `item_name_fr` varchar(255) DEFAULT NULL,
+  `item_name_en` varchar(255) DEFAULT NULL,
+  `size` varchar(255) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 1,
+  `is_mandatory` tinyint(1) NOT NULL DEFAULT 1,
+  `provided_by` varchar(255) NOT NULL DEFAULT 'ORGANIZER',
+  `status` varchar(255) NOT NULL DEFAULT 'PENDING',
+  `delivered_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `participant_clothing_uuid_unique` (`uuid`),
+  KEY `participant_clothing_participant_profile_id_foreign` (`participant_profile_id`),
+  CONSTRAINT `participant_clothing_participant_profile_id_foreign` FOREIGN KEY (`participant_profile_id`) REFERENCES `participant_profiles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `participant_clothing`
+--
+
+LOCK TABLES `participant_clothing` WRITE;
+/*!40000 ALTER TABLE `participant_clothing` DISABLE KEYS */;
+/*!40000 ALTER TABLE `participant_clothing` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `participant_documents`
+--
+
+DROP TABLE IF EXISTS `participant_documents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `participant_documents` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `registration_id` bigint(20) unsigned NOT NULL,
+  `document_type` varchar(255) NOT NULL,
+  `file_path` varchar(255) NOT NULL,
+  `original_name` varchar(255) NOT NULL,
+  `mime_type` varchar(255) NOT NULL,
+  `file_size` bigint(20) unsigned NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'UPLOADED',
+  `rejection_reason` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `participant_documents_uuid_unique` (`uuid`),
+  KEY `participant_documents_registration_id_foreign` (`registration_id`),
+  CONSTRAINT `participant_documents_registration_id_foreign` FOREIGN KEY (`registration_id`) REFERENCES `registrations` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `participant_documents`
+--
+
+LOCK TABLES `participant_documents` WRITE;
+/*!40000 ALTER TABLE `participant_documents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `participant_documents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `participant_equipment_checklists`
+--
+
+DROP TABLE IF EXISTS `participant_equipment_checklists`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `participant_equipment_checklists` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `participant_profile_id` bigint(20) unsigned NOT NULL,
+  `requirement_id` bigint(20) unsigned NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'PENDING',
+  `notes` text DEFAULT NULL,
+  `verified_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `participant_equipment_checklists_uuid_unique` (`uuid`),
+  KEY `participant_equipment_checklists_participant_profile_id_foreign` (`participant_profile_id`),
+  KEY `participant_equipment_checklists_requirement_id_foreign` (`requirement_id`),
+  CONSTRAINT `participant_equipment_checklists_participant_profile_id_foreign` FOREIGN KEY (`participant_profile_id`) REFERENCES `participant_profiles` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `participant_equipment_checklists_requirement_id_foreign` FOREIGN KEY (`requirement_id`) REFERENCES `competition_equipment_requirements` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `participant_equipment_checklists`
+--
+
+LOCK TABLES `participant_equipment_checklists` WRITE;
+/*!40000 ALTER TABLE `participant_equipment_checklists` DISABLE KEYS */;
+/*!40000 ALTER TABLE `participant_equipment_checklists` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `participant_profiles`
+--
+
+DROP TABLE IF EXISTS `participant_profiles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `participant_profiles` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `first_name_ar` varchar(255) NOT NULL,
+  `last_name_ar` varchar(255) NOT NULL,
+  `first_name_fr` varchar(255) DEFAULT NULL,
+  `last_name_fr` varchar(255) DEFAULT NULL,
+  `first_name_en` varchar(255) DEFAULT NULL,
+  `last_name_en` varchar(255) DEFAULT NULL,
+  `gender` varchar(255) NOT NULL DEFAULT 'male',
+  `date_of_birth` date DEFAULT NULL,
+  `phone` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `national_id` varchar(255) DEFAULT NULL,
+  `passport_number` varchar(255) DEFAULT NULL,
+  `passport_expiry` date DEFAULT NULL,
+  `wilaya_id` bigint(20) unsigned DEFAULT NULL,
+  `commune_id` bigint(20) unsigned DEFAULT NULL,
+  `organization_id` bigint(20) unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `photo_hash` varchar(64) DEFAULT NULL,
+  `document_hash` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `participant_profiles_uuid_unique` (`uuid`),
+  KEY `participant_profiles_user_id_foreign` (`user_id`),
+  KEY `participant_profiles_wilaya_id_foreign` (`wilaya_id`),
+  KEY `participant_profiles_commune_id_foreign` (`commune_id`),
+  KEY `participant_profiles_organization_id_foreign` (`organization_id`),
+  KEY `participant_profiles_national_id_index` (`national_id`),
+  KEY `participant_profiles_passport_number_index` (`passport_number`),
+  KEY `participant_profiles_photo_hash_index` (`photo_hash`),
+  KEY `participant_profiles_document_hash_index` (`document_hash`),
+  CONSTRAINT `participant_profiles_commune_id_foreign` FOREIGN KEY (`commune_id`) REFERENCES `communes` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `participant_profiles_organization_id_foreign` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `participant_profiles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `participant_profiles_wilaya_id_foreign` FOREIGN KEY (`wilaya_id`) REFERENCES `wilayas` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `participant_profiles`
+--
+
+LOCK TABLES `participant_profiles` WRITE;
+/*!40000 ALTER TABLE `participant_profiles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `participant_profiles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `participant_scores`
+--
+
+DROP TABLE IF EXISTS `participant_scores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `participant_scores` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `assessment_id` bigint(20) unsigned NOT NULL,
+  `criterion_id` bigint(20) unsigned NOT NULL,
+  `judge_user_id` bigint(20) unsigned NOT NULL,
+  `score` decimal(8,2) NOT NULL DEFAULT 0.00,
+  `notes` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `participant_scores_assessment_id_foreign` (`assessment_id`),
+  KEY `participant_scores_criterion_id_foreign` (`criterion_id`),
+  KEY `participant_scores_judge_user_id_foreign` (`judge_user_id`),
+  CONSTRAINT `participant_scores_assessment_id_foreign` FOREIGN KEY (`assessment_id`) REFERENCES `participant_assessments` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `participant_scores_criterion_id_foreign` FOREIGN KEY (`criterion_id`) REFERENCES `competition_assessment_criteria` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `participant_scores_judge_user_id_foreign` FOREIGN KEY (`judge_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `participant_scores`
+--
+
+LOCK TABLES `participant_scores` WRITE;
+/*!40000 ALTER TABLE `participant_scores` DISABLE KEYS */;
+/*!40000 ALTER TABLE `participant_scores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `partners`
+--
+
+DROP TABLE IF EXISTS `partners`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `partners` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` char(36) NOT NULL,
+  `name_ar` varchar(255) NOT NULL,
+  `name_fr` varchar(255) DEFAULT NULL,
+  `name_en` varchar(255) DEFAULT NULL,
+  `logo_path` varchar(255) DEFAULT NULL,
+  `website_url` varchar(255) DEFAULT NULL,
+  `description_ar` text DEFAULT NULL,
+  `description_fr` text DEFAULT NULL,
+  `description_en` text DEFAULT NULL,
+  `partner_type` varchar(255) NOT NULL DEFAULT 'sponsor',
+  `level` varchar(255) NOT NULL DEFAULT 'gold',
+  `sort_order` int(11) NOT NULL DEFAULT 0,
+  `is_featured` tinyint(1) NOT NULL DEFAULT 0,
+  `status` varchar(255) NOT NULL DEFAULT 'active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `partners_uuid_unique` (`uuid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `partners`
+--
+
+LOCK TABLES `partners` WRITE;
+/*!40000 ALTER TABLE `partners` DISABLE KEYS */;
+INSERT INTO `partners` VALUES (1,'be0cf404-34eb-41fb-94f9-1c88f6c6a5f3','وزارة التكوين والتعليم المهنيين','Ministère de la Formation et de l\'Enseignement Professionnels','Ministry of Vocational Education',NULL,'https://www.mfep.gov.dz',NULL,NULL,NULL,'organizer','platinum',1,0,'active','2026-08-19 16:21:34','2026-08-19 16:21:34');
+/*!40000 ALTER TABLE `partners` ENABLE KEYS */;
+UNLOCK TABLES;
