@@ -96,70 +96,75 @@ class Home extends Component
 
     public function render()
     {
-        $skills = Skill::where('is_active', true)->limit(6)->get();
-        if ($skills->isEmpty()) {
-            $skills = Skill::limit(6)->get();
-        }
-
-        $news = NewsArticle::where('status', 'PUBLISHED')->orderBy('published_at', 'desc')->limit(3)->get();
-        if ($news->isEmpty()) {
-            $news = NewsArticle::orderBy('created_at', 'desc')->limit(3)->get();
-        }
-
-        $albums = Album::with(['coverMedia', 'mediaItems'])->where('status', 'PUBLISHED')->orderBy('published_at', 'desc')->limit(3)->get();
-        if ($albums->isEmpty()) {
-            $albums = Album::with(['coverMedia', 'mediaItems'])->orderBy('created_at', 'desc')->limit(3)->get();
-        }
-
-        $videos = Video::where('status', 'PUBLISHED')->orderBy('published_at', 'desc')->limit(3)->get();
-        if ($videos->isEmpty()) {
-            $videos = Video::orderBy('created_at', 'desc')->limit(3)->get();
-        }
-
-        $featuredVideo = $videos->first();
-        $featuredVideoThumbUrl = null;
-        if ($featuredVideo) {
-            if ($featuredVideo->thumbnail_path) {
-                $featuredVideoThumbUrl = $featuredVideo->thumbnail_path;
-            } elseif ($featuredVideo->youtube_id) {
-                $featuredVideoThumbUrl = 'https://img.youtube.com/vi/' . $featuredVideo->youtube_id . '/mqdefault.jpg';
-            }
-        }
-
-        $partners = Partner::where('status', 'ACTIVE')->where('is_featured', true)->orderBy('sort_order')->orderBy('name_ar')->get();
-
-        $heroSlide1 = platform()->get('hero_slide_1', '/image.png');
-        $heroSlides = collect([!empty($heroSlide1) ? $heroSlide1 : '/image.png'])
-            ->filter(function($s) { return !empty($s); })
-            ->values()
-            ->all();
-        $heroSlidesJson = json_encode(array_map('url', $heroSlides));
-        $heroMode = platform()->get('hero_bg_mode', 'image');
-
-        $settings = app(SettingsEngine::class);
         $locale = app()->getLocale();
-        $forumData = [
-            'name'             => $settings->get("forum.name_{$locale}"),
-            'slogan'           => $settings->get("forum.slogan_{$locale}"),
-            'dates'            => $settings->get("forum.dates_{$locale}"),
-            'principle'        => $settings->get("forum.principle_{$locale}"),
-            'description'      => $settings->get("forum.description_{$locale}"),
-            'stat_countries'   => $settings->get('forum.stat_countries', '+30'),
-            'stat_ministers'   => $settings->get('forum.stat_ministers', '+20'),
-            'stat_roundtables' => $settings->get('forum.stat_roundtables', '2'),
-            'stat_panels'      => $settings->get('forum.stat_panels', '5+'),
-        ];
+        
+        $cachedData = \Illuminate\Support\Facades\Cache::remember('asf_homepage_payload_' . $locale, 120, function () use ($locale) {
+            $skills = Skill::where('is_active', true)->limit(6)->get();
+            if ($skills->isEmpty()) {
+                $skills = Skill::limit(6)->get();
+            }
 
-        return view('livewire.public.home', [
-            'skills'                 => $skills,
-            'news'                   => $news,
-            'albums'                 => $albums,
-            'videos'                 => $videos,
-            'featuredVideoThumbUrl'  => $featuredVideoThumbUrl,
-            'partners'               => $partners,
-            'heroSlidesJson'         => $heroSlidesJson,
-            'heroMode'               => $heroMode,
-            'forumData'              => $forumData,
-        ]);
+            $news = NewsArticle::where('status', 'PUBLISHED')->orderBy('published_at', 'desc')->limit(3)->get();
+            if ($news->isEmpty()) {
+                $news = NewsArticle::orderBy('created_at', 'desc')->limit(3)->get();
+            }
+
+            $albums = Album::with(['coverMedia', 'mediaItems'])->where('status', 'PUBLISHED')->orderBy('published_at', 'desc')->limit(3)->get();
+            if ($albums->isEmpty()) {
+                $albums = Album::with(['coverMedia', 'mediaItems'])->orderBy('created_at', 'desc')->limit(3)->get();
+            }
+
+            $videos = Video::where('status', 'PUBLISHED')->orderBy('published_at', 'desc')->limit(3)->get();
+            if ($videos->isEmpty()) {
+                $videos = Video::orderBy('created_at', 'desc')->limit(3)->get();
+            }
+
+            $featuredVideo = $videos->first();
+            $featuredVideoThumbUrl = null;
+            if ($featuredVideo) {
+                if ($featuredVideo->thumbnail_path) {
+                    $featuredVideoThumbUrl = $featuredVideo->thumbnail_path;
+                } elseif ($featuredVideo->youtube_id) {
+                    $featuredVideoThumbUrl = 'https://img.youtube.com/vi/' . $featuredVideo->youtube_id . '/mqdefault.jpg';
+                }
+            }
+
+            $partners = Partner::where('status', 'ACTIVE')->where('is_featured', true)->orderBy('sort_order')->orderBy('name_ar')->get();
+
+            $heroSlide1 = platform()->get('hero_slide_1', '/image.png');
+            $heroSlides = collect([!empty($heroSlide1) ? $heroSlide1 : '/image.png'])
+                ->filter(function($s) { return !empty($s); })
+                ->values()
+                ->all();
+            $heroSlidesJson = json_encode(array_map('url', $heroSlides));
+            $heroMode = platform()->get('hero_bg_mode', 'image');
+
+            $settings = app(SettingsEngine::class);
+            $forumData = [
+                'name'             => $settings->get("forum.name_{$locale}"),
+                'slogan'           => $settings->get("forum.slogan_{$locale}"),
+                'dates'            => $settings->get("forum.dates_{$locale}"),
+                'principle'        => $settings->get("forum.principle_{$locale}"),
+                'description'      => $settings->get("forum.description_{$locale}"),
+                'stat_countries'   => $settings->get('forum.stat_countries', '+30'),
+                'stat_ministers'   => $settings->get('forum.stat_ministers', '+20'),
+                'stat_roundtables' => $settings->get('forum.stat_roundtables', '2'),
+                'stat_panels'      => $settings->get('forum.stat_panels', '5+'),
+            ];
+
+            return [
+                'skills'                 => $skills,
+                'news'                   => $news,
+                'albums'                 => $albums,
+                'videos'                 => $videos,
+                'featuredVideoThumbUrl'  => $featuredVideoThumbUrl,
+                'partners'               => $partners,
+                'heroSlidesJson'         => $heroSlidesJson,
+                'heroMode'               => $heroMode,
+                'forumData'              => $forumData,
+            ];
+        });
+
+        return view('livewire.public.home', $cachedData);
     }
 }
