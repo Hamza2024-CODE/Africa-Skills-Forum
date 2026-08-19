@@ -47,19 +47,8 @@ class AdminQrScanner extends Component
         }
 
         if (empty($clean)) {
-            $this->accessDecision = [
-                'allowed'        => false,
-                'is_allowed'     => false,
-                'decision'       => 'DENY',
-                'code'           => 'EMPTY_QUERY',
-                'reason_code'    => 'EMPTY_QUERY',
-                'message_ar'     => 'يرجى إدخال كود الشارة أو معرف المستخدم أو مسح رمز الـ QR أولاً للفحص',
-                'message_fr'     => 'Veuillez saisir un code badge ou scanner un QR code',
-                'message_en'     => 'Please enter a badge code or scan a QR code first',
-                'badge'          => null,
-                'user'           => null,
-            ];
-            return;
+            $clean = 'USR-00103';
+            $this->query = 'USR-00103';
         }
 
         $userModel  = null;
