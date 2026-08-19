@@ -13,10 +13,6 @@ class AntiPassbackEngine
     public function isPassbackViolation(Badge $badge, string $serviceType, ?string $serviceId = null, int $bufferMinutes = 5): bool
     {
         try {
-            if (!\Illuminate\Support\Facades\Schema::hasTable('access_decision_logs')) {
-                return false;
-            }
-
             $windowStart = now()->subMinutes($bufferMinutes);
 
             return AccessDecisionLog::where('badge_id', $badge->id)
