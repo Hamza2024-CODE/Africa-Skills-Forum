@@ -28,18 +28,17 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
              }
 
              let s = null;
-             const constraintsList = [
-                 { video: { facingMode: { exact: 'environment' } } },
-                 { video: { facingMode: 'environment' } },
-                 { video: { facingMode: 'user' } },
-                 { video: true }
-             ];
-
-             for (const c of constraintsList) {
+             try {
+                 s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+             } catch (e1) {
                  try {
-                     s = await navigator.mediaDevices.getUserMedia(c);
-                     if (s) break;
-                 } catch (e) {}
+                     s = await navigator.mediaDevices.getUserMedia({ video: true });
+                 } catch (e2) {
+                     console.error('Camera access error:', e2);
+                     this.cameraError = true;
+                     this.cameraOpen = false;
+                     return;
+                 }
              }
 
              if (!s) {
