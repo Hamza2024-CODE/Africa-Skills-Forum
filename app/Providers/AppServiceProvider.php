@@ -23,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        if (app()->environment('production') || str_starts_with(config('app.url'), 'https://') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
         Gate::policy(Country::class, CountryPolicy::class);
         Gate::policy(CountryDelegation::class, DelegationPolicy::class);
         Gate::policy(Registration::class, ParticipantPolicy::class);
