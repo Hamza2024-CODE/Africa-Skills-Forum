@@ -24,9 +24,13 @@ class AdminQrScanner extends Component
     public bool              $showOverrideModal  = false;
     public string            $overrideReasonAr   = '';
 
-    public function scan(?string $scannedCode = null, ?WsapAccessRulesEngine $rulesEngine = null): void
+    public function scan(mixed $scannedCode = null, ?WsapAccessRulesEngine $rulesEngine = null): void
     {
         $rulesEngine ??= app(WsapAccessRulesEngine::class);
+
+        if (is_string($scannedCode) && trim($scannedCode) !== '') {
+            $this->query = trim($scannedCode);
+        }
 
         $this->scannedUser      = null;
         $this->scannedBadge     = null;
@@ -35,7 +39,7 @@ class AdminQrScanner extends Component
         $this->zonePermissions  = [];
         $this->accessDecision   = [];
 
-        $clean = trim($scannedCode ?: $this->query);
+        $clean = $rulesEngine->extractCleanIdentifier($this->query);
 
         if (empty($clean)) {
             $this->accessDecision = [
@@ -51,25 +55,6 @@ class AdminQrScanner extends Component
                 'user'           => null,
             ];
             return;
-        }
-
-        // Extract token or identifier if a full URL is scanned
-        if (str_contains($clean, 'http://') || str_contains($clean, 'https://')) {
-            $parsedUrl = parse_url($clean);
-            if (isset($parsedUrl['query'])) {
-                parse_str($parsedUrl['query'], $queryParams);
-                $extracted = $queryParams['token'] ?? $queryParams['query'] ?? $queryParams['reg'] ?? $queryParams['identifier'] ?? null;
-                if (!empty($extracted)) {
-                    $clean = trim($extracted);
-                }
-            }
-            if (isset($parsedUrl['path'])) {
-                $segments = array_filter(explode('/', $parsedUrl['path']));
-                $lastSegment = end($segments);
-                if ($lastSegment && !in_array($lastSegment, ['verify', 'badge', 'certificate', 'accreditation'])) {
-                    $clean = rawurldecode($lastSegment);
-                }
-            }
         }
 
         // Evaluate access rules via central engine

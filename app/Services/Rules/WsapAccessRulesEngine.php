@@ -26,6 +26,47 @@ class WsapAccessRulesEngine
     }
 
     /**
+     * Extract clean badge identifier from JSON, URL parameters, or raw string.
+     */
+    public function extractCleanIdentifier(string $raw): string
+    {
+        $clean = trim($raw);
+        if (empty($clean)) return '';
+
+        // In case QR code content is a JSON payload
+        if (str_starts_with($clean, '{') && str_ends_with($clean, '}')) {
+            $json = json_decode($clean, true);
+            if (is_array($json)) {
+                foreach (['badge_uuid', 'uuid', 'access_token', 'token', 'id', 'user_id', 'email', 'registration_number'] as $key) {
+                    if (!empty($json[$key])) return trim((string) $json[$key]);
+                }
+            }
+        }
+
+        // In case QR code content is a URL
+        if (filter_var($clean, FILTER_VALIDATE_URL) || str_contains($clean, 'http://') || str_contains($clean, 'https://')) {
+            $parsed = parse_url($clean);
+            if (isset($parsed['query'])) {
+                parse_str($parsed['query'], $queryParams);
+                foreach (['identifier', 'token', 'badge', 'id', 'uuid', 'code', 'query', 'reg'] as $key) {
+                    if (!empty($queryParams[$key])) return trim((string) $queryParams[$key]);
+                }
+            }
+            if (isset($parsed['path'])) {
+                $segments = array_filter(explode('/', rtrim($parsed['path'], '/')));
+                if (!empty($segments)) {
+                    $lastSegment = end($segments);
+                    if (!empty($lastSegment) && !in_array($lastSegment, ['verify', 'badge', 'certificate', 'accreditation'])) {
+                        return trim(rawurldecode($lastSegment));
+                    }
+                }
+            }
+        }
+
+        return $clean;
+    }
+
+    /**
      * Universal access evaluation pipeline in WSAP V8.4.
      */
     public function evaluateAccess(
@@ -35,26 +76,7 @@ class WsapAccessRulesEngine
         ?int $zoneId = null,
         ?string $scannerUserId = null
     ): array {
-        $cleanBadge = trim((string) $badgeIdentifier);
-
-        // Extract token or identifier if full URL passed
-        if (str_contains($cleanBadge, 'http://') || str_contains($cleanBadge, 'https://')) {
-            $parsedUrl = parse_url($cleanBadge);
-            if (isset($parsedUrl['query'])) {
-                parse_str($parsedUrl['query'], $queryParams);
-                $extracted = $queryParams['token'] ?? $queryParams['query'] ?? $queryParams['reg'] ?? $queryParams['identifier'] ?? null;
-                if (!empty($extracted)) {
-                    $cleanBadge = trim($extracted);
-                }
-            }
-            if (isset($parsedUrl['path'])) {
-                $segments = array_filter(explode('/', $parsedUrl['path']));
-                $lastSegment = end($segments);
-                if ($lastSegment && !in_array($lastSegment, ['verify', 'badge', 'certificate', 'accreditation'])) {
-                    $cleanBadge = rawurldecode($lastSegment);
-                }
-            }
-        }
+        $cleanBadge = $this->extractCleanIdentifier((string) $badgeIdentifier);
 
         // 1. Emergency Lockdown Check
         if ($serviceType && $this->emergencyService->isScopeLockedDown($serviceType, $serviceId)) {

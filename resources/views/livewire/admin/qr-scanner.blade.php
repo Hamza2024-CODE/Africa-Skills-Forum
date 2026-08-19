@@ -3,134 +3,156 @@ $locale = app()->getLocale();
 $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => $ar };
 @endphp
 
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 
 <div class="max-w-4xl mx-auto space-y-6 pb-12"
     x-data="{
          cameraOpen: false,
-         cameraError: false,
-         stream: null,
-         animFrame: null,
-         scanCanvas: null,
-         scanCtx: null,
-         async startCamera() {
-             if (this.cameraOpen) {
-                 this.stopCamera();
-                 return;
-             }
-             this.cameraOpen = true;
-             this.cameraError = false;
+         html5Qrcode: null,
+         cameras: [],
+         selectedCameraId: null,
+         isScanning: false,
+         lastScannedCode: null,
+         errorMessage: null,
 
-             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                 this.cameraError = true;
-                 this.cameraOpen = false;
-                 return;
-             }
-
-             let s = null;
+         playBeep(success = true) {
              try {
-                 s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-             } catch (e1) {
-                 try {
-                     s = await navigator.mediaDevices.getUserMedia({ video: true });
-                 } catch (e2) {
-                     console.error('Camera access error:', e2);
-                     this.cameraError = true;
-                     this.cameraOpen = false;
-                     return;
+                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                 const osc = ctx.createOscillator();
+                 const gain = ctx.createGain();
+                 osc.type = 'sine';
+                 osc.frequency.setValueAtTime(success ? 880 : 300, ctx.currentTime);
+                 gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                 gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+                 osc.connect(gain);
+                 gain.connect(ctx.destination);
+                 osc.start();
+                 osc.stop(ctx.currentTime + 0.25);
+
+                 if (navigator.vibrate) {
+                     navigator.vibrate(success ? [100, 50, 100] : [300]);
                  }
-             }
+             } catch (e) {}
+         },
 
-             if (!s) {
-                 this.cameraError = true;
-                 this.cameraOpen = false;
-                 return;
-             }
-
-             this.stream = s;
+         async startCamera() {
+             this.errorMessage = null;
              this.cameraOpen = true;
 
-             this.$nextTick(async () => {
-                 const video = this.$refs.scanVideo;
-                 if (video) {
-                     video.setAttribute('playsinline', 'true');
-                     video.setAttribute('webkit-playsinline', 'true');
-                     video.setAttribute('muted', 'true');
-                     video.muted = true;
-                     video.srcObject = s;
-                     await video.play().catch(() => {});
+             await this.$nextTick();
+
+             const qrRegion = document.getElementById('qr-reader');
+             if (!qrRegion) return;
+
+             try {
+                 if (typeof Html5Qrcode === 'undefined') {
+                     await this.loadHtml5QrcodeScript();
                  }
 
-                 if (!this.scanCanvas) {
-                     this.scanCanvas = document.createElement('canvas');
-                     this.scanCtx = this.scanCanvas.getContext('2d', { willReadFrequently: true });
+                 if (!this.html5Qrcode) {
+                     this.html5Qrcode = new Html5Qrcode('qr-reader');
                  }
 
-                 let detector = null;
-                 if ('BarcodeDetector' in window) {
-                     try { detector = new BarcodeDetector({ formats: ['qr_code'] }); } catch (de) {}
+                 try {
+                     this.cameras = await Html5Qrcode.getCameras();
+                 } catch (e) {
+                     this.cameras = [];
                  }
 
-                 let isProcessing = false;
-
-                 const processScannedData = (decodedData) => {
-                     if (!decodedData || isProcessing) return;
-                     isProcessing = true;
-                     const cleanVal = decodedData.trim();
-                     if (cleanVal.length > 0) {
-                         $wire.set('query', cleanVal);
-                         $wire.scan(cleanVal);
-                         this.stopCamera();
-                         return true;
+                 let cameraConfig = { facingMode: 'environment' };
+                 if (this.selectedCameraId) {
+                     cameraConfig = { deviceId: { exact: this.selectedCameraId } };
+                 } else if (this.cameras && this.cameras.length > 0) {
+                     const backCam = this.cameras.find(c =>
+                         c.label.toLowerCase().includes('back') ||
+                         c.label.toLowerCase().includes('rear') ||
+                         c.label.toLowerCase().includes('environment')
+                     );
+                     if (backCam) {
+                         this.selectedCameraId = backCam.id;
+                         cameraConfig = { deviceId: { exact: backCam.id } };
                      }
-                     isProcessing = false;
-                     return false;
+                 }
+
+                 const config = {
+                     fps: 15,
+                     qrbox: { width: 250, height: 250 },
+                     aspectRatio: 1.0,
                  };
 
-                 const scanLoop = () => {
-                     if (!this.cameraOpen) return;
-
-                     const videoEl = this.$refs.scanVideo || video;
-                     if (videoEl && videoEl.readyState >= 2) {
-                         if (detector) {
-                             detector.detect(videoEl).then(codes => {
-                                 if (codes.length > 0 && codes[0].rawValue) {
-                                     if (processScannedData(codes[0].rawValue)) return;
-                                 }
-                             }).catch(() => {});
-                         }
-
-                         let w = videoEl.videoWidth || 640;
-                         let h = videoEl.videoHeight || 480;
-                         const maxDim = 640;
-                         if (w > maxDim) {
-                             h = Math.round((h * maxDim) / w);
-                             w = maxDim;
-                         }
-                         this.scanCanvas.width = w;
-                         this.scanCanvas.height = h;
-                         this.scanCtx.drawImage(videoEl, 0, 0, w, h);
-                         const imageData = this.scanCtx.getImageData(0, 0, w, h);
-
-                         if (typeof jsQR !== 'undefined') {
-                             const code = jsQR(imageData.data, imageData.width, imageData.height, {
-                                 inversionAttempts: 'attemptBoth',
-                             });
-                             if (code && code.data) {
-                                 if (processScannedData(code.data)) return;
-                             }
-                         }
+                 await this.html5Qrcode.start(
+                     cameraConfig,
+                     config,
+                     (decodedText) => {
+                         if (this.lastScannedCode === decodedText) return;
+                         this.lastScannedCode = decodedText;
+                         this.playBeep(true);
+                         $wire.set('query', decodedText);
+                         $wire.scan(decodedText);
+                         setTimeout(() => { this.lastScannedCode = null; }, 2500);
+                     },
+                     () => {}
+                 );
+                 this.isScanning = true;
+             } catch (err) {
+                 console.error('Html5Qrcode start error:', err);
+                 try {
+                     if (this.html5Qrcode && !this.isScanning) {
+                         await this.html5Qrcode.start(
+                             { facingMode: 'user' },
+                             { fps: 10, qrbox: { width: 250, height: 250 } },
+                             (decodedText) => {
+                                 if (this.lastScannedCode === decodedText) return;
+                                 this.lastScannedCode = decodedText;
+                                 this.playBeep(true);
+                                 $wire.set('query', decodedText);
+                                 $wire.scan(decodedText);
+                                 setTimeout(() => { this.lastScannedCode = null; }, 2500);
+                             },
+                             () => {}
+                         );
+                         this.isScanning = true;
+                         return;
                      }
+                 } catch (fallbackErr) {}
 
-                     this.animFrame = requestAnimationFrame(scanLoop);
-                 };
-                 scanLoop();
-             });
+                 this.errorMessage = '{{ $t('تعذر فتح الكاميرا: يرجى التأكد من السماح بصلاحيات الكاميرا في المتصفح، أو استخدام إدخال الكود يدويًا.', 'Impossible d\'ouvrir la caméra.', 'Unable to open camera.') }}';
+                 this.cameraOpen = false;
+             }
          },
+
+         async stopCamera() {
+             if (this.html5Qrcode && this.isScanning) {
+                 try {
+                     await this.html5Qrcode.stop();
+                 } catch (e) {}
+             }
+             this.isScanning = false;
+             this.cameraOpen = false;
+         },
+
          scanImageFile(event) {
              const file = event.target.files[0];
              if (!file) return;
 
+             if (typeof Html5Qrcode !== 'undefined') {
+                 const html5QrCodeScanner = new Html5Qrcode('qr-reader-file');
+                 html5QrCodeScanner.scanFile(file, true)
+                     .then(decodedText => {
+                         this.playBeep(true);
+                         $wire.set('query', decodedText);
+                         $wire.scan(decodedText);
+                     })
+                     .catch(err => {
+                         this.scanImageFileFallback(file);
+                     });
+                 return;
+             }
+             this.scanImageFileFallback(file);
+         },
+
+         scanImageFileFallback(file) {
              const reader = new FileReader();
              reader.onload = (e) => {
                  const img = new Image();
@@ -142,11 +164,10 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                      ctx.drawImage(img, 0, 0);
                      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                      if (typeof jsQR !== 'undefined') {
-                         const code = jsQR(imageData.data, imageData.width, imageData.height, {
-                             inversionAttempts: 'attemptBoth',
-                         });
+                         const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'attemptBoth' });
                          if (code && code.data && code.data.trim().length > 0) {
                              const cleanVal = code.data.trim();
+                             this.playBeep(true);
                              $wire.set('query', cleanVal);
                              $wire.scan(cleanVal);
                              return;
@@ -158,12 +179,20 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
              };
              reader.readAsDataURL(file);
          },
-         stopCamera() {
-             if (this.animFrame) cancelAnimationFrame(this.animFrame);
-             if (this.stream) this.stream.getTracks().forEach(t => t.stop());
-             this.cameraOpen = false;
+
+         loadHtml5QrcodeScript() {
+             return new Promise((resolve, reject) => {
+                 if (typeof Html5Qrcode !== 'undefined') return resolve();
+                 const script = document.createElement('script');
+                 script.src = 'https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js';
+                 script.onload = resolve;
+                 script.onerror = reject;
+                 document.head.appendChild(script);
+             });
          }
      }">
+
+    <div id="qr-reader-file" class="hidden"></div>
 
     {{-- HEADER --}}
     <div class="flex items-center justify-between bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-700 shadow-sm">
@@ -195,7 +224,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                 {{ $t('امسح الكود بالكاميرا المباشرة أو أدخل كود الشارة / UUID يدوياً *', 'Scannez le QR avec la caméra ou saisissez le code/UUID manuellement *', 'Scan QR via live camera or enter Badge UUID manually *') }}
             </label>
             <div class="flex items-center gap-2 flex-wrap">
-                <button type="button" @click="startCamera()"
+                <button type="button" @click="cameraOpen ? stopCamera() : startCamera()"
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border text-xs font-black transition shadow-xs bg-slate-50 hover:bg-[#06205C] hover:text-white border-slate-200 text-slate-700">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
@@ -212,34 +241,19 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
             </div>
         </div>
 
-        {{-- CAMERA ERROR INLINE GUIDANCE BANNER --}}
-        <div x-show="cameraError" x-cloak style="display: none;" class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs space-y-2">
+        {{-- CAMERA ERROR INLINE BANNER --}}
+        <div x-show="errorMessage" x-cloak style="display: none;" class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs space-y-2">
             <div class="flex items-center gap-2 font-black text-amber-800 dark:text-amber-300">
                 <svg class="w-5 h-5 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                <span>{{ $t('تعذر تفعيل الكاميرا المباشرة من هذا المتصفح / التطبيق', 'Impossible d\'activer la caméra depuis ce navigateur', 'Unable to activate camera from this browser') }}</span>
+                <span x-text="errorMessage"></span>
             </div>
-            <p class="leading-relaxed font-medium">
-                {{ $t('يرجى السماح لصلاحيات الكاميرا في إعدادات المتصفح، أو فتح الصفحة في المتصفح الأساسي (Safari / Chrome)، أو استخدام زر "رفع صورة QR للتثبت" أدناه أو الإدخال اليدوي.', 'Veuillez autoriser la caméra dans les paramètres ou utiliser l\'option "Uploader Image QR".', 'Please allow camera permissions in browser settings or use "Upload QR Image" option below.') }}
-            </p>
         </div>
 
-        {{-- CAMERA FEED --}}
+        {{-- HTML5-QRCODE FEED CONTAINER --}}
         <div x-show="cameraOpen" x-transition class="space-y-3 pt-2">
-            <div class="relative w-full max-w-sm mx-auto aspect-square rounded-3xl overflow-hidden border-2 border-[#06205C]/30 shadow-xl bg-slate-900">
-                <video x-ref="scanVideo" autoplay playsinline webkit-playsinline muted class="w-full h-full object-cover"></video>
-                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div class="relative w-48 h-48">
-                        <span class="absolute top-0 start-0 w-8 h-8 border-t-4 border-s-4 border-[#06205C] rounded-tl-xl"></span>
-                        <span class="absolute top-0 end-0 w-8 h-8 border-t-4 border-e-4 border-[#06205C] rounded-tr-xl"></span>
-                        <span class="absolute bottom-0 start-0 w-8 h-8 border-b-4 border-s-4 border-[#06205C] rounded-bl-xl"></span>
-                        <span class="absolute bottom-0 end-0 w-8 h-8 border-b-4 border-e-4 border-[#06205C] rounded-br-xl"></span>
-                    </div>
-                </div>
-                <div class="absolute bottom-4 inset-x-0 text-center">
-                    <span class="inline-block px-4 py-1.5 bg-black/60 backdrop-blur-md text-white text-xs font-bold rounded-full">
-                        {{ $t('وجّه كاميرا الجهاز نحو كود الـ QR', 'Orientez la caméra vers le code QR', 'Point camera towards the QR code') }}
-                    </span>
-                </div>
+            <div class="relative w-full max-w-sm mx-auto rounded-3xl overflow-hidden border-2 border-[#06205C]/30 shadow-xl bg-slate-950">
+                <div id="qr-reader" class="w-full min-h-[280px]"></div>
+                <div x-show="isScanning" class="absolute inset-x-0 top-1/2 h-0.5 bg-emerald-400 shadow-[0_0_15px_#10b981] animate-pulse pointer-events-none"></div>
             </div>
         </div>
 
