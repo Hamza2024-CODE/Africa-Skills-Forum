@@ -1,5 +1,8 @@
 @php
 $locale = app()->getLocale();
+$t = function($ar, $fr, $en) use ($locale) { 
+    return $locale === 'fr' ? $fr : ($locale === 'en' ? $en : $ar); 
+};
 $ministerGallery = [
     asset('images/news/minister_interview/news_minister_1.png'),
     asset('images/news/minister_interview/news_minister_2.png'),
@@ -30,8 +33,6 @@ $ministerGallery = [
 
             {{-- Header Content --}}
             <div class="relative z-10 text-center max-w-3xl mx-auto space-y-5">
-
-
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-2xl">
                     {{ $t('مستجدات وإعلانات منتدى المهارات الإفريقية', 'Actualités & Communiqués Officiels — ASF', 'Africa Skills Forum News & Official Announcements') }}
                 </h1>
@@ -43,7 +44,43 @@ $ministerGallery = [
 
         <!-- News Cards Grid (Glassmorphism & White/Blue Theme) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-                        </svg>
+            @forelse ($articles as $article)
+                <div class="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-xl hover:shadow-2xl transition duration-300 flex flex-col group">
+                    <div class="relative h-64 overflow-hidden bg-slate-950">
+                        <img src="{{ $article->cover_url }}" alt="{{ $article->getLocalized('title') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                        <div class="absolute top-4 start-4">
+                            <span class="px-3.5 py-1 rounded-full bg-[#0066FF] text-white font-black text-[11px] uppercase tracking-wider shadow-sm">
+                                {{ $article->category === 'press_conference' ? 'ندوة صحفية' : ($article->category === 'interview' ? 'حوار خاص' : 'إعلان') }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 sm:p-8 flex-grow flex flex-col justify-between space-y-4">
+                        <div class="space-y-3">
+                            <div class="text-xs text-slate-400 font-mono font-bold">
+                                {{ optional($article->published_at)->format('Y-m-d') }}
+                            </div>
+                            <h3 class="text-xl font-black text-[#06205C] group-hover:text-[#0066FF] transition line-clamp-2">
+                                {{ $article->getLocalized('title') }}
+                            </h3>
+                            <p class="text-xs sm:text-sm text-slate-600 font-medium line-clamp-3 leading-relaxed">
+                                {{ $article->getLocalized('excerpt') ?: Str::limit(strip_tags($article->getLocalized('content')), 140) }}
+                            </p>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                            <button wire:click="openArticle({{ $article->id }})" type="button" class="px-5 py-2.5 rounded-xl bg-blue-50 hover:bg-[#0066FF] text-[#0066FF] hover:text-white font-bold text-xs transition cursor-pointer flex items-center gap-2">
+                                <span>{{ $t('قراءة المزيد والتفاصيل', 'Lire la suite', 'Read More') }}</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="col-span-full p-16 text-center text-slate-400 bg-white rounded-3xl border border-slate-200 text-xs font-bold space-y-3">
+                    <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
                     </div>
                     <p>{{ $t('لا توجد مستجدات منشورة حالياً.', 'Aucune actualité publiée pour le moment.', 'No published news at the moment.') }}</p>
                 </div>
