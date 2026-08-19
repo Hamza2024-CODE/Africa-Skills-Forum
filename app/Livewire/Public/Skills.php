@@ -46,8 +46,15 @@ class Skills extends Component
                 $this->selectedSkillEquipments = collect();
             }
             
-            if (preg_match('/(?:SKILL|TD)-?(\d+)/i', $this->selectedSkill->code, $m)) {
-                $prefix = 'td' . str_pad($m[1], 2, '0', STR_PAD_LEFT) . '_';
+            $num = null;
+            if (!empty($this->selectedSkill->code) && preg_match('/(\d+)/', (string) $this->selectedSkill->code, $m)) {
+                $num = (int) $m[1];
+            } elseif (!empty($this->selectedSkill->id)) {
+                $num = (int) $this->selectedSkill->id;
+            }
+
+            if ($num) {
+                $prefix = 'td' . str_pad($num, 2, '0', STR_PAD_LEFT) . '_';
                 $this->selectedGuideSection = \App\Models\GuideSection::where('section_key', 'like', $prefix . '%')->first();
             } else {
                 $this->selectedGuideSection = null;
@@ -61,8 +68,15 @@ class Skills extends Component
     {
         $this->selectedSkill = $this->findSkillWithRelations($skillId);
         if ($this->selectedSkill) {
-            if (preg_match('/(?:SKILL|TD)-?(\d+)/i', $this->selectedSkill->code, $m)) {
-                $prefix = 'td' . str_pad($m[1], 2, '0', STR_PAD_LEFT) . '_';
+            $num = null;
+            if (!empty($this->selectedSkill->code) && preg_match('/(\d+)/', (string) $this->selectedSkill->code, $m)) {
+                $num = (int) $m[1];
+            } elseif (!empty($this->selectedSkill->id)) {
+                $num = (int) $this->selectedSkill->id;
+            }
+
+            if ($num) {
+                $prefix = 'td' . str_pad($num, 2, '0', STR_PAD_LEFT) . '_';
                 $this->selectedGuideSection = \App\Models\GuideSection::where('section_key', 'like', $prefix . '%')->first();
             } else {
                 $this->selectedGuideSection = null;
