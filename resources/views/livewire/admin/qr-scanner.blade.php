@@ -173,6 +173,16 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                 </button>
             </div>
         </form>
+
+        <!-- QUICK TEST DELEGATION BUTTONS -->
+        <div class="pt-2 flex flex-wrap items-center gap-1.5 border-t border-slate-100 dark:border-slate-700/60">
+            <span class="text-[11px] font-bold text-slate-400">اختبار الفحص السريع:</span>
+            <button type="button" wire:click="scan('USR-00103')" class="px-2.5 py-1 rounded-xl bg-blue-50 text-blue-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-blue-200">🇲🇷 موريتانيا (103)</button>
+            <button type="button" wire:click="scan('USR-00104')" class="px-2.5 py-1 rounded-xl bg-emerald-50 text-emerald-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-emerald-200">🇲🇿 موزمبيق (104)</button>
+            <button type="button" wire:click="scan('USR-00105')" class="px-2.5 py-1 rounded-xl bg-purple-50 text-purple-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-purple-200">🇳🇦 ناميبيا (105)</button>
+            <button type="button" wire:click="scan('USR-00106')" class="px-2.5 py-1 rounded-xl bg-amber-50 text-amber-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-amber-200">🇳🇬 نيجيريا (106)</button>
+            <button type="button" wire:click="scan('USR-00098')" class="px-2.5 py-1 rounded-xl bg-rose-50 text-rose-900 hover:bg-[#06205C] hover:text-white text-[11px] font-black transition border border-rose-200">🇲🇱 مالي (98)</button>
+        </div>
     </div>
 
     <!-- ACCREDITED USER INFORMATION DOSSIER CARD -->
