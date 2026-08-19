@@ -50,6 +50,13 @@ class PlatformAppearanceManager extends Component
     public string $coming_soon_subtitle_fr = '';
     public string $coming_soon_subtitle_en = '';
 
+    public string $previewDevice = 'desktop';
+
+    public mixed $site_logo_file = null;
+    public mixed $favicon_file = null;
+    public mixed $hero_banner_file = null;
+    public mixed $accreditation_banner_file = null;
+
     public string $savedMessage = '';
     public string $errorMessage = '';
 
