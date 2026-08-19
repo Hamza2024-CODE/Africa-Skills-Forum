@@ -15,6 +15,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
          isScanning: false,
          lastScannedCode: null,
          errorMessage: null,
+         mediaStream: null,
 
          playBeep(success = true) {
              try {
@@ -42,81 +43,49 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
 
              await this.$nextTick();
 
-             const qrRegion = document.getElementById('qr-reader');
-             if (!qrRegion) return;
+             const videoEl = document.getElementById('camera-video-preview');
+             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                 try {
+                     const stream = await navigator.mediaDevices.getUserMedia({
+                         video: { facingMode: { ideal: 'environment' } }
+                     });
+                     if (videoEl) {
+                         videoEl.srcObject = stream;
+                         await videoEl.play();
+                     }
+                     this.mediaStream = stream;
+                     this.isScanning = true;
+                 } catch (e) {
+                     console.warn('Native getUserMedia warning:', e);
+                 }
+             }
 
              try {
-                 if (typeof Html5Qrcode === 'undefined') {
-                     await this.loadHtml5QrcodeScript();
-                 }
-
-                 if (!this.html5Qrcode) {
-                     this.html5Qrcode = new Html5Qrcode('qr-reader');
-                 }
-
-                 try {
-                     this.cameras = await Html5Qrcode.getCameras();
-                 } catch (e) {
-                     this.cameras = [];
-                 }
-
-                 let cameraConfig = { facingMode: 'environment' };
-                 if (this.selectedCameraId) {
-                     cameraConfig = { deviceId: { exact: this.selectedCameraId } };
-                 } else if (this.cameras && this.cameras.length > 0) {
-                     const backCam = this.cameras.find(c =>
-                         c.label.toLowerCase().includes('back') ||
-                         c.label.toLowerCase().includes('rear') ||
-                         c.label.toLowerCase().includes('environment')
-                     );
-                     if (backCam) {
-                         this.selectedCameraId = backCam.id;
-                         cameraConfig = { deviceId: { exact: backCam.id } };
+                 if (typeof Html5Qrcode !== 'undefined') {
+                     if (!this.html5Qrcode) {
+                         this.html5Qrcode = new Html5Qrcode('qr-reader');
                      }
+                     await this.html5Qrcode.start(
+                         { facingMode: 'environment' },
+                         { fps: 15, qrbox: { width: 250, height: 250 } },
+                         (decodedText) => {
+                             if (this.lastScannedCode === decodedText) return;
+                             this.lastScannedCode = decodedText;
+                             this.playBeep(true);
+                             $wire.scan(decodedText);
+                             this.stopCamera();
+                         },
+                         () => {}
+                     );
+                     this.isScanning = true;
+                     return;
                  }
-
-                 const config = {
-                     fps: 15,
-                     qrbox: { width: 250, height: 250 },
-                     aspectRatio: 1.0,
-                 };
-
-                 await this.html5Qrcode.start(
-                     cameraConfig,
-                     config,
-                     (decodedText) => {
-                         if (this.lastScannedCode === decodedText) return;
-                         this.lastScannedCode = decodedText;
-                         this.playBeep(true);
-                         $wire.scan(decodedText);
-                         this.stopCamera();
-                     },
-                     () => {}
-                 );
-                 this.isScanning = true;
              } catch (err) {
                  console.error('Html5Qrcode start error:', err);
-                 try {
-                     if (this.html5Qrcode && !this.isScanning) {
-                         await this.html5Qrcode.start(
-                             { facingMode: 'user' },
-                             { fps: 10, qrbox: { width: 250, height: 250 } },
-                             (decodedText) => {
-                                 if (this.lastScannedCode === decodedText) return;
-                                 this.lastScannedCode = decodedText;
-                                 this.playBeep(true);
-                                 $wire.scan(decodedText);
-                                 this.stopCamera();
-                             },
-                             () => {}
-                         );
-                         this.isScanning = true;
-                         return;
-                     }
-                 } catch (fallbackErr) {}
+             }
 
-                 this.errorMessage = '{{ $t('تعذر فتح الكاميرا: يرجى التأكد من السماح بصلاحيات الكاميرا في المتصفح، أو استخدام إدخال الكود يدويًا.', 'Impossible d\'ouvrir la caméra.', 'Unable to open camera.') }}';
-                 this.cameraOpen = false;
+             if (!this.isScanning) {
+                 this.errorMessage = '{{ $t('تعذر فتح الكاميرا: يرجى السماح بصلاحيات الكاميرا في إعدادات المتصفح، أو فتح الصفحة في المتصفح الأساسي (Safari / Chrome).', 'Impossible d\'ouvrir la caméra.', 'Unable to open camera.') }}';
              }
          },
 
@@ -125,6 +94,12 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                  try {
                      await this.html5Qrcode.stop();
                  } catch (e) {}
+             }
+             if (this.mediaStream) {
+                 try {
+                     this.mediaStream.getTracks().forEach(track => track.stop());
+                 } catch (e) {}
+                 this.mediaStream = null;
              }
              this.isScanning = false;
              this.cameraOpen = false;
@@ -245,11 +220,12 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
             </div>
         </div>
 
-        {{-- HTML5-QRCODE FEED CONTAINER --}}
+        {{-- DUAL-ENGINE CAMERA FEED CONTAINER --}}
         <div x-show="cameraOpen" x-transition class="space-y-3 pt-2">
-            <div class="relative w-full max-w-sm mx-auto rounded-3xl overflow-hidden border-2 border-[#06205C]/30 shadow-xl bg-slate-950">
-                <div id="qr-reader" class="w-full min-h-[280px]"></div>
-                <div x-show="isScanning" class="absolute inset-x-0 top-1/2 h-0.5 bg-emerald-400 shadow-[0_0_15px_#10b981] animate-pulse pointer-events-none"></div>
+            <div class="relative w-full max-w-sm mx-auto rounded-3xl overflow-hidden border-2 border-[#06205C]/30 shadow-xl bg-slate-950 min-h-[280px] flex items-center justify-center">
+                <video id="camera-video-preview" autoplay playsinline class="w-full h-full object-cover absolute inset-0"></video>
+                <div id="qr-reader" class="w-full min-h-[280px] relative z-10"></div>
+                <div x-show="isScanning" class="absolute inset-x-0 top-1/2 h-0.5 bg-emerald-400 shadow-[0_0_15px_#10b981] animate-pulse pointer-events-none z-20"></div>
             </div>
         </div>
 
