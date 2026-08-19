@@ -125,6 +125,7 @@ Route::match(['get', 'post'], '/lang/{locale}', function (string $locale, \Illum
         session(['locale' => $locale]);
         session()->save();
         app()->setLocale($locale);
+        cookie()->queue(cookie()->forever('app_locale', $locale));
         if ($user = auth()->user()) {
             $user->update(['locale' => $locale]);
         }
@@ -135,12 +136,27 @@ Route::match(['get', 'post'], '/lang/{locale}', function (string $locale, \Illum
         $back = route('home');
     }
 
+    // Rewrite query string so ?lang= matches target locale
+    $parsedUrl = parse_url($back);
+    $queryParams = [];
+    if (isset($parsedUrl['query'])) {
+        parse_str($parsedUrl['query'], $queryParams);
+    }
+    $queryParams['lang'] = $locale;
+    $newQuery = http_build_query($queryParams);
+
+    $scheme = isset($parsedUrl['scheme']) ? $parsedUrl['scheme'] . '://' : '';
+    $host   = $parsedUrl['host'] ?? '';
+    $port   = isset($parsedUrl['port']) ? ':' . $parsedUrl['port'] : '';
+    $path   = $parsedUrl['path'] ?? '/';
+    $targetUrl = "{$scheme}{$host}{$port}{$path}?{$newQuery}";
+
     if ($request->expectsJson() || $request->header('X-Livewire')) {
-        return response()->json(['status' => 'success', 'locale' => $locale, 'redirect' => $back])
-            ->withCookie(cookie()->forever('app_locale', $locale));
+        return response()->json(['status' => 'success', 'locale' => $locale, 'redirect' => $targetUrl])
+            ->cookie(cookie()->forever('app_locale', $locale));
     }
 
-    return redirect($back)->withCookie(cookie()->forever('app_locale', $locale));
+    return redirect($targetUrl)->cookie(cookie()->forever('app_locale', $locale));
 })->name('lang.switch');
 
 // Shared CMS & Media Routes (Accessible by Super Admin & Media Manager)

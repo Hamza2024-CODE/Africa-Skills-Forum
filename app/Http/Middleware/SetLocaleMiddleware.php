@@ -17,9 +17,11 @@ class SetLocaleMiddleware
     {
         $locale = null;
 
-        // 1. URL Query parameter: ?lang=ar|fr|en|pt (highest priority)
+        // 1. Explicit URL Query parameter: ?lang=ar|fr|en|pt
         if ($request->has('lang') && in_array($request->query('lang'), $this->supportedLocales)) {
             $locale = $request->query('lang');
+            Session::put('locale', $locale);
+            Cookie::queue(cookie()->forever('app_locale', $locale));
         }
 
         // 2. Session (set by lang.switch route OR ?lang= param)
