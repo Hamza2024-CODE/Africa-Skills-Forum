@@ -74,9 +74,13 @@ class="bg-white rounded-3xl p-6 shadow-md border border-slate-200/80 text-center
         <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-50 p-2.5 border border-slate-100 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
             <img src="{{ $image }}" alt="{{ $label }}" class="max-h-full max-w-full object-contain filter drop-shadow">
         </div>
-    @elseif($icon)
+    @elseif(!empty($icon))
         <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 shadow-sm group-hover:scale-110 transition-transform duration-300">
             {!! $icon !!}
+        </div>
+    @elseif(isset($slot) && !$slot->isEmpty())
+        <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 shadow-sm group-hover:scale-110 transition-transform duration-300">
+            {{ $slot }}
         </div>
     @endif
 
