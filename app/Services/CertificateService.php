@@ -57,6 +57,25 @@ class CertificateService
             return null;
         }
 
+        // Extract token or identifier if a full URL is provided
+        if (str_contains($clean, 'http://') || str_contains($clean, 'https://')) {
+            $parsedUrl = parse_url($clean);
+            if (isset($parsedUrl['query'])) {
+                parse_str($parsedUrl['query'], $queryParams);
+                $extracted = $queryParams['token'] ?? $queryParams['query'] ?? $queryParams['reg'] ?? $queryParams['identifier'] ?? null;
+                if (!empty($extracted)) {
+                    $clean = trim($extracted);
+                }
+            }
+            if (isset($parsedUrl['path'])) {
+                $segments = array_filter(explode('/', $parsedUrl['path']));
+                $lastSegment = end($segments);
+                if ($lastSegment && !in_array($lastSegment, ['verify', 'badge', 'certificate', 'accreditation'])) {
+                    $clean = rawurldecode($lastSegment);
+                }
+            }
+        }
+
         // 1. Check direct Registration lookup first
         $idFromNumber = null;
         if (preg_match('/(\d+)$/', $clean, $matches)) {

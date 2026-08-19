@@ -166,7 +166,6 @@ Route::prefix('panel')->middleware(['auth', 'role:' . RoleEnum::SUPER_ADMIN->val
     Route::get('/cms/gallery',     AdminGalleryIndex::class)->name('cms.gallery');
     Route::get('/cms/videos',      AdminVideoIndex::class)->name('cms.videos');
     Route::get('/cms/homepage',    CmsHomepageManager::class)->name('cms.homepage');
-    Route::get('/cms/guide', \App\Livewire\Admin\AdminGuideCmsManager::class)->name('cms.guide');
     Route::get('/live-tv',   \App\Livewire\Admin\AdminLiveTvManager::class)->name('live-tv');
     Route::get('/appearance',      \App\Livewire\Admin\PlatformAppearanceManager::class)->name('appearance');
 });
@@ -221,6 +220,8 @@ Route::prefix('panel')->middleware(['auth', 'role:' . RoleEnum::SUPER_ADMIN->val
     Route::get('/accreditations/print', \App\Livewire\Admin\BulkAccreditationBadgesPrint::class)->name('accreditations.print');
     Route::get('/accreditations/batch-print', \App\Livewire\Public\AccreditationBatchPrint::class)->name('accreditations.batch-print');
     Route::get('/scanner',          \App\Livewire\Admin\AdminQrScanner::class)->name('scanner');
+    Route::get('/meal-scanner',     \App\Livewire\Admin\AdminQrScanner::class)->name('meal.scanner');
+    Route::get('/restaurants',      \App\Livewire\Admin\FieldOperationsDashboard::class)->name('restaurants');
 });
 
 // Public: Certificate Verification & Live TV Display

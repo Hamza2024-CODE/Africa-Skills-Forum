@@ -34,7 +34,6 @@ class DashboardNavigationService
                 ['key' => 'cms_videos',            'section' => 3, 'label' => $this->t('مكتبة الفيديو والتغطيات', 'Vidéothèque', 'Video Library'), 'icon' => 'video-camera', 'route' => 'admin.cms.videos'],
                 ['key' => 'appearance',            'section' => 3, 'label' => $this->t('استوديو المظهر والهوية', 'Apparence & Thème', 'Visual Identity & Theme'), 'icon' => 'paint-brush', 'route' => 'admin.appearance'],
                 ['key' => 'notifications',         'section' => 3, 'label' => $this->t('مركز التواصل والتنبيهات', 'Centre de Communication', 'Communication Center'), 'icon' => 'bell', 'route' => 'admin.notifications.index'],
-                ['key' => 'guide_reg',             'section' => 3, 'label' => $this->t('إدارة دليل اللوائح والشروط', 'Guide & Règlements CMS', 'Guide & Regulations CMS'), 'icon' => 'document-text', 'route' => 'admin.cms.guide'],
                 ['key' => 'reports',               'section' => 3, 'label' => $this->t('التقارير والإحصائيات', 'Rapports & Statistiques', 'Reports & Analytics'), 'icon' => 'chart-bar', 'route' => 'admin.reports'],
 
                 // SECTION 4: ACCREDITATIONS, SECURITY & GOVERNANCE (الاعتمادات والأمان والحوكمة)

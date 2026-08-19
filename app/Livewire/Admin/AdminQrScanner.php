@@ -39,6 +39,25 @@ class AdminQrScanner extends Component
             return;
         }
 
+        // Extract token or identifier if a full URL is scanned
+        if (str_contains($clean, 'http://') || str_contains($clean, 'https://')) {
+            $parsedUrl = parse_url($clean);
+            if (isset($parsedUrl['query'])) {
+                parse_str($parsedUrl['query'], $queryParams);
+                $extracted = $queryParams['token'] ?? $queryParams['query'] ?? $queryParams['reg'] ?? $queryParams['identifier'] ?? null;
+                if (!empty($extracted)) {
+                    $clean = trim($extracted);
+                }
+            }
+            if (isset($parsedUrl['path'])) {
+                $segments = array_filter(explode('/', $parsedUrl['path']));
+                $lastSegment = end($segments);
+                if ($lastSegment && !in_array($lastSegment, ['verify', 'badge', 'certificate', 'accreditation'])) {
+                    $clean = rawurldecode($lastSegment);
+                }
+            }
+        }
+
         // Evaluate access rules via central engine
         $this->accessDecision = $rulesEngine->evaluateAccess($clean);
         $this->scannedBadge    = $this->accessDecision['badge'] ?? null;

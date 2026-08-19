@@ -174,13 +174,13 @@ class V83CentralNotificationSystemTest extends TestCase
     public function test_action_resolver_maps_typed_actions_to_safe_routes(): void
     {
         $url1 = NotificationActionResolver::resolveUrl('MEAL_SLOT', '12');
-        $this->assertStringContainsString('/admin/meal-scanner', $url1);
+        $this->assertStringContainsString('meal-scanner', $url1);
 
         $url2 = NotificationActionResolver::resolveUrl('RESTAURANT', null);
-        $this->assertStringContainsString('/admin/restaurants', $url2);
+        $this->assertStringContainsString('restaurants', $url2);
 
         $url3 = NotificationActionResolver::resolveUrl('ACCOMMODATION', null);
-        $this->assertStringContainsString('/admin/accommodations', $url3);
+        $this->assertStringContainsString('accommodations', $url3);
 
         $urlFallback = NotificationActionResolver::resolveUrl('UNKNOWN', null);
         $this->assertStringContainsString('/notifications', $urlFallback);

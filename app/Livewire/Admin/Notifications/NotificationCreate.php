@@ -196,10 +196,14 @@ class NotificationCreate extends Component
 
     public function render()
     {
+        $mealSlots = \Illuminate\Support\Facades\Schema::hasTable('meal_slots')
+            ? MealSlot::with('restaurant')->orderByDesc('date')->take(15)->get()
+            : collect();
+
         return view('livewire.admin.notifications.create', [
             'countries' => Country::orderBy('name_ar')->get(),
             'skills'    => Skill::orderBy('name_ar')->get(),
-            'mealSlots' => MealSlot::with('restaurant')->orderByDesc('date')->take(15)->get(),
+            'mealSlots' => $mealSlots,
             'allUsers'  => User::orderBy('name')->get(),
         ]);
     }

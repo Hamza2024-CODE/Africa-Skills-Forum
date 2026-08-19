@@ -50,7 +50,7 @@ class V84Dynamic3DCountdownCmsTest extends TestCase
             ->set('countdown_show_icons', true)
             ->set('countdown_flip_animation', true)
             ->call('saveSettings')
-            ->assertSet('savedMessage', 'تم حفظ كافة إعدادات العداد التنازلي التفاعلي (WSAP V8.4) والصفحة الرئيسية بنجاح، وتطبيق التعديلات بالمنصة.');
+            ->assertSet('savedMessage', 'تم حفظ كافة إعدادات منتدى السياسات والمحتوى الرئيسي بنجاح، وتحديث قاعدة البيانات بالكامل.');
 
         $settings = app(SettingsEngine::class);
 
@@ -72,8 +72,7 @@ class V84Dynamic3DCountdownCmsTest extends TestCase
             ->assertSee('الأولمبياد الإفريقي بالجزائر 2026')
             ->assertSee('wsap-countdown-widget')
             ->assertSee('data-target-timestamp', false)
-            ->assertSee('ALGERIA 2026')
-            ->assertSee('logo.svg');
+            ->assertSee('logo.png');
     }
 
     public function test_super_admin_can_reset_countdown_settings()

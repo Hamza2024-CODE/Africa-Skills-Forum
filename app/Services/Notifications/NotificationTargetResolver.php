@@ -70,6 +70,10 @@ class NotificationTargetResolver
 
     private function resolveMealSlotUserIds(int $slotId): Collection
     {
+        if (!\Illuminate\Support\Facades\Schema::hasTable('meal_entitlements')) {
+            return collect();
+        }
+
         $entitlements = MealEntitlement::where('meal_slot_id', $slotId)->get();
         $userIds = collect();
 

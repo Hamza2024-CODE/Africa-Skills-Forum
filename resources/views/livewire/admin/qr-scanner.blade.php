@@ -3,16 +3,20 @@ $locale = app()->getLocale();
 $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => $ar };
 @endphp
 
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+
 <div class="max-w-4xl mx-auto space-y-6 pb-12"
     x-data="{
          cameraOpen: false,
          stream: null,
          animFrame: null,
+         scanCanvas: null,
+         scanCtx: null,
          async startCamera() {
              this.cameraOpen = true;
              let s = null;
              try {
-                 s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                 s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } } });
              } catch (e1) {
                  try {
                      s = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -24,26 +28,40 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
              }
 
              this.stream = s;
-             $refs.scanVideo.srcObject = s;
+             const video = $refs.scanVideo;
+             video.srcObject = s;
+             await video.play().catch(() => {});
 
-             if ('BarcodeDetector' in window) {
-                 const detector = new BarcodeDetector({ formats: ['qr_code'] });
-                 const scanLoop = () => {
-                     if (!this.cameraOpen) return;
-                     detector.detect($refs.scanVideo).then(codes => {
-                         if (codes.length > 0) {
-                             $wire.set('query', codes[0].rawValue);
+             if (!this.scanCanvas) {
+                 this.scanCanvas = document.createElement('canvas');
+                 this.scanCtx = this.scanCanvas.getContext('2d', { willReadFrequently: true });
+             }
+
+             const scanLoop = () => {
+                 if (!this.cameraOpen) return;
+
+                 if (video && video.readyState === video.HAVE_ENOUGH_DATA) {
+                     this.scanCanvas.width = video.videoWidth;
+                     this.scanCanvas.height = video.videoHeight;
+                     this.scanCtx.drawImage(video, 0, 0, this.scanCanvas.width, this.scanCanvas.height);
+                     const imageData = this.scanCtx.getImageData(0, 0, this.scanCanvas.width, this.scanCanvas.height);
+
+                     if (typeof jsQR !== 'undefined') {
+                         const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                             inversionAttempts: 'dontInvert',
+                         });
+                         if (code && code.data && code.data.trim().length > 0) {
+                             $wire.set('query', code.data);
                              $wire.scan();
                              this.stopCamera();
-                         } else {
-                             this.animFrame = requestAnimationFrame(scanLoop);
+                             return;
                          }
-                     }).catch(() => {
-                         this.animFrame = requestAnimationFrame(scanLoop);
-                     });
-                 };
-                 scanLoop();
-             }
+                     }
+                 }
+
+                 this.animFrame = requestAnimationFrame(scanLoop);
+             };
+             scanLoop();
          },
          stopCamera() {
              if (this.animFrame) cancelAnimationFrame(this.animFrame);

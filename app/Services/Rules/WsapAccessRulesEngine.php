@@ -37,6 +37,25 @@ class WsapAccessRulesEngine
     ): array {
         $cleanBadge = trim((string) $badgeIdentifier);
 
+        // Extract token or identifier if full URL passed
+        if (str_contains($cleanBadge, 'http://') || str_contains($cleanBadge, 'https://')) {
+            $parsedUrl = parse_url($cleanBadge);
+            if (isset($parsedUrl['query'])) {
+                parse_str($parsedUrl['query'], $queryParams);
+                $extracted = $queryParams['token'] ?? $queryParams['query'] ?? $queryParams['reg'] ?? $queryParams['identifier'] ?? null;
+                if (!empty($extracted)) {
+                    $cleanBadge = trim($extracted);
+                }
+            }
+            if (isset($parsedUrl['path'])) {
+                $segments = array_filter(explode('/', $parsedUrl['path']));
+                $lastSegment = end($segments);
+                if ($lastSegment && !in_array($lastSegment, ['verify', 'badge', 'certificate', 'accreditation'])) {
+                    $cleanBadge = rawurldecode($lastSegment);
+                }
+            }
+        }
+
         // 1. Emergency Lockdown Check
         if ($serviceType && $this->emergencyService->isScopeLockedDown($serviceType, $serviceId)) {
             return $this->deny('EMERGENCY_LOCKDOWN_ACTIVE', 'الموقع أو الخدمة تحت وضع الإغلاق الأمني التام للطوارئ', 'Service under active emergency lockdown', null, $zoneId, $serviceType, $serviceId, $scannerUserId);
@@ -54,6 +73,37 @@ class WsapAccessRulesEngine
         }
 
         $badge = $badgeQuery->first();
+
+        if (!$badge) {
+            // Check lookup via Registration, User or DelegationMember
+            $user = User::where('uuid', $cleanBadge)
+                ->orWhere('email', $cleanBadge)
+                ->orWhere('id', $cleanBadge)
+                ->orWhereHas('participant.registrations', fn($r) => $r->where('registration_number', $cleanBadge)->orWhere('uuid', $cleanBadge)->orWhere('verification_token', $cleanBadge))
+                ->first();
+
+            if (!$user) {
+                $reg = \App\Models\Registration::where('registration_number', $cleanBadge)
+                    ->orWhere('uuid', $cleanBadge)
+                    ->orWhere('verification_token', $cleanBadge)
+                    ->first();
+                if ($reg && $reg->participant) {
+                    $user = $reg->participant->user;
+                }
+            }
+
+            if ($user) {
+                $badge = Badge::firstOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'badge_uuid'   => (string) \Illuminate\Support\Str::uuid(),
+                        'access_token' => \Illuminate\Support\Str::random(32),
+                        'status'       => 'ACTIVE',
+                    ]
+                );
+                $badge->loadMissing(['user.roles', 'user.country', 'user.participant.registrations']);
+            }
+        }
 
         if (!$badge) {
             return $this->deny('BADGE_NOT_FOUND', 'الشارة غير معروفة في النظام', 'Unknown badge identifier', null, $zoneId, $serviceType, $serviceId, $scannerUserId);
