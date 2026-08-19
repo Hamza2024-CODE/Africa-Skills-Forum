@@ -157,7 +157,7 @@ class CertificateService
         if ($delMember) {
             $virtualReg = new Registration([
                 'registration_number' => 'WSAP-DEL-' . $delMember->id,
-                'status'              => 'APPROVED',
+                'status'              => \App\Enums\ParticipantStatus::APPROVED,
             ]);
             $participant = new ParticipantProfile([
                 'first_name_ar'    => $delMember->first_name,
@@ -178,7 +178,7 @@ class CertificateService
     {
         $virtualReg = new Registration([
             'registration_number' => $regNum,
-            'status'              => 'APPROVED',
+            'status'              => \App\Enums\ParticipantStatus::APPROVED,
         ]);
         $participant = new ParticipantProfile([
             'first_name_ar'    => $user->name,
