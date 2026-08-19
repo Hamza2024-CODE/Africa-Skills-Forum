@@ -880,7 +880,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse($skills as $skill)
-                <a href="{{ route('skills', ['skill' => $skill->id]) }}" class="bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-200/90 hover:shadow-2xl transition-all duration-400 transform hover:-translate-y-2 group cursor-pointer flex flex-col justify-between hover:border-[#35A536] wsap-hover-card">
+                <a wire:key="skill-card-{{ $skill->id }}" href="{{ route('skills', ['skill' => $skill->id]) }}" class="bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-200/90 hover:shadow-2xl transition-all duration-400 transform hover:-translate-y-2 group cursor-pointer flex flex-col justify-between hover:border-[#35A536] wsap-hover-card">
                     
                     {{-- Photo Banner Header --}}
                     <div class="h-48 bg-slate-950 relative overflow-hidden">
@@ -964,7 +964,7 @@
                     </h3>
                     <div class="space-y-3">
                         @forelse($albums as $album)
-                            <a href="{{ route('gallery') }}" class="flex items-center gap-3 group">
+                            <a wire:key="album-card-{{ $album->id }}" href="{{ route('gallery') }}" class="flex items-center gap-3 group">
                                 @if($album->coverMedia?->storage_path || $album->mediaItems->first()?->storage_path)
                                     <img src="{{ $album->cover_url }}" alt="{{ $album->getLocalized('title') }}" class="w-12 h-10 rounded-lg object-cover flex-shrink-0 bg-slate-200 border border-slate-200">
                                 @else
@@ -1031,7 +1031,7 @@
                     </h3>
                     <div class="space-y-3">
                         @forelse($news as $article)
-                            <a href="{{ route('news') }}" class="flex items-center gap-3 group">
+                            <a wire:key="news-card-{{ $article->id }}" href="{{ route('news') }}" class="flex items-center gap-3 group">
                                 @if($article->featured_image)
                                     <img src="{{ $article->cover_url }}" alt="{{ $article->getLocalized('title') }}" class="w-12 h-10 rounded-lg object-cover flex-shrink-0 bg-slate-200 border border-slate-200">
                                 @else
@@ -1122,7 +1122,7 @@
 
         <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-slate-200/80 flex items-center justify-center flex-wrap gap-8 sm:gap-12">
             @forelse($partners as $p)
-                <div class="flex flex-col items-center justify-center gap-2 group transition transform hover:scale-105 py-2 px-3">
+                <div wire:key="partner-card-{{ $p->id }}" class="flex flex-col items-center justify-center gap-2 group transition transform hover:scale-105 py-2 px-3">
                     <div class="h-10 sm:h-12 w-auto flex items-center justify-center">
                         @if($p->logo_path)
                             <img src="{{ asset($p->logo_path) }}" alt="{{ $p->getLocalized('name') }}" class="h-10 sm:h-12 w-auto object-contain filter grayscale group-hover:grayscale-0 transition duration-300">
