@@ -136,7 +136,6 @@
                     </div>
 
                 </div>
-            @endif
 
         @else
             <div class="p-8 bg-rose-50 border border-rose-200 rounded-3xl text-center space-y-2">
