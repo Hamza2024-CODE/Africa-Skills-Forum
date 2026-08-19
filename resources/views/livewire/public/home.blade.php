@@ -1077,7 +1077,7 @@
                                  onerror="this.style.display='none'">
                         @else
                             <div class="w-full h-32 bg-gradient-to-br from-[#020A24] via-[#06205C] to-blue-900 flex items-center justify-center p-4">
-                                <img src="/logo.svg" alt="Africa Skills Forum" class="h-12 w-auto opacity-30 filter drop-shadow">
+                                <img src="/logo.png" alt="Africa Skills Forum" class="h-12 w-auto opacity-30 filter drop-shadow">
                             </div>
                         @endif
                         <div class="absolute inset-0 flex items-center justify-center">
