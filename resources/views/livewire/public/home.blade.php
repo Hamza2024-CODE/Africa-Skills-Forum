@@ -1065,8 +1065,8 @@
                         {{ app()->getLocale() === 'fr' ? 'Centre Vidéos' : (app()->getLocale() === 'en' ? 'Video Center' : 'مركز الفيديوهات والتغطيات') }}
                     </h3>
                     <button @click="showVideoModal = true" class="relative rounded-2xl overflow-hidden bg-[#020A24] group block w-full text-right focus:outline-none h-32 border border-slate-800 shadow-md">
-                        @if(($featuredVideo = $videos->first()) && ($thumbUrl = $featuredVideo->thumbnail_path ?: ($featuredVideo->youtube_id ? 'https://img.youtube.com/vi/' . $featuredVideo->youtube_id . '/mqdefault.jpg' : null)))
-                            <img src="{{ $thumbUrl }}" alt="Featured Video"
+                        @if($featuredVideoThumbUrl)
+                            <img src="{{ $featuredVideoThumbUrl }}" alt="Featured Video"
                                  class="w-full h-32 object-cover opacity-80 group-hover:scale-105 transition-transform duration-300"
                                  onerror="this.style.display='none'">
                         @else

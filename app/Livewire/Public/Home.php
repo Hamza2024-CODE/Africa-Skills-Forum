@@ -130,6 +130,16 @@ class Home extends Component
             $videos = Video::orderBy('created_at', 'desc')->limit(3)->get();
         }
 
+        $featuredVideo = $videos->first();
+        $featuredVideoThumbUrl = null;
+        if ($featuredVideo) {
+            if ($featuredVideo->thumbnail_path) {
+                $featuredVideoThumbUrl = $featuredVideo->thumbnail_path;
+            } elseif ($featuredVideo->youtube_id) {
+                $featuredVideoThumbUrl = 'https://img.youtube.com/vi/' . $featuredVideo->youtube_id . '/mqdefault.jpg';
+            }
+        }
+
         $partners = Partner::where('status', 'ACTIVE')->where('is_featured', true)->orderBy('sort_order')->orderBy('name_ar')->get();
 
         $heroSlide1 = platform()->get('hero_slide_1', '/image.png');
@@ -141,13 +151,14 @@ class Home extends Component
         $heroMode = platform()->get('hero_bg_mode', 'image');
 
         return view('livewire.public.home', [
-            'skills'         => $skills,
-            'news'           => $news,
-            'albums'         => $albums,
-            'videos'         => $videos,
-            'partners'       => $partners,
-            'heroSlidesJson' => $heroSlidesJson,
-            'heroMode'       => $heroMode,
+            'skills'                 => $skills,
+            'news'                   => $news,
+            'albums'                 => $albums,
+            'videos'                 => $videos,
+            'featuredVideoThumbUrl'  => $featuredVideoThumbUrl,
+            'partners'               => $partners,
+            'heroSlidesJson'         => $heroSlidesJson,
+            'heroMode'               => $heroMode,
         ]);
     }
 }
