@@ -36,48 +36,41 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
 
              await this.$nextTick();
 
-             const videoEl = document.getElementById('camera-video-preview');
-             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                 try {
-                     const stream = await navigator.mediaDevices.getUserMedia({
-                         video: { facingMode: { ideal: 'environment' } }
-                     });
-                     if (videoEl) {
-                         videoEl.srcObject = stream;
-                         await videoEl.play();
-                     }
-                     this.mediaStream = stream;
-                     this.isScanning = true;
-                 } catch (e) {
-                     console.warn('Native getUserMedia:', e);
-                 }
-             }
-
              try {
                  if (typeof Html5Qrcode !== 'undefined') {
-                     if (!this.html5Qrcode) {
-                         this.html5Qrcode = new Html5Qrcode('qr-reader');
+                     if (this.html5Qrcode) {
+                         try { await this.html5Qrcode.stop(); } catch(e) {}
                      }
+                     this.html5Qrcode = new Html5Qrcode('qr-reader');
                      await this.html5Qrcode.start(
                          { facingMode: 'environment' },
                          { fps: 15, qrbox: { width: 250, height: 250 } },
                          (decodedText) => {
                              this.playBeep();
-                             $wire.scan(decodedText);
                              this.stopCamera();
+                             window.location.href = '{{ url('/panel/scanner') }}?q=' + encodeURIComponent(decodedText);
                          },
-                         () => {}
+                         (errorMessage) => {}
                      );
                      this.isScanning = true;
                      return;
                  }
              } catch (err) {
                  console.error('Html5Qrcode error:', err);
+                 try {
+                     if (typeof Html5QrcodeScanner !== 'undefined') {
+                         const html5QrcodeScanner = new Html5QrcodeScanner('qr-reader', { fps: 10, qrbox: 250 }, false);
+                         html5QrcodeScanner.render((decodedText) => {
+                             this.playBeep();
+                             window.location.href = '{{ url('/panel/scanner') }}?q=' + encodeURIComponent(decodedText);
+                         });
+                         this.isScanning = true;
+                         return;
+                     }
+                 } catch(e2) {}
              }
 
-             if (!this.isScanning) {
-                 this.errorMessage = '{{ $t('تعذر فتح الكاميرا: يرجى السماح بصلاحيات الكاميرا في المتصفح.', 'Impossible d\'ouvrir la caméra.', 'Unable to open camera.') }}';
-             }
+             this.errorMessage = '{{ $t('تعذر فتح الكاميرا: يرجى السماح بصلاحيات الكاميرا في المتصفح.', 'Impossible d\'ouvrir la caméra.', 'Unable to open camera.') }}';
          },
 
          stopCamera() {
@@ -156,9 +149,8 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
 
         <!-- CAMERA FEED -->
         <div x-show="cameraOpen" class="space-y-3 pt-2">
-            <div class="relative w-full max-w-sm mx-auto rounded-3xl overflow-hidden border-2 border-[#06205C]/30 shadow-xl bg-slate-950 min-h-[280px] flex items-center justify-center">
-                <video id="camera-video-preview" autoplay playsinline class="w-full h-full object-cover absolute inset-0"></video>
-                <div id="qr-reader" class="w-full min-h-[280px] relative z-10"></div>
+            <div class="relative w-full max-w-sm mx-auto rounded-3xl overflow-hidden border-2 border-[#06205C]/30 shadow-xl bg-slate-950 min-h-[300px] flex items-center justify-center">
+                <div id="qr-reader" class="w-full min-h-[300px] relative z-10"></div>
                 <div x-show="isScanning" class="absolute inset-x-0 top-1/2 h-0.5 bg-emerald-400 shadow-[0_0_15px_#10b981] animate-pulse pointer-events-none z-20"></div>
             </div>
         </div>
