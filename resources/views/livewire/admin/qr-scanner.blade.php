@@ -63,24 +63,57 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                  this.scanCtx = this.scanCanvas.getContext('2d', { willReadFrequently: true });
              }
 
+             let detector = null;
+             if ('BarcodeDetector' in window) {
+                 try { detector = new BarcodeDetector({ formats: ['qr_code'] }); } catch (de) {}
+             }
+
+             let isProcessing = false;
+
+             const processScannedData = (decodedData) => {
+                 if (!decodedData || isProcessing) return;
+                 isProcessing = true;
+                 const cleanVal = decodedData.trim();
+                 if (cleanVal.length > 0) {
+                     $wire.set('query', cleanVal);
+                     $wire.scan(cleanVal);
+                     this.stopCamera();
+                     return true;
+                 }
+                 isProcessing = false;
+                 return false;
+             };
+
              const scanLoop = () => {
                  if (!this.cameraOpen) return;
 
                  if (video && video.readyState === video.HAVE_ENOUGH_DATA) {
-                     this.scanCanvas.width = video.videoWidth;
-                     this.scanCanvas.height = video.videoHeight;
-                     this.scanCtx.drawImage(video, 0, 0, this.scanCanvas.width, this.scanCanvas.height);
-                     const imageData = this.scanCtx.getImageData(0, 0, this.scanCanvas.width, this.scanCanvas.height);
+                     if (detector) {
+                         detector.detect(video).then(codes => {
+                             if (codes.length > 0 && codes[0].rawValue) {
+                                 if (processScannedData(codes[0].rawValue)) return;
+                             }
+                         }).catch(() => {});
+                     }
+
+                     let w = video.videoWidth || 640;
+                     let h = video.videoHeight || 480;
+                     const maxDim = 640;
+                     if (w > maxDim) {
+                         h = Math.round((h * maxDim) / w);
+                         w = maxDim;
+                     }
+                     this.scanCanvas.width = w;
+                     this.scanCanvas.height = h;
+                     this.scanCtx.drawImage(video, 0, 0, w, h);
+                     const imageData = this.scanCtx.getImageData(0, 0, w, h);
 
                      if (typeof jsQR !== 'undefined') {
                          const code = jsQR(imageData.data, imageData.width, imageData.height, {
-                             inversionAttempts: 'dontInvert',
+                             inversionAttempts: 'attemptBoth',
                          });
-                         if (code && code.data && code.data.trim().length > 0) {
-                             $wire.set('query', code.data);
-                             $wire.scan();
-                             this.stopCamera();
-                             return;
+                         if (code && code.data) {
+                             if (processScannedData(code.data)) return;
                          }
                      }
                  }
@@ -104,10 +137,13 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                      ctx.drawImage(img, 0, 0);
                      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                      if (typeof jsQR !== 'undefined') {
-                         const code = jsQR(imageData.data, imageData.width, imageData.height);
+                         const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                             inversionAttempts: 'attemptBoth',
+                         });
                          if (code && code.data && code.data.trim().length > 0) {
-                             $wire.set('query', code.data);
-                             $wire.scan();
+                             const cleanVal = code.data.trim();
+                             $wire.set('query', cleanVal);
+                             $wire.scan(cleanVal);
                              return;
                          }
                      }
