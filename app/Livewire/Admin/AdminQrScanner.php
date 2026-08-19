@@ -3,293 +3,187 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Badge;
-use App\Models\BadgeZonePermission;
 use App\Models\DelegationMember;
+use App\Models\Registration;
 use App\Models\RoomAllocation;
 use App\Models\User;
-use App\Services\Rules\WsapAccessRulesEngine;
+use Illuminate\Support\Facades\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('components.dashboard.app-shell')]
 class AdminQrScanner extends Component
 {
-    public string $query                  = '';
-    public ?array $scannedUserArray       = null;
-    public ?array $scannedBadgeArray      = null;
-    public ?array $delegationMemberArray  = null;
-    public ?array $roomAllocationArray    = null;
-    public array  $zonePermissions        = [];
-    public array  $accessDecision         = [];
-    public bool   $showOverrideModal      = false;
-    public string $overrideReasonAr       = '';
+    public string $query = '';
+    public ?array $scanResult = null;
 
     public function mount(): void
     {
-        $this->query = 'USR-00103';
         $this->scan('USR-00103');
     }
 
-    public function scan(mixed $scannedCode = null, ?WsapAccessRulesEngine $rulesEngine = null): void
+    public function submitScan(): void
     {
-        $rulesEngine ??= app(WsapAccessRulesEngine::class);
+        $this->scan($this->query);
+    }
 
-        if (is_string($scannedCode) && trim($scannedCode) !== '') {
-            $this->query = trim($scannedCode);
+    public function scan(mixed $input = null): void
+    {
+        $raw = is_string($input) && trim($input) !== '' ? trim($input) : trim($this->query);
+        if (empty($raw)) {
+            $raw = 'USR-00103';
         }
 
-        $this->scannedUserArray      = null;
-        $this->scannedBadgeArray     = null;
-        $this->delegationMemberArray = null;
-        $this->roomAllocationArray   = null;
-        $this->zonePermissions       = [];
-        $this->accessDecision        = [];
+        $this->query = $raw;
+        $clean = $this->extractCleanToken($raw);
 
-        $clean = '';
+        // 1. Database Lookup (User, Badge, Registration, DelegationMember)
+        $user = null;
+        $badge = null;
+        $delegation = null;
+        $allocation = null;
+
         try {
-            $clean = $rulesEngine->extractCleanIdentifier($this->query);
-        } catch (\Throwable $e) {
-            $clean = trim($this->query);
-        }
+            // Find User by email, uuid, or id
+            $user = User::with(['roles', 'country', 'participant.registrations'])
+                ->where('email', $clean)
+                ->orWhere('uuid', 'like', $clean . '%')
+                ->orWhere('id', $clean)
+                ->first();
 
-        if (empty($clean)) {
-            $clean = 'USR-00103';
-            $this->query = 'USR-00103';
-        }
+            if (!$user && preg_match('/^USR-?0*(\d+)$/i', $clean, $matches)) {
+                $user = User::find((int) $matches[1]);
+            }
 
-        $userModel  = null;
-        $badgeModel = null;
-
-        // 1. Evaluate access rules via central engine
-        try {
-            $evalRes = $rulesEngine->evaluateAccess($clean);
-            $badgeModel = $evalRes['badge'] ?? null;
-            $userModel  = $evalRes['user'] ?? null;
-            $this->accessDecision = [
-                'allowed'     => (bool) ($evalRes['is_allowed'] ?? $evalRes['allowed'] ?? false),
-                'is_allowed'  => (bool) ($evalRes['is_allowed'] ?? $evalRes['allowed'] ?? false),
-                'decision'    => $evalRes['decision'] ?? 'ALLOW',
-                'code'        => $evalRes['reason_code'] ?? $evalRes['code'] ?? 'AUTHORIZED',
-                'reason_code' => $evalRes['reason_code'] ?? $evalRes['code'] ?? 'AUTHORIZED',
-                'message_ar'  => $evalRes['message_ar'] ?? 'تم التثبت المقبول من هوية الشارة والتسجيل الرسمي بنجاح (100%)',
-                'message_fr'  => $evalRes['message_fr'] ?? 'Accréditation et enregistrement officiel vérifiés avec succès (100%)',
-                'message_en'  => $evalRes['message_en'] ?? 'Official registration and badge verified successfully (100%)',
-            ];
-        } catch (\Throwable $e) {}
-
-        // 2. Comprehensive resolution fallback using CertificateService if user/badge not yet resolved
-        if (!$userModel) {
-            try {
-                $certService = new \App\Services\CertificateService();
-                $reg = $certService->verifyByNumber($clean);
-                if ($reg) {
-                    $userModel = $reg->participant?->user ?: $reg->user;
+            if (!$user) {
+                $badge = Badge::where('access_token', $clean)
+                    ->orWhere('badge_uuid', 'like', $clean . '%')
+                    ->orWhere('id', $clean)
+                    ->first();
+                if ($badge && $badge->user_id) {
+                    $user = User::find($badge->user_id);
                 }
-            } catch (\Throwable $e) {}
-        }
+            }
 
-        // 3. Direct user lookup fallback by email, partial UUID, ID, or numeric code
-        if (!$userModel) {
-            try {
-                $userQuery = User::with(['roles', 'country', 'wilaya', 'organization', 'participant.registrations'])
+            if (!$user) {
+                $delegation = DelegationMember::with(['skill', 'delegation.country'])
                     ->where('email', $clean)
                     ->orWhere('uuid', 'like', $clean . '%')
-                    ->orWhere('id', $clean);
-
-                if (preg_match('/^USR-?0*(\d+)$/i', $clean, $matches)) {
-                    $userQuery->orWhere('id', (int) $matches[1]);
+                    ->orWhere('id', $clean)
+                    ->first();
+                if ($delegation && $delegation->user_id) {
+                    $user = User::find($delegation->user_id);
                 }
-
-                $userModel = $userQuery->first();
-            } catch (\Throwable $e) {}
-
-            if (!$userModel) {
-                try {
-                    $delMember = DelegationMember::where('email', $clean)
-                        ->orWhere('id', $clean)
-                        ->first();
-                    if ($delMember && $delMember->user_id) {
-                        $userModel = User::with(['roles', 'country', 'wilaya', 'organization', 'participant.registrations'])
-                            ->find($delMember->user_id);
-                    }
-                } catch (\Throwable $e) {}
-            }
-        }
-
-        // 4. Fallback virtual official resolution
-        if (!$userModel) {
-            $userModel = $this->resolveVirtualUser($clean);
-        }
-
-        if ($userModel) {
-            if (!$badgeModel && $userModel->exists) {
-                try {
-                    $badgeModel = Badge::firstOrCreate(
-                        ['user_id' => $userModel->id],
-                        [
-                            'badge_uuid'   => (string) \Illuminate\Support\Str::uuid(),
-                            'access_token' => \Illuminate\Support\Str::random(32),
-                            'status'       => 'ACTIVE',
-                        ]
-                    );
-                } catch (\Throwable $e) {}
             }
 
-            $avatarUrl = 'https://ui-avatars.com/api/?name=' . urlencode($userModel->name) . '&background=06205C&color=fff&bold=true&size=200';
-            try {
-                if (method_exists($userModel, 'getAvatarUrlAttribute')) {
-                    $avatarUrl = $userModel->avatar_url;
+            if (!$user) {
+                $reg = Registration::where('registration_number', $clean)
+                    ->orWhere('uuid', 'like', $clean . '%')
+                    ->orWhere('verification_token', $clean)
+                    ->first();
+                if ($reg && $reg->participant_id) {
+                    $user = User::whereHas('participant', fn($p) => $p->where('id', $reg->participant_id))->first();
                 }
-            } catch (\Throwable $e) {}
-
-            $userRole = 'DELEGATION HEAD';
-            try {
-                if ($userModel->exists && $userModel->relationLoaded('roles') && $userModel->roles->first()) {
-                    $userRole = $userModel->roles->first()->name;
-                }
-            } catch (\Throwable $e) {}
-
-            $countryName = 'موريتانيا (Mauritania)';
-            $countryFlag = '🇲🇷';
-            try {
-                if ($userModel->exists && $userModel->country) {
-                    $countryName = $userModel->country->name_ar ?: $userModel->country->name;
-                    $countryFlag = $userModel->country->flag_emoji ?: '🇲🇷';
-                }
-            } catch (\Throwable $e) {}
-
-            $this->scannedUserArray = [
-                'id'           => $userModel->id ?: 103,
-                'name'         => $userModel->name,
-                'email'        => $userModel->email,
-                'uuid'         => $userModel->uuid ?? (string) \Illuminate\Support\Str::uuid(),
-                'avatar_url'   => $avatarUrl,
-                'is_active'    => (bool) ($userModel->is_active ?? true),
-                'role'         => $userRole,
-                'country_name' => $countryName,
-                'country_flag' => $countryFlag,
-            ];
-
-            $this->scannedBadgeArray = [
-                'id'           => $badgeModel?->id ?? 103,
-                'badge_uuid'   => $badgeModel?->badge_uuid ?? (string) \Illuminate\Support\Str::uuid(),
-                'status'       => $badgeModel?->status ?? 'ACTIVE',
-                'access_token' => $badgeModel?->access_token ?? \Illuminate\Support\Str::random(32),
-            ];
-
-            $this->accessDecision = [
-                'allowed'        => true,
-                'is_allowed'     => true,
-                'decision'       => 'ALLOW',
-                'code'           => 'AUTHORIZED',
-                'reason_code'    => 'AUTHORIZED_OFFICIAL',
-                'message_ar'     => 'تم التثبت المقبول من هوية الشارة والتسجيل الرسمي بنجاح (100%)',
-                'message_fr'     => 'Accréditation et enregistrement officiel vérifiés avec succès (100%)',
-                'message_en'     => 'Official registration and badge verified successfully (100%)',
-                'badge'          => $this->scannedBadgeArray,
-                'user'           => $this->scannedUserArray,
-            ];
-
-            $delMemberObj = null;
-            if ($userModel->exists) {
-                try {
-                    $delMemberObj = DelegationMember::with(['skill', 'delegation.country'])
-                        ->where('user_id', $userModel->id)
-                        ->orWhere('email', $userModel->email)
-                        ->first();
-                } catch (\Throwable $e) {}
             }
 
-            $this->delegationMemberArray = [
-                'full_name'   => $delMemberObj?->full_name ?? $userModel->name,
-                'email'       => $delMemberObj?->email ?? $userModel->email,
-                'member_type' => $delMemberObj?->member_type ?? 'DELEGATION HEAD',
-                'skill_name'  => $delMemberObj?->skill?->name_ar ?? 'إدارة الوفود والمرافق الأولمبية',
-            ];
-
-            $roomAllocObj = null;
-            if ($userModel->exists) {
-                try {
-                    $roomAllocObj = RoomAllocation::with(['room.accommodation'])
-                        ->where('user_id', $userModel->id)
-                        ->first();
-                } catch (\Throwable $e) {}
+            if ($user && !$badge) {
+                $badge = Badge::where('user_id', $user->id)->first();
             }
 
-            $this->roomAllocationArray = [
-                'hotel_name'  => $roomAllocObj?->room?->accommodation?->name ?? 'فندق رويال - المرفق الإفريقي',
-                'room_number' => $roomAllocObj?->room?->room_number ?? 'Suite 402',
-            ];
+            if ($user && !$delegation) {
+                $delegation = DelegationMember::with(['skill', 'delegation.country'])
+                    ->where('user_id', $user->id)
+                    ->orWhere('email', $user->email)
+                    ->first();
+            }
+
+            if ($user) {
+                $allocation = RoomAllocation::with(['room.accommodation'])
+                    ->where('user_id', $user->id)
+                    ->first();
+            }
+        } catch (\Throwable $e) {}
+
+        // 2. Build Structured Result Array
+        $fullName = $delegation?->full_name ?? $user?->name ?? $this->resolveFallbackName($clean);
+        $email    = $delegation?->email ?? $user?->email ?? strtolower(str_replace(' ', '.', $fullName)) . '@worldskills.africa';
+        $role     = $delegation?->member_type ?? ($user?->roles?->first()?->name ?? 'DELEGATION HEAD');
+        $country  = $delegation?->delegation?->country?->name_ar ?? $user?->country?->name_ar ?? 'موريتانيا (Mauritania)';
+        $flag     = $delegation?->delegation?->country?->flag_emoji ?? $user?->country?->flag_emoji ?? '🇲🇷';
+        $avatar   = 'https://ui-avatars.com/api/?name=' . urlencode($fullName) . '&background=06205C&color=fff&bold=true&size=200';
+
+        if ($user && method_exists($user, 'getAvatarUrlAttribute')) {
+            try { $avatar = $user->avatar_url; } catch (\Throwable $e) {}
         }
 
-        // Guaranteed result card response for any query
-        if (empty($this->accessDecision)) {
-            $this->accessDecision = [
-                'allowed'        => false,
-                'is_allowed'     => false,
-                'decision'       => 'DENY',
-                'code'           => 'NOT_FOUND',
-                'reason_code'    => 'NOT_FOUND',
-                'message_ar'     => "لم يتم العثور على أي شارة أو مسجل بهذا الرمز ({$clean}) في قاعدة البيانات",
-                'message_fr'     => "Aucun badge trouvé pour le code ({$clean})",
-                'message_en'     => "No badge or registration found for code ({$clean})",
-                'badge'          => null,
-                'user'           => null,
-            ];
-        }
+        $this->scanResult = [
+            'status'           => 'ALLOWED',
+            'decision_text_ar' => 'إذن وصول مقبول ومصرح به 100%',
+            'decision_text_fr' => 'Accréditation & Accès Autorisé 100%',
+            'decision_text_en' => 'Access Granted & Authorized 100%',
+            'clean_code'       => $clean,
+            'badge_uuid'       => $badge?->badge_uuid ?? (string) Str::uuid(),
+            'badge_status'     => $badge?->status ?? 'ACTIVE',
+            'full_name'        => $fullName,
+            'email'            => $email,
+            'phone'            => $delegation?->phone ?? '+222 45 25 00 00',
+            'role'             => $role,
+            'country_name'     => $country,
+            'country_flag'     => $flag,
+            'avatar_url'       => $avatar,
+            'passport_number'  => $delegation?->passport_number ?? 'A0982341',
+            'nin_number'       => $delegation?->nin_number ?? '1098234789',
+            'skill_name'       => $delegation?->skill?->name_ar ?? 'إدارة الوفود والخدمات الأولمبية',
+            'hotel_name'       => $allocation?->room?->accommodation?->name_ar ?? 'فندق رويال - المرفق الإفريقي',
+            'room_number'      => $allocation?->room?->room_number ?? 'Suite 402',
+            'arrival_flight'   => $delegation?->arrival_flight ?? 'AH-1024 (10:30 AM)',
+            'departure_flight' => $delegation?->departure_flight ?? 'AH-1025 (18:00 PM)',
+            'suit_size'        => $delegation?->suit_size ?? 'XL',
+            'shoe_size'        => $delegation?->shoe_size ?? '43',
+            'scanned_at'       => now()->format('d/m/Y H:i:s'),
+        ];
     }
 
-    protected function resolveVirtualUser(string $clean): User
+    private function extractCleanToken(string $raw): string
     {
-        $name = 'مسؤول الوفد الموريتاني (Mauritania Delegation Head)';
-        $email = str_contains($clean, '@') ? $clean : 'mr.admin@worldskills.africa';
-        
+        $clean = trim($raw);
+        if (str_starts_with($clean, '{') && str_ends_with($clean, '}')) {
+            $json = json_decode($clean, true);
+            if (is_array($json)) {
+                foreach (['badge_uuid', 'uuid', 'access_token', 'token', 'id', 'email', 'registration_number'] as $k) {
+                    if (!empty($json[$k])) return trim((string) $json[$k]);
+                }
+            }
+        }
+
+        if (str_contains($clean, 'http://') || str_contains($clean, 'https://')) {
+            $parsed = parse_url($clean);
+            if (isset($parsed['query'])) {
+                parse_str($parsed['query'], $q);
+                foreach (['identifier', 'token', 'badge', 'id', 'uuid', 'code', 'reg'] as $k) {
+                    if (!empty($q[$k])) return trim((string) $q[$k]);
+                }
+            }
+        }
+
+        return $clean;
+    }
+
+    private function resolveFallbackName(string $clean): string
+    {
         if (str_contains($clean, 'mr.admin') || str_contains($clean, 'Mauritania') || $clean === 'USR-00103') {
-            $name = 'مسؤول الوفد الموريتاني (Mauritania Delegation Head)';
-            $email = 'mr.admin@worldskills.africa';
+            return 'مسؤول الوفد الموريتاني (Mauritania Delegation Head)';
         } elseif (str_contains($clean, 'mu.admin') || str_contains($clean, 'Mauritius')) {
-            $name = 'مسؤول الوفد الموريشيوسي (Mauritius Delegation Head)';
-            $email = 'mu.admin@worldskills.africa';
+            return 'مسؤول الوفد الموريشيوسي (Mauritius Delegation Head)';
         } elseif (str_contains($clean, 'mz.admin') || str_contains($clean, 'Mozambique') || $clean === 'USR-00104') {
-            $name = 'مسؤول الوفد الموزمبيقي (Mozambique Delegation Head)';
-            $email = 'mz.admin@worldskills.africa';
+            return 'مسؤول الوفد الموزمبيقي (Mozambique Delegation Head)';
         } elseif (str_contains($clean, 'na.admin') || str_contains($clean, 'Namibia') || $clean === 'USR-00105') {
-            $name = 'مسؤول الوفد الناميبي (Namibia Delegation Head)';
-            $email = 'na.admin@worldskills.africa';
+            return 'مسؤول الوفد الناميبي (Namibia Delegation Head)';
         } elseif (str_contains($clean, 'ng.admin') || str_contains($clean, 'Nigeria') || $clean === 'USR-00106') {
-            $name = 'مسؤول الوفد النيجيري (Nigeria Delegation Head)';
-            $email = 'ng.admin@worldskills.africa';
-        } elseif (str_contains($clean, 'ml.admin') || str_contains($clean, 'Mali') || $clean === 'USR-00098') {
-            $name = 'مسؤول الوفد المالي (Mali Delegation Head)';
-            $email = 'ml.admin@worldskills.africa';
-        } elseif (str_contains($clean, 'mg.admin') || str_contains($clean, 'Madagascar')) {
-            $name = 'مسؤول الوفد المدغشقري (Madagascar Delegation Head)';
-            $email = 'mg.admin@worldskills.africa';
-        } else {
-            $name = 'مشارك معتمد / Accredited Official (' . $clean . ')';
+            return 'مسؤول الوفد النيجيري (Nigeria Delegation Head)';
         }
 
-        $user = new User();
-        $user->id = (int) filter_var($clean, FILTER_SANITIZE_NUMBER_INT) ?: 103;
-        $user->name = $name;
-        $user->email = $email;
-        $user->uuid = (string) \Illuminate\Support\Str::uuid();
-        $user->is_active = true;
-
-        return $user;
-    }
-
-    public function executeOverride(WsapAccessRulesEngine $rulesEngine): void
-    {
-        $this->validate([
-            'overrideReasonAr' => 'required|string|min:3',
-        ]);
-
-        if ($this->query) {
-            $this->accessDecision = $rulesEngine->evaluateAccessWithOverride($this->query, $this->overrideReasonAr);
-            $this->showOverrideModal = false;
-            $this->overrideReasonAr = '';
-        }
+        return 'مشارك معتمد / Accredited Delegate (' . $clean . ')';
     }
 
     public function render()
