@@ -176,18 +176,22 @@ class WsapAccessRulesEngine
             ->orWhere('id', $cleanBadge)
             ->first();
 
-        AuditLog::create([
-            'event'       => 'SUPER_ADMIN_EMERGENCY_OVERRIDE',
-            'user_id'     => auth()->id() ?: 1,
-            'target_type' => Badge::class,
-            'target_id'   => $badge?->id ?? 0,
-            'meta'        => [
-                'reason'       => $overrideReasonAr,
-                'badge_uuid'   => $badge?->badge_uuid,
-                'service_type' => $serviceType,
-                'service_id'   => $serviceId,
-            ],
-        ]);
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('audit_logs')) {
+                AuditLog::create([
+                    'event'       => 'SUPER_ADMIN_EMERGENCY_OVERRIDE',
+                    'user_id'     => auth()->id() ?: 1,
+                    'target_type' => Badge::class,
+                    'target_id'   => $badge?->id ?? 0,
+                    'meta'        => [
+                        'reason'       => $overrideReasonAr,
+                        'badge_uuid'   => $badge?->badge_uuid,
+                        'service_type' => $serviceType,
+                        'service_id'   => $serviceId,
+                    ],
+                ]);
+            }
+        } catch (\Throwable $e) {}
 
         return $this->allow('SUPER_ADMIN_OVERRIDE', "تجاوز طارئ مصرح به من مدير النظام: {$overrideReasonAr}", "Emergency Super Admin Override: {$overrideReasonAr}", $badge, $zoneId, $serviceType, $serviceId, auth()->id());
     }
@@ -262,32 +266,40 @@ class WsapAccessRulesEngine
 
     private function recordAccessDecision(string $decision, string $code, string $msgAr, ?Badge $badge, ?int $zoneId, ?string $serviceType, ?string $serviceId, ?string $scannerUserId): void
     {
-        AccessDecisionLog::create([
-            'badge_id'          => $badge?->id,
-            'user_id'           => $badge?->user_id,
-            'service_type'      => $serviceType ?: 'GENERAL',
-            'service_id'        => $serviceId ? (string) $serviceId : null,
-            'zone_id'           => $zoneId,
-            'decision'          => $decision,
-            'reason_code'       => $code,
-            'reason_message_ar' => $msgAr,
-            'scanned_by'        => $scannerUserId ?: (auth()->id() ?: 1),
-            'scanned_at'        => now(),
-        ]);
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('access_decision_logs')) {
+                AccessDecisionLog::create([
+                    'badge_id'          => $badge?->id,
+                    'user_id'           => $badge?->user_id,
+                    'service_type'      => $serviceType ?: 'GENERAL',
+                    'service_id'        => $serviceId ? (string) $serviceId : null,
+                    'zone_id'           => $zoneId,
+                    'decision'          => $decision,
+                    'reason_code'       => $code,
+                    'reason_message_ar' => $msgAr,
+                    'scanned_by'        => $scannerUserId ?: (auth()->id() ?: 1),
+                    'scanned_at'        => now(),
+                ]);
+            }
+        } catch (\Throwable $e) {}
 
-        AuditLog::create([
-            'event'       => 'ACCESS_' . $decision,
-            'user_id'     => $badge?->user_id ?? (auth()->id() ?: 1),
-            'target_type' => Badge::class,
-            'target_id'   => $badge?->id ?? 0,
-            'meta'        => [
-                'reason_code'  => $code,
-                'message_ar'   => $msgAr,
-                'badge_uuid'   => $badge?->badge_uuid,
-                'service_type' => $serviceType,
-                'service_id'   => $serviceId,
-                'zone_id'      => $zoneId,
-            ],
-        ]);
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('audit_logs')) {
+                AuditLog::create([
+                    'event'       => 'ACCESS_' . $decision,
+                    'user_id'     => $badge?->user_id ?? (auth()->id() ?: 1),
+                    'target_type' => Badge::class,
+                    'target_id'   => $badge?->id ?? 0,
+                    'meta'        => [
+                        'reason_code'  => $code,
+                        'message_ar'   => $msgAr,
+                        'badge_uuid'   => $badge?->badge_uuid,
+                        'service_type' => $serviceType,
+                        'service_id'   => $serviceId,
+                        'zone_id'      => $zoneId,
+                    ],
+                ]);
+            }
+        } catch (\Throwable $e) {}
     }
 }
