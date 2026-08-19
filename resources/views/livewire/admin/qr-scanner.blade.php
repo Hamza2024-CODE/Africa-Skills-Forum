@@ -89,7 +89,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                          this.lastScannedCode = decodedText;
                          this.playBeep(true);
                          $wire.scan(decodedText);
-                         setTimeout(() => { this.lastScannedCode = null; }, 2500);
+                         this.stopCamera();
                      },
                      () => {}
                  );
@@ -106,7 +106,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                                  this.lastScannedCode = decodedText;
                                  this.playBeep(true);
                                  $wire.scan(decodedText);
-                                 setTimeout(() => { this.lastScannedCode = null; }, 2500);
+                                 this.stopCamera();
                              },
                              () => {}
                          );
