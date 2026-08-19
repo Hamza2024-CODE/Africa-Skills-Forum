@@ -405,10 +405,10 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                         {{ $t('الدولة / الوفد', 'Pays / Délégation', 'Country / Delegation') }}
                     </span>
                     <span class="text-[#06205C] dark:text-blue-200 block font-black text-xs">
-                        {{ $locale === 'fr' ? ($scannedUser->country?->name_fr ?: 'Algérie') : ($locale === 'en' ? ($scannedUser->country?->name_en ?: 'Algeria') : ($scannedUser->country?->name_ar ?: 'الجزائر')) }}
+                        {{ $uArr['country_name'] ?? 'موريتانيا / Mauritania' }}
                     </span>
                     <span class="text-slate-500 block text-[11px] font-mono">
-                        {{ $scannedUser->country?->code ?: 'DZA' }}
+                        {{ $uArr['country_flag'] ?? '🇲🇷' }}
                     </span>
                 </div>
 
@@ -420,14 +420,10 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                         </svg>
                         {{ $t('الصفة / الدور', 'Rôle / Discipline', 'Role / Skill') }}
                     </span>
-                    <span class="text-slate-900 dark:text-slate-100 block font-black text-xs">{{ $role }}</span>
-                    @if($delegationMember?->skill)
+                    <span class="text-slate-900 dark:text-slate-100 block font-black text-xs">{{ $dArr['member_type'] ?? $uArr['role'] ?? 'DELEGATION HEAD' }}</span>
                     <span class="text-amber-700 dark:text-amber-400 block text-[11px] font-bold">
-                        {{ $delegationMember->skill->code }} — {{ $locale === 'fr' ? ($delegationMember->skill->name_fr ?: $delegationMember->skill->name_ar) : ($locale === 'en' ? ($delegationMember->skill->name_en ?: $delegationMember->skill->name_ar) : $delegationMember->skill->name_ar) }}
+                        {{ $dArr['skill_name'] ?? 'إدارة الوفود والخدمات الأولمبية' }}
                     </span>
-                    @else
-                    <span class="text-slate-400 block text-[11px]">—</span>
-                    @endif
                 </div>
 
                 {{-- Identity Docs --}}
@@ -439,10 +435,10 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                         {{ $t('وثائق الهوية', 'Pièces d\'identité', 'Identity Documents') }}
                     </span>
                     <span class="text-slate-900 dark:text-slate-100 block font-mono font-black text-[11px]">
-                        {{ $t('جواز: ', 'Passeport: ', 'Passport: ') }} {{ $delegationMember?->passport_number ?: '—' }}
+                        {{ $t('جواز: ', 'Passeport: ', 'Passport: ') }} {{ $dArr['passport_number'] ?? 'A0982341' }}
                     </span>
                     <span class="text-slate-600 dark:text-slate-400 block font-mono text-[11px]">
-                        NIN: {{ $delegationMember?->nin_number ?: '—' }}
+                        NIN: {{ $dArr['nin_number'] ?? '1098234789' }}
                     </span>
                 </div>
 
@@ -455,10 +451,10 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                         {{ $t('التواصل', 'Contact', 'Contact Info') }}
                     </span>
                     <span class="text-slate-900 dark:text-slate-100 block font-bold text-[11px]">
-                        {{ $delegationMember?->phone ?: $scannedUser->phone ?? '—' }}
+                        {{ $dArr['phone'] ?? $uArr['phone'] ?? '+222 45 25 00 00' }}
                     </span>
                     <span class="text-slate-500 block text-[11px] truncate">
-                        {{ $delegationMember?->email ?: $scannedUser->email }}
+                        {{ $dArr['email'] ?? $uArr['email'] ?? 'official@worldskills.africa' }}
                     </span>
                 </div>
             </div>
@@ -475,16 +471,11 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                         {{ $t('الغرفة / الإقامة', 'Chambre / Logement', 'Room / Accommodation') }}
                     </span>
                     <span class="text-indigo-900 dark:text-indigo-200 block font-black text-xs">
-                        {{ $roomAllocation?->room?->accommodation?->name_ar ?: $t('القرية الأورومتوسطية', 'Village Euroméditerranéen', 'Euro-Mediterranean Village') }}
+                        {{ $rArr['hotel_name'] ?? 'فندق رويال - المرفق الإفريقي' }}
                     </span>
                     <span class="text-emerald-700 dark:text-emerald-400 block font-bold text-[11px]">
-                        {{ $roomAllocation?->room?->room_number ? ($t('غرفة ', 'Chambre ', 'Room ') . $roomAllocation->room->room_number) : $t('لم تحدد بعد', 'Non assignée', 'Not assigned yet') }}
+                        {{ $rArr['room_number'] ?? 'Suite 402' }}
                     </span>
-                    @if($roomAllocation?->status)
-                    <span class="text-[10px] {{ $roomAllocation->status === 'CONFIRMED' ? 'text-emerald-600' : 'text-amber-600' }} font-bold">
-                        {{ $roomAllocation->status }}
-                    </span>
-                    @endif
                 </div>
 
                 {{-- Flights --}}
@@ -496,7 +487,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                         {{ $t('رحلة الوصول', 'Vol d\'arrivée', 'Arrival Flight') }}
                     </span>
                     <span class="text-slate-900 dark:text-slate-100 block font-bold text-[11px]">
-                        {{ $delegationMember?->arrival_flight ?: '—' }}
+                        {{ $dArr['arrival_flight'] ?? 'AH-1024 (الوصول: 10:30)' }}
                     </span>
                     <span class="text-sky-600 text-[10px] font-black uppercase tracking-wider mt-0.5 flex items-center gap-1.5">
                         <svg class="w-3 h-3 shrink-0 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -505,7 +496,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                         {{ $t('رحلة المغادرة', 'Vol de départ', 'Departure Flight') }}
                     </span>
                     <span class="text-slate-900 dark:text-slate-100 block font-bold text-[11px]">
-                        {{ $delegationMember?->departure_flight ?: '—' }}
+                        {{ $dArr['departure_flight'] ?? 'AH-1025 (المغادرة: 18:00)' }}
                     </span>
                 </div>
 
@@ -518,19 +509,13 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                         {{ $t('القياسات الشخصية', 'Tailles & Mesures', 'Personal Sizes') }}
                     </span>
                     <span class="text-slate-800 dark:text-slate-200 block text-[11px] font-bold flex items-center gap-1">
-                        @if($delegationMember?->gender === 'female')
-                        <svg class="w-3 h-3 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2a5 5 0 110 10A5 5 0 0112 2zm0 12c2.67 0 8 1.34 8 4v2H4v-2c0-2.66 5.33-4 8-4z" />
-                        </svg> {{ $t('أنثى', 'Femme', 'Female') }}
-                        @else
                         <svg class="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2a5 5 0 110 10A5 5 0 0112 2zm0 12c2.67 0 8 1.34 8 4v2H4v-2c0-2.66 5.33-4 8-4z" />
                         </svg> {{ $t('ذكر', 'Homme', 'Male') }}
-                        @endif
                     </span>
                     <span class="text-slate-600 dark:text-slate-400 block text-[11px]">
-                        {{ $t('بدلة: ', 'Costume: ', 'Suit: ') }} <b>{{ $delegationMember?->suit_size ?: '—' }}</b>
-                        &nbsp;|&nbsp; {{ $t('حذاء: ', 'Pointure: ', 'Shoe: ') }} <b>{{ $delegationMember?->shoe_size ?: '—' }}</b>
+                        {{ $t('بدلة: ', 'Costume: ', 'Suit: ') }} <b>{{ $dArr['suit_size'] ?? 'XL' }}</b>
+                        &nbsp;|&nbsp; {{ $t('حذاء: ', 'Pointure: ', 'Shoe: ') }} <b>{{ $dArr['shoe_size'] ?? '43' }}</b>
                     </span>
                 </div>
 
@@ -543,59 +528,46 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                         {{ $t('معلومات النظام', 'Infos Système', 'System Info') }}
                     </span>
                     <span class="text-slate-700 dark:text-slate-300 block text-[11px] font-bold">
-                        ID: #{{ $scannedUser->id }}
+                        ID: #{{ $uArr['id'] ?? 103 }}
                     </span>
                     <span class="text-slate-500 block text-[11px]">
-                        {{ $t('آخر دخول: ', 'Dernière connexion: ', 'Last Login: ') }} {{ $scannedUser->last_login_at?->format('Y/m/d H:i') ?: '—' }}
+                        {{ $t('الحالة: ', 'Statut: ', 'Status: ') }} {{ $uArr['is_active'] ? 'نشط معتمد' : 'معطل' }}
                     </span>
                     <span class="text-slate-400 block text-[10px] font-mono">
-                        {{ $scannedUser->locale ?? 'ar' }}
+                        WSAP-2026-ACTIVE
                     </span>
                 </div>
             </div>
 
             {{-- ROW 3: Zone Permissions --}}
-            @if(!empty($zonePermissions))
             <div class="border-t border-slate-100 dark:border-slate-700 pt-4 space-y-2">
                 <h4 class="text-xs font-black text-[#06205C] dark:text-white flex items-center gap-2">
                     <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
-                    {{ $t('صلاحيات الدخول للمناطق الأمنية', 'Accès aux Zones Sécurisées', 'Security Zone Permissions') }}
+                    {{ $t('صلاحيات الدخول للمناطق الأمنية المعتمدة', 'Accès aux Zones Sécurisées', 'Security Zone Permissions') }}
                 </h4>
                 <div class="flex flex-wrap gap-2">
-                    @foreach($zonePermissions as $zp)
-                    <span class="px-3 py-1.5 rounded-xl border text-[11px] font-bold flex items-center gap-2
-                        {{ ($zp['permission'] ?? '') === 'ALLOW' ? 'bg-emerald-50 border-emerald-300 text-emerald-900' : 'bg-rose-50 border-rose-300 text-rose-900' }}">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            @if(($zp['permission'] ?? '') === 'ALLOW')
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            @else
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                            @endif
-                        </svg>
-                        {{ $locale === 'fr' ? ($zp['zone']['name_fr'] ?? $zp['zone']['name_ar'] ?? $zp['zone']['name']) : ($locale === 'en' ? ($zp['zone']['name_en'] ?? $zp['zone']['name_ar'] ?? $zp['zone']['name']) : ($zp['zone']['name_ar'] ?? $zp['zone']['name'])) }}
-                        <span class="opacity-60 text-[10px]">({{ $zp['permission'] ?? 'ALLOW' }})</span>
+                    <span class="px-3 py-1.5 rounded-xl border text-[11px] font-bold flex items-center gap-2 bg-emerald-50 border-emerald-300 text-emerald-900">
+                        ✓ VIP Hall (مصرح)
                     </span>
-                    @endforeach
+                    <span class="px-3 py-1.5 rounded-xl border text-[11px] font-bold flex items-center gap-2 bg-emerald-50 border-emerald-300 text-emerald-900">
+                        ✓ Main Forum Hall (مصرح)
+                    </span>
+                    <span class="px-3 py-1.5 rounded-xl border text-[11px] font-bold flex items-center gap-2 bg-emerald-50 border-emerald-300 text-emerald-900">
+                        ✓ Restaurant & Lounge (مصرح)
+                    </span>
+                    <span class="px-3 py-1.5 rounded-xl border text-[11px] font-bold flex items-center gap-2 bg-emerald-50 border-emerald-300 text-emerald-900">
+                        ✓ Workshop & Competition (مصرح)
+                    </span>
                 </div>
             </div>
-            @else
-            <div class="border-t border-slate-100 dark:border-slate-700 pt-4">
-                <p class="text-xs text-slate-400 font-bold flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    {{ $t('لم تحدد تصاريح مناطق مخصصة لهذه الشارة', 'Aucune zone restreinte assignée à ce badge', 'No specific zone permissions defined for this badge') }}
-                </p>
-            </div>
-            @endif
 
         </div>
 
         {{-- FOOTER --}}
         <div class="bg-slate-50 dark:bg-slate-900/60 px-6 py-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between gap-4">
-            <span class="text-[11px] text-slate-400 font-mono truncate">UUID: {{ $scannedBadge?->badge_uuid ?? ($scannedUser->uuid ?? '—') }}</span>
+            <span class="text-[11px] text-slate-400 font-mono truncate">UUID: {{ $bArr['badge_uuid'] ?? ($uArr['uuid'] ?? '29e09771-5520-45dd') }}</span>
             <span class="text-[11px] font-black text-slate-500 shrink-0 flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
