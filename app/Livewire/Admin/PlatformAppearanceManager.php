@@ -106,6 +106,16 @@ class PlatformAppearanceManager extends Component
         $this->coming_soon_subtitle_en = $settings->get('coming_soon_subtitle_en', 'The official platform is currently being prepared for launch in Oran.');
     }
 
+    public function updatedMaintenanceMode($value): void
+    {
+        $settings = app(SettingsEngine::class);
+        $settings->set('maintenance_mode', $value ? 'true' : 'false', 'string', 'system');
+        $settings->flushCache();
+        $this->savedMessage = $value
+            ? 'تم تفعيل وضع "انتظرونا قريباً / Coming Soon" بنجاح لحجب الواجهة العامة وإظهار صفحة الترقب.'
+            : 'تم إيقاف تفعيل وضع "انتظرونا قريباً" وعادت الواجهة العامة للعمل بشكل طبيعي.';
+    }
+
     public function saveAppearance(SettingsEngine $settings)
     {
         $user = Auth::user();

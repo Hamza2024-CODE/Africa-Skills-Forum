@@ -1,9 +1,8 @@
 @php
     $isMaintenance = app(\App\Services\SettingsEngine::class)->get('maintenance_mode') === 'true';
-    $isAdmin = auth()->check() && (auth()->user()->hasRole(\App\Enums\RoleEnum::SUPER_ADMIN->value) || auth()->user()->hasRole(\App\Enums\RoleEnum::COUNTRY_ADMIN->value) || auth()->user()->hasRole(\App\Enums\RoleEnum::MEDIA_MANAGER->value));
 @endphp
 
-@if($isMaintenance && !$isAdmin)
+@if($isMaintenance && !request()->is('panel*') && !request()->is('login*'))
     @include('public.coming-soon')
     @php exit; @endphp
 @endif
