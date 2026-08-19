@@ -10,7 +10,7 @@
 @endphp
 
 <!DOCTYPE html>
-<html lang="{{ $locale }}" dir="{{ $dir }}" class="h-full" x-data="{ dark: localStorage.getItem('wsap_dark_mode') === 'true' }" x-init="document.documentElement.classList.toggle('dark', dark)" :class="dark ? 'dark' : ''">
+<html lang="{{ $locale }}" dir="{{ $dir }}" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +18,9 @@
     <title>{{ $title }} — Africa Skills Forum</title>
     <meta name="description" content="Africa Skills Forum — المنصة الرسمية لمنتدى المهارات الإفريقية">
     <meta name="theme-color" content="#020A24">
+
+    @livewireStyles
+    @livewireScripts
 
     {{-- PWA --}}
     <link rel="manifest" href="/manifest.webmanifest">
@@ -163,8 +166,6 @@
 
     {{-- Native Smartphone Mobile App Bottom Tab Bar Navigation --}}
     <x-mobile-bottom-nav />
-
-    @livewireScripts
 
     {{-- Global Real-time Toast Notifications System --}}
     <div x-data="{
