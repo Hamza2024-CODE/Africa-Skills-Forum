@@ -40,6 +40,52 @@
         </div>
     @endif
 
+    <!-- ════ MAINTENANCE / COMING SOON MODE CONTROL SECTION ════ -->
+    <div class="p-6 rounded-3xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border-2 border-amber-400/40 shadow-xl space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-black shadow-lg shrink-0">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                    <h2 class="text-lg font-black text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                        <span>وضع "انتظرونا قريباً / Coming Soon" للواجهة العامة</span>
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold {{ $maintenance_mode ? 'bg-amber-500 text-slate-950' : 'bg-slate-200 text-slate-600' }}">
+                            {{ $maintenance_mode ? 'مفعّل حالياً (الواجهة مخفية للزوار)' : 'معطّل (الواجهة تعمل طبيعياً)' }}
+                        </span>
+                    </h2>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 font-medium">
+                        عند تفعيل هذا الخيار، سيتم حجب كامل محتوى الواجهة العامة وإظهار صفحة "انتظرونا قريباً" المستقلة للزوار فقط، بينما يمكنك كأدمن الاستمرار في تصفح وضبط المنصة بحرية.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Toggle Switch -->
+            <label class="relative inline-flex items-center cursor-pointer shrink-0">
+                <input type="checkbox" wire:model.live="maintenance_mode" class="sr-only peer">
+                <div class="w-14 h-7 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-amber-500"></div>
+                <span class="ms-3 text-xs font-black text-slate-800 dark:text-slate-200">{{ $maintenance_mode ? 'مفعّل' : 'معطّل' }}</span>
+            </label>
+        </div>
+
+        @if($maintenance_mode)
+            <div class="pt-4 border-t border-amber-200/60 dark:border-slate-700 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">عنوان انتظرونا قريباً (بالعربية)</label>
+                    <input type="text" wire:model="coming_soon_title_ar" class="w-full px-3.5 py-2 text-xs font-bold rounded-xl border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">عنوان (بالفرنسية)</label>
+                    <input type="text" wire:model="coming_soon_title_fr" class="w-full px-3.5 py-2 text-xs font-bold rounded-xl border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">عنوان (بالإنجليزية)</label>
+                    <input type="text" wire:model="coming_soon_title_en" class="w-full px-3.5 py-2 text-xs font-bold rounded-xl border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-white">
+                </div>
+            </div>
+        @endif
+    </div>
+
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <!-- Main Form Controls -->
         <div class="lg:col-span-8 space-y-8">

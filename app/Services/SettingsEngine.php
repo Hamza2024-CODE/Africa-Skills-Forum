@@ -44,6 +44,15 @@ class SettingsEngine
         'hero_slide_4' => '',
         'hero_slide_5' => '',
 
+        // Maintenance / Coming Soon Mode Global Settings
+        'maintenance_mode' => 'false',
+        'coming_soon_title_ar' => 'انتظرونا قريباً — منتدى السياسات الأفريقية للمهارات 2026',
+        'coming_soon_title_fr' => 'Bientôt disponible — Forum des Politiques Africaines des Compétences 2026',
+        'coming_soon_title_en' => 'Coming Soon — Africa Skills Policy Forum 2026',
+        'coming_soon_subtitle_ar' => 'المنصة الرسمية تحت التحديث والتجهيز حالياً استعداداً للانطلاق الرسمي بوهران.',
+        'coming_soon_subtitle_fr' => 'La plateforme officielle est actuellement en cours de préparation pour le lancement à Oran.',
+        'coming_soon_subtitle_en' => 'The official platform is currently being prepared for launch in Oran.',
+
         // Africa Skills Policy Forum 2026 Global Database Settings
         'forum.name_ar' => 'منتدى السياسات الأفريقية للمهارات 2026',
         'forum.name_fr' => 'Forum des Politiques Africaines des Compétences 2026',

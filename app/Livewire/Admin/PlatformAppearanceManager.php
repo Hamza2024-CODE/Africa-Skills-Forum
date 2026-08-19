@@ -42,12 +42,13 @@ class PlatformAppearanceManager extends Component
     public string $hero_banner_url;
     public string $accreditation_banner_url;
 
-    public string $previewDevice = 'desktop';
-
-    public mixed $site_logo_file = null;
-    public mixed $favicon_file = null;
-    public mixed $hero_banner_file = null;
-    public mixed $accreditation_banner_file = null;
+    public bool $maintenance_mode = false;
+    public string $coming_soon_title_ar = '';
+    public string $coming_soon_title_fr = '';
+    public string $coming_soon_title_en = '';
+    public string $coming_soon_subtitle_ar = '';
+    public string $coming_soon_subtitle_fr = '';
+    public string $coming_soon_subtitle_en = '';
 
     public string $savedMessage = '';
     public string $errorMessage = '';
@@ -88,6 +89,14 @@ class PlatformAppearanceManager extends Component
         $this->favicon_url = $settings->get('branding.favicon', '/favicon.ico');
         $this->hero_banner_url = $settings->get('branding.hero_banner', '/banner.png');
         $this->accreditation_banner_url = $settings->get('accreditation_banner_image', '/images/channels4_banner.jpg');
+
+        $this->maintenance_mode = filter_var($settings->get('maintenance_mode', 'false'), FILTER_VALIDATE_BOOLEAN);
+        $this->coming_soon_title_ar = $settings->get('coming_soon_title_ar', 'انتظرونا قريباً — منتدى السياسات الأفريقية للمهارات 2026');
+        $this->coming_soon_title_fr = $settings->get('coming_soon_title_fr', 'Bientôt disponible — Forum des Politiques Africaines des Compétences 2026');
+        $this->coming_soon_title_en = $settings->get('coming_soon_title_en', 'Coming Soon — Africa Skills Policy Forum 2026');
+        $this->coming_soon_subtitle_ar = $settings->get('coming_soon_subtitle_ar', 'المنصة الرسمية تحت التحديث والتجهيز حالياً استعداداً للانطلاق الرسمي بوهران.');
+        $this->coming_soon_subtitle_fr = $settings->get('coming_soon_subtitle_fr', 'La plateforme officielle est actuellement en cours de préparation pour le lancement à Oran.');
+        $this->coming_soon_subtitle_en = $settings->get('coming_soon_subtitle_en', 'The official platform is currently being prepared for launch in Oran.');
     }
 
     public function saveAppearance(SettingsEngine $settings)
@@ -170,6 +179,14 @@ class PlatformAppearanceManager extends Component
         $settings->set('appearance.radius_xl', $this->radius_xl, 'string', 'appearance');
 
         $settings->set('branding.site_name', $this->site_name, 'string', 'branding');
+
+        $settings->set('maintenance_mode', $this->maintenance_mode ? 'true' : 'false', 'string', 'system');
+        $settings->set('coming_soon_title_ar', $this->coming_soon_title_ar, 'string', 'system');
+        $settings->set('coming_soon_title_fr', $this->coming_soon_title_fr, 'string', 'system');
+        $settings->set('coming_soon_title_en', $this->coming_soon_title_en, 'string', 'system');
+        $settings->set('coming_soon_subtitle_ar', $this->coming_soon_subtitle_ar, 'string', 'system');
+        $settings->set('coming_soon_subtitle_fr', $this->coming_soon_subtitle_fr, 'string', 'system');
+        $settings->set('coming_soon_subtitle_en', $this->coming_soon_subtitle_en, 'string', 'system');
 
         $settings->flushCache();
 

@@ -1,3 +1,13 @@
+@php
+    $isMaintenance = app(\App\Services\SettingsEngine::class)->get('maintenance_mode') === 'true';
+    $isAdmin = auth()->check() && (auth()->user()->hasRole(\App\Enums\RoleEnum::SUPER_ADMIN->value) || auth()->user()->hasRole(\App\Enums\RoleEnum::COUNTRY_ADMIN->value) || auth()->user()->hasRole(\App\Enums\RoleEnum::MEDIA_MANAGER->value));
+@endphp
+
+@if($isMaintenance && !$isAdmin)
+    @include('public.coming-soon')
+    @php exit; @endphp
+@endif
+
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" class="h-full bg-[#F4F7FC]">
 <head>
@@ -170,6 +180,15 @@
         });
     }
 " class="font-sans antialiased h-full flex flex-col text-[#06205C] bg-[#F4F7FC] relative">
+
+    @if($isMaintenance && $isAdmin)
+        <div class="bg-amber-500 text-slate-950 px-4 py-2 text-xs font-black text-center shadow-lg sticky top-0 z-50 flex items-center justify-center gap-3">
+            <span>⚠️ {{ app()->getLocale() === 'fr' ? 'Le mode "Bientôt disponible" (Maintenance) est activé pour les visiteurs.' : (app()->getLocale() === 'en' ? 'Maintenance / Coming Soon Mode is currently ACTIVE for visitors.' : 'وضع "انتظرونا قريباً / الصيانة" مفعّل حالياً لزوار الواجهة العامة.') }}</span>
+            <a href="{{ route('admin.appearance') }}" class="px-3 py-1 rounded-lg bg-slate-950 text-amber-400 font-bold hover:bg-slate-900 transition">
+                {{ app()->getLocale() === 'fr' ? 'Désactiver' : (app()->getLocale() === 'en' ? 'Manage' : 'إدارة أو إيقاف التفعيل') }}
+            </a>
+        </div>
+    @endif
 
     <!-- Controlled PWA Update Notification Banner -->
     <div x-show="pwaUpdateAvailable" x-cloak class="fixed bottom-6 left-6 right-6 md:left-auto md:right-6 md:max-w-md z-50 bg-[#020A24] text-white rounded-2xl p-4 shadow-2xl border border-brand-sky/40 flex items-center justify-between gap-4 animate-bounce">
