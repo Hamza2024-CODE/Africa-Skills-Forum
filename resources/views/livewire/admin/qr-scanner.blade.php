@@ -48,79 +48,84 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
              }
 
              this.stream = s;
-             const video = $refs.scanVideo;
-             if (video) {
-                 video.setAttribute('playsinline', 'true');
-                 video.setAttribute('webkit-playsinline', 'true');
-                 video.setAttribute('muted', 'true');
-                 video.muted = true;
-                 video.srcObject = s;
-                 await video.play().catch(() => {});
-             }
+             this.cameraOpen = true;
 
-             if (!this.scanCanvas) {
-                 this.scanCanvas = document.createElement('canvas');
-                 this.scanCtx = this.scanCanvas.getContext('2d', { willReadFrequently: true });
-             }
-
-             let detector = null;
-             if ('BarcodeDetector' in window) {
-                 try { detector = new BarcodeDetector({ formats: ['qr_code'] }); } catch (de) {}
-             }
-
-             let isProcessing = false;
-
-             const processScannedData = (decodedData) => {
-                 if (!decodedData || isProcessing) return;
-                 isProcessing = true;
-                 const cleanVal = decodedData.trim();
-                 if (cleanVal.length > 0) {
-                     $wire.set('query', cleanVal);
-                     $wire.scan(cleanVal);
-                     this.stopCamera();
-                     return true;
+             this.$nextTick(async () => {
+                 const video = this.$refs.scanVideo;
+                 if (video) {
+                     video.setAttribute('playsinline', 'true');
+                     video.setAttribute('webkit-playsinline', 'true');
+                     video.setAttribute('muted', 'true');
+                     video.muted = true;
+                     video.srcObject = s;
+                     await video.play().catch(() => {});
                  }
-                 isProcessing = false;
-                 return false;
-             };
 
-             const scanLoop = () => {
-                 if (!this.cameraOpen) return;
+                 if (!this.scanCanvas) {
+                     this.scanCanvas = document.createElement('canvas');
+                     this.scanCtx = this.scanCanvas.getContext('2d', { willReadFrequently: true });
+                 }
 
-                 if (video && video.readyState === video.HAVE_ENOUGH_DATA) {
-                     if (detector) {
-                         detector.detect(video).then(codes => {
-                             if (codes.length > 0 && codes[0].rawValue) {
-                                 if (processScannedData(codes[0].rawValue)) return;
+                 let detector = null;
+                 if ('BarcodeDetector' in window) {
+                     try { detector = new BarcodeDetector({ formats: ['qr_code'] }); } catch (de) {}
+                 }
+
+                 let isProcessing = false;
+
+                 const processScannedData = (decodedData) => {
+                     if (!decodedData || isProcessing) return;
+                     isProcessing = true;
+                     const cleanVal = decodedData.trim();
+                     if (cleanVal.length > 0) {
+                         $wire.set('query', cleanVal);
+                         $wire.scan(cleanVal);
+                         this.stopCamera();
+                         return true;
+                     }
+                     isProcessing = false;
+                     return false;
+                 };
+
+                 const scanLoop = () => {
+                     if (!this.cameraOpen) return;
+
+                     const videoEl = this.$refs.scanVideo || video;
+                     if (videoEl && videoEl.readyState >= 2) {
+                         if (detector) {
+                             detector.detect(videoEl).then(codes => {
+                                 if (codes.length > 0 && codes[0].rawValue) {
+                                     if (processScannedData(codes[0].rawValue)) return;
+                                 }
+                             }).catch(() => {});
+                         }
+
+                         let w = videoEl.videoWidth || 640;
+                         let h = videoEl.videoHeight || 480;
+                         const maxDim = 640;
+                         if (w > maxDim) {
+                             h = Math.round((h * maxDim) / w);
+                             w = maxDim;
+                         }
+                         this.scanCanvas.width = w;
+                         this.scanCanvas.height = h;
+                         this.scanCtx.drawImage(videoEl, 0, 0, w, h);
+                         const imageData = this.scanCtx.getImageData(0, 0, w, h);
+
+                         if (typeof jsQR !== 'undefined') {
+                             const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                                 inversionAttempts: 'attemptBoth',
+                             });
+                             if (code && code.data) {
+                                 if (processScannedData(code.data)) return;
                              }
-                         }).catch(() => {});
-                     }
-
-                     let w = video.videoWidth || 640;
-                     let h = video.videoHeight || 480;
-                     const maxDim = 640;
-                     if (w > maxDim) {
-                         h = Math.round((h * maxDim) / w);
-                         w = maxDim;
-                     }
-                     this.scanCanvas.width = w;
-                     this.scanCanvas.height = h;
-                     this.scanCtx.drawImage(video, 0, 0, w, h);
-                     const imageData = this.scanCtx.getImageData(0, 0, w, h);
-
-                     if (typeof jsQR !== 'undefined') {
-                         const code = jsQR(imageData.data, imageData.width, imageData.height, {
-                             inversionAttempts: 'attemptBoth',
-                         });
-                         if (code && code.data) {
-                             if (processScannedData(code.data)) return;
                          }
                      }
-                 }
 
-                 this.animFrame = requestAnimationFrame(scanLoop);
-             };
-             scanLoop();
+                     this.animFrame = requestAnimationFrame(scanLoop);
+                 };
+                 scanLoop();
+             });
          },
          scanImageFile(event) {
              const file = event.target.files[0];
@@ -238,7 +243,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
             </div>
         </div>
 
-        <form wire:submit.prevent="scan(query)" class="space-y-3">
+        <form wire:submit.prevent="scan($wire.query)" class="space-y-3">
             <div class="flex gap-2">
                 <input type="text" wire:model.live="query" autofocus
                     placeholder="{{ $t('أدخل UUID الشارة أو التوكين أو معرف المستخدم...', 'Saisissez le code UUID ou l\'ID du badge...', 'Enter Badge UUID, Token or User ID...') }}"

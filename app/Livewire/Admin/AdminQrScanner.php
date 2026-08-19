@@ -35,11 +35,7 @@ class AdminQrScanner extends Component
         $this->zonePermissions  = [];
         $this->accessDecision   = [];
 
-        if (!empty($scannedCode)) {
-            $this->query = $scannedCode;
-        }
-
-        $clean = trim($this->query);
+        $clean = trim($scannedCode ?: $this->query);
 
         if (empty($clean)) {
             return;
