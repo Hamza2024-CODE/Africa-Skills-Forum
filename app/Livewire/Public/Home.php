@@ -132,12 +132,22 @@ class Home extends Component
 
         $partners = Partner::where('status', 'ACTIVE')->where('is_featured', true)->orderBy('sort_order')->orderBy('name_ar')->get();
 
+        $heroSlide1 = platform()->get('hero_slide_1', '/image.png');
+        $heroSlides = collect([!empty($heroSlide1) ? $heroSlide1 : '/image.png'])
+            ->filter(function($s) { return !empty($s); })
+            ->values()
+            ->all();
+        $heroSlidesJson = json_encode(array_map('url', $heroSlides));
+        $heroMode = platform()->get('hero_bg_mode', 'image');
+
         return view('livewire.public.home', [
-            'skills'   => $skills,
-            'news'     => $news,
-            'albums'   => $albums,
-            'videos'   => $videos,
-            'partners' => $partners,
+            'skills'         => $skills,
+            'news'           => $news,
+            'albums'         => $albums,
+            'videos'         => $videos,
+            'partners'       => $partners,
+            'heroSlidesJson' => $heroSlidesJson,
+            'heroMode'       => $heroMode,
         ]);
     }
 }

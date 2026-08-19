@@ -1,25 +1,4 @@
 <div class="space-y-12 pb-16" x-data="{ showScheduleModal: false, scheduleTab: 16, showVideoModal: false, showPdfModal: false }">
-    @php
-        $activeEvent = $activeEvent ?? null;
-        $stats = $stats ?? [];
-        $countdownEnabled = $countdownEnabled ?? true;
-        $countdownStatus = $countdownStatus ?? 'COUNTDOWN';
-        $countdownTargetDate = $countdownTargetDate ?? '2026-09-15 09:00:00';
-
-        // — Dynamic Hero Background Image —
-        $heroSlide1 = platform()->get('hero_slide_1', '/image.png');
-        $heroSlides = collect([
-            !empty($heroSlide1) ? $heroSlide1 : '/image.png',
-        ])->filter(fn($s) => !empty($s))->values()->all();
-    @endphp
-    
-    @php
-        // Pre-compute for clean JS output — avoids quote conflicts inside x-data=""
-        $heroSlidesJson = json_encode(
-            array_map(fn($s) => url($s), $heroSlides)
-        );
-        $heroMode = platform()->get('hero_bg_mode', 'image');
-    @endphp
 
     <!-- 1. Pan-African Summit Hero Stage (Ultra-Modern African Leadership Aesthetic & Auto-Slider) -->
     <section class="relative bg-gradient-to-br from-[#0B2A6F] via-[#081F54] to-[#040E26] text-white pt-16 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-b-[3.5rem] border-b-2 border-[#35A536]/40 shadow-2xl"
