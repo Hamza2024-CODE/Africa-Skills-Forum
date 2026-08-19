@@ -157,6 +157,7 @@
                     document.body.classList.remove('overflow-hidden');
                 }
             }"
+            @click.self="$wire.closeSkillDetails()"
             class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md transition-opacity">
                 
                 <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
@@ -175,7 +176,7 @@
                             <h2 class="text-xl sm:text-2xl font-black text-white drop-shadow">{{ $selectedSkill->getLocalized('name') }}</h2>
                         </div>
 
-                        <button type="button" wire:click="closeSkillDetails" aria-label="Close Modal" class="absolute top-4 end-4 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center font-bold transition">
+                        <button type="button" wire:click="closeSkillDetails" @click="$wire.closeSkillDetails()" aria-label="Close Modal" class="absolute top-4 end-4 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center font-bold transition z-20 cursor-pointer">
                             ✕
                         </button>
                     </div>
@@ -218,18 +219,18 @@
                     <!-- Modal Actions -->
                     <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
                         <div class="flex items-center gap-2 w-full sm:w-auto">
-                            <button type="button" wire:click="closeSkillDetails" class="px-4 py-3 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition">
+                            <button type="button" wire:click="closeSkillDetails" @click="$wire.closeSkillDetails()" class="px-4 py-3 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition cursor-pointer">
                                 {{ app()->getLocale() === 'fr' ? 'Fermer' : (app()->getLocale() === 'en' ? 'Close' : 'إغلاق') }}
                             </button>
                             @if($selectedSkill->getPdfUrl())
-                                <button type="button" wire:click="openPdfViewer({{ $selectedSkill->id }})" class="px-4 py-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#0066FF] border border-blue-200 text-xs font-black transition flex items-center gap-2">
+                                <button type="button" wire:click="openPdfViewer({{ $selectedSkill->id }})" @click="$wire.openPdfViewer({{ $selectedSkill->id }})" class="px-4 py-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#0066FF] border border-blue-200 text-xs font-black transition flex items-center gap-2 cursor-pointer">
                                     <svg class="w-4 h-4 text-[#0066FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                     <span>{{ app()->getLocale() === 'fr' ? 'Consulter le PDF' : (app()->getLocale() === 'en' ? 'Review PDF Spec' : 'مراجعة الكراسة التقنية (PDF)') }}</span>
                                 </button>
                             @endif
                         </div>
 
-                        <a href="{{ route('registration', ['skill_id' => $selectedSkill->id]) }}" class="w-full sm:w-auto px-8 py-3 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white text-xs font-black shadow-lg transition flex items-center justify-center gap-2">
+                        <a href="{{ route('registration', ['skill_id' => $selectedSkill->id]) }}" class="w-full sm:w-auto px-8 py-3 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white text-xs font-black shadow-lg transition flex items-center justify-center gap-2 cursor-pointer">
                             <span>{{ app()->getLocale() === 'fr' ? 'S\'inscrire Immédiatement' : (app()->getLocale() === 'en' ? 'Register Immediately' : 'التسجيل الفوري في هذه المهنة') }}</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
