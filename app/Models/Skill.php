@@ -62,12 +62,24 @@ class Skill extends Model
 
     public function getPdfUrl(): ?string
     {
-        if (preg_match('/(?:SKILL|TD)-?(\d+)/i', $this->code, $m)) {
-            $num = str_pad($m[1], 2, '0', STR_PAD_LEFT);
-            $filename = "WSC2026_TD{$num}_en.pdf";
+        $num = null;
+        if (!empty($this->code) && preg_match('/(\d+)/', (string) $this->code, $m)) {
+            $num = (int) $m[1];
+        } elseif (!empty($this->id)) {
+            $num = (int) $this->id;
+        }
+
+        if ($num && $num >= 1 && $num <= 64) {
+            $numStr = str_pad($num, 2, '0', STR_PAD_LEFT);
+            $filename = "WSC2026_TD{$numStr}_en.pdf";
             if (file_exists(public_path('docs/td/' . $filename))) {
                 return asset('docs/td/' . $filename);
             }
+            return route('td.viewer', ['key' => 'td' . $numStr]);
+        }
+
+        if (file_exists(public_path('docs/GUIDE-PRATIQUE.pdf'))) {
+            return asset('docs/GUIDE-PRATIQUE.pdf');
         }
 
         return null;
