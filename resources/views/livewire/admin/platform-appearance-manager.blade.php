@@ -292,13 +292,22 @@
                 
                 <div class="flex items-center justify-between gap-2">
                     <h3 class="text-xs font-black text-slate-500 uppercase tracking-wider flex items-center gap-2">
-                        <span>👁️</span>
+                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                         <span>{{ app()->getLocale() === 'fr' ? 'Aperçu en Direct' : (app()->getLocale() === 'en' ? 'Live Preview' : 'المعاينة الحية') }}</span>
                     </h3>
-                    <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-[10px] font-black">
-                        <button wire:click="setPreviewDevice('desktop')" class="px-2 py-0.5 rounded-lg transition {{ $previewDevice === 'desktop' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-800' }}">🖥️ Desktop</button>
-                        <button wire:click="setPreviewDevice('tablet')" class="px-2 py-0.5 rounded-lg transition {{ $previewDevice === 'tablet' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-800' }}">📱 Tablet</button>
-                        <button wire:click="setPreviewDevice('mobile')" class="px-2 py-0.5 rounded-lg transition {{ $previewDevice === 'mobile' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-800' }}">📲 Mobile</button>
+                    <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-[10px] font-black">
+                        <button wire:click="setPreviewDevice('desktop')" class="px-2 py-1 rounded-lg transition flex items-center gap-1 {{ $previewDevice === 'desktop' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-800' }}">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            <span>Desktop</span>
+                        </button>
+                        <button wire:click="setPreviewDevice('tablet')" class="px-2 py-1 rounded-lg transition flex items-center gap-1 {{ $previewDevice === 'tablet' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-800' }}">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                            <span>Tablet</span>
+                        </button>
+                        <button wire:click="setPreviewDevice('mobile')" class="px-2 py-1 rounded-lg transition flex items-center gap-1 {{ $previewDevice === 'mobile' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-800' }}">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                            <span>Mobile</span>
+                        </button>
                     </div>
                 </div>
 
