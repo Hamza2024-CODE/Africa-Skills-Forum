@@ -25,6 +25,15 @@ class AppServiceProvider extends ServiceProvider
     {
         \Illuminate\Support\Facades\URL::forceScheme('https');
 
+        if (class_exists(\Livewire\Livewire::class)) {
+            \Livewire\Livewire::setScriptRoute(function ($handle) {
+                return \Illuminate\Support\Facades\Route::get('/vendor/livewire/livewire.js', $handle);
+            });
+            \Livewire\Livewire::setUpdateRoute(function ($handle) {
+                return \Illuminate\Support\Facades\Route::post('/livewire/update', $handle);
+            });
+        }
+
         Gate::policy(Country::class, CountryPolicy::class);
         Gate::policy(CountryDelegation::class, DelegationPolicy::class);
         Gate::policy(Registration::class, ParticipantPolicy::class);
