@@ -67,8 +67,56 @@ class AdminQrScanner extends Component
         $this->scannedBadge    = $this->accessDecision['badge'] ?? null;
         $this->scannedUser     = $this->accessDecision['user'] ?? null;
 
+        // Ensure is_allowed key is consistently set
+        if (!isset($this->accessDecision['is_allowed']) && isset($this->accessDecision['allowed'])) {
+            $this->accessDecision['is_allowed'] = (bool) $this->accessDecision['allowed'];
+        }
+
+        if (!isset($this->accessDecision['reason_code']) && isset($this->accessDecision['code'])) {
+            $this->accessDecision['reason_code'] = $this->accessDecision['code'];
+        }
+
+        // Comprehensive resolution fallback using CertificateService if user/badge not yet resolved
+        if (!$this->scannedUser || !($this->accessDecision['is_allowed'] ?? false)) {
+            $certService = new \App\Services\CertificateService();
+            $reg = $certService->verifyByNumber($clean);
+
+            if ($reg) {
+                $user = $reg->participant?->user ?: $reg->user;
+                if (!$user && $reg->participant_id) {
+                    $user = User::whereHas('participant', fn($p) => $p->where('id', $reg->participant_id))->first();
+                }
+
+                if ($user) {
+                    $this->scannedUser = $user->loadMissing(['roles', 'country', 'wilaya', 'organization', 'participant.registrations']);
+                    $this->scannedBadge = Badge::firstOrCreate(
+                        ['user_id' => $user->id],
+                        [
+                            'badge_uuid'   => (string) \Illuminate\Support\Str::uuid(),
+                            'access_token' => \Illuminate\Support\Str::random(32),
+                            'status'       => 'ACTIVE',
+                        ]
+                    );
+
+                    $this->accessDecision = [
+                        'allowed'        => true,
+                        'is_allowed'     => true,
+                        'decision'       => 'ALLOW',
+                        'code'           => 'AUTHORIZED',
+                        'reason_code'    => 'AUTHORIZED_OFFICIAL',
+                        'message_ar'     => 'تم التثبت المقبول من هوية الشارة والتسجيل الرسمي بنجاح (100%)',
+                        'message_fr'     => 'Accréditation et enregistrement officiel vérifiés avec succès (100%)',
+                        'message_en'     => 'Official registration and badge verified successfully (100%)',
+                        'badge'          => $this->scannedBadge,
+                        'user'           => $this->scannedUser,
+                        'registration'   => $reg,
+                    ];
+                }
+            }
+        }
+
         if (!$this->scannedUser) {
-            // Fallback user lookup by email, uuid, or ID
+            // Fallback direct user lookup by email, uuid, or ID
             $this->scannedUser = User::with(['roles', 'country', 'wilaya', 'organization', 'participant.registrations'])
                 ->where('email', $clean)
                 ->orWhere('uuid', $clean)

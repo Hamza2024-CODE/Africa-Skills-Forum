@@ -252,11 +252,14 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
 
     {{-- ACCESS DECISION RESULT CARD --}}
     @if(!empty($accessDecision))
-    <div class="p-6 rounded-3xl border shadow-lg space-y-4 {{ $accessDecision['is_allowed'] ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-700 text-emerald-950 dark:text-emerald-100' : 'bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-700 text-rose-950 dark:text-rose-100' }}">
-        <div class="flex items-center justify-between">
+    @php
+        $isAllowed = !empty($accessDecision['is_allowed']) || !empty($accessDecision['allowed']) || ($accessDecision['decision'] ?? '') === 'ALLOW';
+    @endphp
+    <div class="p-6 rounded-3xl border shadow-lg space-y-4 {{ $isAllowed ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-700 text-emerald-950 dark:text-emerald-100' : 'bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-700 text-rose-950 dark:text-rose-100' }}">
+        <div class="flex items-center justify-between flex-wrap gap-3">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-white font-black text-lg {{ $accessDecision['is_allowed'] ? 'bg-emerald-600' : 'bg-rose-600' }}">
-                    {!! $accessDecision['is_allowed']
+                <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-white font-black text-lg {{ $isAllowed ? 'bg-emerald-600' : 'bg-rose-600' }}">
+                    {!! $isAllowed
                     ? '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                     </svg>'
@@ -266,7 +269,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                 </div>
                 <div>
                     <h2 class="text-xl font-black">
-                        {{ $accessDecision['is_allowed']
+                        {{ $isAllowed
                             ? $t('إذن وصول مقبول ومصرح به 100%', 'Accès Autorisé & Accrédité 100%', 'Access Granted & Authorized 100%')
                             : $t('وصول مرفوض ومحظور أمنياً!', 'Accès Refusé & Interdit !', 'Access Denied & Restricted!') }}
                     </h2>
@@ -278,12 +281,12 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
 
             <div class="text-end">
                 <span class="px-3 py-1 rounded-full text-xs font-black font-mono border bg-white/80 dark:bg-slate-800">
-                    CODE: {{ $accessDecision['reason_code'] }}
+                    CODE: {{ $accessDecision['reason_code'] ?? $accessDecision['code'] ?? 'CHECK' }}
                 </span>
             </div>
         </div>
 
-        @if(!$accessDecision['is_allowed'])
+        @if(!$isAllowed)
         <div class="pt-2 flex justify-end">
             <button wire:click="$set('showOverrideModal', true)" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-black text-xs shadow-md">
                 {{ $t('تجاوز طارئ من مدير النظام (Super Admin Override)', 'Dérogation Exceptionnelle (Super Admin)', 'Super Admin Emergency Override') }}
