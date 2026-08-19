@@ -8,6 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('participant_profiles', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
@@ -36,10 +38,14 @@ return new class extends Migration
 
             $table->timestamps();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('participant_profiles');
+        Schema::enableForeignKeyConstraints();
     }
 };

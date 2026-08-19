@@ -4,7 +4,7 @@
             
             <!-- Official Dual Brand Logos (Ministry Seal + African Union / Africa Skills Forum) -->
             <a href="{{ route('home') }}" class="flex items-center gap-1.5 sm:gap-3 group shrink-0 py-1" title="{{ platform()->name() }}">
-                <div class="flex items-center gap-2 sm:gap-3 bg-slate-50/90 hover:bg-slate-100/90 p-1 sm:p-1.5 px-2.5 sm:px-4 rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden shrink-0 transition">
+                <div class="flex items-center gap-1.5 sm:gap-3 bg-slate-50/90 hover:bg-slate-100/90 p-1 sm:p-1.5 px-2 sm:px-3 rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden shrink-0 transition max-w-[62vw] sm:max-w-none">
                     <!-- 1. Ministry Seal Logo (Crisp Dark for Light Navbar) -->
                     <img src="{{ asset('ministry-logo-trimmed.png') }}" 
                          alt="الجمهورية الجزائرية الديمقراطية الشعبية - وزارة التكوين والتعليم المهنيين" 
@@ -97,7 +97,7 @@
                                     <span>{{ app()->getLocale() === 'fr' ? '1. Inscription Participants, Experts & Intervenants' : (app()->getLocale() === 'en' ? '1. Participants, Experts & Speakers Registration' : '1. تسجيل المشاركين والخبراء والمحاضرين') }}</span>
                                 </div>
                                 <div class="text-[10px] text-slate-400 font-medium mt-1">
-                                    {{ app()->getLocale() === 'fr' ? 'Demande d\'accréditation individuelle et participation' : (app()->getLocale() === 'en' ? 'Individual accreditation request and session participation' : 'طلب الاعتماد الفردي والمشاركة في التخصصات والجلسات') }}
+                                    {{ app()->getLocale() === 'fr' ? 'Demande d\'accréditation individuelle et participation' : (app()->getLocale() === 'en' ? 'Individual accreditation request and session participation' : 'طلب الاعتماد الفردي والمشاركة في جلسات وفعاليات المنتدى') }}
                                 </div>
                             </a>
                             <a href="{{ route('official.registration') }}" class="block px-4 py-3 text-xs font-bold text-[#0B2A6F] hover:bg-slate-50 hover:text-[#0B2A6F]">
@@ -176,14 +176,12 @@
                         <a href="{{ route('registration') }}" @click="mobileMenuOpen = false" class="block p-2.5 rounded-xl bg-white hover:bg-emerald-50 border border-emerald-100 shadow-xs transition">
                             <div class="flex items-center justify-between">
                                 <span class="text-xs font-black text-slate-900">{{ app()->getLocale() === 'fr' ? '1. Inscription Participants & Experts' : (app()->getLocale() === 'en' ? '1. Participants & Experts' : '1. تسجيل المشاركين والخبراء والمحاضرين') }}</span>
-                                <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800">تخصصات</span>
                             </div>
                         </a>
 
                         <a href="{{ route('official.registration') }}" @click="mobileMenuOpen = false" class="block p-2.5 rounded-xl bg-[#0B2A6F] text-white hover:bg-blue-900 shadow-xs transition">
                             <div class="flex items-center justify-between">
                                 <span class="text-xs font-black text-white">{{ app()->getLocale() === 'fr' ? '2. Inscription Officielle & Médias' : (app()->getLocale() === 'en' ? '2. Official Accreditation' : '2. التسجيل والاعتماد للوفود والإعلام') }}</span>
-                                <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-white/20 text-white">وفود وإعلام</span>
                             </div>
                         </a>
                     </div>

@@ -202,10 +202,10 @@
                         </div>
                         <div class="text-start">
                             <div class="text-xs font-black text-slate-900">
-                                {{ app()->getLocale() === 'fr' ? 'Inscription Compétiteurs & Jeunes' : (app()->getLocale() === 'en' ? 'Competitors & Youth Registration' : 'تسجيل المتنافسين والشباب في التخصصات') }}
+                                {{ app()->getLocale() === 'fr' ? 'Inscription Participants & Experts' : (app()->getLocale() === 'en' ? 'Participants & Experts Registration' : 'تسجيل المشاركين والخبراء والمحاضرين') }}
                             </div>
                             <div class="text-[10px] text-slate-500 font-bold mt-0.5">
-                                {{ app()->getLocale() === 'fr' ? 'Pour les candidats aux métiers et compétitions' : (app()->getLocale() === 'en' ? 'For skill competitors and youth participants' : 'خاص بالمشاركين في التخصصات والمسابقات المهنية') }}
+                                {{ app()->getLocale() === 'fr' ? 'Pour les participants aux sessions et conférences' : (app()->getLocale() === 'en' ? 'For session participants and experts' : 'خاص بالمشاركين والخبراء في جلسات وفعاليات المنتدى') }}
                             </div>
                         </div>
                     </a>

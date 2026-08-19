@@ -96,6 +96,10 @@
                             {{ __('messages.remember_me') }}
                         </span>
                     </label>
+
+                    <a href="{{ route('password.request') }}" class="text-xs font-bold text-[#0B2A6F] hover:text-[#35A536] transition">
+                        {{ app()->getLocale() === 'fr' ? 'Mot de passe oublié ?' : (app()->getLocale() === 'en' ? 'Forgot password?' : 'نسيت كلمة المرور / الحساب؟') }}
+                    </a>
                 </div>
 
                 <button type="submit" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#0B2A6F] to-[#35A536] hover:from-[#35A536] hover:to-[#0B2A6F] text-white font-black text-xs shadow-xl shadow-emerald-900/20 transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.01] border border-white/20">

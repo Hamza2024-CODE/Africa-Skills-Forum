@@ -225,5 +225,6 @@
         })();
     </script>
     <x-pwa-installer />
+    <x-push-notifications />
 </body>
 </html>

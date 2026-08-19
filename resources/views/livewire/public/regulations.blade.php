@@ -97,19 +97,36 @@
     </div>
 
     <!-- IN-PLATFORM PDF READER MODAL -->
-    <div x-show="showPdfModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-md">
+    <div x-show="showPdfModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md">
         <div class="bg-slate-900 rounded-3xl w-full max-w-5xl h-[90vh] flex flex-col overflow-hidden border border-slate-800 shadow-2xl">
-            <div class="p-4 bg-slate-950 text-white flex items-center justify-between border-b border-slate-800">
+            <div class="p-4 bg-slate-950 text-white flex flex-wrap items-center justify-between gap-3 border-b border-slate-800">
                 <div class="flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
                     <span class="text-xs font-black">{{ app()->getLocale() === 'fr' ? 'Lecteur PDF Officiel In-Platform' : 'قارئ المستندات المباشر — WorldSkills Algeria' }}</span>
                 </div>
-                <button @click="showPdfModal = false" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition">
-                    إغلاق القارئ ✕
-                </button>
+                <div class="flex items-center gap-2">
+                    <a :href="currentPdfUrl" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition flex items-center gap-1">
+                        <span>{{ app()->getLocale() === 'fr' ? 'Ouvrir plein écran ↗' : 'فتح في نافذة كاملة ↗' }}</span>
+                    </a>
+                    <button @click="showPdfModal = false" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition cursor-pointer">
+                        إغلاق القارئ ✕
+                    </button>
+                </div>
             </div>
-            <div class="flex-1 bg-white">
-                <iframe :src="currentPdfUrl" class="w-full h-full border-0"></iframe>
+            <div class="flex-1 bg-white p-2 sm:p-4 overflow-hidden flex flex-col">
+                <div class="p-3 mb-2 rounded-xl bg-blue-50 border border-blue-200 text-[#0B2A6F] text-xs font-bold flex items-center justify-between gap-2 shrink-0 md:hidden">
+                    <span>{{ app()->getLocale() === 'fr' ? 'Mobile : Cliquez sur "Ouvrir plein écran" pour afficher le PDF.' : 'مستخدمي الهواتف: انقر فوق "فتح في نافذة كاملة" لعرض المستند على هاتفك.' }}</span>
+                    <a :href="currentPdfUrl" target="_blank" class="px-3 py-1 rounded-lg bg-[#0B2A6F] text-white text-[11px] font-black shrink-0">فتح ↗</a>
+                </div>
+                <div class="flex-1 rounded-xl border border-slate-200 overflow-hidden relative">
+                    <object :data="currentPdfUrl" type="application/pdf" class="w-full h-full">
+                        <iframe :src="currentPdfUrl" class="w-full h-full border-0">
+                            <div class="p-8 text-center text-xs font-bold text-slate-700">
+                                <a :href="currentPdfUrl" target="_blank" class="px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold inline-block">انقر هنا لفتح ملف PDF</a>
+                            </div>
+                        </iframe>
+                    </object>
+                </div>
             </div>
         </div>
     </div>

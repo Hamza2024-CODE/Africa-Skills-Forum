@@ -56,5 +56,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 $role->givePermissionTo(['manage-delegations']);
             }
         }
+
+        Role::firstOrCreate(['name' => 'SPEAKER']);
     }
 }

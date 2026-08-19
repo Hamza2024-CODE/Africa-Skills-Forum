@@ -61,6 +61,32 @@ class CmsHomepageManager extends Component
     public $countdown_enabled = true;
     public $show_partners_section = true;
 
+    // Africa Skills Policy Forum 2026 Admin Settings
+    public $forum_name_ar;
+    public $forum_name_fr;
+    public $forum_name_en;
+
+    public $forum_slogan_ar;
+    public $forum_slogan_fr;
+    public $forum_slogan_en;
+
+    public $forum_dates_ar;
+    public $forum_dates_fr;
+    public $forum_dates_en;
+
+    public $forum_principle_ar;
+    public $forum_principle_fr;
+    public $forum_principle_en;
+
+    public $forum_description_ar;
+    public $forum_description_fr;
+    public $forum_description_en;
+
+    public $forum_stat_countries;
+    public $forum_stat_ministers;
+    public $forum_stat_roundtables;
+    public $forum_stat_panels;
+
     public $activeTab = 'countdown';
     public $savedMessage = '';
 
@@ -84,9 +110,9 @@ class CmsHomepageManager extends Component
         $this->cta_text_en = $settings->get('home_cta_text_en', 'Be part of the largest skills event in Africa!');
 
         // Hero Slider image URLs from DB
-        $this->hero_slide_1_url = $settings->get('hero_slide_1', '/images/hero_slide_1.png');
-        $this->hero_slide_2_url = $settings->get('hero_slide_2', '/images/hero_slide_2.png');
-        $this->hero_slide_3_url = $settings->get('hero_slide_3', '/images/hero_slide_3.png');
+        $this->hero_slide_1_url = $settings->get('hero_slide_1', '/image.png');
+        $this->hero_slide_2_url = $settings->get('hero_slide_2', '');
+        $this->hero_slide_3_url = $settings->get('hero_slide_3', '');
         $this->hero_slide_4_url = $settings->get('hero_slide_4', '');
         $this->hero_slide_5_url = $settings->get('hero_slide_5', '');
 
@@ -119,6 +145,32 @@ class CmsHomepageManager extends Component
         $this->countdown_flip_animation = filter_var($settings->get('countdown_flip_animation', true), FILTER_VALIDATE_BOOLEAN);
         $this->countdown_enabled       = filter_var($settings->get('countdown_enabled', true), FILTER_VALIDATE_BOOLEAN);
         $this->show_partners_section   = filter_var($settings->get('show_partners_section', true), FILTER_VALIDATE_BOOLEAN);
+
+        // Mount Africa Skills Policy Forum Database Settings
+        $this->forum_name_ar        = $settings->get('forum.name_ar');
+        $this->forum_name_fr        = $settings->get('forum.name_fr');
+        $this->forum_name_en        = $settings->get('forum.name_en');
+
+        $this->forum_slogan_ar      = $settings->get('forum.slogan_ar');
+        $this->forum_slogan_fr      = $settings->get('forum.slogan_fr');
+        $this->forum_slogan_en      = $settings->get('forum.slogan_en');
+
+        $this->forum_dates_ar       = $settings->get('forum.dates_ar');
+        $this->forum_dates_fr       = $settings->get('forum.dates_fr');
+        $this->forum_dates_en       = $settings->get('forum.dates_en');
+
+        $this->forum_principle_ar   = $settings->get('forum.principle_ar');
+        $this->forum_principle_fr   = $settings->get('forum.principle_fr');
+        $this->forum_principle_en   = $settings->get('forum.principle_en');
+
+        $this->forum_description_ar = $settings->get('forum.description_ar');
+        $this->forum_description_fr = $settings->get('forum.description_fr');
+        $this->forum_description_en = $settings->get('forum.description_en');
+
+        $this->forum_stat_countries  = $settings->get('forum.stat_countries');
+        $this->forum_stat_ministers  = $settings->get('forum.stat_ministers');
+        $this->forum_stat_roundtables = $settings->get('forum.stat_roundtables');
+        $this->forum_stat_panels     = $settings->get('forum.stat_panels');
     }
 
 
@@ -192,7 +244,33 @@ class CmsHomepageManager extends Component
         $settings->set('countdown_enabled', $this->countdown_enabled);
         $settings->set('show_partners_section', $this->show_partners_section);
 
-        $this->savedMessage = 'تم حفظ كافة إعدادات العداد التنازلي والشركاء والصفحة الرئيسية بنجاح، وتطبيق التعديلات بالمنصة.';
+        // Save Africa Skills Policy Forum 2026 Admin Settings
+        $settings->set('forum.name_ar', $this->forum_name_ar);
+        $settings->set('forum.name_fr', $this->forum_name_fr);
+        $settings->set('forum.name_en', $this->forum_name_en);
+
+        $settings->set('forum.slogan_ar', $this->forum_slogan_ar);
+        $settings->set('forum.slogan_fr', $this->forum_slogan_fr);
+        $settings->set('forum.slogan_en', $this->forum_slogan_en);
+
+        $settings->set('forum.dates_ar', $this->forum_dates_ar);
+        $settings->set('forum.dates_fr', $this->forum_dates_fr);
+        $settings->set('forum.dates_en', $this->forum_dates_en);
+
+        $settings->set('forum.principle_ar', $this->forum_principle_ar);
+        $settings->set('forum.principle_fr', $this->forum_principle_fr);
+        $settings->set('forum.principle_en', $this->forum_principle_en);
+
+        $settings->set('forum.description_ar', $this->forum_description_ar);
+        $settings->set('forum.description_fr', $this->forum_description_fr);
+        $settings->set('forum.description_en', $this->forum_description_en);
+
+        $settings->set('forum.stat_countries', $this->forum_stat_countries);
+        $settings->set('forum.stat_ministers', $this->forum_stat_ministers);
+        $settings->set('forum.stat_roundtables', $this->forum_stat_roundtables);
+        $settings->set('forum.stat_panels', $this->forum_stat_panels);
+
+        $this->savedMessage = 'تم حفظ كافة إعدادات منتدى السياسات والمحتوى الرئيسي بنجاح، وتحديث قاعدة البيانات بالكامل.';
     }
 
 

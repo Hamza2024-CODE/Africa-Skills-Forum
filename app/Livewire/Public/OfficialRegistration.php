@@ -304,6 +304,7 @@ class OfficialRegistration extends Component
         $positionTitle = match($this->delegation_capacity) {
             'DIPLOMAT' => 'دبلوماسي / مبعوث سفارة',
             'DELEGATION_HEAD' => 'مسؤول الوفد الوطني',
+            'VVIP_GUEST' => 'شخصية سامية جداً (VVIP)',
             'VIP_GUEST' => 'ضيف شرف (VIP)',
             'COORDINATOR' => 'مؤطر ومرافق تنفيذي',
             default => 'عضو وفد رسمي',

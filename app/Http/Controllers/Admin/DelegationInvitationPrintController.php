@@ -42,7 +42,7 @@ class DelegationInvitationPrintController extends Controller
             'login_url'  => url('/login'),
         ];
 
-        return view('admin.delegation-invitations.print-single', [
+        return view('management.delegation-invitations.print-single', [
             'invitation'    => $invitationData,
             'activeEdition' => $activeEdition,
         ]);

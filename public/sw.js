@@ -1,10 +1,11 @@
-const CACHE_NAME = 'wsap-2027-v1';
+const CACHE_NAME = 'asf-2026-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/manifest.json',
-  '/LOGO01.png',
-  '/logo.svg',
-  '/lanyard-strap.png'
+  '/manifest.webmanifest',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/LOGO01.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -48,9 +49,9 @@ self.addEventListener('fetch', (event) => {
 // PWA Push Notification Event Listener
 self.addEventListener('push', (event) => {
   let data = { 
-    title: 'WorldSkills Algeria 2026 🇩🇿', 
-    body: 'تنبيه جديد من لجنة التنظيم والنتائج الأولمبية', 
-    icon: '/logo.svg', 
+    title: 'Africa Skills Forum 2026', 
+    body: 'تنبيه جديد من منتدى المهارات الإفريقية', 
+    icon: '/icon-192.png', 
     url: '/notifications' 
   };
 
@@ -67,8 +68,8 @@ self.addEventListener('push', (event) => {
 
   const options = {
     body: data.body,
-    icon: data.icon || '/logo.svg',
-    badge: '/logo.svg',
+    icon: data.icon || '/icon-192.png',
+    badge: '/icon-192.png',
     vibrate: [200, 100, 200, 100, 200],
     data: { url: data.url || '/notifications' },
     tag: 'wsap-notification-' + Date.now(),

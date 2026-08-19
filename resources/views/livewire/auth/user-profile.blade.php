@@ -129,19 +129,15 @@ $badgeQrUrl = \App\Services\QrCodeService::generateDataUri($badgeVerifyUrl, 300)
                     <div class="w-full max-w-sm rounded-3xl p-6 shadow-2xl border-4 border-white/80 space-y-4 text-white text-center transition transform hover:scale-102" style="background: {{ $badgeTheme['bg'] }};">
                         
                         <!-- Top Emblem Header -->
-                        <div class="flex items-center justify-between border-b border-white/20 pb-3">
-                            <img src="/LOGO01.png" alt="State Seal" class="h-12 w-auto object-contain">
-                            <div class="text-center">
-                                <span class="text-[9px] font-black tracking-widest text-amber-300 block uppercase">الجمهورية الجزائرية</span>
-                                <span class="text-[8px] font-bold text-slate-200 block">WorldSkills Africa 2027</span>
-                            </div>
-                            <img src="/logo.svg" alt="WorldSkills Logo" class="h-8 w-auto filter brightness-0 invert">
+                        <div class="flex items-center justify-between border-b border-white/20 pb-3 px-1 gap-2">
+                            <img src="/ministry-logo-white-trimmed.png" alt="وزارة التكوين والتعليم المهنيين" class="h-10 sm:h-11 w-auto max-w-[55%] object-contain filter drop-shadow">
+                            <img src="/africa-logo-trimmed.png" alt="Africa Skills Forum 2026" class="h-9 sm:h-10 w-auto max-w-[40%] object-contain filter drop-shadow">
                         </div>
 
                         <!-- User Profile Name & Role -->
                         <div class="space-y-1 py-1">
                             <h2 class="text-xl font-black text-white tracking-tight truncate">{{ $user?->name }}</h2>
-                            <p class="text-xs font-mono text-slate-300 truncate" dir="ltr">{{ $user?->email }}</p>
+                            <p class="text-xs font-sans font-medium text-slate-300 truncate leading-normal py-0.5" dir="ltr">{{ $user?->email }}</p>
                         </div>
 
                         <!-- QR Code Center Box -->
@@ -152,7 +148,7 @@ $badgeQrUrl = \App\Services\QrCodeService::generateDataUri($badgeVerifyUrl, 300)
 
                         <!-- Sovereign Role Title Banner -->
                         <div class="pt-2 border-t border-white/20">
-                            <span class="text-xs font-serif font-black tracking-wider uppercase block text-center" style="color: {{ $badgeTheme['accent'] }};">
+                            <span class="text-xs font-bold font-sans uppercase block text-center" style="letter-spacing: 0 !important; color: {{ $badgeTheme['accent'] }};">
                                 {{ $badgeTheme['badge'] }}
                             </span>
                         </div>

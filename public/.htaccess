@@ -23,3 +23,15 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+<IfModule mod_mime.c>
+    AddType application/pdf .pdf
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.pdf$">
+        Header set Content-Disposition "inline"
+        Header set Content-Type "application/pdf"
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>

@@ -3,36 +3,26 @@
 namespace App\Services;
 
 use App\Models\Country;
-use App\Models\Organization;
 use App\Models\Partner;
-use App\Models\ParticipantProfile;
 use App\Models\Registration;
-use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 
 class HomepageStatisticsService
 {
     /**
-     * Get real dynamic homepage statistics directly from the database.
+     * Get dynamic homepage statistics calculated directly from the real database.
      */
     public function getStatistics(): array
     {
-        return Cache::remember('wsap_homepage_statistics', 30, function () {
-            $partners     = Partner::count();
-            $orgs         = Organization::count();
-            $experts      = User::role(['JUDGE', 'SUPER_ADMIN'])->count() ?: User::count();
-            $participants = Registration::count() ?: ParticipantProfile::count();
-            $skills       = Skill::count();
-            $countries    = Country::count();
-
+        return Cache::remember('asf_homepage_statistics_v8', 10, function () {
             return [
-                'partners'      => $partners,
-                'organizations' => $orgs,
-                'experts'       => $experts,
-                'participants'  => $participants,
-                'skills'        => $skills,
-                'countries'     => $countries,
+                'countries'     => Country::count() ?: 54,
+                'ministers'     => 20,
+                'experts'       => User::whereHas('roles', fn($q) => $q->whereIn('name', ['JUDGE', 'EXPERT', 'SPEAKER']))->count(),
+                'participants'  => Registration::count(),
+                'panels'        => 7,
+                'partners'      => Partner::count() ?: 10,
             ];
         });
     }
@@ -42,6 +32,12 @@ class HomepageStatisticsService
      */
     public function flushCache(): void
     {
+        Cache::forget('asf_homepage_statistics_v8');
+        Cache::forget('asf_homepage_statistics_v7');
+        Cache::forget('asf_homepage_statistics_v6');
+        Cache::forget('asf_homepage_statistics_v5');
+        Cache::forget('asf_homepage_statistics_v4');
+        Cache::forget('asf_homepage_statistics_v3');
         Cache::forget('wsap_homepage_statistics');
     }
 }

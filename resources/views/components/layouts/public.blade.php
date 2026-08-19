@@ -10,10 +10,19 @@
 
     <!-- PWA Manifest & Mobile Meta Tags -->
     <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+    <link rel="apple-touch-icon" href="/icon-192.png">
     <meta name="theme-color" content="#020A24">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="/icon-192.png">
+    <script>
+        window.deferredPwaPrompt = null;
+        window.addEventListener('beforeinstallprompt', function(e) {
+            e.preventDefault();
+            window.deferredPwaPrompt = e;
+        });
+    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,6 +75,8 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
     <style>
+        [x-cloak] { display: none !important; }
+
         .wsap-glass {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(16px);
@@ -268,11 +279,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof AOS !== 'undefined') {
                 AOS.init({
-                    duration: 900,
+                    duration: 600,
                     easing: 'ease-out-cubic',
-                    once: false,
-                    mirror: true,
-                    offset: 80
+                    once: true,
+                    mirror: false,
+                    offset: 40,
+                    disable: function() {
+                        return window.innerWidth < 768; // Disable AOS scroll animations on mobile to prevent Android Chrome address-bar flicker loops
+                    }
                 });
             }
         });
@@ -283,14 +297,17 @@
         });
     </script>
     <x-pwa-installer />
+    <x-cookie-consent />
+    <x-push-notifications />
 
-    <!-- Global Dynamic Interactive Mouse Ambient Light Aura (Subtle & Elegant) -->
-    <div id="asf-cursor-spotlight" class="pointer-events-none fixed top-0 left-0 w-64 h-64 -ml-32 -mt-32 rounded-full z-30 transition-transform duration-150 ease-out opacity-0" style="will-change: transform;">
+    <!-- Global Dynamic Interactive Mouse Ambient Light Aura (Desktop Only) -->
+    <div id="asf-cursor-spotlight" class="pointer-events-none fixed top-0 left-0 w-64 h-64 -ml-32 -mt-32 rounded-full z-30 transition-transform duration-150 ease-out opacity-0 hidden md:block" style="will-change: transform;">
         <div class="w-full h-full rounded-full bg-gradient-to-r from-[#0B2A6F]/10 via-[#35A536]/12 to-[#F5A800]/8 blur-2xl"></div>
     </div>
 
     <script>
         (function initMouseSpotlight() {
+            if (window.innerWidth < 768 || 'ontouchstart' in window) return;
             var el = document.getElementById('asf-cursor-spotlight');
             if (!el) return;
             var reqId = null;

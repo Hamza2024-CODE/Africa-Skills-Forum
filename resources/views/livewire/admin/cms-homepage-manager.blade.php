@@ -64,6 +64,12 @@
                     <span>صور السلايدر الرئيسي</span>
                 </button>
 
+                <button type="button" wire:click="setTab('forum')" 
+                        class="px-5 py-3 rounded-t-2xl font-black text-xs transition flex items-center gap-2 border-b-2 {{ $activeTab === 'forum' ? 'bg-white text-[#0B2A6F] border-[#35A536] shadow-xs' : 'text-slate-500 hover:text-slate-800 border-transparent' }}">
+                    <svg class="w-4 h-4 text-[#35A536]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    <span>منتدى السياسات 2026 DB</span>
+                </button>
+
                 <button type="button" wire:click="setTab('preview')" 
                         class="px-5 py-3 rounded-t-2xl font-black text-xs transition flex items-center gap-2 border-b-2 {{ $activeTab === 'preview' ? 'bg-brand-500 text-white border-brand-600 shadow-sm' : 'text-[#0284C7] hover:text-[#06205C] border-transparent font-bold' }}">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
@@ -76,8 +82,130 @@
                 
                 <form wire:submit.prevent="saveSettings" class="space-y-8">
                     
-                    <!-- TAB: HERO SLIDER IMAGES -->
-                    @if($activeTab === 'hero_images')
+                    <!-- TAB: AFRICA SKILLS POLICY FORUM DATABASE SETTINGS -->
+                    @if($activeTab === 'forum')
+                    <div class="space-y-6 animate-fade-in">
+                        
+                        <div class="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center gap-3">
+                            <svg class="w-5 h-5 text-[#35A536] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                            <div>
+                                <span class="font-black text-xs text-emerald-900 block">إدارة بيانات منتدى السياسات الأفريقية للمهارات 2026 من قاعدة البيانات</span>
+                                <span class="text-[11px] text-emerald-700">يمكنك تعديل الاسم، النشيد، التاريخ، المبدأ التأسيسي، الوصف الشامل والإحصائيات وتطبيقها فوراً على الواجهة.</span>
+                            </div>
+                        </div>
+
+                        <!-- Forum Core Info Inputs -->
+                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-6">
+                            <h3 class="text-sm font-black text-[#0B2A6F] flex items-center gap-2 border-b border-slate-100 pb-3">
+                                <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                                <span>اسم المنتدى وشعار الأجندة (ثلاثي اللغات)</span>
+                            </h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">الاسم بالعربية</label>
+                                    <input type="text" wire:model.defer="forum_name_ar" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Nom en Français</label>
+                                    <input type="text" wire:model.defer="forum_name_fr" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Name in English</label>
+                                    <input type="text" wire:model.defer="forum_name_en" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">الشعار (Slogan) - بالعربية</label>
+                                    <input type="text" wire:model.defer="forum_slogan_ar" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Slogan en Français</label>
+                                    <input type="text" wire:model.defer="forum_slogan_fr" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Slogan in English</label>
+                                    <input type="text" wire:model.defer="forum_slogan_en" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Forum Principle & Stats -->
+                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-6">
+                            <h3 class="text-sm font-black text-[#0B2A6F] flex items-center gap-2 border-b border-slate-100 pb-3">
+                                <svg class="w-4 h-4 text-[#35A536]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                                <span>المبدأ الأساسي والإحصائيات الرئيسية في قاعدة البيانات</span>
+                            </h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">المبدأ الأساسي (بالعربية)</label>
+                                    <input type="text" wire:model.defer="forum_principle_ar" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Principe Fondateur (Français)</label>
+                                    <input type="text" wire:model.defer="forum_principle_fr" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Founding Principle (English)</label>
+                                    <input type="text" wire:model.defer="forum_principle_en" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">عدد الدول المشاركة</label>
+                                    <input type="text" wire:model.defer="forum_stat_countries" class="w-full text-xs font-bold rounded-xl border-slate-200 focus:border-[#35A536]">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">عدد الوزراء المتوقعين</label>
+                                    <input type="text" wire:model.defer="forum_stat_ministers" class="w-full text-xs font-bold rounded-xl border-slate-200 focus:border-[#35A536]">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">الموائد المستديرة الوزارية</label>
+                                    <input type="text" wire:model.defer="forum_stat_roundtables" class="w-full text-xs font-bold rounded-xl border-slate-200 focus:border-[#35A536]">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">الجلسات التخصصية</label>
+                                    <input type="text" wire:model.defer="forum_stat_panels" class="w-full text-xs font-bold rounded-xl border-slate-200 focus:border-[#35A536]">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Forum Detailed Description -->
+                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-4">
+                            <h3 class="text-sm font-black text-[#0B2A6F] flex items-center gap-2 border-b border-slate-100 pb-3">
+                                <svg class="w-4 h-4 text-[#0B2A6F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+                                <span>الوصف التعريفي الممتد (المنظمون، الهدف الشامل، الرؤية)</span>
+                            </h3>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">الوصف بالعربية</label>
+                                    <textarea rows="3" wire:model.defer="forum_description_ar" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536]"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Description en Français</label>
+                                    <textarea rows="3" wire:model.defer="forum_description_fr" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536]"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Description in English</label>
+                                    <textarea rows="3" wire:model.defer="forum_description_en" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536]"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="submit" class="px-8 py-3 rounded-2xl bg-[#35A536] hover:bg-emerald-700 text-white text-xs font-black shadow-md transition flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>حفظ بيانات منتدى السياسات في قاعدة البيانات</span>
+                            </button>
+                        </div>
+
+                    </div>
+                    @elseif($activeTab === 'hero_images')
                     <div class="space-y-6 animate-fade-in">
                         
                         <div class="p-5 rounded-2xl bg-amber-50 border border-amber-200 flex items-center gap-3">

@@ -325,6 +325,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                                     <option value="DIPLOMAT">{{ $t('دبلوماسي / مبعوث سفارة رسمية', 'Diplomate / Envoyé Diplomatique', 'Diplomat / Diplomatic Envoy') }}</option>
                                     <option value="DELEGATION_HEAD">{{ $t('مسؤول / رئيس الوفد الوطني', 'Chef de Délégation', 'Delegation Head') }}</option>
                                     <option value="OFFICIAL_MEMBER">{{ $t('عضو وفد رسمي مشارك', 'Membre Officiel de la Délégation', 'Official Delegation Member') }}</option>
+                                    <option value="VVIP_GUEST">{{ $t('شخصية سامية جداً (VVIP)', 'Très Haute Personnalité (VVIP)', 'Very Very Important Person (VVIP)') }}</option>
                                     <option value="VIP_GUEST">{{ $t('ضيف شرف / شخصية سامية (VIP)', 'Invité d\'Honneur (VIP)', 'Guest of Honor (VIP)') }}</option>
                                     <option value="COORDINATOR">{{ $t('مؤطر ومرافق تنفيذي للوفد', 'Coordinateur de Délégation', 'Delegation Coordinator') }}</option>
                                 </select>

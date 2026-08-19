@@ -8,6 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
@@ -27,10 +29,14 @@ return new class extends Migration
 
             $table->unique(['edition_id', 'participant_id', 'skill_id']);
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('registrations');
+        Schema::enableForeignKeyConstraints();
     }
 };

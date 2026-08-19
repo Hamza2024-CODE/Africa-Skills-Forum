@@ -115,23 +115,23 @@
         text-shadow: 
             0px 2px 4px rgba(0,0,0,0.9),
             0px 1px 2px rgba(0,0,0,0.7);
-        letter-spacing: 0.02em;
-        line-height: 1.4 !important;
-        padding-top: 4px;
-        padding-bottom: 4px;
+        letter-spacing: 0 !important;
+        line-height: 1.3 !important;
+        padding-top: 2px;
+        padding-bottom: 2px;
     }
     .text-embroidered-accent {
         color: var(--theme-text-accent, #87CEEB);
         font-family: system-ui, -apple-system, sans-serif;
         text-shadow: 0px 1.5px 2px rgba(0,0,0,0.9);
-        letter-spacing: 0.04em;
+        letter-spacing: 0.01em;
         line-height: 1.3 !important;
     }
     .divider-stitched-line {
         width: 100%;
         height: 0px;
         border-top: 1.5px dashed var(--theme-text-accent, rgba(255,255,255,0.45));
-        margin: 4px 0;
+        margin: 6px 0;
         opacity: 0.85;
     }
     </style>
@@ -323,40 +323,43 @@
 
         <div class="relative z-20 w-full flex flex-col flex-grow justify-between mt-2 overflow-hidden">
             
-            <!-- Top Section: Official Host Ministry Logo Header (/ministry-logo.png) -->
+            <!-- Top Section: Official Host Ministry Logo Header (/ministry-logo-white-trimmed.png) -->
             <div class="w-full flex justify-center items-center text-center pt-1 pb-1 px-2 mx-auto">
-                <img src="/ministry-logo.png" alt="Ministry of Vocational Training and Education" class="w-auto max-w-[92%] object-contain mx-auto" style="height: 64px; filter: drop-shadow(0px 3px 8px rgba(0,0,0,0.95));">
+                <img src="/ministry-logo-white-trimmed.png" alt="Ministry of Vocational Training and Education" class="w-auto max-w-[90%] object-contain mx-auto" style="height: 56px; filter: drop-shadow(0px 3px 6px rgba(0,0,0,0.9));">
             </div>
 
-            <!-- Center: Ultra-Translucent Frosted Glassmorphic QR Plate (Map Shines Cleanly From Behind) -->
+            <!-- Center: Ultra-Translucent Frosted Glassmorphic QR Plate -->
             <div class="w-full flex justify-center items-center my-1 z-30 mx-auto">
-                <div class="relative w-[155px] sm:w-[175px] h-[155px] sm:h-[175px] bg-white/20 backdrop-blur-md rounded-3xl p-2.5 flex flex-col items-center justify-between border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-                    <div class="w-[110px] sm:w-[125px] h-[110px] sm:h-[125px] flex items-center justify-center p-1 bg-white/95 rounded-2xl shadow-md border border-white">
+                <div class="relative w-[145px] sm:w-[160px] h-[145px] sm:h-[160px] bg-white/20 backdrop-blur-md rounded-2xl p-2 flex flex-col items-center justify-between border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+                    <div class="w-[105px] sm:w-[115px] h-[105px] sm:h-[115px] flex items-center justify-center p-1 bg-white/95 rounded-xl shadow-md border border-white">
                         <img src="{{ $qrCodeUrl }}" alt="Encrypted QR Code" class="w-full h-full object-contain">
                     </div>
-                    <div class="text-[6.5px] font-mono font-black text-white uppercase tracking-widest text-center drop-shadow-md">SECURED BY WSAP ZERO-TRUST</div>
+                    <div class="text-[6px] font-mono font-black text-white uppercase tracking-widest text-center drop-shadow-md">SECURED BY WSAP ZERO-TRUST</div>
                 </div>
             </div>
 
-            <!-- Bottom Details Section -->
-            <div class="w-full px-3 mt-1 text-right">
-                <h2 class="text-embroidered-white text-[19px] sm:text-[21px] font-black mb-0.5 leading-normal tracking-wide text-right whitespace-nowrap overflow-visible">{{ $nameAr }}</h2>
-                <div class="divider-stitched-line" style="border-top-color: {{ $theme['divider_glow'] }};"></div>
-                <div class="text-embroidered-accent text-[9.5px] font-sans uppercase tracking-wider font-bold text-right truncate" dir="ltr">{{ $nameLatin }}</div>
+            <!-- User Profile Name & Email Details Section -->
+            <div class="w-full px-2 my-2 text-center flex flex-col items-center">
+                <h2 class="text-white text-[17px] sm:text-[19px] font-black text-center leading-snug drop-shadow-md" style="font-family: 'Cairo', sans-serif; letter-spacing: 0 !important;">{{ $nameAr }}</h2>
+                
+                <!-- Glowing Accent Divider (Zero Overlap Bug) -->
+                <div class="w-3/4 h-[2px] rounded-full my-2" style="background: linear-gradient(90deg, transparent, {{ $theme['divider_glow'] }}, transparent); opacity: 0.9;"></div>
+                
+                <div class="text-[11px] sm:text-[12px] font-sans font-bold uppercase text-center overflow-visible px-2 py-1 leading-normal" dir="ltr" style="color: {{ $theme['text_accent'] }}; text-shadow: 0 1.5px 3px rgba(0,0,0,0.9); line-height: 1.5 !important; letter-spacing: 0.5px;">{{ $nameLatin }}</div>
             </div>
 
             <!-- African Union Logo Centered Above Role Banner -->
             <div class="w-full flex justify-center items-center my-1">
-                <img src="/africa-logo-trimmed.png" alt="African Union" class="h-10 sm:h-12 w-auto max-w-[55%] object-contain filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.85)]">
+                <img src="/africa-logo-trimmed.png" alt="African Union" class="h-8 sm:h-10 w-auto max-w-[45%] object-contain filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.85)]">
             </div>
 
             <!-- Bi-Lingual Role Title Banner with Role Color Accent -->
-            <div class="w-full text-center mt-1 mb-2 px-3 py-1.5 rounded-2xl shadow-lg border backdrop-blur-md"
+            <div class="w-full text-center my-1.5 px-2 py-2 rounded-xl shadow-lg border backdrop-blur-md flex items-center justify-center"
                  style="background: {{ $theme['badge_bar_bg'] }}; border-color: {{ $theme['bar_border'] }};">
-                <h3 class="text-embroidered-white text-[14px] sm:text-[16px] font-black tracking-wide uppercase text-center whitespace-nowrap overflow-visible" dir="ltr"
-                    style="text-shadow: 0 2px 4px rgba(0,0,0,0.9);">
+                <span class="text-white text-[12.5px] sm:text-[14.5px] font-black text-center uppercase leading-tight block"
+                      style="font-family: 'Cairo', sans-serif; letter-spacing: 0 !important; text-shadow: 0 2px 4px rgba(0,0,0,0.9);">
                     {{ $theme['badge'] }}
-                </h3>
+                </span>
             </div>
 
         </div>

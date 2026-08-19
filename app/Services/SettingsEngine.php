@@ -38,6 +38,37 @@ class SettingsEngine
         'branding.favicon' => '/AFRICA.png',
         'branding.hero_banner' => '/banner.png',
         'branding.footer_logo' => '/AFRICA.png',
+        'hero_slide_1' => '/image.png',
+        'hero_slide_2' => '',
+        'hero_slide_3' => '',
+        'hero_slide_4' => '',
+        'hero_slide_5' => '',
+
+        // Africa Skills Policy Forum 2026 Global Database Settings
+        'forum.name_ar' => 'منتدى السياسات الأفريقية للمهارات 2026',
+        'forum.name_fr' => 'Forum des Politiques Africaines des Compétences 2026',
+        'forum.name_en' => 'Africa Skills Policy Forum 2026',
+
+        'forum.slogan_ar' => 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي',
+        'forum.slogan_fr' => 'Façonner l\'avenir des compétences, autonomiser la jeunesse africaine',
+        'forum.slogan_en' => 'Shaping the Future of Skills, Empowering Africa\'s Youth',
+
+        'forum.dates_ar' => '16 - 18 نوفمبر 2026',
+        'forum.dates_fr' => '16 - 18 Novembre 2026',
+        'forum.dates_en' => '16 - 18 November 2026',
+
+        'forum.principle_ar' => 'مستقبل المهارات في إفريقيا يجب أن يُصاغ من قِبل الأفارقة أنفسهم.',
+        'forum.principle_fr' => 'L\'avenir des compétences en Afrique doit être façonné par les Africains eux-mêmes.',
+        'forum.principle_en' => 'Africa\'s skills future must be shaped by Africans.',
+
+        'forum.description_ar' => 'يُنظَّم منتدى السياسات الأفريقية للمهارات بشراكة بين وزارة التكوين والتعليم المهنيين بالجزائر ومفوضية الاتحاد الأفريقي، ليكون الحدث السياسي الرفيع المستوى الرئيسي. يجمع المنتدى الوزراء الأفارقة المكلفين بالتكوين والتعليم المهنيين، إلى جانب الخبراء التقنيين والشركاء المؤسساتيين والدوليين، في برنامج عمل يقوم على الحوار الوزاري والتعاون القاري والالتزام السياسي المشترك.',
+        'forum.description_fr' => 'Le Forum des Politiques Africaines des Compétences est co-organisé par le Ministère de la Formation et de l\'Enseignement Professionnels d\'Algérie et la Commission de l\'Union Africaine, constituant le principal événement politique de haut niveau. Le Forum réunit les ministres africains chargés de l\'EFTP, des experts techniques et des partenaires institutionnels internationaux pour un programme d\'action fondé sur le dialogue ministériel, la coopération continentale et l\'engagement politique conjoint.',
+        'forum.description_en' => 'The African Skills Policy Forum is co-organized by Algeria\'s Ministry of Vocational Training and Education and the African Union Commission, serving as the principal high-level political summit. The Forum brings together African Ministers responsible for technical and vocational education and training, together with technical experts and institutional and international partners, for a working programme of ministerial dialogue, continental cooperation, and shared political commitment.',
+
+        'forum.stat_countries' => '+30',
+        'forum.stat_ministers' => '+20',
+        'forum.stat_roundtables' => '2',
+        'forum.stat_panels' => '5+',
     ];
 
     public function get(string $key, mixed $default = null): mixed

@@ -67,6 +67,7 @@ Route::get('/faq', Faq::class)->name('faq');
 Route::get('/registration', Registration::class)->middleware('throttle:registration')->name('registration');
 Route::get('/registration/official', \App\Livewire\Public\OfficialRegistration::class)->name('official.registration');
 Route::get('/login', Login::class)->middleware('throttle:login')->name('login');
+Route::get('/forgot-password', \App\Livewire\Auth\ForgotPassword::class)->middleware('throttle:login')->name('password.request');
 Route::post('/logout', function () {
     Auth::logout();
     session()->invalidate();
@@ -143,7 +144,7 @@ Route::match(['get', 'post'], '/lang/{locale}', function (string $locale, \Illum
 })->name('lang.switch');
 
 // Shared CMS & Media Routes (Accessible by Super Admin & Media Manager)
-Route::prefix('admin')->middleware(['auth', 'role:' . RoleEnum::SUPER_ADMIN->value . '|' . RoleEnum::MEDIA_MANAGER->value])->name('admin.')->group(function () {
+Route::prefix('panel')->middleware(['auth', 'role:' . RoleEnum::SUPER_ADMIN->value . '|' . RoleEnum::MEDIA_MANAGER->value])->name('admin.')->group(function () {
     Route::get('/media/dashboard', MediaManagerDashboard::class)->name('media.dashboard');
     Route::get('/cms/news',        AdminNewsIndex::class)->name('cms.news');
     Route::get('/cms/gallery',     AdminGalleryIndex::class)->name('cms.gallery');
@@ -155,7 +156,7 @@ Route::prefix('admin')->middleware(['auth', 'role:' . RoleEnum::SUPER_ADMIN->val
 });
 
 // Smart Admin Dashboard Route — Handles all admin and country admin roles seamlessly
-Route::get('/admin/dashboard', function () {
+Route::get('/panel/dashboard', function () {
     /** @var \App\Models\User|null $user */
     $user = Auth::user();
     if (!$user) {
@@ -174,7 +175,7 @@ Route::get('/admin/dashboard', function () {
 })->middleware('auth')->name('admin.dashboard');
 
 // Super Admin Command Center Routes
-Route::prefix('admin')->middleware(['auth', 'role:' . RoleEnum::SUPER_ADMIN->value])->name('admin.')->group(function () {
+Route::prefix('panel')->middleware(['auth', 'role:' . RoleEnum::SUPER_ADMIN->value])->name('admin.')->group(function () {
     Route::get('/users', AdminUserIndex::class)->name('users');
     Route::get('/participants', function () { return redirect()->route('admin.registrations'); })->name('participants');
     Route::get('/organizations', AdminOrganizationIndex::class)->name('organizations');
@@ -221,4 +222,65 @@ Route::prefix('country')->middleware(['auth', 'role:' . RoleEnum::COUNTRY_ADMIN-
     Route::get('/vips', function() { return redirect()->route('country.dashboard', ['filterRole' => 'VIP']); })->name('vips');
     Route::get('/dietary', DietaryManager::class)->name('dietary');
     Route::get('/arrivals', \App\Livewire\Country\DelegationArrivals::class)->name('arrivals');
+});
+
+// Public: Universal PDF Streaming Route for Mobile Compatibility
+Route::get('/view-pdf/{file}', function ($file) {
+    $filename = basename($file);
+    
+    // Check in public/
+    $path = public_path($filename);
+    if (!file_exists($path)) {
+        // Check in public/docs/
+        $path = public_path('docs/' . $filename);
+    }
+    if (!file_exists($path)) {
+        // Check in storage/app/public/
+        $path = storage_path('app/public/' . $filename);
+    }
+    if (!file_exists($path)) {
+        abort(404, 'PDF Document not found.');
+    }
+
+    return response()->file($path, [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' => 'inline; filename="' . $filename . '"',
+        'Cache-Control' => 'public, max-age=3600',
+    ]);
+})->where('file', '.*')->name('pdf.view');
+
+// Public API: Latest Notification Endpoint for Live Toast & PWA Push Notifications
+Route::get('/api/v1/notifications/latest', function (\Illuminate\Http\Request $request) {
+    $lastId = (int) $request->query('last_id', 0);
+    $locale = app()->getLocale();
+
+    $notif = \App\Models\WsapNotification::where('status', 'SENT')
+        ->where('id', '>', $lastId)
+        ->latest('dispatched_at')
+        ->first();
+
+    if (!$notif) {
+        return response()->json(['notification' => null]);
+    }
+
+    $title = match($locale) {
+        'fr' => $notif->title_fr ?: $notif->title_ar,
+        'en' => $notif->title_en ?: $notif->title_ar,
+        default => $notif->title_ar,
+    };
+
+    $body = match($locale) {
+        'fr' => $notif->body_fr ?: $notif->body_ar,
+        'en' => $notif->body_en ?: $notif->body_ar,
+        default => $notif->body_ar,
+    };
+
+    return response()->json([
+        'notification' => [
+            'id'    => $notif->id,
+            'title' => $title,
+            'body'  => $body,
+            'type'  => $notif->type,
+        ]
+    ]);
 });
