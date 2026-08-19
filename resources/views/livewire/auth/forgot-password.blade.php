@@ -119,7 +119,7 @@
                             <div class="absolute inset-y-0 start-0 pointer-events-none flex items-center ps-3.5 text-slate-400">
                                 <svg class="w-4 h-4 text-[#0B2A6F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3 3 0 00-3 3h6a3 3 0 00-3-3z"/></svg>
                             </div>
-                            <input type="text" wire:model.defer="identifier" required placeholder="{{ app()->getLocale() === 'fr' ? 'Ex: 109820000000000000 ou 123456789' : (app()->getLocale() === 'en' ? 'e.g. 109820000000000000 or 123456789' : 'مثال: 109820000000000000 أو رقم جواز السفر') }}" class="w-full ps-10 pe-4 py-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono font-bold text-[#0B2A6F] focus:outline-none focus:ring-2 focus:ring-[#0B2A6F] focus:bg-white transition shadow-xs">
+                            <input type="text" wire:model="identifier" required placeholder="{{ app()->getLocale() === 'fr' ? 'Ex: 109820000000000000 ou 123456789' : (app()->getLocale() === 'en' ? 'e.g. 109820000000000000 or 123456789' : 'مثال: 109820000000000000 أو رقم جواز السفر') }}" class="w-full ps-10 pe-4 py-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono font-bold text-[#0B2A6F] focus:outline-none focus:ring-2 focus:ring-[#0B2A6F] focus:bg-white transition shadow-xs">
                         </div>
                         @error('identifier') <span class="text-[11px] text-rose-600 font-bold mt-1.5 block bg-rose-50 p-2 rounded-xl border border-rose-100">{{ $message }}</span> @enderror
                     </div>
@@ -162,7 +162,7 @@
                             <div class="absolute inset-y-0 start-0 pointer-events-none flex items-center ps-3.5 text-slate-400">
                                 <svg class="w-4 h-4 text-[#35A536]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                             </div>
-                            <input type="password" wire:model.defer="password" required placeholder="••••••••" class="w-full ps-10 pe-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono font-bold text-[#0B2A6F] focus:outline-none focus:ring-2 focus:ring-[#0B2A6F] focus:bg-white transition shadow-xs">
+                            <input type="password" wire:model="password" required placeholder="••••••••" class="w-full ps-10 pe-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono font-bold text-[#0B2A6F] focus:outline-none focus:ring-2 focus:ring-[#0B2A6F] focus:bg-white transition shadow-xs">
                         </div>
                         @error('password') <span class="text-[10px] text-rose-600 font-bold mt-1 block">{{ $message }}</span> @enderror
                     </div>
@@ -175,7 +175,7 @@
                             <div class="absolute inset-y-0 start-0 pointer-events-none flex items-center ps-3.5 text-slate-400">
                                 <svg class="w-4 h-4 text-[#0B2A6F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                             </div>
-                            <input type="password" wire:model.defer="password_confirmation" required placeholder="••••••••" class="w-full ps-10 pe-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono font-bold text-[#0B2A6F] focus:outline-none focus:ring-2 focus:ring-[#0B2A6F] focus:bg-white transition shadow-xs">
+                            <input type="password" wire:model="password_confirmation" required placeholder="••••••••" class="w-full ps-10 pe-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono font-bold text-[#0B2A6F] focus:outline-none focus:ring-2 focus:ring-[#0B2A6F] focus:bg-white transition shadow-xs">
                         </div>
                     </div>
 

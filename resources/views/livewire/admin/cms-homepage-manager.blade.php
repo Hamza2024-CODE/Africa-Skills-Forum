@@ -104,30 +104,30 @@
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">الاسم بالعربية</label>
-                                    <input type="text" wire:model.defer="forum_name_ar" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                    <input type="text" wire:model="forum_name_ar" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">Nom en Français</label>
-                                    <input type="text" wire:model.defer="forum_name_fr" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                    <input type="text" wire:model="forum_name_fr" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">Name in English</label>
-                                    <input type="text" wire:model.defer="forum_name_en" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                    <input type="text" wire:model="forum_name_en" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">الشعار (Slogan) - بالعربية</label>
-                                    <input type="text" wire:model.defer="forum_slogan_ar" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                    <input type="text" wire:model="forum_slogan_ar" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">Slogan en Français</label>
-                                    <input type="text" wire:model.defer="forum_slogan_fr" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                    <input type="text" wire:model="forum_slogan_fr" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">Slogan in English</label>
-                                    <input type="text" wire:model.defer="forum_slogan_en" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                    <input type="text" wire:model="forum_slogan_en" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
                                 </div>
                             </div>
                         </div>
@@ -142,34 +142,34 @@
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">المبدأ الأساسي (بالعربية)</label>
-                                    <input type="text" wire:model.defer="forum_principle_ar" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                    <input type="text" wire:model="forum_principle_ar" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">Principe Fondateur (Français)</label>
-                                    <input type="text" wire:model.defer="forum_principle_fr" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                    <input type="text" wire:model="forum_principle_fr" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">Founding Principle (English)</label>
-                                    <input type="text" wire:model.defer="forum_principle_en" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
+                                    <input type="text" wire:model="forum_principle_en" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536] focus:ring-[#35A536]">
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">عدد الدول المشاركة</label>
-                                    <input type="text" wire:model.defer="forum_stat_countries" class="w-full text-xs font-bold rounded-xl border-slate-200 focus:border-[#35A536]">
+                                    <input type="text" wire:model="forum_stat_countries" class="w-full text-xs font-bold rounded-xl border-slate-200 focus:border-[#35A536]">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">عدد الوزراء المتوقعين</label>
-                                    <input type="text" wire:model.defer="forum_stat_ministers" class="w-full text-xs font-bold rounded-xl border-slate-200 focus:border-[#35A536]">
+                                    <input type="text" wire:model="forum_stat_ministers" class="w-full text-xs font-bold rounded-xl border-slate-200 focus:border-[#35A536]">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">الموائد المستديرة الوزارية</label>
-                                    <input type="text" wire:model.defer="forum_stat_roundtables" class="w-full text-xs font-bold rounded-xl border-slate-200 focus:border-[#35A536]">
+                                    <input type="text" wire:model="forum_stat_roundtables" class="w-full text-xs font-bold rounded-xl border-slate-200 focus:border-[#35A536]">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">الجلسات التخصصية</label>
-                                    <input type="text" wire:model.defer="forum_stat_panels" class="w-full text-xs font-bold rounded-xl border-slate-200 focus:border-[#35A536]">
+                                    <input type="text" wire:model="forum_stat_panels" class="w-full text-xs font-bold rounded-xl border-slate-200 focus:border-[#35A536]">
                                 </div>
                             </div>
                         </div>
@@ -184,15 +184,15 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">الوصف بالعربية</label>
-                                    <textarea rows="3" wire:model.defer="forum_description_ar" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536]"></textarea>
+                                    <textarea rows="3" wire:model="forum_description_ar" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536]"></textarea>
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">Description en Français</label>
-                                    <textarea rows="3" wire:model.defer="forum_description_fr" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536]"></textarea>
+                                    <textarea rows="3" wire:model="forum_description_fr" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536]"></textarea>
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 mb-1">Description in English</label>
-                                    <textarea rows="3" wire:model.defer="forum_description_en" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536]"></textarea>
+                                    <textarea rows="3" wire:model="forum_description_en" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-[#35A536]"></textarea>
                                 </div>
                             </div>
                         </div>
