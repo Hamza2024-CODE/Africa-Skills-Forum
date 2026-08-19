@@ -19,30 +19,34 @@ class AdminQrScanner extends Component
 
     public function mount(): void
     {
-        $this->query = 'USR-00103';
-        $this->scan('USR-00103');
+        $this->query = '';
+        $this->scanResult = null;
     }
 
     public function updatedQuery(mixed $value): void
     {
         if (is_string($value) && trim($value) !== '') {
             $this->scan(trim($value));
+        } else {
+            $this->scanResult = null;
         }
     }
 
     public function submitScan(): void
     {
-        $this->scan($this->query);
+        if (trim($this->query) !== '') {
+            $this->scan($this->query);
+        }
     }
 
     public function scan(mixed $input = null): void
     {
         $raw = is_string($input) && trim($input) !== '' ? trim($input) : trim($this->query);
         if (empty($raw)) {
-            $raw = 'USR-00103';
+            $this->scanResult = null;
+            return;
         }
 
-        $this->query = $raw;
         $clean = $this->extractCleanToken($raw);
 
         // 1. Database Lookup (User, Badge, Registration, DelegationMember)

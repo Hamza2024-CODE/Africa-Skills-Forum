@@ -163,9 +163,9 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
         </div>
 
         <!-- MANUAL INPUT FORM -->
-        <form wire:submit.prevent="submitScan" class="space-y-3">
+        <form wire:submit.prevent="scan($wire.query)" class="space-y-3">
             <div class="flex gap-2">
-                <input type="text" wire:model.live="query" autofocus
+                <input type="text" wire:model.live.debounce.300ms="query" autofocus
                     placeholder="{{ $t('أدخل UUID الشارة، البريد الإلكتروني، أو كود المستخدم...', 'Saisissez le code UUID ou ID...', 'Enter Badge UUID, Email or User Code...') }}"
                     class="flex-1 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700 text-sm font-bold bg-slate-50 dark:bg-slate-900 dark:text-slate-100 focus:bg-white transition">
                 <button type="submit" class="px-6 py-3 rounded-2xl bg-[#06205C] hover:bg-[#041640] text-white font-black text-xs transition shadow-md">
