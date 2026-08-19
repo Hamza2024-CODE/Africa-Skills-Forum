@@ -71,11 +71,13 @@
                 </h1>
 
                 <p class="text-sm sm:text-base text-slate-100 font-medium leading-relaxed max-w-3xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-                    {{ app()->getLocale() === 'fr' 
-                        ? 'Le principal sommet politique de haut niveau réunissant les ministres africains, experts et partenaires internationaux autour du principe fondateur: L\'avenir des compétences en Afrique doit être façonné par les Africains eux-mêmes.' 
-                        : (app()->getLocale() === 'en' 
-                            ? 'The principal high-level political summit bringing together African Ministers, technical experts, and international partners around the core principle: Africa\'s skills future must be shaped by Africans themselves.' 
-                            : 'الحدث السياسي الرفيع المستوى الرئيسي الذي يجمع الوزراء الأفارقة والخبراء التقنيين والشركاء المؤسساتيين والدوليين، تجسيدًا لمبدأ أساسي: مستقبل المهارات في إفريقيا يجب أن يُصاغ من قِبل الأفارقة أنفسهم.') }}
+                    @if(app()->getLocale() === 'fr')
+                        Le principal sommet politique de haut niveau réunissant les ministres africains, experts et partenaires internationaux autour du principe fondateur: L'avenir des compétences en Afrique doit être façonné par les Africains eux-mêmes.
+                    @elseif(app()->getLocale() === 'en')
+                        The principal high-level political summit bringing together African Ministers, technical experts, and international partners around the core principle: Africa's skills future must be shaped by Africans themselves.
+                    @else
+                        الحدث السياسي الرفيع المستوى الرئيسي الذي يجمع الوزراء الأفارقة والخبراء التقنيين والشركاء المؤسساتيين والدوليين، تجسيدًا لمبدأ أساسي: مستقبل المهارات في إفريقيا يجب أن يُصاغ من قِبل الأفارقة أنفسهم.
+                    @endif
                 </p>
 
             </div>
@@ -876,11 +878,13 @@
                 </h2>
 
                 <p class="text-xs sm:text-sm text-slate-500 font-bold max-w-2xl group-hover/head:text-slate-700 transition-colors">
-                    {{ app()->getLocale() === 'fr' 
-                        ? 'Explorez les métiers de la compétition: Nous vous invitons à consulter le guide des métiers pour découvrir tous les détails et normes techniques de chaque compétence.' 
-                        : (app()->getLocale() === 'en' 
-                            ? 'Explore competition skills: We invite you to visit the skills directory to review full details and technical standards for each trade.' 
-                            : 'استكشف تخصصات المنافسة: ندعوك لزيارة دليل المهن للاطلاع على كافة التفاصيل والمعايير التقنية الخاصة بكل مهارة.') }}
+                    @if(app()->getLocale() === 'fr')
+                        Explorez les métiers de la compétition: Nous vous invitons à consulter le guide des métiers pour découvrir tous les détails et normes techniques de chaque compétence.
+                    @elseif(app()->getLocale() === 'en')
+                        Explore competition skills: We invite you to visit the skills directory to review full details and technical standards for each trade.
+                    @else
+                        استكشف تخصصات المنافسة: ندعوك لزيارة دليل المهن للاطلاع على كافة التفاصيل والمعايير التقنية الخاصة بكل مهارة.
+                    @endif
                 </p>
             </div>
 
