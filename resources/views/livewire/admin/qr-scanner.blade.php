@@ -49,8 +49,14 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
 
              this.stream = s;
              const video = $refs.scanVideo;
-             video.srcObject = s;
-             await video.play().catch(() => {});
+             if (video) {
+                 video.setAttribute('playsinline', 'true');
+                 video.setAttribute('webkit-playsinline', 'true');
+                 video.setAttribute('muted', 'true');
+                 video.muted = true;
+                 video.srcObject = s;
+                 await video.play().catch(() => {});
+             }
 
              if (!this.scanCanvas) {
                  this.scanCanvas = document.createElement('canvas');
@@ -179,7 +185,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
         {{-- CAMERA FEED --}}
         <div x-show="cameraOpen" x-transition class="space-y-3 pt-2">
             <div class="relative w-full max-w-sm mx-auto aspect-square rounded-3xl overflow-hidden border-2 border-[#06205C]/30 shadow-xl bg-slate-900">
-                <video x-ref="scanVideo" autoplay playsinline muted class="w-full h-full object-cover"></video>
+                <video x-ref="scanVideo" autoplay playsinline webkit-playsinline muted class="w-full h-full object-cover"></video>
                 <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <div class="relative w-48 h-48">
                         <span class="absolute top-0 start-0 w-8 h-8 border-t-4 border-s-4 border-[#06205C] rounded-tl-xl"></span>
