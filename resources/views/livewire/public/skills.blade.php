@@ -1,31 +1,3 @@
-@php
-$locale = app()->getLocale();
-$t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => $ar };
-
-$getSkillIcon = function($skill) {
-    $catId = (int) $skill->category_id;
-    return match($catId) {
-        1 => 'cog',
-        2 => 'cpu',
-        3 => 'office-building',
-        4 => 'truck',
-        5 => 'sparkles',
-        6 => 'user-group',
-        default => 'cog',
-    };
-};
-
-$getSkillImageUrl = function($skill) {
-    if (!$skill || !$skill->image_path) {
-        return asset('images/skills/manufacturing.png');
-    }
-    if (str_starts_with($skill->image_path, 'http://') || str_starts_with($skill->image_path, 'https://')) {
-        return $skill->image_path;
-    }
-    return asset($skill->image_path);
-};
-@endphp
-
 <div class="py-12" x-data="{ showPdfModal: false, pdfUrl: '', pdfTitle: '' }" x-on:open-pdf-viewer.window="pdfUrl = $event.detail.pdfUrl; pdfTitle = $event.detail.pdfTitle; showPdfModal = true;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
@@ -47,14 +19,14 @@ $getSkillImageUrl = function($skill) {
             <div class="relative z-10 text-center max-w-3xl mx-auto space-y-5">
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 backdrop-blur-md text-blue-200 text-xs font-black">
                     <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <span>{{ $t('حالة تعريفية استعراضية للمنتدى', 'Aperçu Descriptif Officiel', 'Official Descriptive Showcase') }}</span>
+                    <span>{{ app()->getLocale() === 'fr' ? 'Aperçu Descriptif Officiel' : (app()->getLocale() === 'en' ? 'Official Descriptive Showcase' : 'حالة تعريفية استعراضية للمنتدى') }}</span>
                 </div>
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-2xl">
-                    {{ $t('الدليل التعريفي للتخصصات والمهن', 'Guide Descriptif des Métiers & Compétences', 'Descriptive Guide to Trade Skills & Specializations') }}
+                    {{ app()->getLocale() === 'fr' ? 'Guide Descriptif des Métiers & Compétences' : (app()->getLocale() === 'en' ? 'Descriptive Guide to Trade Skills & Specializations' : 'الدليل التعريفي للتخصصات والمهن') }}
                 </h1>
                 <p class="text-xs sm:text-base text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto drop-shadow-md">
-                    {{ $t('عرض تعريفي استعراضي شامل للتخصصات والمهن الـ 64 المعتمدة مصنفة حسب القطاعات مع الصور التوصيفية والكراسات التقنية الرسمية.', 'Présentation descriptive et fiche technique officielle des 64 métiers classés par secteur.', 'Comprehensive descriptive showcase of the 64 official trade skills categorized by sector with technical specifications.') }}
+                    {{ app()->getLocale() === 'fr' ? 'Présentation descriptive et fiche technique officielle des 64 métiers classés par secteur.' : (app()->getLocale() === 'en' ? 'Comprehensive descriptive showcase of the 64 official trade skills categorized by sector with technical specifications.' : 'عرض تعريفي استعراضي شامل للتخصصات والمهن الـ 64 المعتمدة مصنفة حسب القطاعات مع الصور التوصيفية والكراسات التقنية الرسمية.') }}
                 </p>
             </div>
         </div>
@@ -66,7 +38,7 @@ $getSkillImageUrl = function($skill) {
                 {{-- Search Bar --}}
                 <div class="relative w-full md:w-96">
                     <input type="text" wire:model.live.debounce.300ms="search"
-                           placeholder="{{ $t('ابحث باسم المهنة أو الكود (مثال: SKILL-01)...', 'Rechercher un métier...', 'Search skill name or code...') }}"
+                           placeholder="{{ app()->getLocale() === 'fr' ? 'Rechercher un métier...' : (app()->getLocale() === 'en' ? 'Search skill name or code...' : 'ابحث باسم المهنة أو الكود (مثال: SKILL-01)...') }}"
                            class="w-full pr-11 pl-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-bold text-[#06205C] focus:outline-none focus:ring-2 focus:ring-[#0066FF] shadow-inner">
                     <svg class="w-5 h-5 text-slate-400 absolute end-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -77,7 +49,7 @@ $getSkillImageUrl = function($skill) {
                 <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
                     <button type="button" wire:click="$set('selectedCategory', '')"
                             class="px-4 py-2.5 rounded-2xl text-xs font-black transition shadow-sm {{ $selectedCategory === '' ? 'bg-[#0066FF] text-white shadow-blue-500/30' : 'bg-slate-100 text-slate-700 hover:bg-slate-200' }}">
-                        {{ $t('كافة القطاعات (64 مهنة)', 'Tous les secteurs', 'All Sectors (64 Skills)') }}
+                        {{ app()->getLocale() === 'fr' ? 'Tous les secteurs' : (app()->getLocale() === 'en' ? 'All Sectors (64 Skills)' : 'كافة القطاعات (64 مهنة)') }}
                     </button>
                     @foreach($categories as $cat)
                         <button type="button" wire:click="$set('selectedCategory', '{{ $cat->id }}')"
@@ -91,97 +63,92 @@ $getSkillImageUrl = function($skill) {
 
         <!-- Skills Grid with Specialized Generated Photos & Sector Icons -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            @forelse($skills as $skill)
-                @php
-                    $imgUrl = $getSkillImageUrl($skill);
-                    $iconType = $getSkillIcon($skill);
-                @endphp
-                <div class="bg-white/80 backdrop-blur-xl rounded-[28px] overflow-hidden border border-slate-200/90 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer flex flex-col justify-between hover:border-[#0066FF]">
-                    
-                    {{-- Skill High-Res Photo Header --}}
-                    <div class="h-52 bg-slate-950 relative overflow-hidden">
-                        <img src="{{ $imgUrl }}"
-                             onerror="this.onerror=null; this.src='{{ asset('images/skills/manufacturing.png') }}';"
-                             alt="{{ $skill->getLocalized('name') }}"
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-95">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-black/20 to-black/10 group-hover:opacity-90 transition-opacity"></div>
+            @if(count($skills) > 0)
+                @foreach($skills as $skill)
+                    <div class="bg-white/80 backdrop-blur-xl rounded-[28px] overflow-hidden border border-slate-200/90 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer flex flex-col justify-between hover:border-[#0066FF]">
+                        
+                        {{-- Skill High-Res Photo Header --}}
+                        <div class="h-52 bg-slate-950 relative overflow-hidden">
+                            <img src="{{ $skill->getSkillImageUrl() }}"
+                                 onerror="this.onerror=null; this.src='{{ asset('images/skills/manufacturing.png') }}';"
+                                 alt="{{ $skill->getLocalized('name') }}"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-95">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-black/20 to-black/10 group-hover:opacity-90 transition-opacity"></div>
 
-                        {{-- Code Badge (Top-Start) --}}
-                        <div class="absolute top-4 start-4 px-3.5 py-1.5 rounded-full bg-[#0066FF] text-white font-mono font-black text-xs shadow-md border border-white/30">
-                            {{ $skill->code }}
-                        </div>
-
-                        {{-- Sector Badge (Top-End) --}}
-                        <div class="absolute top-4 end-4 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-wider border border-white/20">
-                            {{ $skill->category ? $skill->category->getLocalized('name') : 'قطاع التكنولوجيا والمهن' }}
-                        </div>
-
-                        {{-- Skill Icon Overlay (Bottom-Start) --}}
-                        <div class="absolute bottom-4 start-4 w-12 h-12 rounded-2xl bg-white/95 backdrop-blur-md text-[#0066FF] flex items-center justify-center shadow-lg border border-white">
-                            @if($iconType === 'cpu')
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
-                            @elseif($iconType === 'office-building')
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h5m-5 0V9m0 4h.01M15 9h.01M15 13h.01M11 13h.01M11 17h.01M15 17h.01"/></svg>
-                            @elseif($iconType === 'truck')
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8"/></svg>
-                            @elseif($iconType === 'user-group')
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                            @elseif($iconType === 'sparkles')
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-                            @else
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                            @endif
-                        </div>
-                    </div>
-
-                    {{-- Card Details --}}
-                    <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
-                        <div class="space-y-2">
-                            <h3 class="text-lg font-black text-[#06205C] group-hover:text-[#0066FF] transition-colors leading-snug">
-                                {{ $skill->getLocalized('name') }}
-                            </h3>
-                            <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium">
-                                {{ $skill->getLocalized('description') }}
-                            </p>
-                        </div>
-
-                        <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-                            <div class="flex items-center gap-2 w-full sm:w-auto">
-                                {{-- DETAILS BUTTON --}}
-                                <button type="button" wire:click="openSkillDetails({{ $skill->id }})" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center gap-1.5">
-                                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                    <span>{{ $t('عرض التفاصيل', 'Détails', 'Details') }}</span>
-                                </button>
-
-                                {{-- REVIEW PDF BUTTON --}}
-                                @if($skill->getPdfUrl())
-                                    <button type="button" 
-                                            wire:click="openPdfViewer({{ $skill->id }})" 
-                                            class="px-3.5 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#0066FF] border border-blue-200 font-black text-xs transition flex items-center gap-1.5">
-                                        <svg class="w-4 h-4 text-[#0066FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                        <span>PDF</span>
-                                    </button>
-                                @endif
+                            {{-- Code Badge (Top-Start) --}}
+                            <div class="absolute top-4 start-4 px-3.5 py-1.5 rounded-full bg-[#0066FF] text-white font-mono font-black text-xs shadow-md border border-white/30">
+                                {{ $skill->code }}
                             </div>
 
-                            <a href="{{ route('registration', ['skill_id' => $skill->id]) }}" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white font-bold text-xs shadow transition flex items-center justify-center">
-                                {{ $t('التسجيل بالمهنة', 'S\'inscrire', 'Register') }}
-                            </a>
+                            {{-- Sector Badge (Top-End) --}}
+                            <div class="absolute top-4 end-4 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-wider border border-white/20">
+                                {{ $skill->category ? $skill->category->getLocalized('name') : 'قطاع التكنولوجيا والمهن' }}
+                            </div>
+
+                            {{-- Skill Icon Overlay (Bottom-Start) --}}
+                            <div class="absolute bottom-4 start-4 w-12 h-12 rounded-2xl bg-white/95 backdrop-blur-md text-[#0066FF] flex items-center justify-center shadow-lg border border-white">
+                                @if($skill->getSkillIcon() === 'cpu')
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+                                @elseif($skill->getSkillIcon() === 'office-building')
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h5m-5 0V9m0 4h.01M15 9h.01M15 13h.01M11 13h.01M11 17h.01M15 17h.01"/></svg>
+                                @elseif($skill->getSkillIcon() === 'truck')
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8"/></svg>
+                                @elseif($skill->getSkillIcon() === 'user-group')
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                                @elseif($skill->getSkillIcon() === 'sparkles')
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                                @else
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                @endif
+                            </div>
+                        </div>
+
+                        {{-- Card Details --}}
+                        <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+                            <div class="space-y-2">
+                                <h3 class="text-lg font-black text-[#06205C] group-hover:text-[#0066FF] transition-colors leading-snug">
+                                    {{ $skill->getLocalized('name') }}
+                                </h3>
+                                <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium">
+                                    {{ $skill->getLocalized('description') }}
+                                </p>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+                                <div class="flex items-center gap-2 w-full sm:w-auto">
+                                    {{-- DETAILS BUTTON --}}
+                                    <button type="button" wire:click="openSkillDetails({{ $skill->id }})" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center gap-1.5">
+                                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                        <span>{{ app()->getLocale() === 'fr' ? 'Détails' : (app()->getLocale() === 'en' ? 'Details' : 'عرض التفاصيل') }}</span>
+                                    </button>
+
+                                    {{-- REVIEW PDF BUTTON --}}
+                                    @if($skill->getPdfUrl())
+                                        <button type="button" 
+                                                wire:click="openPdfViewer({{ $skill->id }})" 
+                                                class="px-3.5 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#0066FF] border border-blue-200 font-black text-xs transition flex items-center gap-1.5">
+                                            <svg class="w-4 h-4 text-[#0066FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                            <span>PDF</span>
+                                        </button>
+                                    @endif
+                                </div>
+
+                                <a href="{{ route('registration', ['skill_id' => $skill->id]) }}" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white font-bold text-xs shadow transition flex items-center justify-center">
+                                    {{ app()->getLocale() === 'fr' ? 'S\'inscrire' : (app()->getLocale() === 'en' ? 'Register' : 'التسجيل بالمهنة') }}
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @empty
+                @endforeach
+            @else
                 <div class="col-span-full p-16 text-center text-slate-400 bg-white rounded-3xl border border-slate-200 text-xs font-bold space-y-3">
-                    <p>{{ $t('لا توجد تخصصات مطابقة لخيارات البحث.', 'Aucun métier correspondant.', 'No matching skills found.') }}</p>
+                    <p>{{ app()->getLocale() === 'fr' ? 'Aucun métier correspondant.' : (app()->getLocale() === 'en' ? 'No matching skills found.' : 'لا توجد تخصصات مطابقة لخيارات البحث.') }}</p>
                 </div>
-            @endforelse
+            @endif
         </div>
 
         <!-- Accessible Responsive Skill Details Modal -->
         @if($showModal && $selectedSkill)
-            @php
-                $modalImgUrl = $getSkillImageUrl($selectedSkill);
-            @endphp
             <div x-data="{
                 init() {
                     document.body.classList.add('overflow-hidden');
@@ -196,7 +163,7 @@ $getSkillImageUrl = function($skill) {
                     
                     <!-- Modal Header with Photo Banner -->
                     <div class="relative rounded-2xl overflow-hidden h-48 bg-slate-950 -mx-2 -mt-2">
-                        <img src="{{ $modalImgUrl }}" 
+                        <img src="{{ $selectedSkill->getSkillImageUrl() }}" 
                              onerror="this.onerror=null; this.src='{{ asset('images/skills/manufacturing.png') }}';"
                              alt="Skill Cover" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>

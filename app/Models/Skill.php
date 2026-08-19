@@ -73,6 +73,31 @@ class Skill extends Model
         return null;
     }
 
+    public function getSkillIcon(): string
+    {
+        $catId = (int) $this->category_id;
+        return match($catId) {
+            1 => 'cog',
+            2 => 'cpu',
+            3 => 'office-building',
+            4 => 'truck',
+            5 => 'sparkles',
+            6 => 'user-group',
+            default => 'cog',
+        };
+    }
+
+    public function getSkillImageUrl(): string
+    {
+        if (!$this->image_path) {
+            return asset('images/skills/manufacturing.png');
+        }
+        if (str_starts_with($this->image_path, 'http://') || str_starts_with($this->image_path, 'https://')) {
+            return $this->image_path;
+        }
+        return asset($this->image_path);
+    }
+
     public function assessmentModules()
     {
         return $this->hasMany(CompetitionAssessmentModule::class);
