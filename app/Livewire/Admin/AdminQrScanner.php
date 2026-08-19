@@ -24,8 +24,10 @@ class AdminQrScanner extends Component
     public bool              $showOverrideModal  = false;
     public string            $overrideReasonAr   = '';
 
-    public function scan(WsapAccessRulesEngine $rulesEngine, ?string $scannedCode = null): void
+    public function scan(?string $scannedCode = null, ?WsapAccessRulesEngine $rulesEngine = null): void
     {
+        $rulesEngine ??= app(WsapAccessRulesEngine::class);
+
         $this->scannedUser      = null;
         $this->scannedBadge     = null;
         $this->delegationMember = null;
