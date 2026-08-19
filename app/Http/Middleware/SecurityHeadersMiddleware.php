@@ -10,12 +10,6 @@ class SecurityHeadersMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (! $request->isSecure() && $request->header('x-forwarded-proto') !== 'https') {
-            if (app()->environment('production') || str_contains($request->getHost(), 'worldskills.dz')) {
-                return redirect()->secure($request->getRequestUri(), 301);
-            }
-        }
-
         /** @var Response $response */
         $response = $next($request);
 
