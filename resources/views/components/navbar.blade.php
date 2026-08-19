@@ -79,7 +79,7 @@
                         </a>
                     @endif
                 @else
-                    <a href="{{ route('login') }}" class="hidden md:inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl border border-slate-300 hover:border-[#0B2A6F] text-[#0B2A6F] hover:bg-blue-50 font-bold text-xs transition whitespace-nowrap">
+                    <a href="{{ route('login') }}" data-navigate-ignore class="hidden md:inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl border border-slate-300 hover:border-[#0B2A6F] text-[#0B2A6F] hover:bg-blue-50 font-bold text-xs transition whitespace-nowrap">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
                         <span>{{ __('messages.login') }}</span>
                     </a>
@@ -91,7 +91,7 @@
                             <svg class="w-3.5 h-3.5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
                         <div x-show="regOpen" x-transition class="absolute top-full right-0 mt-2 w-80 rounded-2xl bg-white shadow-xl border border-slate-100 py-2 z-50 text-start">
-                            <a href="{{ route('registration') }}" class="block px-4 py-3 text-xs font-bold text-[#0B2A6F] hover:bg-slate-50 hover:text-[#35A536] border-b border-slate-100">
+                            <a href="{{ route('registration') }}" data-navigate-ignore class="block px-4 py-3 text-xs font-bold text-[#0B2A6F] hover:bg-slate-50 hover:text-[#35A536] border-b border-slate-100">
                                 <div class="font-extrabold text-slate-900 flex items-center gap-2 justify-start">
                                     <svg class="w-4 h-4 text-[#35A536] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                     <span>{{ app()->getLocale() === 'fr' ? '1. Inscription Participants, Experts & Intervenants' : (app()->getLocale() === 'en' ? '1. Participants, Experts & Speakers Registration' : '1. تسجيل المشاركين والخبراء والمحاضرين') }}</span>
@@ -100,7 +100,7 @@
                                     {{ app()->getLocale() === 'fr' ? 'Demande d\'accréditation individuelle et participation' : (app()->getLocale() === 'en' ? 'Individual accreditation request and session participation' : 'طلب الاعتماد الفردي والمشاركة في جلسات وفعاليات المنتدى') }}
                                 </div>
                             </a>
-                            <a href="{{ route('official.registration') }}" class="block px-4 py-3 text-xs font-bold text-[#0B2A6F] hover:bg-slate-50 hover:text-[#0B2A6F]">
+                            <a href="{{ route('official.registration') }}" data-navigate-ignore class="block px-4 py-3 text-xs font-bold text-[#0B2A6F] hover:bg-slate-50 hover:text-[#0B2A6F]">
                                 <div class="font-extrabold text-[#0B2A6F] flex items-center gap-2 justify-start">
                                     <svg class="w-4 h-4 text-[#0B2A6F] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5 5 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5 5 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
                                     <span>{{ app()->getLocale() === 'fr' ? '2. Inscription Officielle & Accréditation' : (app()->getLocale() === 'en' ? '2. Official Accreditation & Registration' : '2. التسجيل والاعتماد الرسمي للوفود والإعلام') }}</span>
