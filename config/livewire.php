@@ -181,7 +181,7 @@ return [
 
     'inject_assets' => true,
 
-    'asset_url' => '/vendor/livewire',
+    'asset_url' => null,
 
     /*
     |---------------------------------------------------------------------------

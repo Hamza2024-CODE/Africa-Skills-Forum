@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
 
         if (class_exists(\Livewire\Livewire::class)) {
             \Livewire\Livewire::setScriptRoute(function ($handle) {
-                return \Illuminate\Support\Facades\Route::get('/vendor/livewire/livewire.js', $handle);
+                return \Illuminate\Support\Facades\Route::get('/livewire/livewire.js', $handle);
             });
             \Livewire\Livewire::setUpdateRoute(function ($handle) {
                 return \Illuminate\Support\Facades\Route::post('/livewire/update', $handle);
