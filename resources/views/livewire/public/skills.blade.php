@@ -183,18 +183,18 @@
                     <!-- Modal Details Grid -->
                     <div class="grid grid-cols-2 gap-4 text-xs font-semibold text-slate-600 bg-slate-50 p-4 rounded-2xl border border-slate-200">
                         <div>
-                            <span class="text-[10px] text-slate-400 font-bold block mb-1">{{ $t('القطاع والفئة', 'Secteur & Catégorie', 'Sector & Category') }}</span>
-                            <span class="font-bold text-[#06205C]">{{ $selectedSkill->category ? $selectedSkill->category->getLocalized('name') : $t('قطاع التكنولوجيا والمهن', 'Secteur Technologie & Métiers', 'Technology & Skills Sector') }}</span>
+                            <span class="text-[10px] text-slate-400 font-bold block mb-1">{{ app()->getLocale() === 'fr' ? 'Secteur & Catégorie' : (app()->getLocale() === 'en' ? 'Sector & Category' : 'القطاع والفئة') }}</span>
+                            <span class="font-bold text-[#06205C]">{{ $selectedSkill->category ? $selectedSkill->category->getLocalized('name') : (app()->getLocale() === 'fr' ? 'Secteur Technologie & Métiers' : (app()->getLocale() === 'en' ? 'Technology & Skills Sector' : 'قطاع التكنولوجيا والمهن')) }}</span>
                         </div>
                         <div>
-                            <span class="text-[10px] text-slate-400 font-bold block mb-1">{{ $t('شرط العمر المقبول', 'Âge Admissible', 'Eligible Age') }}</span>
-                            <span class="font-bold text-emerald-600">{{ $selectedSkill->min_age ?? 16 }} {{ $t('إلى', 'à', 'to') }} {{ $selectedSkill->max_age ?? 22 }} {{ $t('سنة', 'ans', 'years') }}</span>
+                            <span class="text-[10px] text-slate-400 font-bold block mb-1">{{ app()->getLocale() === 'fr' ? 'Âge Admissible' : (app()->getLocale() === 'en' ? 'Eligible Age' : 'شرط العمر المقبول') }}</span>
+                            <span class="font-bold text-emerald-600">{{ $selectedSkill->min_age ?? 16 }} {{ app()->getLocale() === 'fr' ? 'à' : (app()->getLocale() === 'en' ? 'to' : 'إلى') }} {{ $selectedSkill->max_age ?? 22 }} {{ app()->getLocale() === 'fr' ? 'ans' : (app()->getLocale() === 'en' ? 'years' : 'سنة') }}</span>
                         </div>
                     </div>
 
                     <!-- Description -->
                     <div class="space-y-2">
-                        <h4 class="text-xs font-black text-[#06205C] uppercase">{{ $t('الوصف الفني للمهنة:', 'Description Technique Officielle :', 'Official Technical Description:') }}</h4>
+                        <h4 class="text-xs font-black text-[#06205C] uppercase">{{ app()->getLocale() === 'fr' ? 'Description Technique Officielle :' : (app()->getLocale() === 'en' ? 'Official Technical Description:' : 'الوصف الفني للمهنة:') }}</h4>
                         <p class="text-xs text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-2xl border border-slate-100">
                             {{ $selectedSkill->getLocalized('description') }}
                         </p>
@@ -203,12 +203,12 @@
                     <!-- Skill Equipment Checklist -->
                     @if(count($selectedSkillEquipments) > 0)
                         <div class="space-y-3">
-                            <h4 class="text-xs font-black text-[#06205C] uppercase">{{ $t('التجهيزات والأدوات الفنية المطلوبة:', 'Équipements et outils requis :', 'Required technical equipment & tools:') }}</h4>
+                            <h4 class="text-xs font-black text-[#06205C] uppercase">{{ app()->getLocale() === 'fr' ? 'Équipements et outils requis :' : (app()->getLocale() === 'en' ? 'Required technical equipment & tools:' : 'التجهيزات والأدوات الفنية المطلوبة:') }}</h4>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
                                 @foreach($selectedSkillEquipments as $eq)
                                     <div class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
                                         <span class="w-2 h-2 rounded-full bg-[#0066FF]"></span>
-                                        <span class="font-bold">{{ !empty($eq->equipmentItem) ? $eq->equipmentItem->getLocalized('name') : ($eq->getLocalized('name') ?: $t('تجهيزات ومعدات فنية', 'Équipement Technique', 'Technical Equipment')) }}</span>
+                                        <span class="font-bold">{{ !empty($eq->equipmentItem) ? $eq->equipmentItem->getLocalized('name') : ($eq->getLocalized('name') ?: (app()->getLocale() === 'fr' ? 'Équipement Technique' : (app()->getLocale() === 'en' ? 'Technical Equipment' : 'تجهيزات ومعدات فنية'))) }}</span>
                                     </div>
                                 @endforeach
                             </div>
@@ -219,7 +219,7 @@
                     <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
                         <div class="flex items-center gap-2 w-full sm:w-auto">
                             <button type="button" wire:click="closeSkillDetails" class="px-4 py-3 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition">
-                                {{ $t('إغلاق', 'Fermer', 'Close') }}
+                                {{ app()->getLocale() === 'fr' ? 'Fermer' : (app()->getLocale() === 'en' ? 'Close' : 'إغلاق') }}
                             </button>
                             @if($selectedSkill->getPdfUrl())
                                 <button type="button" wire:click="openPdfViewer({{ $selectedSkill->id }})" class="px-4 py-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#0066FF] border border-blue-200 text-xs font-black transition flex items-center gap-2">
@@ -230,7 +230,7 @@
                         </div>
 
                         <a href="{{ route('registration', ['skill_id' => $selectedSkill->id]) }}" class="w-full sm:w-auto px-8 py-3 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white text-xs font-black shadow-lg transition flex items-center justify-center gap-2">
-                            <span>{{ $t('التسجيل الفوري في هذه المهنة', 'S\'inscrire Immédiatement', 'Register Immediately') }}</span>
+                            <span>{{ app()->getLocale() === 'fr' ? 'S\'inscrire Immédiatement' : (app()->getLocale() === 'en' ? 'Register Immediately' : 'التسجيل الفوري في هذه المهنة') }}</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     </div>
