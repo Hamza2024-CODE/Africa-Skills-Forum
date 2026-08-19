@@ -28,35 +28,11 @@
     <!-- VERIFICATION RESULT -->
     @if($searched)
         @if($result)
-
-            @if(!$isAuthorizedScanner)
-                <!-- ACCESS DENIED FOR PUBLIC / EXTERNAL SCANNERS -->
-                <div class="bg-white rounded-3xl p-8 border-2 border-rose-200 shadow-2xl text-center space-y-4">
-                    <div class="w-16 h-16 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto text-2xl font-bold border border-rose-200">
-                        🚫
-                    </div>
-                    
-                    <div class="space-y-1">
-                        <span class="text-xs font-mono font-bold text-rose-500 uppercase tracking-widest block">ACCESS DENIED — UNAUTHORIZED SCANNER</span>
-                        <h2 class="text-xl font-black text-rose-800">ليس لديك الصلاحية لقراءة وتفكيك كود الـ QR هذا</h2>
-                        <p class="text-xs text-slate-600 max-w-md mx-auto leading-relaxed pt-1">
-                            عذراً، كود الـ QR هذا مشفر ومحمي بنظام أمان خاص بالمنصة. قراءة واستخراج بيانات الشخص المسجل وموقع مبيته محصورة <span class="font-bold text-rose-700">حصرياً في الماسح الداخلي للمنصة لدى الأدمن والمصرح لهم فقط</span>.
-                        </p>
-                    </div>
-
-                    <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-center gap-3 text-xs">
-                        <span class="text-slate-500 font-medium">إذا كنت مديراً أو من طاقم الأمن والتنظيم:</span>
-                        <a href="{{ route('login') }}" class="px-5 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-black transition shadow-xs">
-                            تسجيل الدخول كأدمن لتفكيك الشارة
-                        </a>
-                    </div>
-                </div>
-            @else
-                <!-- FULL ACCREDITED DOSSIER FOR AUTHORIZED ADMIN -->
-                @php
-                    $p = $result->participant;
-                @endphp
-                <div class="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-2xl space-y-8">
+            <!-- FULL ACCREDITED DOSSIER FOR PUBLIC & ADMIN SCANS -->
+            @php
+                $p = $result->participant;
+            @endphp
+            <div class="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-2xl space-y-8">
                     
                     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-100 pb-6">
                         <div class="flex items-center gap-4">

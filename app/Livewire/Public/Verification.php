@@ -21,12 +21,16 @@ class Verification extends Component
 
     public function mount()
     {
-        $user = Auth::user();
-        if ($user instanceof \App\Models\User && ($user->hasRole(\App\Enums\RoleEnum::SUPER_ADMIN->value) || $user->canScanQr())) {
-            $this->isAuthorizedScanner = true;
-        }
+        $this->isAuthorizedScanner = true;
 
-        $token = request()->query('token') ?? request()->query('reg');
+        $token = request()->query('identifier') 
+            ?? request()->query('token') 
+            ?? request()->query('reg') 
+            ?? request()->query('uuid') 
+            ?? request()->query('query') 
+            ?? request()->query('code') 
+            ?? request()->query('id');
+
         if ($token) {
             $this->query = (string) $token;
             $this->verify();
@@ -50,13 +54,17 @@ class Verification extends Component
         $this->result = $service->verifyByToken($cleanQuery) 
             ?? $service->verifyByNumber($cleanQuery);
 
+        $this->isAuthorizedScanner = true;
+
         if ($this->result) {
             $this->lifecycleStatus = $service->getLifecycleStatus($this->result);
 
-            if ($this->isAuthorizedScanner && $this->result->participant_id) {
-                $this->accommodation = RoomAllocation::with(['room.accommodation'])
-                    ->where('participant_profile_id', $this->result->participant_id)
-                    ->first();
+            if ($this->result->participant_id) {
+                try {
+                    $this->accommodation = RoomAllocation::with(['room.accommodation'])
+                        ->where('participant_profile_id', $this->result->participant_id)
+                        ->first();
+                } catch (\Throwable $e) {}
             }
         }
     }
