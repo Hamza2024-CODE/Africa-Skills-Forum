@@ -116,6 +116,17 @@ class PlatformAppearanceManager extends Component
             : 'تم إيقاف تفعيل وضع "انتظرونا قريباً" وعادت الواجهة العامة للعمل بشكل طبيعي.';
     }
 
+    public function toggleMaintenanceMode(): void
+    {
+        $this->maintenance_mode = !$this->maintenance_mode;
+        $settings = app(SettingsEngine::class);
+        $settings->set('maintenance_mode', $this->maintenance_mode ? 'true' : 'false', 'string', 'system');
+        $settings->flushCache();
+        $this->savedMessage = $this->maintenance_mode
+            ? 'تم تفعيل وضع "انتظرونا قريباً / Coming Soon" بنجاح لحجب الواجهة العامة وإظهار صفحة الترقب.'
+            : 'تم إيقاف تفعيل وضع "انتظرونا قريباً" وعادت الواجهة العامة للعمل بشكل طبيعي.';
+    }
+
     public function saveAppearance(SettingsEngine $settings)
     {
         $user = Auth::user();

@@ -60,12 +60,18 @@
                 </div>
             </div>
 
-            <!-- Toggle Switch -->
-            <label class="relative inline-flex items-center cursor-pointer shrink-0">
-                <input type="checkbox" wire:model.live="maintenance_mode" class="sr-only peer">
-                <div class="w-14 h-7 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-amber-500"></div>
-                <span class="ms-3 text-xs font-black text-slate-800 dark:text-slate-200">{{ $maintenance_mode ? 'مفعّل' : 'معطّل' }}</span>
-            </label>
+            <!-- Direct Action Button with Vector SVG Icon -->
+            <button type="button" 
+                    wire:click="toggleMaintenanceMode"
+                    class="px-5 py-3 rounded-2xl font-black text-xs transition shadow-lg shrink-0 flex items-center gap-2 cursor-pointer {{ $maintenance_mode ? 'bg-rose-600 hover:bg-rose-700 text-white ring-2 ring-rose-400/50' : 'bg-emerald-600 hover:bg-emerald-700 text-white ring-2 ring-emerald-400/50' }}">
+                @if($maintenance_mode)
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>إيقاف تفعيل وضع "انتظرونا قريباً" (إظهار المنصة العامة)</span>
+                @else
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <span>تفعيل وضع "انتظرونا قريباً" (حجب المنصة للعموم)</span>
+                @endif
+            </button>
         </div>
 
         @if($maintenance_mode)
