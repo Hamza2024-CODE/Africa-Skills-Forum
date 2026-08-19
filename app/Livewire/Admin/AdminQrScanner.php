@@ -7,7 +7,7 @@ use App\Models\DelegationMember;
 use App\Models\Registration;
 use App\Models\RoomAllocation;
 use App\Models\User;
-use Illuminate\Support\Facades\Str;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
