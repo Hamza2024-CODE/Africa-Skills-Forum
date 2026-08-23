@@ -1,5 +1,6 @@
 @php
     $isMaintenance = app(\App\Services\SettingsEngine::class)->get('maintenance_mode') === 'true';
+    $isAdmin = auth()->check() && (auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'));
 @endphp
 
 @if($isMaintenance && !request()->is('panel*') && !request()->is('login*'))
