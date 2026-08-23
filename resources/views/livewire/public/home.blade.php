@@ -78,48 +78,48 @@
             </div>
 
             <!-- Embedded Hero Stat Badges with Pure Vector SVG Icons -->
-            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-6 max-w-5xl">
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-8 max-w-6xl">
                 <!-- Stat 1: +30 Nations -->
-                <div class="p-4 rounded-2xl bg-[#031826]/90 border border-[#24BDC3]/30 flex items-center gap-3 shadow-lg hover:-translate-y-1 hover:bg-[#052D48] transition-all duration-300 group">
-                    <div class="w-10 h-10 rounded-xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                        <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 012 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V14m-3 7c9 0 9-9 9-9s-9 0-9 9z"/></svg>
+                <div class="p-4 sm:p-5 rounded-2xl bg-white/10 dark:bg-[#031826]/80 backdrop-blur-md border border-white/20 dark:border-[#24BDC3]/30 flex items-center justify-between gap-3 shadow-xl hover:-translate-y-1 hover:border-[#24BDC3] hover:shadow-[0_0_25px_rgba(36,189,195,0.3)] transition-all duration-300 group">
+                    <div class="space-y-1">
+                        <div class="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight drop-shadow-sm">+30</div>
+                        <div class="text-xs text-teal-100 font-bold leading-snug">{{ app()->getLocale() === 'fr' ? 'Pays africains' : (app()->getLocale() === 'en' ? 'African countries' : 'دولة مشاركة') }}</div>
                     </div>
-                    <div>
-                        <div class="text-xl font-black text-white">+30</div>
-                        <div class="text-[11px] text-teal-100 font-bold leading-tight">{{ app()->getLocale() === 'fr' ? 'Pays africains' : (app()->getLocale() === 'en' ? 'African countries' : '+30 دولة مشاركة') }}</div>
+                    <div class="w-11 h-11 rounded-2xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#24BDC3] group-hover:text-[#02101b] transition-all duration-300 shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 012 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V14m-3 7c9 0 9-9 9-9s-9 0-9 9z"/></svg>
                     </div>
                 </div>
 
                 <!-- Stat 2: +20 Ministers Expected -->
-                <div class="p-4 rounded-2xl bg-[#031826]/90 border border-[#24BDC3]/30 flex items-center gap-3 shadow-lg hover:-translate-y-1 hover:bg-[#052D48] transition-all duration-300 group">
-                    <div class="w-10 h-10 rounded-xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                        <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <div class="p-4 sm:p-5 rounded-2xl bg-white/10 dark:bg-[#031826]/80 backdrop-blur-md border border-white/20 dark:border-[#24BDC3]/30 flex items-center justify-between gap-3 shadow-xl hover:-translate-y-1 hover:border-[#24BDC3] hover:shadow-[0_0_25px_rgba(36,189,195,0.3)] transition-all duration-300 group">
+                    <div class="space-y-1">
+                        <div class="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight drop-shadow-sm">+20</div>
+                        <div class="text-xs text-teal-100 font-bold leading-snug">{{ app()->getLocale() === 'fr' ? 'Ministres attendus' : (app()->getLocale() === 'en' ? 'Ministers expected' : 'وزيراً متوقعاً') }}</div>
                     </div>
-                    <div>
-                        <div class="text-xl font-black text-white">+20</div>
-                        <div class="text-[11px] text-teal-100 font-bold leading-tight">{{ app()->getLocale() === 'fr' ? 'Ministres attendus' : (app()->getLocale() === 'en' ? 'Ministers expected' : '+20 وزيراً متوقعاً') }}</div>
+                    <div class="w-11 h-11 rounded-2xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#24BDC3] group-hover:text-[#02101b] transition-all duration-300 shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                     </div>
                 </div>
 
                 <!-- Stat 3: 2 Ministerial Roundtables -->
-                <div class="p-4 rounded-2xl bg-[#031826]/90 border border-[#24BDC3]/30 flex items-center gap-3 shadow-lg hover:-translate-y-1 hover:bg-[#052D48] transition-all duration-300 group">
-                    <div class="w-10 h-10 rounded-xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                        <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <div class="p-4 sm:p-5 rounded-2xl bg-white/10 dark:bg-[#031826]/80 backdrop-blur-md border border-white/20 dark:border-[#24BDC3]/30 flex items-center justify-between gap-3 shadow-xl hover:-translate-y-1 hover:border-[#24BDC3] hover:shadow-[0_0_25px_rgba(36,189,195,0.3)] transition-all duration-300 group">
+                    <div class="space-y-1">
+                        <div class="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight drop-shadow-sm">2</div>
+                        <div class="text-xs text-teal-100 font-bold leading-snug">{{ app()->getLocale() === 'fr' ? 'Tables rondes ministérielles' : (app()->getLocale() === 'en' ? 'Ministerial Roundtables' : 'موائد مستديرة وزارية') }}</div>
                     </div>
-                    <div>
-                        <div class="text-xl font-black text-white">2</div>
-                        <div class="text-[11px] text-teal-100 font-bold leading-tight">{{ app()->getLocale() === 'fr' ? 'Tables rondes ministérielles' : (app()->getLocale() === 'en' ? 'Ministerial Roundtables' : '2 موائد مستديرة وزارية') }}</div>
+                    <div class="w-11 h-11 rounded-2xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#24BDC3] group-hover:text-[#02101b] transition-all duration-300 shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                     </div>
                 </div>
 
                 <!-- Stat 4: 7 Thematic Workshops -->
-                <div class="p-4 rounded-2xl bg-[#031826]/90 border border-[#24BDC3]/30 flex items-center gap-3 shadow-lg hover:-translate-y-1 hover:bg-[#052D48] transition-all duration-300 group">
-                    <div class="w-10 h-10 rounded-xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                        <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <div class="p-4 sm:p-5 rounded-2xl bg-white/10 dark:bg-[#031826]/80 backdrop-blur-md border border-white/20 dark:border-[#24BDC3]/30 flex items-center justify-between gap-3 shadow-xl hover:-translate-y-1 hover:border-[#24BDC3] hover:shadow-[0_0_25px_rgba(36,189,195,0.3)] transition-all duration-300 group">
+                    <div class="space-y-1">
+                        <div class="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight drop-shadow-sm">7</div>
+                        <div class="text-xs text-teal-100 font-bold leading-snug">{{ app()->getLocale() === 'fr' ? 'Axes thématiques' : (app()->getLocale() === 'en' ? 'Thematic workshops' : 'ورشات تخصصية') }}</div>
                     </div>
-                    <div>
-                        <div class="text-xl font-black text-white">7</div>
-                        <div class="text-[11px] text-blue-100 font-bold leading-tight">{{ app()->getLocale() === 'fr' ? 'Axes thématiques' : (app()->getLocale() === 'en' ? 'Thematic workshops' : '7 ورشات تخصصية') }}</div>
+                    <div class="w-11 h-11 rounded-2xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#24BDC3] group-hover:text-[#02101b] transition-all duration-300 shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7M5 11.5v5.5a2.5 2.5 0 005 0v-5.5"/></svg>
                     </div>
                 </div>
             </div>
