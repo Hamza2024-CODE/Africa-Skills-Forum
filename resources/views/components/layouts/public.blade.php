@@ -259,16 +259,15 @@
 <body x-data="{ pwaUpdateAvailable: false, swWaiting: null }" x-init="
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js').then((reg) => {
+            reg.update();
             if (reg.waiting) {
-                swWaiting = reg.waiting;
-                pwaUpdateAvailable = true;
+                reg.waiting.postMessage({ type: 'SKIP_WAITING' });
             }
             reg.addEventListener('updatefound', () => {
                 const newWorker = reg.installing;
                 newWorker.addEventListener('statechange', () => {
                     if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                        swWaiting = newWorker;
-                        pwaUpdateAvailable = true;
+                        newWorker.postMessage({ type: 'SKIP_WAITING' });
                     }
                 });
             });
