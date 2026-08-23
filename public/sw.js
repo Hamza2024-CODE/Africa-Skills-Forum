@@ -1,4 +1,4 @@
-const CACHE_NAME = 'asf-2026-v3';
+const CACHE_NAME = 'asf-2026-v4';
 const ASSETS_TO_CACHE = [
   '/manifest.json',
   '/manifest.webmanifest',
