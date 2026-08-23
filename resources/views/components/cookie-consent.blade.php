@@ -20,9 +20,9 @@
         this.showConsent = false;
         window.dispatchEvent(new CustomEvent('cookie-consent-dismissed'));
     }
-}" x-init="init()" x-show="showConsent" x-cloak x-transition:enter="transition ease-out duration-500 transform" x-transition:enter-start="translate-y-full opacity-0" x-transition:enter-end="translate-y-0 opacity-100" x-transition:leave="transition ease-in duration-300 transform" x-transition:leave-start="translate-y-0 opacity-100" x-transition:leave-end="translate-y-full opacity-0" class="fixed bottom-16 start-3 end-3 md:bottom-6 sm:start-6 sm:end-auto sm:max-w-md z-45 print:hidden select-none" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
+}" x-init="init()" x-show="showConsent" x-cloak x-transition:enter="transition ease-out duration-500 transform" x-transition:enter-start="translate-y-full opacity-0" x-transition:enter-end="translate-y-0 opacity-100" x-transition:leave="transition ease-in duration-300 transform" x-transition:leave-start="translate-y-0 opacity-100" x-transition:leave-end="translate-y-full opacity-0" class="fixed bottom-16 start-3 end-3 md:bottom-6 sm:start-6 sm:end-auto sm:max-w-md z-[9999] print:hidden select-none" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 
-    <div class="bg-gradient-to-r from-[#020A24] via-[#06205C] to-[#0A2666] text-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20 backdrop-blur-2xl relative overflow-hidden">
+    <div class="bg-[#020A24] text-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] border border-amber-400/30 relative overflow-hidden">
         <!-- Background Ambient Glow -->
         <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#F5A800]/20 rounded-full blur-2xl pointer-events-none"></div>
 
