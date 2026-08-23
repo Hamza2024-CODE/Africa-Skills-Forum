@@ -1,4 +1,4 @@
-<div class="space-y-12 pb-16" x-data="{ showScheduleModal: true, scheduleTab: 16, showVideoModal: false, showPdfModal: false }" x-init="setTimeout(() => { showScheduleModal = true; }, 300)">
+<div class="space-y-12 pb-16" x-data="{ showScheduleModal: false, scheduleTab: 16, showVideoModal: false, showPdfModal: false }">
 
     <!-- 1. Pan-African Summit Hero Stage (Ultra-Modern African Leadership Aesthetic & Auto-Slider) -->
     <section class="relative bg-gradient-to-br from-[#052D48] via-[#031826] to-[#010a12] text-white pt-16 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-b-[3.5rem] border-b-2 border-[#24BDC3]/50 shadow-2xl"
