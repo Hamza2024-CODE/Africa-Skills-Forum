@@ -258,17 +258,7 @@
                 </div>
             </div>
 
-            <!-- Action Buttons Grid -->
-            <div class="flex flex-wrap items-center justify-center gap-3.5 pt-4">
-                <a href="{{ route('registration') }}" class="px-6 py-3.5 rounded-2xl btn-teal-gradient font-black text-xs sm:text-sm flex items-center gap-2 shadow-xl">
-                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                    <span>{{ $locale === 'fr' ? 'Pré-inscription au Forum' : ($locale === 'en' ? 'Forum Pre-Registration' : 'التسجيل المسبق في المنتدى') }}</span>
-                </a>
-                <a href="{{ route('guide') }}" class="px-6 py-3.5 rounded-2xl bg-[#052D48] dark:bg-white/10 hover:bg-[#031826] dark:hover:bg-white/20 text-white font-extrabold text-xs sm:text-sm border border-transparent dark:border-white/30 shadow-xl transition flex items-center gap-2">
-                    <svg class="w-4 h-4 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                    <span>{{ $locale === 'fr' ? 'Vision & Guide' : ($locale === 'en' ? 'Vision & Guide' : 'رؤية ودليل المنتدى') }}</span>
-                </a>
-            </div>
+
 
             <!-- Venue Location Badge -->
             <div class="pt-2 flex items-center justify-center gap-2.5 text-xs sm:text-sm font-bold text-slate-800 dark:text-teal-100 max-w-xl mx-auto bg-slate-100/90 dark:bg-white/5 border border-slate-200/90 dark:border-white/15 p-3.5 px-5 rounded-2xl shadow-xs">
