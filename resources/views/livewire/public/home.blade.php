@@ -1,4 +1,4 @@
-<div class="space-y-12 pb-16" x-data="{ showScheduleModal: false, scheduleTab: 16, showVideoModal: false, showPdfModal: false }">
+<div class="space-y-12 pb-16" x-data="{ showScheduleModal: false, scheduleTab: 16, showVideoModal: false, showPdfModal: false }" @open-schedule.window="showScheduleModal = true">
 
     <!-- 1. Pan-African Summit Hero Stage (Ultra-Modern African Leadership Aesthetic & Auto-Slider) -->
     <section class="relative bg-gradient-to-br from-[#052D48] via-[#031826] to-[#010a12] text-white pt-16 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-b-[3.5rem] border-b-2 border-[#24BDC3]/50 shadow-2xl"
@@ -34,8 +34,8 @@
         </div>
 
         <!-- Dynamic Ambient Beams in Bright Teal (#24BDC3) & Deep Petrol Blue (#052D48) -->
-        <div class="absolute -top-24 -left-24 w-[32rem] h-[32rem] bg-[#24BDC3]/25 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
-        <div class="absolute -bottom-24 -right-24 w-[32rem] h-[32rem] bg-[#052D48]/50 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+        <div class="hidden sm:block absolute -top-24 -left-24 w-[32rem] h-[32rem] bg-[#24BDC3]/20 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="hidden sm:block absolute -bottom-24 -right-24 w-[32rem] h-[32rem] bg-[#052D48]/40 rounded-full blur-2xl pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto relative z-10 space-y-8 text-right">
 
@@ -71,7 +71,7 @@
                     <svg class="w-5 h-5 text-[#24BDC3] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     <span>{{ app()->getLocale() === 'fr' ? 'Découvrir la Vision & Guide' : (app()->getLocale() === 'en' ? 'Explore Forum Vision & Guide' : 'رؤية ودليل المنتدى') }}</span>
                 </a>
-                <button @click="showScheduleModal = true" class="px-8 py-4 rounded-2xl btn-petrol-gradient font-black text-sm shadow-xl flex items-center gap-2.5 group cursor-pointer">
+                <button @click="$dispatch('open-schedule'); showScheduleModal = true" class="px-8 py-4 rounded-2xl btn-petrol-gradient font-black text-sm shadow-xl flex items-center gap-2.5 group cursor-pointer">
                     <svg class="w-5 h-5 text-[#24BDC3] group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     <span>{{ app()->getLocale() === 'fr' ? 'Programme Officiel' : (app()->getLocale() === 'en' ? 'Official Event Schedule' : 'جدول أعمال المنتدى') }}</span>
                 </button>
@@ -302,7 +302,7 @@
                         </div>
 
                         <!-- Step 1: Opening Ceremony -->
-                        <div @click="showScheduleModal = true; scheduleTab = 16" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
+                        <div @click="$dispatch('open-schedule'); scheduleTab = 16" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
                             <div class="w-11 h-11 rounded-2xl bg-teal-100 dark:bg-[#031826] text-[#24BDC3] border-2 border-teal-300 dark:border-[#24BDC3]/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                             </div>
@@ -311,7 +311,7 @@
                         </div>
 
                         <!-- Step 2: Ministerial Roundtable -->
-                        <div @click="showScheduleModal = true; scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
+                        <div @click="$dispatch('open-schedule'); scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
                             <div class="w-11 h-11 rounded-2xl bg-teal-100 dark:bg-[#031826] text-[#24BDC3] border-2 border-teal-300 dark:border-[#24BDC3]/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                             </div>
@@ -320,7 +320,7 @@
                         </div>
 
                         <!-- Step 3: Joint Declaration -->
-                        <div @click="showScheduleModal = true; scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
+                        <div @click="$dispatch('open-schedule'); scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
                             <div class="w-11 h-11 rounded-2xl bg-emerald-100 text-[#35A536] border-2 border-emerald-300 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             </div>
@@ -329,7 +329,7 @@
                         </div>
 
                         <!-- Step 4: Expert Panels -->
-                        <div @click="showScheduleModal = true; scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
+                        <div @click="$dispatch('open-schedule'); scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
                             <div class="w-11 h-11 rounded-2xl bg-purple-100 dark:bg-[#031826] text-purple-600 dark:text-purple-300 border-2 border-purple-300 dark:border-purple-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                             </div>
@@ -338,7 +338,7 @@
                         </div>
 
                         <!-- Step 5: Where Policy Meets Talent -->
-                        <div @click="showScheduleModal = true; scheduleTab = 18" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
+                        <div @click="$dispatch('open-schedule'); scheduleTab = 18" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
                             <div class="w-11 h-11 rounded-2xl bg-sky-100 dark:bg-[#031826] text-sky-600 dark:text-sky-300 border-2 border-sky-300 dark:border-sky-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                             </div>
@@ -347,7 +347,7 @@
                         </div>
 
                         <!-- Step 6: Closing Ceremony -->
-                        <div @click="showScheduleModal = true; scheduleTab = 18" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
+                        <div @click="$dispatch('open-schedule'); scheduleTab = 18" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
                             <div class="w-11 h-11 rounded-2xl bg-rose-100 dark:bg-[#031826] text-rose-600 dark:text-rose-300 border-2 border-rose-300 dark:border-rose-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
                             </div>

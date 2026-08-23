@@ -18,7 +18,7 @@
         document.cookie = 'asf_cookie_consent_v2=declined; max-age=31536000; path=/; SameSite=Lax';
         this.showConsent = false;
     }
-}" x-init="init()" x-show="showConsent" x-cloak x-transition:enter="transition ease-out duration-500 transform" x-transition:enter-start="translate-y-full opacity-0" x-transition:enter-end="translate-y-0 opacity-100" x-transition:leave="transition ease-in duration-300 transform" x-transition:leave-start="translate-y-0 opacity-100" x-transition:leave-end="translate-y-full opacity-0" class="fixed bottom-16 start-4 end-4 md:bottom-6 sm:start-6 sm:end-auto sm:max-w-md z-35 print:hidden select-none" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
+}" x-init="init()" x-show="showConsent" x-cloak x-transition:enter="transition ease-out duration-500 transform" x-transition:enter-start="translate-y-full opacity-0" x-transition:enter-end="translate-y-0 opacity-100" x-transition:leave="transition ease-in duration-300 transform" x-transition:leave-start="translate-y-0 opacity-100" x-transition:leave-end="translate-y-full opacity-0" class="fixed bottom-16 start-4 end-4 md:bottom-6 sm:start-6 sm:end-auto sm:max-w-md z-45 print:hidden select-none" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 
     <div class="bg-gradient-to-r from-[#020A24] via-[#06205C] to-[#0A2666] text-white p-5 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20 backdrop-blur-2xl relative overflow-hidden">
         <!-- Background Ambient Glow -->
