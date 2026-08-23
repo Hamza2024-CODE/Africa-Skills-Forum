@@ -1225,27 +1225,28 @@
             <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/10 dark:bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
 
             <!-- Modal Header Bar with Ministry Logo & AU Emblem -->
-            <div class="p-4 sm:p-5 border-b border-slate-200 dark:border-[#24BDC3]/20 relative z-10 bg-slate-50/90 dark:bg-[#020b12]/90 backdrop-blur-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="p-3.5 sm:p-5 border-b border-slate-200 dark:border-[#24BDC3]/20 relative z-10 bg-slate-50/90 dark:bg-[#020b12]/90 backdrop-blur-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
                 
-                <!-- Official Dual Brand Logos (Compact & Dual Theme) -->
-                <div class="flex items-center gap-2.5 sm:gap-3 bg-white dark:bg-[#052033] p-1.5 sm:p-2 px-3 sm:px-4 rounded-2xl border border-slate-200/90 dark:border-[#24BDC3]/30 shadow-xs shrink-0 w-full sm:w-auto justify-between sm:justify-start">
-                    <!-- Ministry Seal Logo (Adapts to Dark/Light mode) -->
-                    <img src="{{ asset('ministry-logo-trimmed.png') }}" 
-                         alt="الجمهورية الجزائرية الديمقراطية الشعبية" 
-                         class="h-6 sm:h-8 w-auto object-contain shrink-0 dark:hidden">
-                    <img src="{{ asset('ministry-logo-white-trimmed.png') }}" 
-                         alt="الجمهورية الجزائرية الديمقراطية الشعبية" 
-                         class="h-6 sm:h-8 w-auto object-contain shrink-0 hidden dark:block">
-                    
-                    <div class="h-6 sm:h-7 w-px bg-slate-300 dark:bg-white/20 shrink-0"></div>
-                    
-                    <!-- African Union Logo -->
-                    <img src="{{ asset('africa-logo-trimmed.png') }}" 
-                         alt="African Union - Africa Skills Forum" 
-                         class="h-6 sm:h-8 w-auto object-contain shrink-0">
+                <!-- Header Top Row (Decoupled Logos Box + Close Button on Mobile) -->
+                <div class="flex items-center justify-between w-full sm:w-auto gap-3">
+                    <!-- Official Dual Brand Logos -->
+                    <div class="flex items-center gap-2 sm:gap-3 bg-white dark:bg-[#052033] p-1.5 sm:p-2 px-2.5 sm:px-4 rounded-xl sm:rounded-2xl border border-slate-200/90 dark:border-[#24BDC3]/30 shadow-xs shrink-0">
+                        <img src="{{ asset('ministry-logo-trimmed.png') }}" 
+                             alt="الجمهورية الجزائرية الديمقراطية الشعبية" 
+                             class="h-5 sm:h-7 w-auto object-contain shrink-0 dark:hidden">
+                        <img src="{{ asset('ministry-logo-white-trimmed.png') }}" 
+                             alt="الجمهورية الجزائرية الديمقراطية الشعبية" 
+                             class="h-5 sm:h-7 w-auto object-contain shrink-0 hidden dark:block">
+                        
+                        <div class="h-5 sm:h-6 w-px bg-slate-300 dark:bg-white/20 shrink-0"></div>
+                        
+                        <img src="{{ asset('africa-logo-trimmed.png') }}" 
+                             alt="African Union - Africa Skills Forum" 
+                             class="h-5 sm:h-7 w-auto object-contain shrink-0">
+                    </div>
 
                     <!-- Mobile Close Button -->
-                    <button @click="showScheduleModal = false" class="sm:hidden w-8 h-8 rounded-xl bg-slate-200/70 dark:bg-white/10 hover:bg-rose-600 text-slate-700 dark:text-slate-300 hover:text-white flex items-center justify-center shrink-0 border border-slate-300 dark:border-white/15">
+                    <button @click="showScheduleModal = false" class="sm:hidden w-8 h-8 rounded-xl bg-slate-200/80 dark:bg-white/10 hover:bg-rose-600 text-slate-700 dark:text-slate-300 hover:text-white flex items-center justify-center shrink-0 border border-slate-300 dark:border-white/15 cursor-pointer">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
                 </div>
@@ -1254,11 +1255,11 @@
                     <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-blue-50 dark:bg-[#24BDC3]/15 border border-blue-200/80 dark:border-[#24BDC3]/30 text-[11px] font-black text-[#0B2A6F] dark:text-[#24BDC3]">
                         <span>{{ app()->getLocale() === 'fr' ? 'Programme Officiel 2026' : (app()->getLocale() === 'en' ? 'Official Forum Programme' : 'برنامج الفعاليات الرسمي 2026') }}</span>
                     </div>
-                    <h3 class="text-lg sm:text-2xl font-black text-[#0B2A6F] dark:text-white tracking-tight leading-tight">
+                    <h3 class="text-base sm:text-2xl font-black text-[#0B2A6F] dark:text-white tracking-tight leading-snug">
                         {{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences' : (app()->getLocale() === 'en' ? 'African Skills Policy Forum' : 'منتدى السياسات الأفريقية للمهارات 2026') }}
                     </h3>
-                    <p class="text-xs text-slate-500 dark:text-teal-200/80 font-bold flex items-center gap-1.5 sm:justify-end">
-                        <svg class="w-3.5 h-3.5 text-brand-500 dark:text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <p class="text-[11px] sm:text-xs text-slate-500 dark:text-teal-200/80 font-bold flex items-center gap-1 sm:justify-end">
+                        <svg class="w-3.5 h-3.5 text-brand-500 dark:text-[#24BDC3] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         <span>{{ app()->getLocale() === 'fr' ? '16 – 18 Novembre 2026 • Centre des Conventions d\'Oran' : (app()->getLocale() === 'en' ? '16 – 18 November 2026 • Mohamed Ben Ahmed Convention Center - Oran' : '16 – 18 نوفمبر 2026 • مركز المؤتمرات محمد بن أحمد - وهران') }}</span>
                     </p>
                 </div>
@@ -1269,28 +1270,28 @@
                 </button>
             </div>
 
-            <!-- Modal Segmented Date Switcher Tabs (Dual Theme) -->
-            <div class="px-4 sm:px-6 pt-3 pb-2 relative z-10">
-                <div class="p-1.5 bg-slate-100 dark:bg-[#052033] rounded-2xl border border-slate-200 dark:border-[#24BDC3]/20 flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar">
+            <!-- Modal Segmented Date Switcher Tabs (Dual Theme & Perfect 3-Grid Mobile Fit) -->
+            <div class="px-3 sm:px-6 pt-3 pb-2 relative z-10">
+                <div class="p-1 sm:p-1.5 bg-slate-100 dark:bg-[#052033] rounded-xl sm:rounded-2xl border border-slate-200 dark:border-[#24BDC3]/20 grid grid-cols-3 sm:flex items-center gap-1 sm:gap-2">
                     <button @click="scheduleTab = 16" 
-                            class="flex-1 min-w-[130px] px-3 sm:px-4 py-2.5 rounded-xl font-black text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
+                            class="px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-black text-[11px] sm:text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                             :class="scheduleTab === 16 ? 'bg-[#0B2A6F] dark:bg-gradient-to-r dark:from-[#24BDC3] dark:to-[#00969B] text-white dark:text-[#02101b] shadow-md' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-white/5'">
-                        <svg class="w-4 h-4 text-amber-400 dark:text-[#02101b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <span>16 {{ app()->getLocale() === 'fr' ? 'Nov. — Jour 1' : (app()->getLocale() === 'en' ? 'Nov. — Day 1' : 'نوفمبر — اليوم الأول') }}</span>
+                        <svg class="w-3.5 h-3.5 text-amber-400 dark:text-[#02101b] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <span>16 {{ app()->getLocale() === 'fr' ? 'Nov.' : (app()->getLocale() === 'en' ? 'Nov.' : 'نوفمبر') }} <span class="hidden sm:inline">— {{ app()->getLocale() === 'fr' ? 'Jour 1' : (app()->getLocale() === 'en' ? 'Day 1' : 'اليوم الأول') }}</span></span>
                     </button>
 
                     <button @click="scheduleTab = 17" 
-                            class="flex-1 min-w-[130px] px-3 sm:px-4 py-2.5 rounded-xl font-black text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
+                            class="px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-black text-[11px] sm:text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                             :class="scheduleTab === 17 ? 'bg-[#35A536] dark:bg-gradient-to-r dark:from-[#35A536] dark:to-emerald-600 text-white shadow-md' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-white/5'">
-                        <svg class="w-4 h-4 text-emerald-200 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                        <span>17 {{ app()->getLocale() === 'fr' ? 'Nov. — Jour 2' : (app()->getLocale() === 'en' ? 'Nov. — Day 2' : 'نوفمبر — اليوم الثاني') }}</span>
+                        <svg class="w-3.5 h-3.5 text-emerald-200 dark:text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                        <span>17 {{ app()->getLocale() === 'fr' ? 'Nov.' : (app()->getLocale() === 'en' ? 'Nov.' : 'نوفمبر') }} <span class="hidden sm:inline">— {{ app()->getLocale() === 'fr' ? 'Jour 2' : (app()->getLocale() === 'en' ? 'Day 2' : 'اليوم الثاني') }}</span></span>
                     </button>
 
                     <button @click="scheduleTab = 18" 
-                            class="flex-1 min-w-[130px] px-3 sm:px-4 py-2.5 rounded-xl font-black text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
+                            class="px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-black text-[11px] sm:text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                             :class="scheduleTab === 18 ? 'bg-[#24BDC3] dark:bg-gradient-to-r dark:from-purple-500 dark:to-indigo-600 text-white shadow-md' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-white/5'">
-                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                        <span>18 {{ app()->getLocale() === 'fr' ? 'Nov. — Jour 3' : (app()->getLocale() === 'en' ? 'Nov. — Day 3' : 'نوفمبر — اليوم الثالث') }}</span>
+                        <svg class="w-3.5 h-3.5 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                        <span>18 {{ app()->getLocale() === 'fr' ? 'Nov.' : (app()->getLocale() === 'en' ? 'Nov.' : 'نوفمبر') }} <span class="hidden sm:inline">— {{ app()->getLocale() === 'fr' ? 'Jour 3' : (app()->getLocale() === 'en' ? 'Day 3' : 'اليوم الثالث') }}</span></span>
                     </button>
                 </div>
             </div>
