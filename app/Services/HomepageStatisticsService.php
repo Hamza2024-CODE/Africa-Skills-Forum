@@ -15,9 +15,9 @@ class HomepageStatisticsService
      */
     public function getStatistics(): array
     {
-        return Cache::remember('asf_homepage_statistics_v8', 10, function () {
+        return Cache::remember('asf_homepage_statistics_v9', 10, function () {
             return [
-                'countries'     => Country::count() ?: 54,
+                'countries'     => Country::count() ?: 30,
                 'ministers'     => 20,
                 'experts'       => User::whereHas('roles', fn($q) => $q->whereIn('name', ['JUDGE', 'EXPERT', 'SPEAKER']))->count(),
                 'participants'  => Registration::count(),

@@ -816,7 +816,7 @@
     <!-- 3. Dynamic Real DB Statistics Grid tailored for Africa Skills Policy Forum 2026 -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            <x-animated-counter :target="$stats['countries'] ?? 54" :label="app()->getLocale() === 'fr' ? 'Pays Africains' : (app()->getLocale() === 'en' ? 'African Nations' : 'الدول الإفريقية')" :description="app()->getLocale() === 'fr' ? 'Délégations officielles' : (app()->getLocale() === 'en' ? 'Official Delegations' : 'الوفود الوطنية الرسمية')" color="text-[#F5A800]">
+            <x-animated-counter :target="30" :label="app()->getLocale() === 'fr' ? 'Pays Africains' : (app()->getLocale() === 'en' ? 'African Nations' : 'الدول الإفريقية')" :description="app()->getLocale() === 'fr' ? 'Délégations officielles' : (app()->getLocale() === 'en' ? 'Official Delegations' : 'الوفود الوطنية الرسمية')" color="text-[#F5A800]">
                 <x-slot:icon><svg class="w-6 h-6 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 012 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V14m-3 7c9 0 9-9 9-9s-9 0-9 9z"/></svg></x-slot:icon>
             </x-animated-counter>
             <x-animated-counter :target="$stats['ministers'] ?? 20" :label="app()->getLocale() === 'fr' ? 'Ministres Attendus' : (app()->getLocale() === 'en' ? 'Ministers Expected' : 'الوزراء والوفود')" :description="app()->getLocale() === 'fr' ? 'Ministres de la Formation' : (app()->getLocale() === 'en' ? 'Vocational Ministers' : 'وزراء التكوين والتعليم المهني')" color="text-[#35A536]">
