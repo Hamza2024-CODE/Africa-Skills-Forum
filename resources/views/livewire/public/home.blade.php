@@ -1215,10 +1215,10 @@
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100 scale-100"
          x-transition:leave-end="opacity-0 scale-95"
-         class="fixed inset-0 z-50 bg-slate-950/80 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+         class="fixed inset-0 z-50 bg-slate-950/80 flex items-end sm:items-center justify-center p-3 sm:p-6 pb-24 sm:pb-6 overflow-y-auto">
         
         <div @click.outside="showScheduleModal = false" 
-             class="bg-white dark:bg-[#031420] text-slate-900 dark:text-white rounded-3xl max-w-4xl w-full shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:shadow-[0_25px_80px_rgba(0,0,0,0.7)] border border-slate-200 dark:border-[#24BDC3]/40 relative overflow-hidden my-auto max-h-[92vh] flex flex-col transition-colors">
+             class="bg-white dark:bg-[#031420] text-slate-900 dark:text-white rounded-3xl max-w-4xl w-full shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:shadow-[0_25px_80px_rgba(0,0,0,0.7)] border border-slate-200 dark:border-[#24BDC3]/40 relative overflow-hidden my-0 sm:my-auto max-h-[74vh] sm:max-h-[92vh] flex flex-col transition-colors mb-2">
             
             <!-- Background Ambient Glow Accents -->
             <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-500/10 dark:bg-[#24BDC3]/15 rounded-full blur-3xl pointer-events-none"></div>
