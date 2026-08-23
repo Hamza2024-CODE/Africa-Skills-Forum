@@ -335,14 +335,9 @@
             dismissed: false,
             mobileNavOpen: false,
             init() {
-                window.addEventListener('scroll', () => {
-                    if (this.dismissed) return;
-                    const scrollPos = window.innerHeight + window.scrollY;
-                    const totalHeight = document.documentElement.scrollHeight;
-                    if (scrollPos >= totalHeight - 950) {
-                        this.showMascot = true;
-                    }
-                });
+                setTimeout(() => {
+                    if (!this.dismissed) this.showMascot = true;
+                }, 1200);
                 window.addEventListener('mobile-menu-toggled', (e) => {
                     this.mobileNavOpen = !!e.detail;
                 });
@@ -391,7 +386,7 @@
 
         <!-- High-Res Floating Mascot Image Portrait -->
         <div class="w-16 sm:w-32 md:w-36 h-auto flex-shrink-0 relative group filter drop-shadow-2xl wsap-float-slow cursor-pointer" @click="showMascot = true">
-            <img src="/images/mascot.png" alt="Africa Skills Forum Mascot 2026" class="w-full h-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+            <img src="{{ asset('images/mascot.png') }}" alt="Africa Skills Forum Mascot 2026" class="w-full h-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
         </div>
     </div>
 
