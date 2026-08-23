@@ -329,21 +329,21 @@
                         </div>
 
                         <!-- Step 4: Expert Panels -->
-                        <div @click="showScheduleModal = true; scheduleTab = 18" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
+                        <div @click="showScheduleModal = true; scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
                             <div class="w-11 h-11 rounded-2xl bg-purple-100 dark:bg-[#031826] text-purple-600 dark:text-purple-300 border-2 border-purple-300 dark:border-purple-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                             </div>
                             <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-purple-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Panneaux d\'Experts' : (app()->getLocale() === 'en' ? 'Expert Panels' : 'الجلسات التخصصية') }}</div>
-                            <div class="text-[10px] font-extrabold text-purple-700 dark:text-purple-200 bg-purple-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-purple-200 dark:border-[#24BDC3]/30">18 {{ app()->getLocale() === 'fr' ? 'Nov. — 09:30' : (app()->getLocale() === 'en' ? 'Nov. — 09:30' : 'نوفمبر — 09:30') }}</div>
+                            <div class="text-[10px] font-extrabold text-purple-700 dark:text-purple-200 bg-purple-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-purple-200 dark:border-[#24BDC3]/30">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 14:00' : (app()->getLocale() === 'en' ? 'Nov. — 14:00' : 'نوفمبر — 14:00') }}</div>
                         </div>
 
                         <!-- Step 5: Where Policy Meets Talent -->
-                        <div @click="showScheduleModal = true; scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
+                        <div @click="showScheduleModal = true; scheduleTab = 18" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
                             <div class="w-11 h-11 rounded-2xl bg-sky-100 dark:bg-[#031826] text-sky-600 dark:text-sky-300 border-2 border-sky-300 dark:border-sky-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                             </div>
                             <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-sky-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Politiques & Talents' : (app()->getLocale() === 'en' ? 'Where Policy Meets Talent' : 'التلاقي بين السياسات والمواهب') }}</div>
-                            <div class="text-[10px] font-extrabold text-sky-700 dark:text-sky-200 bg-sky-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-sky-200 dark:border-[#24BDC3]/30">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 15:30' : (app()->getLocale() === 'en' ? 'Nov. — 15:30' : 'نوفمبر — 15:30') }}</div>
+                            <div class="text-[10px] font-extrabold text-sky-700 dark:text-sky-200 bg-sky-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-sky-200 dark:border-[#24BDC3]/30">18 {{ app()->getLocale() === 'fr' ? 'Nov. — 09:30' : (app()->getLocale() === 'en' ? 'Nov. — 09:30' : 'نوفمبر — 09:30') }}</div>
                         </div>
 
                         <!-- Step 6: Closing Ceremony -->
@@ -1428,18 +1428,18 @@
                 <div x-show="scheduleTab === 18" class="space-y-4" style="display: none;">
                     
                     <!-- Nov 18 Item 1: 09:30 - 12:30 -->
-                    <div class="p-5 rounded-2xl bg-white border-s-4 border-purple-600 border-y border-e border-slate-200/90 hover:shadow-md transition flex flex-col sm:flex-row items-start gap-4 group">
-                        <div class="px-4 py-2 rounded-xl bg-purple-100 text-purple-900 border border-purple-300 font-mono font-black text-xs shrink-0 shadow-xs whitespace-nowrap">
+                    <div class="p-5 rounded-2xl bg-white border-s-4 border-sky-600 border-y border-e border-slate-200/90 hover:shadow-md transition flex flex-col sm:flex-row items-start gap-4 group">
+                        <div class="px-4 py-2 rounded-xl bg-sky-100 text-sky-900 border border-sky-300 font-mono font-black text-xs shrink-0 shadow-xs whitespace-nowrap">
                             09:30 – 12:30
                         </div>
                         <div class="space-y-1.5 flex-1">
                             <div class="flex items-center gap-2">
-                                <span class="px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-900 text-[10px] font-black border border-purple-200">
-                                    {{ app()->getLocale() === 'fr' ? 'Panneaux d\'Experts & Recommandations' : (app()->getLocale() === 'en' ? 'Expert Panels & Recommendations' : 'الجلسات التخصصية وصياغة التوصيات') }}
+                                <span class="px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-900 text-[10px] font-black border border-sky-200">
+                                    {{ app()->getLocale() === 'fr' ? 'Politiques & Talents (التلاقي بالشباب)' : (app()->getLocale() === 'en' ? 'Where Policy Meets Talent' : 'التلاقي بين السياسات والمواهب (التلاقي بالشباب)') }}
                                 </span>
                             </div>
-                            <h4 class="text-base font-black text-[#0B2A6F] group-hover:text-purple-600 transition">
-                                {{ app()->getLocale() === 'fr' ? 'Sessions d\'experts, échanges thématiques et finalisation de la feuille de route' : (app()->getLocale() === 'en' ? 'Expert panel discussions, thematic sessions, and roadmap finalization' : 'الجلسات التخصصية، مناقشة أوراق العمل واستكمال صياغة التوصيات النهائية') }}
+                            <h4 class="text-base font-black text-[#0B2A6F] group-hover:text-sky-600 transition">
+                                {{ app()->getLocale() === 'fr' ? 'Session d\'échange et تلاقي الشركاء والشباب والمواهب الإفريقية مع صناع القرار' : (app()->getLocale() === 'en' ? 'Interactive dialogue session connecting youth talents with policymakers' : 'جلسة حوار وتلاقي الشباب والمواهب الإفريقية وصناع القرار') }}
                             </h4>
                         </div>
                     </div>
