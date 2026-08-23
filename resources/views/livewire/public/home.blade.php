@@ -1002,18 +1002,39 @@
                         {{ app()->getLocale() === 'fr' ? 'Agenda & Événements' : (app()->getLocale() === 'en' ? 'Events & Calendar' : 'الأجندة والفعاليات') }}
                     </h3>
                     <div class="space-y-3">
-                        <div class="flex items-start gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-500 flex flex-col items-center justify-center flex-shrink-0 font-bold border border-brand-100">
-                                <span class="text-xs leading-none">25</span>
-                                <span class="text-[9px] uppercase">{{ app()->getLocale() === 'fr' ? 'NOV' : (app()->getLocale() === 'en' ? 'NOV' : 'نوفمبر') }}</span>
-                            </div>
-                            <div>
-                                <h4 class="text-xs font-bold text-[#06205C]">
-                                    {{ app()->getLocale() === 'fr' ? 'Cérémonie d\'Ouverture des Olympiades' : (app()->getLocale() === 'en' ? 'Official Opening Ceremony' : 'حفل الافتتاح الرسمي للأولمبياد الإفريقي') }}
-                                </h4>
-                                <span class="text-[10px] text-slate-400">CIC — Oran / Alger</span>
-                            </div>
-                        </div>
+                        @php
+                            $dynamicEvents = \App\Models\Event::where('status', 'PUBLISHED')->orderBy('start_at')->take(2)->get();
+                        @endphp
+
+                        @if($dynamicEvents->count() > 0)
+                            @foreach($dynamicEvents as $ev)
+                                <a href="{{ route('events') }}" class="flex items-start gap-3 group/ev hover:opacity-90 transition">
+                                    <div class="w-10 h-10 rounded-xl bg-teal-50 text-[#24BDC3] flex flex-col items-center justify-center flex-shrink-0 font-bold border border-teal-200 group-hover/ev:scale-105 transition-transform">
+                                        <span class="text-xs leading-none">{{ $ev->start_at ? $ev->start_at->format('d') : '16' }}</span>
+                                        <span class="text-[9px] uppercase">{{ $ev->start_at ? $ev->start_at->format('M') : 'NOV' }}</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-[#06205C] group-hover/ev:text-[#24BDC3] transition-colors line-clamp-1">
+                                            {{ $ev->getLocalized('title') }}
+                                        </h4>
+                                        <span class="text-[10px] text-slate-400 block line-clamp-1">{{ $ev->venue ?: 'مركز المؤتمرات — وهران' }}</span>
+                                    </div>
+                                </a>
+                            @endforeach
+                        @else
+                            <a href="{{ route('events') }}" class="flex items-start gap-3 group/ev">
+                                <div class="w-10 h-10 rounded-xl bg-teal-50 text-[#24BDC3] flex flex-col items-center justify-center flex-shrink-0 font-bold border border-teal-200">
+                                    <span class="text-xs leading-none">16</span>
+                                    <span class="text-[9px] uppercase">{{ app()->getLocale() === 'fr' ? 'NOV' : (app()->getLocale() === 'en' ? 'NOV' : 'نوفمبر') }}</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-[#06205C] group-hover/ev:text-[#24BDC3] transition-colors">
+                                        {{ app()->getLocale() === 'fr' ? 'Cérémonie d\'Ouverture Officielle du Forum' : (app()->getLocale() === 'en' ? 'Official Forum Opening Ceremony' : 'حفل الافتتاح الرسمي لمنتدى السياسات الأفريقية للمهارات 2026') }}
+                                    </h4>
+                                    <span class="text-[10px] text-slate-400">Mohamed Ben Ahmed Convention Center — Oran</span>
+                                </div>
+                            </a>
+                        @endif
                     </div>
                 </div>
                 <a href="{{ route('events') }}" class="text-xs font-bold text-brand-500 hover:text-brand-600 mt-6 inline-flex items-center gap-1">
