@@ -10,8 +10,20 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" class="h-full">
 <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <script>
         (function() {
+            var appBuildVersion = '2026.08.23.v3';
+            var currentBuild = localStorage.getItem('asf_build_v');
+            if (currentBuild !== appBuildVersion) {
+                localStorage.setItem('asf_build_v', appBuildVersion);
+                if (currentBuild) {
+                    window.location.reload(true);
+                }
+            }
+
             var savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 document.documentElement.classList.add('dark');
