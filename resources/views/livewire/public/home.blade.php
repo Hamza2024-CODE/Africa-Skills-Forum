@@ -228,35 +228,35 @@
                             </div>
                         </div>
 
-                        <!-- MINUTES — Navy -->
-                        <div class="flex flex-col items-center justify-between gap-3 p-4 rounded-2xl bg-blue-50 border border-blue-200 hover:border-blue-400 hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 group/cd cursor-default">
-                            <div class="w-9 h-9 rounded-xl bg-[#0B2A6F]/10 flex items-center justify-center">
-                                <svg class="w-5 h-5 text-[#0B2A6F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <!-- MINUTES — Teal -->
+                        <div class="flex flex-col items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#031826] border border-teal-200 dark:border-[#24BDC3]/40 hover:border-[#24BDC3] hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 group/cd cursor-default">
+                            <div class="w-9 h-9 rounded-xl bg-[#24BDC3]/15 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             </div>
-                            <div class="text-4xl sm:text-5xl font-black font-mono text-[#0B2A6F] leading-none group-hover/cd:scale-105 transition-transform tabular-nums" id="cd-minutes">
+                            <div class="text-4xl sm:text-5xl font-black font-mono text-[#24BDC3] leading-none group-hover/cd:scale-105 transition-transform tabular-nums" id="cd-minutes">
                                 {{ str_pad($eventCountdown['minutes'] ?? 14, 2, '0', STR_PAD_LEFT) }}
                             </div>
-                            <div class="text-[11px] font-black text-slate-600 uppercase tracking-widest">
+                            <div class="text-[11px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest">
                                 {{ app()->getLocale() === 'fr' ? 'MIN' : (app()->getLocale() === 'en' ? 'MIN' : 'دقيقة') }}
                             </div>
-                            <div class="w-full h-1.5 bg-blue-100 rounded-full overflow-hidden">
-                                <div class="bg-gradient-to-r from-[#0B2A6F] to-blue-500 h-full rounded-full" style="width:75%"></div>
+                            <div class="w-full h-1.5 bg-teal-100 dark:bg-[#052D48] rounded-full overflow-hidden">
+                                <div class="bg-gradient-to-r from-[#24BDC3] to-[#42CBD0] h-full rounded-full" style="width:75%"></div>
                             </div>
                         </div>
 
-                        <!-- SECONDS — Pulsing Green -->
-                        <div class="flex flex-col items-center justify-between gap-3 p-4 rounded-2xl bg-emerald-50 border border-emerald-300 hover:border-[#35A536] hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 group/cd cursor-default">
-                            <div class="w-9 h-9 rounded-xl bg-[#35A536]/15 flex items-center justify-center">
-                                <svg class="w-5 h-5 text-[#35A536] animate-spin" style="animation-duration:3s" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        <!-- SECONDS — Pulsing Teal -->
+                        <div class="flex flex-col items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#031826] border border-teal-300 dark:border-[#24BDC3]/50 hover:border-[#24BDC3] hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 group/cd cursor-default">
+                            <div class="w-9 h-9 rounded-xl bg-[#24BDC3]/15 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-[#24BDC3] animate-spin" style="animation-duration:3s" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                             </div>
-                            <div class="text-4xl sm:text-5xl font-black font-mono text-[#35A536] leading-none animate-pulse tabular-nums" id="cd-seconds">
+                            <div class="text-4xl sm:text-5xl font-black font-mono text-[#24BDC3] leading-none animate-pulse tabular-nums" id="cd-seconds">
                                 {{ str_pad($eventCountdown['seconds'] ?? 36, 2, '0', STR_PAD_LEFT) }}
                             </div>
-                            <div class="text-[11px] font-black text-[#35A536] uppercase tracking-widest">
+                            <div class="text-[11px] font-black text-[#24BDC3] uppercase tracking-widest">
                                 {{ app()->getLocale() === 'fr' ? 'SEC' : (app()->getLocale() === 'en' ? 'SEC' : 'ثانية') }}
                             </div>
-                            <div class="w-full h-1.5 bg-emerald-200 rounded-full overflow-hidden">
-                                <div class="bg-gradient-to-r from-[#35A536] to-emerald-400 h-full w-full rounded-full animate-pulse"></div>
+                            <div class="w-full h-1.5 bg-teal-100 dark:bg-[#052D48] rounded-full overflow-hidden">
+                                <div class="bg-gradient-to-r from-[#24BDC3] to-[#42CBD0] h-full w-full rounded-full animate-pulse"></div>
                             </div>
                         </div>
 
@@ -264,18 +264,18 @@
                 </div>
 
                 <!-- Right Dark Event Date Card with Hover Glow -->
-                <div class="lg:col-span-4 bg-gradient-to-br from-[#0B2A6F] via-[#081F54] to-[#040E26] text-white rounded-3xl p-6 shadow-2xl flex flex-col justify-between text-center space-y-4 border border-[#35A536]/40 hover:-translate-y-1.5 hover:shadow-[0_0_30px_rgba(11,42,111,0.5)] transition-all duration-300 group/date">
+                <div class="lg:col-span-4 bg-gradient-to-br from-[#052D48] via-[#031826] to-[#010a12] text-white rounded-3xl p-6 shadow-2xl flex flex-col justify-between text-center space-y-4 border border-[#24BDC3]/40 hover:-translate-y-1.5 hover:shadow-[0_0_30px_rgba(36,189,195,0.3)] transition-all duration-300 group/date">
                     <div class="space-y-2">
                         <div class="w-12 h-12 rounded-2xl bg-white/10 mx-auto flex items-center justify-center border border-white/20 shadow-md group-hover/date:rotate-12 transition-transform duration-500">
-                            <svg class="w-6 h-6 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            <svg class="w-6 h-6 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         </div>
                         <h3 class="text-3xl sm:text-4xl font-black tracking-tight text-white drop-shadow-md">
                             <span dir="ltr" class="inline-block font-mono">16 - 18</span>
                         </h3>
-                        <p class="text-base font-black text-[#35A536]">{{ app()->getLocale() === 'fr' ? 'Novembre 2026' : (app()->getLocale() === 'en' ? 'November 2026' : 'نوفمبر 2026') }}</p>
+                        <p class="text-base font-black text-[#24BDC3]">{{ app()->getLocale() === 'fr' ? 'Novembre 2026' : (app()->getLocale() === 'en' ? 'November 2026' : 'نوفمبر 2026') }}</p>
                     </div>
 
-                    <div class="pt-3 border-t border-white/15 text-xs font-black text-amber-300/90 tracking-wide">
+                    <div class="pt-3 border-t border-white/15 text-xs font-black text-teal-200/90 tracking-wide">
                         {{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences' : (app()->getLocale() === 'en' ? 'Africa Skills Policy Forum 2026' : 'منتدى السياسات الأفريقية للمهارات 2026') }}
                     </div>
                 </div>
@@ -286,37 +286,37 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2 relative z-10">
                 
                 <!-- Left Event Timeline Stepper with Interactive Connecting Line (8 cols) -->
-                <div class="lg:col-span-8 bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-xl border border-slate-200 space-y-5">
+                <div class="lg:col-span-8 bg-slate-50/90 dark:bg-[#052D48]/80 backdrop-blur-md rounded-3xl p-6 shadow-xl border border-slate-200 dark:border-[#24BDC3]/30 space-y-5">
                     <div class="flex items-center justify-between">
-                        <h4 class="text-base font-black text-[#0B2A6F] flex items-center gap-2">
-                            <svg class="w-5 h-5 text-[#35A536]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        <h4 class="text-base font-black text-[#052D48] dark:text-white flex items-center gap-2">
+                            <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                             <span>{{ app()->getLocale() === 'fr' ? 'Étapes Clés du Forum' : (app()->getLocale() === 'en' ? 'Key Forum Stages' : 'مراحل المنتدى الرئيسية') }}</span>
                         </h4>
-                        <span class="text-xs font-bold text-slate-400">{{ app()->getLocale() === 'fr' ? '6 étapes officielles' : (app()->getLocale() === 'en' ? '6 official stages' : '6 محطات رسمية') }}</span>
+                        <span class="text-xs font-bold text-slate-500 dark:text-slate-400">{{ app()->getLocale() === 'fr' ? '6 étapes officielles' : (app()->getLocale() === 'en' ? '6 official stages' : '6 محطات رسمية') }}</span>
                     </div>
                     
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 relative pt-2">
                         <!-- Horizontal Laser Connecting Line -->
-                        <div class="hidden lg:block absolute top-8 left-6 right-6 h-1 bg-slate-100 -z-0 rounded-full overflow-hidden">
-                            <div class="bg-gradient-to-r from-[#35A536] via-[#0B2A6F] to-[#F5A800] h-full w-full rounded-full animate-pulse"></div>
+                        <div class="hidden lg:block absolute top-8 left-6 right-6 h-1 bg-slate-200 dark:bg-[#031826] -z-0 rounded-full overflow-hidden">
+                            <div class="bg-gradient-to-r from-[#24BDC3] via-[#052D48] to-[#42CBD0] h-full w-full rounded-full animate-pulse"></div>
                         </div>
 
                         <!-- Step 1: Opening Ceremony -->
                         <div @click="showScheduleModal = true; scheduleTab = 16" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
-                            <div class="w-11 h-11 rounded-2xl bg-amber-100 text-[#F5A800] border-2 border-amber-300 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
+                            <div class="w-11 h-11 rounded-2xl bg-teal-100 dark:bg-[#031826] text-[#24BDC3] border-2 border-teal-300 dark:border-[#24BDC3]/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                             </div>
-                            <div class="text-[11px] font-black text-slate-800 group-hover/step:text-[#F5A800] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Cérémonie d\'Ouverture' : (app()->getLocale() === 'en' ? 'Opening Ceremony' : 'حفل الافتتاح') }}</div>
-                            <div class="text-[10px] font-extrabold text-amber-900 bg-amber-50 px-2 py-0.5 rounded-full inline-block border border-amber-200">16 {{ app()->getLocale() === 'fr' ? 'Nov. — 18:00' : (app()->getLocale() === 'en' ? 'Nov. — 18:00' : 'نوفمبر — 18:00') }}</div>
+                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#24BDC3] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Cérémonie d\'Ouverture' : (app()->getLocale() === 'en' ? 'Opening Ceremony' : 'حفل الافتتاح') }}</div>
+                            <div class="text-[10px] font-extrabold text-teal-900 dark:text-teal-200 bg-teal-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-teal-200 dark:border-[#24BDC3]/30">16 {{ app()->getLocale() === 'fr' ? 'Nov. — 18:00' : (app()->getLocale() === 'en' ? 'Nov. — 18:00' : 'نوفمبر — 18:00') }}</div>
                         </div>
 
                         <!-- Step 2: Ministerial Roundtable -->
                         <div @click="showScheduleModal = true; scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
-                            <div class="w-11 h-11 rounded-2xl bg-blue-100 text-[#0B2A6F] border-2 border-blue-300 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
+                            <div class="w-11 h-11 rounded-2xl bg-teal-100 dark:bg-[#031826] text-[#24BDC3] border-2 border-teal-300 dark:border-[#24BDC3]/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                             </div>
-                            <div class="text-[11px] font-black text-slate-800 group-hover/step:text-[#0B2A6F] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Table Ronde Ministérielle' : (app()->getLocale() === 'en' ? 'Ministerial Roundtable' : 'المائدة المستديرة الوزارية') }}</div>
-                            <div class="text-[10px] font-extrabold text-blue-900 bg-blue-50 px-2 py-0.5 rounded-full inline-block border border-blue-200">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 09:30' : (app()->getLocale() === 'en' ? 'Nov. — 09:30' : 'نوفمبر — 09:30') }}</div>
+                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#24BDC3] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Table Ronde Ministérielle' : (app()->getLocale() === 'en' ? 'Ministerial Roundtable' : 'المائدة المستديرة الوزارية') }}</div>
+                            <div class="text-[10px] font-extrabold text-teal-900 dark:text-teal-200 bg-teal-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-teal-200 dark:border-[#24BDC3]/30">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 09:30' : (app()->getLocale() === 'en' ? 'Nov. — 09:30' : 'نوفمبر — 09:30') }}</div>
                         </div>
 
                         <!-- Step 3: Joint Declaration -->

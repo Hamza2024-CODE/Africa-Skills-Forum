@@ -11,11 +11,30 @@
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" class="h-full">
 <head>
     <script>
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+        (function() {
+            var savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+
+        document.addEventListener('alpine:init', function() {
+            Alpine.store('theme', {
+                isDark: document.documentElement.classList.contains('dark'),
+                toggle: function() {
+                    this.isDark = !this.isDark;
+                    if (this.isDark) {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('theme', 'light');
+                    }
+                }
+            });
+        });
     </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -102,14 +121,39 @@
     <style>
         [x-cloak] { display: none !important; }
 
+        :root {
+            --bg-main: #F0F6FA;
+            --bg-surface: #FFFFFF;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --border-card: rgba(5, 45, 72, 0.12);
+            --text-primary: #052D48;
+            --text-muted: #5B6B82;
+            --accent-teal: #24BDC3;
+        }
+
+        html.dark {
+            --bg-main: #02101b;
+            --bg-surface: #031826;
+            --bg-card: rgba(5, 45, 72, 0.75);
+            --border-card: rgba(36, 189, 195, 0.25);
+            --text-primary: #F8FAFC;
+            --text-muted: #94A3B8;
+            --accent-teal: #24BDC3;
+        }
+
+        html.dark body {
+            background-color: #02101b !important;
+            color: #F8FAFC !important;
+        }
+
         .wsap-glass {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
         }
-        .dark .wsap-glass {
-            background: rgba(3, 24, 38, 0.92);
-            border-color: rgba(36, 189, 195, 0.2);
+        html.dark .wsap-glass {
+            background: rgba(3, 24, 38, 0.95) !important;
+            border-color: rgba(36, 189, 195, 0.25) !important;
         }
         .wsap-hover-card {
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -117,6 +161,34 @@
         .wsap-hover-card:hover {
             transform: translateY(-6px) scale(1.02);
             box-shadow: 0 25px 35px -5px rgba(36, 189, 195, 0.25), 0 10px 15px -5px rgba(5, 45, 72, 0.2);
+        }
+
+        .btn-teal-gradient {
+            background: linear-gradient(135deg, #24BDC3 0%, #178a8f 100%) !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 4px 20px -2px rgba(36, 189, 195, 0.4);
+            transition: all 0.25s ease;
+        }
+        .btn-teal-gradient:hover {
+            background: linear-gradient(135deg, #42CBD0 0%, #24BDC3 100%) !important;
+            box-shadow: 0 8px 25px rgba(36, 189, 195, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-petrol-gradient {
+            background: linear-gradient(135deg, #052D48 0%, #031826 100%) !important;
+            color: #FFFFFF !important;
+            border: 1px solid rgba(36, 189, 195, 0.4) !important;
+            transition: all 0.25s ease;
+        }
+        .btn-petrol-gradient:hover {
+            border-color: #24BDC3 !important;
+            box-shadow: 0 8px 25px rgba(5, 45, 72, 0.5), 0 0 20px rgba(36, 189, 195, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .glow-teal {
+            box-shadow: 0 0 25px rgba(36, 189, 195, 0.35);
         }
 
         /* Floating Slow Animation */
