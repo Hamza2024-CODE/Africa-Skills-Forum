@@ -20,19 +20,21 @@
             theme: {
                 extend: {
                     colors: {
-                        navy: '#0B2A6F',
-                        green: '#35A536',
-                        gold: '#F5A800',
+                        navy: '#052D48',
+                        teal: '#24BDC3',
+                        green: '#24BDC3',
+                        gold: '#24BDC3',
                         brand: {
-                            50: '#EEF6FF',
-                            100: '#E0F0FF',
-                            500: '#0B2A6F',
-                            600: '#071E52',
-                            700: '#05153B',
-                            green: '#35A536',
-                            gold: '#F5A800',
-                            sky: '#35A536',
-                            dark: '#0B2A6F',
+                            50: '#F0F9FA',
+                            100: '#D9F2F4',
+                            500: '#052D48',
+                            600: '#031D2F',
+                            700: '#02131F',
+                            teal: '#24BDC3',
+                            green: '#24BDC3',
+                            gold: '#24BDC3',
+                            sky: '#24BDC3',
+                            dark: '#052D48',
                             muted: '#5B6B82',
                             bg: '#F5F9FF'
                         }
@@ -56,12 +58,12 @@
         .glass-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 102, 255, 0.08);
-            box-shadow: 0 10px 30px -10px rgba(6, 59, 143, 0.05);
+            border: 1px solid rgba(5, 45, 72, 0.08);
+            box-shadow: 0 10px 30px -10px rgba(5, 45, 72, 0.05);
         }
 
         .wsap-btn-primary {
-            background: linear-gradient(135deg, #0066FF 0%, #00B8FF 100%);
+            background: linear-gradient(135deg, #052D48 0%, #24BDC3 100%);
             color: #ffffff;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }

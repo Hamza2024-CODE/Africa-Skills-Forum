@@ -6,6 +6,97 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Cairo', 'Outfit', ui-sans-serif, system-ui, sans-serif;
+
+    --color-petrol-950: #010a12;
+    --color-petrol-900: #02101b;
+    --color-petrol-850: #031826;
+    --color-petrol-800: #052D48;
+    --color-petrol-700: #083b5e;
+    --color-petrol-600: #0c4d7b;
+    --color-petrol-500: #10629c;
+
+    --color-teal-500: #24BDC3;
+    --color-teal-400: #42CBD0;
+    --color-teal-300: #6AD7DC;
+    --color-teal-200: #9CE3E6;
+    --color-teal-100: #D5F4F5;
+
+    --color-brand-primary: #052D48;
+    --color-brand-accent: #24BDC3;
 }
+
+:root {
+    --bg-main: #F0F6FA;
+    --bg-surface: #FFFFFF;
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --border-card: rgba(5, 45, 72, 0.12);
+    --text-primary: #052D48;
+    --text-muted: #5B6B82;
+    --accent-teal: #24BDC3;
+    --accent-glow: rgba(36, 189, 195, 0.35);
+}
+
+.dark {
+    --bg-main: #02101b;
+    --bg-surface: #031826;
+    --bg-card: rgba(5, 45, 72, 0.75);
+    --border-card: rgba(36, 189, 195, 0.25);
+    --text-primary: #F8FAFC;
+    --text-muted: #94A3B8;
+    --accent-teal: #24BDC3;
+    --accent-glow: rgba(36, 189, 195, 0.45);
+}
+
+/* Glassmorphism & Custom Polish */
+.glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-card);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+    transform: translateY(-4px);
+    border-color: rgba(36, 189, 195, 0.5);
+    box-shadow: 0 16px 36px -8px rgba(5, 45, 72, 0.3), 0 0 25px rgba(36, 189, 195, 0.25);
+}
+
+.btn-teal-gradient {
+    background: linear-gradient(135deg, #24BDC3 0%, #178a8f 100%);
+    color: #FFFFFF;
+    box-shadow: 0 4px 20px -2px rgba(36, 189, 195, 0.4);
+    transition: all 0.25s ease;
+}
+
+.btn-teal-gradient:hover {
+    background: linear-gradient(135deg, #42CBD0 0%, #24BDC3 100%);
+    box-shadow: 0 8px 25px rgba(36, 189, 195, 0.6);
+    transform: translateY(-2px);
+}
+
+.btn-petrol-gradient {
+    background: linear-gradient(135deg, #052D48 0%, #031826 100%);
+    color: #FFFFFF;
+    border: 1px solid rgba(36, 189, 195, 0.3);
+    transition: all 0.25s ease;
+}
+
+.btn-petrol-gradient:hover {
+    border-color: #24BDC3;
+    box-shadow: 0 8px 25px rgba(5, 45, 72, 0.5), 0 0 20px rgba(36, 189, 195, 0.3);
+    transform: translateY(-2px);
+}
+
+.glow-teal {
+    box-shadow: 0 0 25px rgba(36, 189, 195, 0.35);
+}
+
+.text-gradient-teal {
+    background: linear-gradient(135deg, #24BDC3 0%, #6AD7DC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+

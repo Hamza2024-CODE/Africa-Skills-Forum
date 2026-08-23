@@ -39,10 +39,11 @@
           extend: {
             colors: {
               forum: {
-                navy: '#0B2A6F',
-                gold: '#F5A800',
-                green: '#35A536',
-                blue: '#0066FF'
+                navy: '#052D48',
+                gold: '#24BDC3',
+                green: '#24BDC3',
+                blue: '#052D48',
+                teal: '#24BDC3'
               }
             },
             fontFamily: {

@@ -1,7 +1,7 @@
 <div class="space-y-12 pb-16" x-data="{ showScheduleModal: true, scheduleTab: 16, showVideoModal: false, showPdfModal: false }" x-init="setTimeout(() => { showScheduleModal = true; }, 300)">
 
     <!-- 1. Pan-African Summit Hero Stage (Ultra-Modern African Leadership Aesthetic & Auto-Slider) -->
-    <section class="relative bg-gradient-to-br from-[#0B2A6F] via-[#081F54] to-[#040E26] text-white pt-16 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-b-[3.5rem] border-b-2 border-[#35A536]/40 shadow-2xl"
+    <section class="relative bg-gradient-to-br from-[#052D48] via-[#031826] to-[#010a12] text-white pt-16 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-b-[3.5rem] border-b-2 border-[#24BDC3]/50 shadow-2xl"
              x-data="{
                  activeSlide: 0,
                  slides: {{ $heroSlidesJson }},
@@ -17,11 +17,11 @@
         
         <!-- Background Layer: High-Definition Image -->
         <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            <div class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-90 scale-105">
+            <div class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-85 scale-105">
                 <img src="{{ asset(platform()->get('hero_slide_1', '/image.png')) }}" alt="Africa Skills Policy Forum 2026" class="w-full h-full object-cover object-center filter brightness-90">
             </div>
             <!-- Elegant Cinematic Gradient Overlay for Maximum Text Readability -->
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0B2A6F] via-[#0B2A6F]/60 to-black/40"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#02101b] via-[#052D48]/70 to-black/40"></div>
         </div>
 
         <!-- Slide Navigation Indicators (Bottom Left) -->
@@ -29,13 +29,13 @@
             <template x-for="(slide, index) in slides" :key="index">
                 <button @click="activeSlide = index" 
                         class="h-2 rounded-full transition-all duration-500 cursor-pointer"
-                        :class="activeSlide === index ? 'w-8 bg-[#F5A800] shadow-md' : 'w-2 bg-white/40 hover:bg-white/70'"></button>
+                        :class="activeSlide === index ? 'w-8 bg-[#24BDC3] shadow-md shadow-[#24BDC3]/50' : 'w-2 bg-white/40 hover:bg-white/70'"></button>
             </template>
         </div>
 
-        <!-- Dynamic Ambient Beams in Logo Green & Gold -->
-        <div class="absolute -top-24 -left-24 w-[32rem] h-[32rem] bg-[#35A536]/30 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
-        <div class="absolute -bottom-24 -right-24 w-[32rem] h-[32rem] bg-[#F5A800]/25 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+        <!-- Dynamic Ambient Beams in Bright Teal (#24BDC3) & Deep Petrol Blue (#052D48) -->
+        <div class="absolute -top-24 -left-24 w-[32rem] h-[32rem] bg-[#24BDC3]/25 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+        <div class="absolute -bottom-24 -right-24 w-[32rem] h-[32rem] bg-[#052D48]/50 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
 
         <div class="max-w-7xl mx-auto relative z-10 space-y-8 text-right">
 
@@ -44,7 +44,7 @@
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] text-white drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]">
                     {{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences 2026' : (app()->getLocale() === 'en' ? 'Africa Skills Policy Forum 2026' : 'منتدى السياسات الأفريقية للمهارات 2026') }}
-                    <span class="text-[#F5A800] block mt-2 text-xl sm:text-3xl lg:text-4xl font-extrabold italic">
+                    <span class="text-[#24BDC3] block mt-2 text-xl sm:text-3xl lg:text-4xl font-extrabold italic">
                         "{{ app()->getLocale() === 'fr' ? 'Façonner l\'avenir des compétences, autonomiser la jeunesse africaine' : (app()->getLocale() === 'en' ? 'Shaping the Future of Skills, Empowering Africa\'s Youth' : 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي') }}"
                     </span>
                 </h1>
@@ -63,59 +63,59 @@
 
             <!-- Action Buttons with Smooth Hover Animations -->
             <div class="flex flex-wrap items-center gap-4 pt-2">
-                <a href="{{ route('registration') }}" class="px-8 py-4 rounded-2xl bg-[#F5A800] hover:bg-amber-400 text-[#0B2A6F] font-black text-sm shadow-[0_0_30px_rgba(245,168,0,0.5)] transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2.5 group">
-                    <svg class="w-5 h-5 text-[#0B2A6F] group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                <a href="{{ route('registration') }}" class="px-8 py-4 rounded-2xl btn-teal-gradient font-black text-sm flex items-center gap-2.5 group">
+                    <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                     <span>{{ __('messages.register_now') }}</span>
                 </a>
                 <a href="{{ route('guide') }}" class="px-8 py-4 rounded-2xl bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-extrabold text-sm border border-white/30 shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2.5 group">
-                    <svg class="w-5 h-5 text-[#35A536] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <svg class="w-5 h-5 text-[#24BDC3] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     <span>{{ app()->getLocale() === 'fr' ? 'Découvrir la Vision & Guide' : (app()->getLocale() === 'en' ? 'Explore Forum Vision & Guide' : 'رؤية ودليل المنتدى') }}</span>
                 </a>
-                <button @click="showScheduleModal = true" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-[#35A536] hover:from-[#35A536] hover:to-emerald-500 text-white font-black text-sm border border-emerald-400/40 shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2.5 group cursor-pointer">
-                    <svg class="w-5 h-5 text-[#F5A800] group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <button @click="showScheduleModal = true" class="px-8 py-4 rounded-2xl btn-petrol-gradient font-black text-sm shadow-xl flex items-center gap-2.5 group cursor-pointer">
+                    <svg class="w-5 h-5 text-[#24BDC3] group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     <span>{{ app()->getLocale() === 'fr' ? 'Programme Officiel' : (app()->getLocale() === 'en' ? 'Official Event Schedule' : 'جدول أعمال المنتدى') }}</span>
                 </button>
             </div>
 
-            <!-- Embedded Hero Stat Badges with Pure Vector SVG Icons (No Emojis) -->
+            <!-- Embedded Hero Stat Badges with Pure Vector SVG Icons -->
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-6 max-w-5xl">
                 <!-- Stat 1: +30 Nations -->
-                <div class="p-4 rounded-2xl bg-[#0A2666]/90 border border-blue-400/30 flex items-center gap-3 shadow-lg hover:-translate-y-1 hover:bg-[#0E3282] transition-all duration-300 group">
-                    <div class="w-10 h-10 rounded-xl bg-[#F5A800]/20 border border-[#F5A800]/50 text-[#F5A800] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                        <svg class="w-5 h-5 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 012 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V14m-3 7c9 0 9-9 9-9s-9 0-9 9z"/></svg>
+                <div class="p-4 rounded-2xl bg-[#031826]/90 border border-[#24BDC3]/30 flex items-center gap-3 shadow-lg hover:-translate-y-1 hover:bg-[#052D48] transition-all duration-300 group">
+                    <div class="w-10 h-10 rounded-xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 012 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V14m-3 7c9 0 9-9 9-9s-9 0-9 9z"/></svg>
                     </div>
                     <div>
                         <div class="text-xl font-black text-white">+30</div>
-                        <div class="text-[11px] text-blue-100 font-bold leading-tight">{{ app()->getLocale() === 'fr' ? 'Pays africains' : (app()->getLocale() === 'en' ? 'African countries' : '+30 دولة مشاركة') }}</div>
+                        <div class="text-[11px] text-teal-100 font-bold leading-tight">{{ app()->getLocale() === 'fr' ? 'Pays africains' : (app()->getLocale() === 'en' ? 'African countries' : '+30 دولة مشاركة') }}</div>
                     </div>
                 </div>
 
                 <!-- Stat 2: +20 Ministers Expected -->
-                <div class="p-4 rounded-2xl bg-[#0A2666]/90 border border-blue-400/30 flex items-center gap-3 shadow-lg hover:-translate-y-1 hover:bg-[#0E3282] transition-all duration-300 group">
-                    <div class="w-10 h-10 rounded-xl bg-[#35A536]/20 border border-[#35A536]/50 text-[#35A536] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                        <svg class="w-5 h-5 text-[#35A536]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <div class="p-4 rounded-2xl bg-[#031826]/90 border border-[#24BDC3]/30 flex items-center gap-3 shadow-lg hover:-translate-y-1 hover:bg-[#052D48] transition-all duration-300 group">
+                    <div class="w-10 h-10 rounded-xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                     </div>
                     <div>
                         <div class="text-xl font-black text-white">+20</div>
-                        <div class="text-[11px] text-blue-100 font-bold leading-tight">{{ app()->getLocale() === 'fr' ? 'Ministres attendus' : (app()->getLocale() === 'en' ? 'Ministers expected' : '+20 وزيراً متوقعاً') }}</div>
+                        <div class="text-[11px] text-teal-100 font-bold leading-tight">{{ app()->getLocale() === 'fr' ? 'Ministres attendus' : (app()->getLocale() === 'en' ? 'Ministers expected' : '+20 وزيراً متوقعاً') }}</div>
                     </div>
                 </div>
 
                 <!-- Stat 3: 2 Ministerial Roundtables -->
-                <div class="p-4 rounded-2xl bg-[#0A2666]/90 border border-blue-400/30 flex items-center gap-3 shadow-lg hover:-translate-y-1 hover:bg-[#0E3282] transition-all duration-300 group">
-                    <div class="w-10 h-10 rounded-xl bg-sky-400/20 border border-sky-400/50 text-sky-300 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                        <svg class="w-5 h-5 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <div class="p-4 rounded-2xl bg-[#031826]/90 border border-[#24BDC3]/30 flex items-center gap-3 shadow-lg hover:-translate-y-1 hover:bg-[#052D48] transition-all duration-300 group">
+                    <div class="w-10 h-10 rounded-xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                     </div>
                     <div>
                         <div class="text-xl font-black text-white">2</div>
-                        <div class="text-[11px] text-blue-100 font-bold leading-tight">{{ app()->getLocale() === 'fr' ? 'Tables rondes ministérielles' : (app()->getLocale() === 'en' ? 'Ministerial Roundtables' : '2 موائد مستديرة وزارية') }}</div>
+                        <div class="text-[11px] text-teal-100 font-bold leading-tight">{{ app()->getLocale() === 'fr' ? 'Tables rondes ministérielles' : (app()->getLocale() === 'en' ? 'Ministerial Roundtables' : '2 موائد مستديرة وزارية') }}</div>
                     </div>
                 </div>
 
                 <!-- Stat 4: 7 Thematic Workshops -->
-                <div class="p-4 rounded-2xl bg-[#0A2666]/90 border border-blue-400/30 flex items-center gap-3 shadow-lg hover:-translate-y-1 hover:bg-[#0E3282] transition-all duration-300 group">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-400/20 border border-emerald-400/50 text-emerald-300 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                        <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <div class="p-4 rounded-2xl bg-[#031826]/90 border border-[#24BDC3]/30 flex items-center gap-3 shadow-lg hover:-translate-y-1 hover:bg-[#052D48] transition-all duration-300 group">
+                    <div class="w-10 h-10 rounded-xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                     </div>
                     <div>
                         <div class="text-xl font-black text-white">7</div>
@@ -137,11 +137,11 @@
              data-flip-anim="{{ $countdownFlipAnimation ? '1' : '0' }}">
         
         <!-- Outer Dashboard Light Container Card with Subtle Dynamic Mesh -->
-        <div class="rounded-3xl bg-gradient-to-br from-[#F8FAFC] via-[#F1F5F9] to-[#E2E8F0] p-6 sm:p-10 shadow-2xl border border-slate-200 text-slate-900 space-y-8 relative overflow-hidden group/dashboard">
+        <div class="rounded-3xl bg-white dark:bg-[#031826] p-6 sm:p-10 shadow-2xl border border-slate-200 dark:border-[#24BDC3]/30 text-slate-900 dark:text-slate-100 space-y-8 relative overflow-hidden group/dashboard transition-colors duration-300">
             
             <!-- Dynamic Background Ambient Lighting Orbs -->
-            <div class="absolute -top-32 -left-32 w-80 h-80 bg-[#35A536]/15 rounded-full blur-3xl pointer-events-none group-hover/dashboard:scale-125 transition-transform duration-1000"></div>
-            <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-[#F5A800]/15 rounded-full blur-3xl pointer-events-none group-hover/dashboard:scale-125 transition-transform duration-1000"></div>
+            <div class="absolute -top-32 -left-32 w-80 h-80 bg-[#24BDC3]/15 rounded-full blur-3xl pointer-events-none group-hover/dashboard:scale-125 transition-transform duration-1000"></div>
+            <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-[#052D48]/30 rounded-full blur-3xl pointer-events-none group-hover/dashboard:scale-125 transition-transform duration-1000"></div>
 
             <!-- Top Row: Left Text/Info + Right Tech Map Illustration -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
@@ -151,14 +151,14 @@
                     
                     <!-- Subtitle -->
                     <div class="inline-flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-[#35A536] animate-ping"></span>
-                        <h4 class="text-base sm:text-lg font-black text-slate-700 uppercase tracking-wide">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[#24BDC3] animate-ping"></span>
+                        <h4 class="text-base sm:text-lg font-black text-slate-600 dark:text-teal-200 uppercase tracking-wide">
                             {{ app()->getLocale() === 'fr' ? 'ÉVÉNEMENT À VENIR // UPCOMING' : (app()->getLocale() === 'en' ? 'UPCOMING EVENT // NEXT STAGE' : 'الحدث القادم // UPCOMING STAGE') }}
                         </h4>
                     </div>
 
                     <!-- Main Heading -->
-                    <h2 class="text-2xl sm:text-4xl font-black text-[#0B2A6F] leading-tight tracking-tight drop-shadow-xs">
+                    <h2 class="text-2xl sm:text-4xl font-black text-[#052D48] dark:text-white leading-tight tracking-tight drop-shadow-xs">
                         @if(app()->getLocale() === 'fr')
                             {{ $countdownTitleFr }}
                         @elseif(app()->getLocale() === 'en')
@@ -169,8 +169,8 @@
                     </h2>
 
                     <!-- Venue Pill Badge with Hover Glow -->
-                    <div class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200 shadow-sm text-slate-700 text-xs font-bold hover:shadow-md hover:border-[#0B2A6F]/30 hover:-translate-y-0.5 transition-all duration-300">
-                        <svg class="w-4 h-4 text-[#0B2A6F] shrink-0 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-slate-50 dark:bg-[#052D48]/90 backdrop-blur-md border border-slate-200 dark:border-[#24BDC3]/30 shadow-sm text-slate-700 dark:text-slate-200 text-xs font-bold hover:shadow-md hover:border-[#24BDC3] transition-all duration-300">
+                        <svg class="w-4 h-4 text-[#24BDC3] shrink-0 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         <span>{{ app()->getLocale() === 'fr' ? platform()->get('venue_name_fr', 'Centre des Conventions Mohamed Ben Ahmed (CCO) — Oran, Algérie') : (app()->getLocale() === 'en' ? platform()->get('venue_name_en', 'Mohamed Ben Ahmed Convention Center (CCO) — Oran, Algeria') : platform()->get('venue_name', 'مركز المؤتمرات محمد بن أحمد (CCO) — وهران، الجزائر')) }}</span>
                     </div>
 
@@ -180,9 +180,9 @@
                 <div class="lg:col-span-5 flex justify-center">
                     <div class="relative w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center group/map">
                         <!-- Dual Orbital Radar Rings with Spin Animation -->
-                        <div class="absolute inset-0 rounded-full border-2 border-[#35A536]/30 animate-spin pointer-events-none" style="animation-duration: 25s;"></div>
-                        <div class="absolute inset-3 rounded-full border border-dashed border-[#F5A800]/50 animate-spin pointer-events-none" style="animation-duration: 15s; animation-direction: reverse;"></div>
-                        <div class="absolute inset-8 rounded-full bg-gradient-to-tr from-emerald-100/60 via-white to-blue-50/60 shadow-xl flex items-center justify-center p-6 border border-white group-hover/map:scale-105 group-hover/map:rotate-3 transition-all duration-700">
+                        <div class="absolute inset-0 rounded-full border-2 border-[#24BDC3]/30 animate-spin pointer-events-none" style="animation-duration: 25s;"></div>
+                        <div class="absolute inset-3 rounded-full border border-dashed border-[#24BDC3]/50 animate-spin pointer-events-none" style="animation-duration: 15s; animation-direction: reverse;"></div>
+                        <div class="absolute inset-8 rounded-full bg-gradient-to-tr from-teal-50/60 via-white to-blue-50/60 dark:from-[#052D48] dark:via-[#031826] dark:to-[#083b5e] shadow-xl flex items-center justify-center p-6 border border-white dark:border-[#24BDC3]/30 group-hover/map:scale-105 group-hover/map:rotate-3 transition-all duration-700">
                             <img src="/AFRICA.png" alt="{{ platform()->name() }}" class="w-full h-full object-contain filter drop-shadow-2xl">
                         </div>
                     </div>
@@ -193,31 +193,31 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch relative z-10">
 
                 <!-- Left: 4 Perfectly Symmetric Counter Cards -->
-                <div class="lg:col-span-8 bg-white/90 backdrop-blur-md rounded-3xl p-5 sm:p-6 shadow-xl border border-slate-200">
+                <div class="lg:col-span-8 bg-slate-50/90 dark:bg-[#052D48]/80 backdrop-blur-md rounded-3xl p-5 sm:p-6 shadow-xl border border-slate-200 dark:border-[#24BDC3]/30">
                     <div class="grid grid-cols-4 gap-3 h-full">
 
-                        <!-- DAYS — Gold -->
-                        <div class="flex flex-col items-center justify-between gap-3 p-4 rounded-2xl bg-amber-50 border border-amber-200 hover:border-amber-400 hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 group/cd cursor-default">
-                            <div class="w-9 h-9 rounded-xl bg-[#F5A800]/15 flex items-center justify-center">
-                                <svg class="w-5 h-5 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <!-- DAYS — Bright Teal -->
+                        <div class="flex flex-col items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#031826] border border-teal-200 dark:border-[#24BDC3]/40 hover:border-[#24BDC3] hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 group/cd cursor-default">
+                            <div class="w-9 h-9 rounded-xl bg-[#24BDC3]/15 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             </div>
-                            <div class="text-4xl sm:text-5xl font-black font-mono text-[#F5A800] leading-none group-hover/cd:scale-105 transition-transform tabular-nums" id="cd-days">
+                            <div class="text-4xl sm:text-5xl font-black font-mono text-[#24BDC3] leading-none group-hover/cd:scale-105 transition-transform tabular-nums" id="cd-days">
                                 {{ str_pad($eventCountdown['days'] ?? 104, 2, '0', STR_PAD_LEFT) }}
                             </div>
-                            <div class="text-[11px] font-black text-slate-600 uppercase tracking-widest">
+                            <div class="text-[11px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest">
                                 {{ app()->getLocale() === 'fr' ? 'JOUR' : (app()->getLocale() === 'en' ? 'DAY' : 'يوم') }}
                             </div>
-                            <div class="w-full h-1.5 bg-amber-100 rounded-full overflow-hidden">
-                                <div class="bg-gradient-to-r from-[#F5A800] to-amber-400 h-full rounded-full" style="width:80%"></div>
+                            <div class="w-full h-1.5 bg-teal-100 dark:bg-[#052D48] rounded-full overflow-hidden">
+                                <div class="bg-gradient-to-r from-[#24BDC3] to-[#42CBD0] h-full rounded-full" style="width:80%"></div>
                             </div>
                         </div>
 
-                        <!-- HOURS — Green -->
-                        <div class="flex flex-col items-center justify-between gap-3 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 hover:border-emerald-400 hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 group/cd cursor-default">
-                            <div class="w-9 h-9 rounded-xl bg-[#35A536]/15 flex items-center justify-center">
-                                <svg class="w-5 h-5 text-[#35A536]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <!-- HOURS — Bright Teal -->
+                        <div class="flex flex-col items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-[#031826] border border-teal-200 dark:border-[#24BDC3]/40 hover:border-[#24BDC3] hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 group/cd cursor-default">
+                            <div class="w-9 h-9 rounded-xl bg-[#24BDC3]/15 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             </div>
-                            <div class="text-4xl sm:text-5xl font-black font-mono text-[#35A536] leading-none group-hover/cd:scale-105 transition-transform tabular-nums" id="cd-hours">
+                            <div class="text-4xl sm:text-5xl font-black font-mono text-[#24BDC3] leading-none group-hover/cd:scale-105 transition-transform tabular-nums" id="cd-hours">
                                 {{ str_pad($eventCountdown['hours'] ?? 7, 2, '0', STR_PAD_LEFT) }}
                             </div>
                             <div class="text-[11px] font-black text-slate-600 uppercase tracking-widest">

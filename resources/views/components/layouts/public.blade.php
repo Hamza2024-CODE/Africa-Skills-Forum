@@ -8,8 +8,15 @@
 @endif
 
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" class="h-full bg-[#F4F7FC]">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" class="h-full">
 <head>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -22,7 +29,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
     <link rel="apple-touch-icon" href="/icon-192.png">
-    <meta name="theme-color" content="#020A24">
+    <meta name="theme-color" content="#02101b">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <script>
@@ -45,31 +52,40 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
               sans: ['Tajawal', 'Outfit', 'sans-serif'],
             },
             colors: {
-              navy: '#0B2A6F',
-              green: '#35A536',
-              gold: '#F5A800',
+              navy: '#052D48',
+              teal: '#24BDC3',
+              green: '#24BDC3',
+              gold: '#24BDC3',
+              petrol: {
+                950: '#010a12',
+                900: '#02101b',
+                850: '#031826',
+                800: '#052D48',
+                700: '#083b5e',
+                600: '#0c4d7b',
+                500: '#10629c'
+              },
               brand: {
-                50: '#F4F7FC',
-                100: '#E2ECFA',
-                200: '#C2D9F7',
-                300: '#8FBDF0',
-                400: '#35A536',
-                500: '#0B2A6F',
-                600: '#071E52',
-                700: '#05153B',
-                800: '#030D26',
-                900: '#020718',
-                navy: '#0B2A6F',
-                green: '#35A536',
-                gold: '#F5A800',
-                sky: '#35A536',
-                dark: '#0B2A6F',
+                50: '#F0F9FA',
+                100: '#D9F2F4',
+                200: '#B4E6E8',
+                300: '#75D4D8',
+                400: '#24BDC3',
+                500: '#052D48',
+                600: '#031826',
+                700: '#02101b',
+                800: '#010a12',
+                900: '#000508',
+                navy: '#052D48',
+                teal: '#24BDC3',
+                dark: '#052D48',
                 bg: '#F4F7FC',
                 muted: '#64748B'
               }
@@ -91,12 +107,16 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
         }
+        .dark .wsap-glass {
+            background: rgba(3, 24, 38, 0.92);
+            border-color: rgba(36, 189, 195, 0.2);
+        }
         .wsap-hover-card {
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .wsap-hover-card:hover {
             transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 25px 35px -5px rgba(0, 102, 255, 0.2), 0 10px 15px -5px rgba(0, 102, 255, 0.08);
+            box-shadow: 0 25px 35px -5px rgba(36, 189, 195, 0.25), 0 10px 15px -5px rgba(5, 45, 72, 0.2);
         }
 
         /* Floating Slow Animation */

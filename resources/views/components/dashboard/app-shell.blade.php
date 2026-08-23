@@ -45,7 +45,9 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: { 50:'#EEF6FF', 100:'#E0F0FF', 500:'#0066FF', 600:'#0052CC', 700:'#063B8F', sky:'#00B8FF', dark:'#020A24' }
+                        navy: '#052D48',
+                        teal: '#24BDC3',
+                        brand: { 50:'#F0F9FA', 100:'#D9F2F4', 500:'#052D48', 600:'#031D2F', 700:'#02131F', sky:'#24BDC3', teal:'#24BDC3', dark:'#052D48' }
                     },
                     fontFamily: { sans: ['Cairo', 'Outfit', 'sans-serif'] }
                 }
@@ -62,24 +64,24 @@
 
         /* ── Light Mode Design Tokens ── */
         :root {
-            --ws-bg:         #F4F7FC;
+            --ws-bg:         #F0F6FA;
             --ws-surface:    rgba(255,255,255,0.96);
-            --ws-border:     rgba(226,232,240,0.8);
-            --ws-text:       #020A24;
-            --ws-muted:      #64748B;
+            --ws-border:     rgba(5,45,72,0.12);
+            --ws-text:       #052D48;
+            --ws-muted:      #5B6B82;
             --ws-sidebar:    #FFFFFF;
-            --ws-sidebar-border: rgba(226,232,240,0.8);
+            --ws-sidebar-border: rgba(5,45,72,0.12);
         }
 
         /* ── Dark Mode Design Tokens ── */
         .dark {
-            --ws-bg:         #0B1120;
-            --ws-surface:    rgba(15,23,42,0.95);
-            --ws-border:     rgba(30,41,59,0.8);
-            --ws-text:       #E2E8F0;
-            --ws-muted:      #64748B;
-            --ws-sidebar:    #0F172A;
-            --ws-sidebar-border: rgba(30,41,59,0.8);
+            --ws-bg:         #02101b;
+            --ws-surface:    rgba(3,24,38,0.95);
+            --ws-border:     rgba(36,189,195,0.25);
+            --ws-text:       #F8FAFC;
+            --ws-muted:      #94A3B8;
+            --ws-sidebar:    #031826;
+            --ws-sidebar-border: rgba(36,189,195,0.25);
         }
 
         body {

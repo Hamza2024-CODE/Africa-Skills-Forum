@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__.'/../app/Helpers/PlatformHelper.php';
+
 use App\Http\Middleware\SecurityHeadersMiddleware;
 use App\Http\Middleware\SetLocaleMiddleware;
 use Illuminate\Foundation\Application;

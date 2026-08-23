@@ -19,8 +19,8 @@
             fontFamily: { sans: ['Tajawal', 'Outfit', 'sans-serif'] },
             colors: {
               brand: {
-                500: '#0066FF', sky: '#00B8FF',
-                dark: '#06205C', bg: '#020A24'
+                500: '#052D48', sky: '#24BDC3', teal: '#24BDC3',
+                dark: '#031D2F', bg: '#020A24'
               }
             },
             animation: {

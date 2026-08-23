@@ -72,9 +72,9 @@ class PlatformAppearanceManager extends Component
 
     public function loadSettings(SettingsEngine $settings): void
     {
-        $this->primary_color = $settings->get('appearance.primary_color', '#0066FF');
-        $this->primary_dark = $settings->get('appearance.primary_dark', '#063B8F');
-        $this->accent_color = $settings->get('appearance.accent_color', '#00B8FF');
+        $this->primary_color = $settings->get('appearance.primary_color', '#052D48');
+        $this->primary_dark = $settings->get('appearance.primary_dark', '#031D2F');
+        $this->accent_color = $settings->get('appearance.accent_color', '#24BDC3');
 
         $this->background_color = $settings->get('appearance.background_color', '#F4F7FC');
         $this->surface_color = $settings->get('appearance.surface_color', '#FFFFFF');

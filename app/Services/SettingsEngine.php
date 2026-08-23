@@ -11,9 +11,9 @@ class SettingsEngine
     protected const CACHE_TTL = 86400; // 24 hours
 
     public const DEFAULTS = [
-        'appearance.primary_color' => '#0066FF',
-        'appearance.primary_dark' => '#063B8F',
-        'appearance.accent_color' => '#00B8FF',
+        'appearance.primary_color' => '#052D48',
+        'appearance.primary_dark' => '#031D2F',
+        'appearance.accent_color' => '#24BDC3',
         'appearance.background_color' => '#F4F7FC',
         'appearance.surface_color' => '#FFFFFF',
         'appearance.text_color' => '#0F172A',
@@ -155,9 +155,9 @@ class SettingsEngine
      */
     public function getDesignTokensCss(): string
     {
-        $primary = $this->sanitizeHex($this->get('appearance.primary_color', '#0066FF'));
-        $primaryDark = $this->sanitizeHex($this->get('appearance.primary_dark', '#063B8F'));
-        $accent = $this->sanitizeHex($this->get('appearance.accent_color', '#00B8FF'));
+        $primary = $this->sanitizeHex($this->get('appearance.primary_color', '#052D48'));
+        $primaryDark = $this->sanitizeHex($this->get('appearance.primary_dark', '#031D2F'));
+        $accent = $this->sanitizeHex($this->get('appearance.accent_color', '#24BDC3'));
         $bg = $this->sanitizeHex($this->get('appearance.background_color', '#F4F7FC'));
         $surface = $this->sanitizeHex($this->get('appearance.surface_color', '#FFFFFF'));
         $text = $this->sanitizeHex($this->get('appearance.text_color', '#0F172A'));
@@ -203,7 +203,7 @@ class SettingsEngine
         if (preg_match('/^#[0-9A-Fa-f]{3,8}$/', $val)) {
             return $val;
         }
-        return '#0066FF';
+        return '#052D48';
     }
 
     private function sanitizeRadius(mixed $val): string

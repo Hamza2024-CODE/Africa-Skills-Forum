@@ -1,6 +1,6 @@
-<footer class="bg-[#0B2A6F] text-white border-t border-blue-900 py-12 mt-16">
+<footer class="bg-[#052D48] dark:bg-[#02101b] text-white border-t border-[#094064] dark:border-[#083b5e] py-12 mt-16 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-blue-900/80">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-[#094064]/80 dark:border-[#083b5e]/80">
             
             <!-- Col 1: Official Dual Logos & Summary -->
             <div class="space-y-4">
@@ -20,13 +20,21 @@
             <div>
                 <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">{{ app()->getLocale() === 'fr' ? 'Africa Skills Forum' : (app()->getLocale() === 'en' ? 'Africa Skills Forum' : 'منتدى المهارات الإفريقية') }}</h4>
                 <ul class="space-y-2.5 text-xs text-blue-100/90 font-medium">
-                    <li><a href="{{ route('guide') }}" class="hover:text-[#35A536] transition">{{ app()->getLocale() === 'fr' ? 'Guide & Agenda du Forum' : (app()->getLocale() === 'en' ? 'Forum Guide & Agenda' : 'دليل وبرنامج المنتدى') }}</a></li>
-                    <li><a href="{{ route('events') }}" class="hover:text-[#35A536] transition">{{ app()->getLocale() === 'fr' ? 'Panels & Conférences' : (app()->getLocale() === 'en' ? 'Panels & Conferences' : 'الجلسات والمؤتمرات') }}</a></li>
+                    <li><a href="{{ route('guide') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Guide & Agenda du Forum' : (app()->getLocale() === 'en' ? 'Forum Guide & Agenda' : 'دليل وبرنامج المنتدى') }}</a></li>
+                    <li><a href="{{ route('events') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Panels & Conférences' : (app()->getLocale() === 'en' ? 'Panels & Conferences' : 'الجلسات والمؤتمرات') }}</a></li>
                     @if(platform()->get('show_partners_section', true))
-                        <li><a href="{{ route('partners') }}" class="hover:text-[#35A536] transition">{{ app()->getLocale() === 'fr' ? 'Exposition & Partenaires' : (app()->getLocale() === 'en' ? 'Expo & Partners' : 'المعرض والشركاء') }}</a></li>
+                        <li><a href="{{ route('partners') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Exposition & Partenaires' : (app()->getLocale() === 'en' ? 'Expo & Partners' : 'المعرض والشركاء') }}</a></li>
                     @endif
 
-                    <li><a href="{{ route('live-tv') }}" target="_blank" class="text-rose-400 hover:text-rose-300 font-bold transition flex items-center gap-1.5"><span>🔴 {{ app()->getLocale() === 'fr' ? 'Direct TV (Écrans)' : (app()->getLocale() === 'en' ? 'Live TV Broadcast' : 'شاشة البث المباشر (Live TV)') }}</span></a></li>
+                    <li>
+                        <a href="{{ route('live-tv') }}" target="_blank" class="text-rose-400 hover:text-rose-300 font-bold transition flex items-center gap-1.5">
+                            <span class="relative flex h-2.5 w-2.5">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
+                            </span>
+                            <span>{{ app()->getLocale() === 'fr' ? 'Direct TV (Écrans)' : (app()->getLocale() === 'en' ? 'Live TV Broadcast' : 'شاشة البث المباشر (Live TV)') }}</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
 
@@ -34,10 +42,10 @@
             <div>
                 <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">{{ app()->getLocale() === 'fr' ? 'Informations & Accès' : (app()->getLocale() === 'en' ? 'Forum Info & Access' : 'الدليل والخدمات') }}</h4>
                 <ul class="space-y-2.5 text-xs text-blue-100/90 font-medium">
-                    <li><a href="{{ route('guide') }}" class="hover:text-[#35A536] transition">{{ app()->getLocale() === 'fr' ? 'Guide du Forum' : (app()->getLocale() === 'en' ? 'Forum Guide' : 'دليل المشاركة') }}</a></li>
-                    <li><a href="{{ route('registration') }}" class="hover:text-[#35A536] transition">{{ app()->getLocale() === 'fr' ? 'Accréditation & Inscription' : (app()->getLocale() === 'en' ? 'Accreditation & Registration' : 'التسجيل والاعتماد الرسمي') }}</a></li>
-                    <li><a href="{{ route('faq') }}" class="hover:text-[#35A536] transition">{{ __('messages.faq') }}</a></li>
-                    <li><a href="{{ route('contact') }}" class="hover:text-[#35A536] transition">{{ __('messages.contact') }}</a></li>
+                    <li><a href="{{ route('guide') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Guide du Forum' : (app()->getLocale() === 'en' ? 'Forum Guide' : 'دليل المشاركة') }}</a></li>
+                    <li><a href="{{ route('registration') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Accréditation & Inscription' : (app()->getLocale() === 'en' ? 'Accreditation & Registration' : 'التسجيل والاعتماد الرسمي') }}</a></li>
+                    <li><a href="{{ route('faq') }}" class="hover:text-[#24BDC3] transition">{{ __('messages.faq') }}</a></li>
+                    <li><a href="{{ route('contact') }}" class="hover:text-[#24BDC3] transition">{{ __('messages.contact') }}</a></li>
                 </ul>
             </div>
 
@@ -46,9 +54,9 @@
                 <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-2">
                     {{ app()->getLocale() === 'fr' ? 'Abonnez-vous à notre newsletter' : (app()->getLocale() === 'en' ? 'Subscribe to our newsletter' : 'اشترك في نشرتنا الإخبارية') }}
                 </h4>
-                <div class="flex items-center gap-2 bg-[#081F54] p-1.5 rounded-xl border border-blue-800">
+                <div class="flex items-center gap-2 bg-[#031D2F] p-1.5 rounded-xl border border-[#0A436A]">
                     <input type="email" placeholder="{{ app()->getLocale() === 'fr' ? 'Entrez votre email...' : (app()->getLocale() === 'en' ? 'Enter your email...' : 'أدخل بريدك الإلكتروني') }}" class="w-full bg-transparent px-3 text-xs text-white placeholder-blue-300 focus:outline-none">
-                    <button class="px-4 py-2 rounded-lg bg-[#35A536] hover:bg-emerald-600 text-white font-bold text-xs transition">
+                    <button class="px-4 py-2 rounded-lg bg-[#24BDC3] hover:bg-[#1fa3a8] text-white font-bold text-xs transition">
                         {{ app()->getLocale() === 'fr' ? 'S\'abonner' : (app()->getLocale() === 'en' ? 'Subscribe' : 'اشترك') }}
                     </button>
                 </div>
