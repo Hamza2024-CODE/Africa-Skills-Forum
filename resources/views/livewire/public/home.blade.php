@@ -329,30 +329,30 @@
                         </div>
 
                         <!-- Step 4: Expert Panels -->
-                        <div @click="showScheduleModal = true; scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
-                            <div class="w-11 h-11 rounded-2xl bg-purple-100 text-purple-600 border-2 border-purple-300 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
+                        <div @click="showScheduleModal = true; scheduleTab = 18" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
+                            <div class="w-11 h-11 rounded-2xl bg-purple-100 dark:bg-[#031826] text-purple-600 dark:text-purple-300 border-2 border-purple-300 dark:border-purple-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                             </div>
-                            <div class="text-[11px] font-black text-slate-800 group-hover/step:text-purple-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Panneaux d\'Experts' : (app()->getLocale() === 'en' ? 'Expert Panels' : 'الجلسات التخصصية') }}</div>
-                            <div class="text-[10px] font-extrabold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-full inline-block border border-purple-200">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 14:00' : (app()->getLocale() === 'en' ? 'Nov. — 14:00' : 'نوفمبر — 14:00') }}</div>
+                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-purple-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Panneaux d\'Experts' : (app()->getLocale() === 'en' ? 'Expert Panels' : 'الجلسات التخصصية') }}</div>
+                            <div class="text-[10px] font-extrabold text-purple-700 dark:text-purple-200 bg-purple-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-purple-200 dark:border-[#24BDC3]/30">18 {{ app()->getLocale() === 'fr' ? 'Nov. — 09:30' : (app()->getLocale() === 'en' ? 'Nov. — 09:30' : 'نوفمبر — 09:30') }}</div>
                         </div>
 
                         <!-- Step 5: Where Policy Meets Talent -->
                         <div @click="showScheduleModal = true; scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
-                            <div class="w-11 h-11 rounded-2xl bg-sky-100 text-sky-600 border-2 border-sky-300 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
+                            <div class="w-11 h-11 rounded-2xl bg-sky-100 dark:bg-[#031826] text-sky-600 dark:text-sky-300 border-2 border-sky-300 dark:border-sky-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                             </div>
-                            <div class="text-[11px] font-black text-slate-800 group-hover/step:text-sky-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Politiques & Talents' : (app()->getLocale() === 'en' ? 'Where Policy Meets Talent' : 'التلاقي بين السياسات والمواهب') }}</div>
-                            <div class="text-[10px] font-extrabold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-full inline-block border border-sky-200">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 15:30' : (app()->getLocale() === 'en' ? 'Nov. — 15:30' : 'نوفمبر — 15:30') }}</div>
+                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-sky-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Politiques & Talents' : (app()->getLocale() === 'en' ? 'Where Policy Meets Talent' : 'التلاقي بين السياسات والمواهب') }}</div>
+                            <div class="text-[10px] font-extrabold text-sky-700 dark:text-sky-200 bg-sky-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-sky-200 dark:border-[#24BDC3]/30">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 15:30' : (app()->getLocale() === 'en' ? 'Nov. — 15:30' : 'نوفمبر — 15:30') }}</div>
                         </div>
 
                         <!-- Step 6: Closing Ceremony -->
-                        <div @click="showScheduleModal = true; scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
-                            <div class="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 border-2 border-rose-300 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
+                        <div @click="showScheduleModal = true; scheduleTab = 18" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
+                            <div class="w-11 h-11 rounded-2xl bg-rose-100 dark:bg-[#031826] text-rose-600 dark:text-rose-300 border-2 border-rose-300 dark:border-rose-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
                             </div>
-                            <div class="text-[11px] font-black text-slate-800 group-hover/step:text-rose-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Cérémonie de Clôture' : (app()->getLocale() === 'en' ? 'Closing Ceremony' : 'حفل الاختتام') }}</div>
-                            <div class="text-[10px] font-extrabold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full inline-block border border-rose-200">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 17:00' : (app()->getLocale() === 'en' ? 'Nov. — 17:00' : 'نوفمبر — 17:00') }}</div>
+                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-rose-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Cérémonie de Clôture' : (app()->getLocale() === 'en' ? 'Closing Ceremony' : 'حفل الاختتام') }}</div>
+                            <div class="text-[10px] font-extrabold text-rose-700 dark:text-rose-200 bg-rose-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-rose-200 dark:border-[#24BDC3]/30">18 {{ app()->getLocale() === 'fr' ? 'Nov. — 14:00' : (app()->getLocale() === 'en' ? 'Nov. — 14:00' : 'نوفمبر — 14:00') }}</div>
                         </div>
                     </div>
                 </div>
@@ -1254,7 +1254,14 @@
                         class="px-5 py-3 rounded-2xl font-black text-xs transition flex items-center gap-2 cursor-pointer"
                         :class="scheduleTab === 17 ? 'bg-[#35A536] text-white shadow-lg shadow-emerald-900/25 border border-emerald-700' : 'bg-white text-slate-700 hover:bg-emerald-50 hover:text-[#35A536] border border-slate-200/90'">
                     <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                    <span>17 {{ app()->getLocale() === 'fr' ? 'Novembre 2026' : (app()->getLocale() === 'en' ? 'November 2026' : 'نوفمبر 2026') }} — {{ app()->getLocale() === 'fr' ? 'Jour Principal (Sessions & Déclaration)' : (app()->getLocale() === 'en' ? 'Main Forum Day' : 'اليوم الرئيسي (الجلسات والإعلان المشترك)') }}</span>
+                    <span>17 {{ app()->getLocale() === 'fr' ? 'Novembre 2026' : (app()->getLocale() === 'en' ? 'November 2026' : 'نوفمبر 2026') }} — {{ app()->getLocale() === 'fr' ? 'Jour 2 (Sessions & Déclaration)' : (app()->getLocale() === 'en' ? 'Day 2 (Sessions & Declaration)' : 'اليوم الثاني (الجلسات والإعلان المشترك)') }}</span>
+                </button>
+
+                <button @click="scheduleTab = 18" 
+                        class="px-5 py-3 rounded-2xl font-black text-xs transition flex items-center gap-2 cursor-pointer"
+                        :class="scheduleTab === 18 ? 'bg-[#24BDC3] text-white shadow-lg shadow-teal-900/25 border border-teal-600' : 'bg-white text-slate-700 hover:bg-teal-50 hover:text-[#24BDC3] border border-slate-200/90'">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    <span>18 {{ app()->getLocale() === 'fr' ? 'Novembre 2026' : (app()->getLocale() === 'en' ? 'November 2026' : 'نوفمبر 2026') }} — {{ app()->getLocale() === 'fr' ? 'Jour 3 (Panneaux & Clôture)' : (app()->getLocale() === 'en' ? 'Day 3 (Panels & Closing)' : 'اليوم الثالث (الجلسات والتوصيات وحفل الاختتام)') }}</span>
                 </button>
             </div>
 
@@ -1411,6 +1418,45 @@
                             </div>
                             <h4 class="text-base font-black text-[#0B2A6F] group-hover:text-sky-600 transition">
                                 {{ app()->getLocale() === 'fr' ? 'Construire l\'Écosystème des Compétences en Afrique : Collaboration Gouvernement, Industrie et Institutions pour l\'Excellence' : (app()->getLocale() === 'en' ? 'Building Africa\'s Skills Ecosystem: Government, Industry, and Institutional Collaboration for TVET Excellence' : 'بناء منظومة المهارات الإفريقية: التعاون بين الحكومة والقطاع الصناعي والمؤسسات لتحقيق التميز') }}
+                            </h4>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Day 3: Nov 18 -->
+                <div x-show="scheduleTab === 18" class="space-y-4" style="display: none;">
+                    
+                    <!-- Nov 18 Item 1: 09:30 - 12:30 -->
+                    <div class="p-5 rounded-2xl bg-white border-s-4 border-purple-600 border-y border-e border-slate-200/90 hover:shadow-md transition flex flex-col sm:flex-row items-start gap-4 group">
+                        <div class="px-4 py-2 rounded-xl bg-purple-100 text-purple-900 border border-purple-300 font-mono font-black text-xs shrink-0 shadow-xs whitespace-nowrap">
+                            09:30 – 12:30
+                        </div>
+                        <div class="space-y-1.5 flex-1">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-900 text-[10px] font-black border border-purple-200">
+                                    {{ app()->getLocale() === 'fr' ? 'Panneaux d\'Experts & Recommandations' : (app()->getLocale() === 'en' ? 'Expert Panels & Recommendations' : 'الجلسات التخصصية وصياغة التوصيات') }}
+                                </span>
+                            </div>
+                            <h4 class="text-base font-black text-[#0B2A6F] group-hover:text-purple-600 transition">
+                                {{ app()->getLocale() === 'fr' ? 'Sessions d\'experts, échanges thématiques et finalisation de la feuille de route' : (app()->getLocale() === 'en' ? 'Expert panel discussions, thematic sessions, and roadmap finalization' : 'الجلسات التخصصية، مناقشة أوراق العمل واستكمال صياغة التوصيات النهائية') }}
+                            </h4>
+                        </div>
+                    </div>
+
+                    <!-- Nov 18 Item 2: 14:00 - 17:00 -->
+                    <div class="p-5 rounded-2xl bg-gradient-to-r from-rose-50 via-pink-50 to-rose-100/70 border-s-4 border-rose-600 border-y border-e border-rose-200/90 transition flex flex-col sm:flex-row items-start gap-4 group shadow-sm">
+                        <div class="px-4 py-2 rounded-xl bg-rose-600 text-white font-mono font-black text-xs shrink-0 shadow-xs whitespace-nowrap">
+                            14:00 – 17:00
+                        </div>
+                        <div class="space-y-1.5 flex-1">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-0.5 rounded-full bg-rose-600 text-white text-[10px] font-black shadow-xs">
+                                    {{ app()->getLocale() === 'fr' ? 'Cérémonie de Clôture' : (app()->getLocale() === 'en' ? 'Closing Ceremony' : 'حفل الاختتام الرسمي وتوزيع التكريمات') }}
+                                </span>
+                            </div>
+                            <h4 class="text-base font-black text-[#0B2A6F]">
+                                {{ app()->getLocale() === 'fr' ? 'Cérémonie de clôture officielle, remise des prix et annonce des recommandations finalisées' : (app()->getLocale() === 'en' ? 'Official Closing Ceremony, award presentations, and announcement of final recommendations' : 'حفل الاختتام الرسمي، قراءة التوصيات النهائية، وتكريم الفائزين والوفود المشاركة') }}
                             </h4>
                         </div>
                     </div>
