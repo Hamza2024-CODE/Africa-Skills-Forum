@@ -335,9 +335,23 @@
             dismissed: false,
             mobileNavOpen: false,
             init() {
-                setTimeout(() => {
-                    if (!this.dismissed) this.showMascot = true;
-                }, 1200);
+                const cookieHandled = !!localStorage.getItem('asf_cookie_consent_v2');
+                if (cookieHandled) {
+                    setTimeout(() => {
+                        if (!this.dismissed) this.showMascot = true;
+                    }, 1200);
+                } else {
+                    window.addEventListener('cookie-consent-dismissed', () => {
+                        setTimeout(() => {
+                            if (!this.dismissed) this.showMascot = true;
+                        }, 800);
+                    });
+                    if (window.innerWidth >= 640) {
+                        setTimeout(() => {
+                            if (!this.dismissed) this.showMascot = true;
+                        }, 4000);
+                    }
+                }
                 window.addEventListener('mobile-menu-toggled', (e) => {
                     this.mobileNavOpen = !!e.detail;
                 });
@@ -351,7 +365,7 @@
          x-transition:leave="transition ease-in duration-500 transform"
          x-transition:leave-start="translate-y-0 opacity-100 scale-100"
          x-transition:leave-end="translate-y-32 opacity-0 scale-75"
-         class="fixed bottom-3 start-3 sm:bottom-6 sm:start-6 z-40 flex items-end gap-2 sm:gap-3 pointer-events-auto max-w-[88vw] sm:max-w-sm">
+         class="fixed bottom-16 start-3 sm:bottom-6 sm:start-6 z-35 flex items-end gap-2 sm:gap-3 pointer-events-auto max-w-[88vw] sm:max-w-sm">
 
         <!-- Speech Bubble Card -->
         <div class="bg-white/95 backdrop-blur-xl p-3 sm:p-4 rounded-2xl sm:rounded-3xl shadow-2xl border-2 border-blue-500/30 text-slate-900 space-y-1.5 sm:space-y-2 relative transform -rotate-1 group hover:rotate-0 transition-transform">
