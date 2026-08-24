@@ -334,6 +334,7 @@
     <div x-data="{ 
             showMascot: false, 
             dismissed: false,
+            speechOpen: false,
             mobileNavOpen: false,
             init() {
                 const cookieHandled = !!localStorage.getItem('asf_cookie_consent_v2');
@@ -366,13 +367,20 @@
          x-transition:leave="transition ease-in duration-500 transform"
          x-transition:leave-start="translate-y-0 opacity-100 scale-100"
          x-transition:leave-end="translate-y-32 opacity-0 scale-75"
-         class="fixed bottom-16 start-3 sm:bottom-6 sm:start-6 z-40 flex items-end gap-2 sm:gap-3 pointer-events-auto max-w-[88vw] sm:max-w-sm">
+         class="fixed bottom-16 start-3 sm:bottom-6 sm:start-6 z-40 flex flex-col sm:flex-row items-end gap-2 sm:gap-3 pointer-events-auto max-w-[88vw] sm:max-w-sm">
 
-        <!-- Speech Bubble Card -->
-        <div class="bg-white dark:bg-[#031826] text-slate-900 dark:text-white p-3 sm:p-4 rounded-2xl sm:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] border-2 border-[#24BDC3]/40 space-y-1.5 sm:space-y-2 relative transform -rotate-1 group hover:rotate-0 transition-transform">
+        <!-- Speech Bubble Card (Expandable on Mobile, Always Visible on Desktop) -->
+        <div x-show="speechOpen || window.innerWidth >= 640"
+             x-transition:enter="transition ease-out duration-300 transform"
+             x-transition:enter-start="opacity-0 scale-90 translate-y-4"
+             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200 transform"
+             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+             x-transition:leave-end="opacity-0 scale-90 translate-y-4"
+             class="bg-white dark:bg-[#031826] text-slate-900 dark:text-white p-3 sm:p-4 rounded-2xl sm:rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.5)] border-2 border-[#24BDC3]/40 space-y-1.5 sm:space-y-2 relative transform -rotate-1 group hover:rotate-0 transition-transform">
             
             <!-- Close Button -->
-            <button @click="dismissed = true" class="absolute -top-2 -end-2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center text-[10px] sm:text-xs font-black shadow-md hover:bg-red-600 transition" title="إغلاق">
+            <button @click="speechOpen = false; dismissed = (window.innerWidth >= 640)" class="absolute -top-2 -end-2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center text-[10px] sm:text-xs font-black shadow-md hover:bg-red-600 transition" title="إغلاق">
                 ✕
             </button>
 
@@ -390,18 +398,16 @@
             </p>
 
             <!-- Interactive Quick Link Button -->
-            <a href="{{ route('guide') }}" class="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl bg-gradient-to-r from-[#0B2A6F] to-[#35A536] text-white text-[10px] sm:text-[11px] font-black shadow-md hover:shadow-lg transition hover:scale-105">
+            <a href="{{ route('guide') }}" class="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl bg-gradient-to-r from-[#052D48] to-[#24BDC3] text-white text-[10px] sm:text-[11px] font-black shadow-md hover:shadow-lg transition hover:scale-105">
                 <span>{{ __('messages.guide') }}</span>
                 <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </a>
-
-            <!-- Tail Pointer -->
-            <div class="absolute -bottom-2 start-6 sm:start-8 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-white border-r border-b border-blue-500/30 transform rotate-45"></div>
         </div>
 
-        <!-- High-Res Floating Mascot Image Portrait -->
-        <div class="w-16 sm:w-32 md:w-36 h-auto flex-shrink-0 relative group filter drop-shadow-2xl wsap-float-slow cursor-pointer" @click="showMascot = true">
+        <!-- High-Res Floating Mascot Image Portrait (Toggles Speech Bubble on Mobile) -->
+        <div class="w-14 sm:w-32 md:w-36 h-auto flex-shrink-0 relative group filter drop-shadow-2xl wsap-float-slow cursor-pointer" @click="speechOpen = !speechOpen">
             <img src="{{ asset('images/mascot.png') }}" alt="Africa Skills Forum Mascot 2026" class="w-full h-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+            <span class="sm:hidden absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#24BDC3] border-2 border-white rounded-full animate-pulse shadow-md"></span>
         </div>
     </div>
 
