@@ -1453,37 +1453,43 @@
 
                 <!-- Day 3: Nov 18 -->
                 <div x-show="scheduleTab === 18" class="space-y-3" style="display: none;">
-                    <!-- Nov 18 Item 1: 09:30 - 12:30 -->
+                    <!-- Nov 18 Item 1: 09:30 - 11:00 -->
                     <div class="p-3.5 sm:p-5 rounded-2xl bg-slate-50 dark:bg-[#041a29]/90 border-s-4 border-sky-400 border-y border-e border-slate-200/90 dark:border-[#24BDC3]/20 hover:border-sky-400 dark:hover:border-[#24BDC3]/60 hover:shadow-md transition-all flex flex-col sm:flex-row items-start gap-3 sm:gap-4 group">
                         <div class="px-3 py-1 rounded-xl bg-sky-100 dark:bg-sky-400/20 text-sky-900 dark:text-sky-300 border border-sky-300 dark:border-sky-400/40 font-mono font-black text-xs shrink-0 whitespace-nowrap">
-                            09:30 – 12:30
+                            09:30 – 11:00
                         </div>
                         <div class="space-y-1 flex-1">
                             <div class="flex items-center gap-2">
                                 <span class="px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-400/15 text-sky-800 dark:text-sky-300 text-[10px] font-black border border-sky-200 dark:border-sky-400/30">
-                                    {{ app()->getLocale() === 'fr' ? 'Politiques & Talents (التلاقي بالشباب)' : (app()->getLocale() === 'en' ? 'Where Policy Meets Talent' : 'التلاقي بين السياسات والمواهب (التلاقي بالشباب)') }}
+                                    {{ app()->getLocale() === 'fr' ? 'Session Interactive & Débat' : (app()->getLocale() === 'en' ? 'Open Q&A Session' : 'جلسة حوار مفتوحة — أسئلة وأجوبة') }}
                                 </span>
                             </div>
                             <h4 class="text-sm sm:text-lg font-black text-[#0B2A6F] dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition leading-snug">
-                                {{ app()->getLocale() === 'fr' ? 'Session d\'échange et تلاقي الشركاء والشباب والمواهب الإفريقية avec صناع القرار' : (app()->getLocale() === 'en' ? 'Interactive dialogue session connecting youth talents with policymakers' : 'جلسة حوار وتلاقي الشباب والمواهب الإفريقية وصناع القرار') }}
+                                {{ app()->getLocale() === 'fr' ? 'Là où la politique rencontre le talent (Where Policy Meets Talent)' : (app()->getLocale() === 'en' ? 'Where Policy Meets Talent' : 'التلاقي بين السياسات والمواهب (Where Policy Meets Talent)') }}
                             </h4>
+                            <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
+                                {{ app()->getLocale() === 'fr' ? 'Session ouverte de questions-réponses réunissant les ministres africains et les jeunes compétiteurs et stagiaires. Les stagiaires posent leurs questions directement aux ministres sur l\'avenir de l\'EFTP et les politiques de compétences.' : (app()->getLocale() === 'en' ? 'An open Q&A session bringing together African Ministers and the young competitors and trainees of the Competition. Trainees put their questions directly to Ministers on the future of TVET, skills policy, and opportunity across the continent.' : 'جلسة حوار مفتوحة تجمع بين الوزراء الأفارقة والمتسابقين والمتدربين الشباب، يطرح فيها المتدربون أسئلتهم مباشرة على الوزراء حول مستقبل التكوين المهني وسياسات المهارات في القارة.') }}
+                            </p>
                         </div>
                     </div>
 
-                    <!-- Nov 18 Item 2: 14:00 - 17:00 -->
-                    <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-rose-50 via-pink-50 to-rose-100/70 dark:from-rose-950/80 dark:to-[#041a29] border-s-4 border-rose-500 border-y border-e border-rose-200/90 dark:border-rose-500/40 hover:shadow-md transition-all flex flex-col sm:flex-row items-start gap-4 group">
-                        <div class="px-3.5 py-1.5 rounded-xl bg-rose-600 text-white font-mono font-black text-xs shrink-0 shadow-xs whitespace-nowrap">
-                            14:00 – 17:00
+                    <!-- Nov 18 Item 2: 11:00 - 11:15 -->
+                    <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-100/70 dark:from-emerald-950/80 dark:to-[#041a29] border-s-4 border-[#35A536] border-y border-e border-emerald-200/90 dark:border-[#35A536]/40 hover:shadow-md transition-all flex flex-col sm:flex-row items-start gap-4 group">
+                        <div class="px-3.5 py-1.5 rounded-xl bg-[#35A536] text-white font-mono font-black text-xs shrink-0 shadow-xs whitespace-nowrap">
+                            11:00 – 11:15
                         </div>
                         <div class="space-y-1.5 flex-1">
                             <div class="flex items-center gap-2">
-                                <span class="px-2.5 py-0.5 rounded-full bg-rose-600 text-white text-[10px] font-black shadow-xs">
-                                    {{ app()->getLocale() === 'fr' ? 'Cérémonie de Clôture' : (app()->getLocale() === 'en' ? 'Closing Ceremony' : 'حفل الاختتام الرسمي وتوزيع التكريمات') }}
+                                <span class="px-2.5 py-0.5 rounded-full bg-[#35A536] text-white text-[10px] font-black shadow-xs">
+                                    {{ app()->getLocale() === 'fr' ? 'Déclaration Conjointe' : (app()->getLocale() === 'en' ? 'Joint Declaration' : 'الإعلان المشترك حول أجندة المهارات') }}
                                 </span>
                             </div>
-                            <h4 class="text-base sm:text-lg font-black text-[#0B2A6F] dark:text-rose-200">
-                                {{ app()->getLocale() === 'fr' ? 'Cérémonie de clôture officielle, remise des prix et annonce des recommandations finalisées' : (app()->getLocale() === 'en' ? 'Official Closing Ceremony, award presentations, and announcement of final recommendations' : 'حفل الاختتام الرسمي، قراءة التوصيات النهائية، وتكريم الفائزين والوفود المشاركة') }}
+                            <h4 class="text-base sm:text-lg font-black text-[#0B2A6F] dark:text-emerald-300">
+                                {{ app()->getLocale() === 'fr' ? 'Déclaration Conjointe sur l\'Agenda des Compétences en Afrique' : (app()->getLocale() === 'en' ? 'Joint Declaration on Africa\'s Skills Agenda' : 'إصدار واعتماد الإعلان المشترك حول أجندة المهارات في إفريقيا') }}
                             </h4>
+                            <p class="text-[11px] sm:text-xs text-slate-700 dark:text-slate-300 font-medium leading-relaxed">
+                                {{ app()->getLocale() === 'fr' ? 'Les sessions I et II se concluent par l\'adoption d\'une Déclaration conjointe sur l\'agenda des compétences en Afrique.' : (app()->getLocale() === 'en' ? 'Sessions I and II culminate in a joint Declaration on Africa\'s skills agenda.' : 'تتوج الجلستان الأولى والثانية بإصدار واعتماد إعلان مشترك حول أجندة المهارات في إفريقيا.') }}
+                            </p>
                         </div>
                     </div>
                 </div>
