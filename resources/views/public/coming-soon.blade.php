@@ -263,7 +263,7 @@
             <!-- Venue Location Badge -->
             <div class="pt-2 flex items-center justify-center gap-2.5 text-xs sm:text-sm font-bold text-slate-800 dark:text-teal-100 max-w-xl mx-auto bg-slate-100/90 dark:bg-white/5 border border-slate-200/90 dark:border-white/15 p-3.5 px-5 rounded-2xl shadow-xs">
                 <svg class="w-5 h-5 text-[#24BDC3] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                <span class="leading-relaxed">{{ $locale === 'fr' ? '16 – 17 Novembre 2026 — Centre des Conventions Mohamed Ben Ahmed, Oran - Algérie' : ($locale === 'en' ? '16 – 17 November 2026 — Mohamed Ben Ahmed Convention Center, Oran - Algeria' : '16 – 17 نوفمبر 2026 — مركز المؤتمرات محمد بن أحمد، وهران - الجزائر') }}</span>
+                <span class="leading-relaxed">{{ $locale === 'fr' ? '16 – 18 Novembre 2026 — Centre des Conventions Mohamed Ben Ahmed, Oran - Algérie' : ($locale === 'en' ? '16 – 18 November 2026 — Mohamed Ben Ahmed Convention Center, Oran - Algeria' : '16 – 18 نوفمبر 2026 — مركز المؤتمرات محمد بن أحمد، وهران - الجزائر') }}</span>
             </div>
 
         </div>

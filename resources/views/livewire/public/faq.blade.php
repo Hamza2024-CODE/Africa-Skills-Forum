@@ -36,10 +36,10 @@
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed font-medium">
                     {{ app()->getLocale() === 'fr' 
-                        ? 'Le Forum est co-organisé par le Ministère de la Formation et de l\'Enseignement Professionnels d\'Algérie et la Commission de l\'Union Africaine, constituant le principal événement politique de haut niveau tenu en marge de WorldSkills Algeria 2026 les 16-17 Novembre 2026.' 
+                        ? 'Le Forum est co-organisé par le Ministère de la Formation et de l\'Enseignement Professionnels d\'Algérie et la Commission de l\'Union Africaine, constituant le principal événement politique de haut niveau tenu en marge de WorldSkills Algeria 2026 les 16-18 Novembre 2026.' 
                         : (app()->getLocale() === 'en' 
-                            ? 'The African Skills Policy Forum is co-organized by Algeria\'s Ministry of Vocational Training and Education and the African Union Commission, serving as the principal high-level political event held alongside WorldSkills Algeria 2026 on 16-17 November 2026.' 
-                            : 'يُنظَّم منتدى السياسات الأفريقية للمهارات بشراكة بين وزارة التكوين والتعليم المهنيين بالجزائر ومفوضية الاتحاد الأفريقي يومي 16-17 نوفمبر 2026، ليكون الحدث السياسي الرفيع المستوى الرئيسي المنعقد على هامش أولمبياد المهن الجزائر 2026.') }}
+                            ? 'The African Skills Policy Forum is co-organized by Algeria\'s Ministry of Vocational Training and Education and the African Union Commission, serving as the principal high-level political event held alongside WorldSkills Algeria 2026 on 16-18 November 2026.' 
+                            : 'يُنظَّم منتدى السياسات الأفريقية للمهارات بشراكة بين وزارة التكوين والتعليم المهنيين بالجزائر ومفوضية الاتحاد الأفريقي أيام 16-18 نوفمبر 2026، ليكون الحدث السياسي الرفيع المستوى الرئيسي المنعقد على هامش أولمبياد المهن الجزائر 2026.') }}
                 </p>
             </div>
 
