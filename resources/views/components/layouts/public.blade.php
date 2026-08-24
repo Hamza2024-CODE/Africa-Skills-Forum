@@ -366,26 +366,26 @@
          x-transition:leave="transition ease-in duration-500 transform"
          x-transition:leave-start="translate-y-0 opacity-100 scale-100"
          x-transition:leave-end="translate-y-32 opacity-0 scale-75"
-         class="fixed bottom-16 start-3 sm:bottom-6 sm:start-6 z-35 flex items-end gap-2 sm:gap-3 pointer-events-auto max-w-[88vw] sm:max-w-sm">
+         class="fixed bottom-16 start-3 sm:bottom-6 sm:start-6 z-40 flex items-end gap-2 sm:gap-3 pointer-events-auto max-w-[88vw] sm:max-w-sm">
 
         <!-- Speech Bubble Card -->
-        <div class="bg-white/95 backdrop-blur-xl p-3 sm:p-4 rounded-2xl sm:rounded-3xl shadow-2xl border-2 border-blue-500/30 text-slate-900 space-y-1.5 sm:space-y-2 relative transform -rotate-1 group hover:rotate-0 transition-transform">
+        <div class="bg-white dark:bg-[#031826] text-slate-900 dark:text-white p-3 sm:p-4 rounded-2xl sm:rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] border-2 border-[#24BDC3]/40 space-y-1.5 sm:space-y-2 relative transform -rotate-1 group hover:rotate-0 transition-transform">
             
             <!-- Close Button -->
-            <button @click="dismissed = true" class="absolute -top-2 -end-2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px] sm:text-xs font-black shadow-md hover:bg-red-600 transition" title="إغلاق">
+            <button @click="dismissed = true" class="absolute -top-2 -end-2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center text-[10px] sm:text-xs font-black shadow-md hover:bg-red-600 transition" title="إغلاق">
                 ✕
             </button>
 
             <!-- Mascot Badge Header -->
             <div class="flex items-center gap-1.5 sm:gap-2">
-                <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#0066FF] animate-ping"></span>
-                <span class="text-[9px] sm:text-[10px] font-black text-[#0B2A6F] uppercase tracking-wider">
+                <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#24BDC3] animate-ping"></span>
+                <span class="text-[9px] sm:text-[10px] font-black text-[#052D48] dark:text-[#24BDC3] uppercase tracking-wider">
                     ✦ {{ app()->getLocale() === 'fr' ? 'Mascotte Officielle 2026' : (app()->getLocale() === 'en' ? 'Official Mascot 2026' : 'رمز التميز والمهارات 2026') }}
                 </span>
             </div>
 
             <!-- Welcome Text Message -->
-            <p class="text-[11px] sm:text-xs font-bold text-[#0B2A6F] leading-snug sm:leading-relaxed">
+            <p class="text-[11px] sm:text-xs font-bold text-[#052D48] dark:text-white leading-snug sm:leading-relaxed">
                 {{ app()->getLocale() === 'fr' ? 'Bienvenue au Forum Africa Skills Forum 2026 ! L\'Algérie vous accueille à Oran.' : (app()->getLocale() === 'en' ? 'Welcome to Africa Skills Forum 2026! Algeria welcomes all delegations.' : 'أهلاً بكم في منتدى المهارات الإفريقية 2026! الجزائر ترحب بجميع الوفود والمشاركين بوهران.') }}
             </p>
 
