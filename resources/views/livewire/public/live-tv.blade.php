@@ -41,7 +41,7 @@
 
         {{-- Active Edition --}}
         <div class="text-right hidden sm:block">
-            <div class="text-sm font-black text-[#0B2A6F]">{{ $edition?->getLocalized('name') ?? platform()->name() . ' 2026 / 2027' }}</div>
+            <div class="text-sm font-black text-[#0B2A6F]">{{ $edition?->getLocalized('name') ?? 'African Skills Policy Forum 2026 / 2027' }}</div>
             <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">OFFICIAL LIVE STREAM STAGE</div>
         </div>
     </div>
@@ -74,7 +74,7 @@
             {{-- 1. DYNAMIC LIVE VIDEO STREAM EMBED STAGE --}}
             <div class="w-full h-full max-w-7xl mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-blue-500/20 bg-black relative">
                 <iframe src="{{ $embedUrl }}" 
-                        title="Africa Skills Forum Live Stream" 
+                        title="African Skills Policy Forum Live Stream" 
                         class="w-full h-full border-0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         allowfullscreen></iframe>
@@ -133,10 +133,10 @@
 
                 <div class="space-y-3">
                     <h1 class="text-4xl sm:text-6xl font-black text-[#0B2A6F] tracking-tight leading-tight">
-                        {{ platform()->name() }}
+                        African Skills Policy Forum
                     </h1>
                     <h2 class="text-2xl sm:text-3xl font-black text-[#0B2A6F]">
-                        البث المباشر الرسمي لمنتدى المهارات الإفريقية 2026
+                        البث المباشر الرسمي لمنتدى السياسات الأفريقية للمهارات 2026
                     </h2>
                 </div>
 
@@ -179,11 +179,11 @@
                 </div>
             @else
                 <div class="animate-ticker whitespace-nowrap text-xs sm:text-sm font-black text-white">
-                    <span class="mx-10">مرحباً بكم في البث المباشر الرسمي — Africa Skills Forum 2026</span>
+                    <span class="mx-10">مرحباً بكم في البث المباشر الرسمي — African Skills Policy Forum 2026</span>
                     <span class="mx-4 text-[#00A3FF]">◆</span>
-                    <span class="mx-10">Bienvenue au direct officiel d'Africa Skills Forum 2026</span>
+                    <span class="mx-10">Bienvenue au direct officiel du Forum des Politiques Africaines des Compétences 2026</span>
                     <span class="mx-4 text-[#00A3FF]">◆</span>
-                    <span class="mx-10">Welcome to the Official Live Stream — Africa Skills Forum 2026</span>
+                    <span class="mx-10">Welcome to the Official Live Stream — African Skills Policy Forum 2026</span>
                     <span class="mx-4 text-[#00A3FF]">◆</span>
                 </div>
             @endif
