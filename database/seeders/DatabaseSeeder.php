@@ -64,16 +64,18 @@ class DatabaseSeeder extends Seeder
         $execViewer->assignRole(RoleEnum::EXECUTIVE_VIEWER->value);
 
         // Create African Union Executive User
-        $auUser = User::updateOrCreate(
-            ['email' => 'africaunion@africaskill.DZ'],
-            [
-                'uuid' => (string) Str::uuid(),
-                'name' => 'مفوضية الاتحاد الأفريقي (African Union Commission)',
-                'password' => Hash::make('Password123!'),
-                'is_active' => true,
-            ]
-        );
-        $auUser->assignRole(RoleEnum::AFRICAN_UNION_OBSERVER->value);
+        foreach (['africaunion@africaskill.DZ', 'africaunion@africaskill.dz'] as $auEmail) {
+            $auUser = User::updateOrCreate(
+                ['email' => $auEmail],
+                [
+                    'uuid' => (string) Str::uuid(),
+                    'name' => 'مفوضية الاتحاد الأفريقي (African Union Commission)',
+                    'password' => Hash::make('Password123!'),
+                    'is_active' => true,
+                ]
+            );
+            $auUser->assignRole(RoleEnum::AFRICAN_UNION_OBSERVER->value);
+        }
 
         // Create Default Active Edition 2027
         $edition = Edition::updateOrCreate(

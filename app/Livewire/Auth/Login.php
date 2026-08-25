@@ -46,8 +46,9 @@ class Login extends Component
             return;
         }
 
-        // Find user by email or by username/name (e.g. admin, dz.admin, media, viewer)
-        $user = User::where('email', $input)
+        // Find user by email (case-insensitive) or by username/name (e.g. admin, dz.admin, media, viewer, africaunion)
+        $user = User::whereRaw('LOWER(email) = ?', [strtolower($input)])
+                    ->orWhere('email', $input)
                     ->orWhere('name', $input)
                     ->orWhere('email', 'like', $input . '@%')
                     ->first();
@@ -63,6 +64,8 @@ class Login extends Component
                 return redirect()->route('admin.media.dashboard');
             } elseif ($user->hasRole(RoleEnum::EXECUTIVE_VIEWER->value)) {
                 return redirect()->route('executive.dashboard');
+            } elseif ($user->hasRole(RoleEnum::AFRICAN_UNION_OBSERVER->value)) {
+                return redirect()->route('au.dashboard');
             } elseif ($user->hasRole(RoleEnum::COUNTRY_ADMIN->value)) {
                 return redirect()->route('country.dashboard');
             } elseif ($user->hasRole(RoleEnum::ORGANIZATION_ADMIN->value)) {
