@@ -25,7 +25,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
 
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-2xl">
-                    {{ $t('ألبومات وتغطيات منتدى المهارات الإفريقية', 'Albums & Couverture Média — Africa Skills Forum', 'Official Africa Skills Forum Media Albums') }}
+                    {{ $t('ألبومات وتغطيات منتدى السياسات الأفريقية للمهارات', 'Albums & Couverture Média — Forum des Politiques Africaines des Compétences', 'Official African Skills Policy Forum Media Albums') }}
                 </h1>
                 <p class="text-xs sm:text-base text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto drop-shadow-md">
                     {{ $t('استعرض ألبومات الصور والتغطيات الإعلامية للمؤتمرات والفعاليات والورشات.', 'Explorez les moments forts des conférences, ateliers et cérémonies.', 'Browse conference highlights, technical workshops and ceremonies.') }}

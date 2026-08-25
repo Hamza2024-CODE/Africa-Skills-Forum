@@ -34,10 +34,10 @@ $ministerGallery = [
             {{-- Header Content --}}
             <div class="relative z-10 text-center max-w-3xl mx-auto space-y-5">
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-2xl">
-                    {{ $t('مستجدات وإعلانات منتدى المهارات الإفريقية', 'Actualités & Communiqués Officiels — ASF', 'Africa Skills Forum News & Official Announcements') }}
+                    {{ $t('مستجدات وإعلانات منتدى السياسات الأفريقية للمهارات', 'Actualités & Communiqués Officiels — FPAC', 'African Skills Policy Forum News & Official Announcements') }}
                 </h1>
                 <p class="text-xs sm:text-base text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto drop-shadow-md">
-                    {{ $t('تابع التغطية الحية والحوارات الرسمية الصادرة عن اللجنة العليا لمنتدى المهارات الإفريقية.', 'Suivez la couverture en direct du Forum des Compétences Africaines.', 'Follow live coverage and official interviews from Africa Skills Forum.') }}
+                    {{ $t('تابع التغطية الحية والحوارات الرسمية الصادرة عن اللجنة العليا لمنتدى السياسات الأفريقية للمهارات.', 'Suivez la couverture en direct du Forum des Politiques Africaines des Compétences.', 'Follow live coverage and official interviews from African Skills Policy Forum.') }}
                 </p>
             </div>
         </div>

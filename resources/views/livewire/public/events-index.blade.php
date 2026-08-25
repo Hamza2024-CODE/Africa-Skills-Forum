@@ -23,7 +23,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                 </div>
 
                 <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-2xl">
-                    {{ $t('أحداث ولقاءات منتدى المهارات الإفريقية', 'Événements & Sessions du Forum', 'Africa Skills Forum Events & Sessions') }}
+                    {{ $t('أحداث ولقاءات منتدى السياسات الأفريقية للمهارات', 'Événements & Sessions du Forum des Politiques Africaines des Compétences', 'Africa Skills Policy Forum Events & Sessions') }}
                 </h1>
                 <p class="text-xs sm:text-base text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto">
                     {{ $t('جدول اللقاءات، المحاضرات، الاجتماعات الرسمية، الجلسات رفيعة المستوى، والندوات القارية المبرمجة بمركز المؤتمرات CCO بوهران.', 'Consultez le programme des rencontres, conférences, réunions officielles, sessions de haut niveau et séminaires continentaux.', 'Explore the schedule of encounters, lectures, official meetings, high-level sessions, and continental seminars.') }}

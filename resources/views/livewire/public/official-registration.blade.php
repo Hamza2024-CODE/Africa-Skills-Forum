@@ -27,8 +27,8 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
         @php
             $bannerImg = platform()->get('accreditation_banner_image', '/images/channels4_banner.jpg');
             $bannerLabel = platform()->get("accreditation_header_badge_{$locale}", $t('البوابة الوطنية للاعتماد الرسمي — 2026', 'Portail Officiel d\'Accréditation 2026', 'Official Accreditation Portal 2026'));
-            $bannerTitle = platform()->get("accreditation_header_title_{$locale}", $t('التسجيل والاعتماد الرسمي — منتدى المهارات الإفريقية 2026', 'Accréditation & Inscription Officielle — Africa Skills Forum 2026', 'Official Accreditation & Registration — Africa Skills Forum 2026'));
-            $bannerSubtitle = platform()->get("accreditation_header_subtitle_{$locale}", $t('سجّل بياناتك الرسمية للحصول على اعتماد الوفود والضيوف والإعلاميين لمنتدى المهارات الإفريقية 2026 بمركز المؤتمرات CCO — وهران.', 'Enregistrez vos données officielles pour obtenir l\'accréditation au CCO d\'Oran pour Africa Skills Forum 2026.', 'Register your official credentials to attend and participate in Africa Skills Forum at Mohamed Ben Ahmed Convention Center in Oran.'));
+            $bannerTitle = platform()->get("accreditation_header_title_{$locale}", $t('التسجيل والاعتماد الرسمي — منتدى السياسات الأفريقية للمهارات 2026', 'Accréditation & Inscription Officielle — Forum des Politiques Africaines des Compétences 2026', 'Official Accreditation & Registration — African Skills Policy Forum 2026'));
+            $bannerSubtitle = platform()->get("accreditation_header_subtitle_{$locale}", $t('سجّل بياناتك الرسمية للحصول على اعتماد الوفود والضيوف والإعلاميين لمنتدى السياسات الأفريقية للمهارات 2026 بمركز المؤتمرات CCO — وهران.', 'Enregistrez vos données officielles pour obtenir l\'accréditation au CCO d\'Oran pour le Forum des Politiques Africaines des Compétences 2026.', 'Register your official credentials to attend and participate in African Skills Policy Forum at Mohamed Ben Ahmed Convention Center in Oran.'));
         @endphp
 
         <div class="relative rounded-3xl overflow-hidden shadow-2xl"
@@ -253,7 +253,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         ✓ {{ $t('تم التقاط الصورة بنجاح بواسطة الكاميرا المباشرة', 'Photo capturée par caméra', 'Photo captured cleanly via Live Camera') }}
                                     </div>
                                 @else
-                                    <input type="file" wire:model="photo" class="text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 cursor-pointer">
+                                    <input type="file" wire:model="photo" accept="image/*" capture="user" class="text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 cursor-pointer">
                                 @endif
 
                                 @error('photo') <span class="block text-rose-500 text-[10px] font-bold mt-1">{{ $message }}</span> @enderror
