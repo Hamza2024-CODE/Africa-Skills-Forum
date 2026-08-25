@@ -516,15 +516,23 @@
                             <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
                                 <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs cursor-pointer shadow-md transition active:scale-95">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                    <span>{{ $t('اختر صورة من المعرض / الجهاز 📁', 'Galerie / Fichiers 📁', 'Choose from Gallery / Files 📁') }}</span>
+                                    <span>{{ $t('اختر صورة من المعرض / الجهاز', 'Galerie / Fichiers', 'Choose from Gallery / Files') }}</span>
                                     <input type="file" wire:model="photoFile" accept="image/*,image/png,image/jpeg,image/webp,.jpg,.jpeg,.png,.webp" class="hidden">
                                 </label>
 
                                 <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs cursor-pointer shadow-md transition active:scale-95">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
-                                    <span>{{ $t('التقاط صورة بالكاميرا 📷', 'Prendre Photo 📷', 'Take Photo with Camera 📷') }}</span>
+                                    <span>{{ $t('التقاط صورة بالكاميرا', 'Prendre Photo', 'Take Photo with Camera') }}</span>
                                     <input type="file" wire:model="photoFile" accept="image/*" capture="environment" class="hidden">
                                 </label>
+                            </div>
+
+                            <div wire:loading wire:target="photoFile" class="text-xs font-bold text-emerald-700 flex items-center justify-center gap-2 mt-2">
+                                <svg class="w-4 h-4 animate-spin text-emerald-600" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <span>{{ $t('جاري رفع ومعالجة الصورة الشخصية...', 'Téléversement en cours...', 'Uploading & processing photo...') }}</span>
                             </div>
                         </div>
 
@@ -537,7 +545,10 @@
                                         <span class="text-[11px] font-mono text-emerald-700 block">{{ $t('جاهزة للاعتماد والطباعة على شارتك الـ 3D', 'Prête pour le badge 3D', 'Ready for 3D badge printing') }}</span>
                                     </div>
                                 </div>
-                                <span class="px-3 py-1 bg-emerald-200 text-emerald-900 text-xs font-bold rounded-xl">{{ $t('جاهز ✅', 'Prêt ✅', 'Ready ✅') }}</span>
+                                <span class="px-3 py-1 bg-emerald-200 text-emerald-900 text-xs font-bold rounded-xl flex items-center gap-1">
+                                    <svg class="w-3.5 h-3.5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                    <span>{{ $t('جاهز', 'Prêt', 'Ready') }}</span>
+                                </span>
                             </div>
                         @endif
                         @error('photoFile') <span class="text-xs text-red-600 font-bold mt-1 block">{{ $message }}</span> @enderror

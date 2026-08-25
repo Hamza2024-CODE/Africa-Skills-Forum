@@ -216,7 +216,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                             canvas.height = $refs.video.videoHeight || 480;
                             const ctx = canvas.getContext('2d');
                             ctx.drawImage($refs.video, 0, 0, canvas.width, canvas.height);
-                            const dataUrl = canvas.toDataURL('image/jpeg');
+                            const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
                             $wire.setCapturedPhoto(dataUrl);
                             this.stopCamera();
                             this.mode = 'captured';
@@ -228,11 +228,13 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                             </label>
 
                             <div class="flex items-center gap-1.5 bg-slate-200/70 p-1 rounded-xl">
-                                <button type="button" @click="mode = 'upload'; stopCamera();" class="px-3 py-1 rounded-lg text-[11px] font-black transition cursor-pointer" :class="mode === 'upload' ? 'bg-white text-indigo-900 shadow-xs' : 'text-slate-600'">
-                                    📁 {{ $t('رفع صورة', 'Fichier', 'Upload') }}
+                                <button type="button" @click="mode = 'upload'; stopCamera();" class="px-3 py-1 rounded-lg text-[11px] font-black transition cursor-pointer flex items-center gap-1" :class="mode === 'upload' ? 'bg-white text-indigo-900 shadow-xs' : 'text-slate-600'">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                                    <span>{{ $t('رفع صورة', 'Fichier', 'Upload') }}</span>
                                 </button>
-                                <button type="button" @click="startCamera()" class="px-3 py-1 rounded-lg text-[11px] font-black transition cursor-pointer" :class="mode === 'camera' || mode === 'captured' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600'">
-                                    📷 {{ $t('التقاط مباشر بالكاميرا', 'Caméra', 'Live Capture') }}
+                                <button type="button" @click="startCamera()" class="px-3 py-1 rounded-lg text-[11px] font-black transition cursor-pointer flex items-center gap-1" :class="mode === 'camera' || mode === 'captured' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600'">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
+                                    <span>{{ $t('التقاط مباشر بالكاميرا', 'Caméra', 'Live Capture') }}</span>
                                 </button>
                             </div>
                         </div>
@@ -252,7 +254,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
 
                                 <button type="button" @click="switchCamera()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                                    <span x-text="facingMode === 'user' ? '{{ $t('كاميرا خلفية 🔄', 'Caméra Arrière 🔄', 'Rear Cam 🔄') }}' : '{{ $t('كاميرا أمامية 🔄', 'Caméra Avant 🔄', 'Front Cam 🔄') }}'"></span>
+                                    <span x-text="facingMode === 'user' ? '{{ $t('كاميرا خلفية', 'Caméra Arrière', 'Rear Cam') }}' : '{{ $t('كاميرا أمامية', 'Caméra Avant', 'Front Cam') }}'"></span>
                                 </button>
                             </div>
                         </div>
@@ -278,23 +280,32 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
 
                                 @if($captured_photo_data)
                                     <div class="text-xs font-extrabold text-emerald-700 flex items-center gap-1.5">
-                                        ✓ {{ $t('تم التقاط الصورة بنجاح بواسطة الكاميرا المباشرة', 'Photo capturée par caméra', 'Photo captured cleanly via Live Camera') }}
+                                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                        <span>{{ $t('تم التقاط الصورة بنجاح بواسطة الكاميرا المباشرة', 'Photo capturée par caméra', 'Photo captured cleanly via Live Camera') }}</span>
                                     </div>
                                 @else
                                     <div class="flex flex-wrap items-center gap-2 mt-2">
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                            <span>{{ $t('اختر صورة من المعرض / الجهاز 📁', 'Galerie / Fichiers 📁', 'Choose from Gallery / Files 📁') }}</span>
+                                            <span>{{ $t('اختر صورة من المعرض / الجهاز', 'Galerie / Fichiers', 'Choose from Gallery / Files') }}</span>
                                             <input type="file" wire:model="photo" accept="image/*,image/png,image/jpeg,image/webp,.jpg,.jpeg,.png,.webp" class="hidden">
                                         </label>
 
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
-                                            <span>{{ $t('التقاط صورة بالكاميرا 📷', 'Prendre une Photo 📷', 'Take Photo 📷') }}</span>
+                                            <span>{{ $t('التقاط صورة بالكاميرا', 'Prendre une Photo', 'Take Photo') }}</span>
                                             <input type="file" wire:model="photo" accept="image/*" capture="environment" class="hidden">
                                         </label>
                                     </div>
                                 @endif
+
+                                <div wire:loading wire:target="photo" class="text-xs font-bold text-indigo-600 flex items-center gap-2 mt-2">
+                                    <svg class="w-4 h-4 animate-spin text-indigo-600" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    <span>{{ $t('جاري رفع ومعالجة الصورة الشخصية...', 'Téléversement de la photo en cours...', 'Uploading & processing photo...') }}</span>
+                                </div>
 
                                 @error('photo') <span class="block text-rose-500 text-[10px] font-bold mt-1">{{ $message }}</span> @enderror
                             </div>
@@ -431,7 +442,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                 canvas.height = $refs.docVideo.videoHeight || 720;
                                 const ctx = canvas.getContext('2d');
                                 ctx.drawImage($refs.docVideo, 0, 0, canvas.width, canvas.height);
-                                const dataUrl = canvas.toDataURL('image/jpeg');
+                                const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
                                 $wire.setCapturedIdCard(dataUrl);
                                 this.stopCamera();
                                 this.mode = 'captured';
@@ -442,11 +453,13 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                     {{ $t('رفع أو تصوير بطاقة الصحافة المهنية / بطاقة الهوية (PDF / صورة) *', 'Carte de Presse Professionnelle ou Pièce d’Identité *', 'Professional Press Card or ID Document (File or Camera) *') }}
                                 </label>
                                 <div class="flex items-center gap-1 bg-amber-200/60 p-1 rounded-xl">
-                                    <button type="button" @click="mode = 'upload'; stopCamera();" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition cursor-pointer" :class="mode === 'upload' ? 'bg-white text-amber-950 shadow-xs' : 'text-amber-800'">
-                                        📁 {{ $t('ملف', 'Fichier', 'File') }}
+                                    <button type="button" @click="mode = 'upload'; stopCamera();" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition cursor-pointer flex items-center gap-1" :class="mode === 'upload' ? 'bg-white text-amber-950 shadow-xs' : 'text-amber-800'">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                                        <span>{{ $t('ملف', 'Fichier', 'File') }}</span>
                                     </button>
-                                    <button type="button" @click="startCamera()" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition cursor-pointer" :class="mode === 'camera' || mode === 'captured' ? 'bg-amber-600 text-white shadow-xs' : 'text-amber-800'">
-                                        📷 {{ $t('تصوير مباشر', 'Caméra', 'Camera') }}
+                                    <button type="button" @click="startCamera()" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition cursor-pointer flex items-center gap-1" :class="mode === 'camera' || mode === 'captured' ? 'bg-amber-600 text-white shadow-xs' : 'text-amber-800'">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
+                                        <span>{{ $t('تصوير مباشر', 'Caméra', 'Camera') }}</span>
                                     </button>
                                 </div>
                             </div>
@@ -461,10 +474,12 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                 </div>
                                 <div class="flex flex-wrap items-center justify-center gap-2">
                                     <button type="button" @click="capture()" class="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-black text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer">
-                                        <span>📸 {{ $t('التقاط بطاقة الصحافة الآن', 'Capturer la carte', 'Capture Press Badge') }}</span>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                        <span>{{ $t('التقاط بطاقة الصحافة الآن', 'Capturer la carte', 'Capture Press Badge') }}</span>
                                     </button>
                                     <button type="button" @click="switchCamera()" class="px-4 py-2 rounded-xl bg-amber-800 hover:bg-amber-900 text-white font-black text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer">
-                                        <span x-text="facingMode === 'user' ? '{{ $t('كاميرا خلفية 🔄', 'Caméra Arrière 🔄', 'Rear Cam 🔄') }}' : '{{ $t('كاميرا أمامية 🔄', 'Caméra Avant 🔄', 'Front Cam 🔄') }}'"></span>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                        <span x-text="facingMode === 'user' ? '{{ $t('كاميرا خلفية', 'Caméra Arrière', 'Rear Cam') }}' : '{{ $t('كاميرا أمامية', 'Caméra Avant', 'Front Cam') }}'"></span>
                                     </button>
                                 </div>
                             </div>
@@ -473,25 +488,34 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                 @if($captured_id_card_data)
                                     <div class="flex items-center gap-3 bg-white p-2.5 rounded-xl border border-amber-300">
                                         <img src="{{ $captured_id_card_data }}" class="w-24 h-16 rounded-lg object-cover border border-amber-400">
-                                        <div class="text-xs font-bold text-amber-900">
-                                            ✓ {{ $t('تم تصوير بطاقة الصحافة بنجاح عبر الكاميرا المباشرة', 'Carte de presse capturée', 'Press badge captured via camera') }}
+                                        <div class="text-xs font-bold text-amber-900 flex items-center gap-1.5">
+                                            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                            <span>{{ $t('تم تصوير بطاقة الصحافة بنجاح عبر الكاميرا المباشرة', 'Carte de presse capturée', 'Press badge captured via camera') }}</span>
                                         </div>
                                     </div>
                                 @else
                                     <div class="flex flex-wrap items-center gap-2 mt-2">
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                            <span>{{ $t('اختر وثيقة من المعرض / الجهاز 📁', 'Galerie / Fichiers 📁', 'Choose Document / Files 📁') }}</span>
+                                            <span>{{ $t('اختر وثيقة من المعرض / الجهاز', 'Galerie / Fichiers', 'Choose Document / Files') }}</span>
                                             <input type="file" wire:model="press_card_file" accept="image/*,application/pdf,.pdf,.jpg,.jpeg,.png,.webp" class="hidden">
                                         </label>
 
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
-                                            <span>{{ $t('تصوير بالكاميرا 📷', 'Prendre Photo 📷', 'Take Photo 📷') }}</span>
+                                            <span>{{ $t('تصوير بالكاميرا', 'Prendre Photo', 'Take Photo') }}</span>
                                             <input type="file" wire:model="press_card_file" accept="image/*" capture="environment" class="hidden">
                                         </label>
                                     </div>
                                 @endif
+
+                                <div wire:loading wire:target="press_card_file" class="text-xs font-bold text-amber-700 flex items-center gap-2 mt-2">
+                                    <svg class="w-4 h-4 animate-spin text-amber-700" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    <span>{{ $t('جاري رفع وثيقة الصحافة...', 'Téléversement de la carte presse...', 'Uploading press document...') }}</span>
+                                </div>
                             </div>
                             @error('press_card_file') <span class="block text-rose-600 text-[10px] font-bold mt-1">{{ $message }}</span> @enderror
                         </div>
@@ -542,7 +566,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                 canvas.height = $refs.docVideo.videoHeight || 720;
                                 const ctx = canvas.getContext('2d');
                                 ctx.drawImage($refs.docVideo, 0, 0, canvas.width, canvas.height);
-                                const dataUrl = canvas.toDataURL('image/jpeg');
+                                const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
                                 $wire.setCapturedIdCard(dataUrl);
                                 this.stopCamera();
                                 this.mode = 'captured';
@@ -556,11 +580,13 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                     }}
                                 </label>
                                 <div class="flex items-center gap-1 bg-blue-200/60 p-1 rounded-xl">
-                                    <button type="button" @click="mode = 'upload'; stopCamera();" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition cursor-pointer" :class="mode === 'upload' ? 'bg-white text-blue-950 shadow-xs' : 'text-blue-800'">
-                                        📁 {{ $t('ملف', 'Fichier', 'File') }}
+                                    <button type="button" @click="mode = 'upload'; stopCamera();" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition cursor-pointer flex items-center gap-1" :class="mode === 'upload' ? 'bg-white text-blue-950 shadow-xs' : 'text-blue-800'">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                                        <span>{{ $t('ملف', 'Fichier', 'File') }}</span>
                                     </button>
-                                    <button type="button" @click="startCamera()" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition cursor-pointer" :class="mode === 'camera' || mode === 'captured' ? 'bg-blue-600 text-white shadow-xs' : 'text-blue-800'">
-                                        📷 {{ $t('تصوير مباشر', 'Caméra', 'Camera') }}
+                                    <button type="button" @click="startCamera()" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition cursor-pointer flex items-center gap-1" :class="mode === 'camera' || mode === 'captured' ? 'bg-blue-600 text-white shadow-xs' : 'text-blue-800'">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
+                                        <span>{{ $t('تصوير مباشر', 'Caméra', 'Camera') }}</span>
                                     </button>
                                 </div>
                             </div>
@@ -575,10 +601,12 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                 </div>
                                 <div class="flex flex-wrap items-center justify-center gap-2">
                                     <button type="button" @click="capture()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer">
-                                        <span>📸 {{ $t('التقاط صورة الوثيقة الآن', 'Capturer le document', 'Capture ID / Passport Document') }}</span>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                        <span>{{ $t('التقاط صورة الوثيقة الآن', 'Capturer le document', 'Capture ID / Passport Document') }}</span>
                                     </button>
                                     <button type="button" @click="switchCamera()" class="px-4 py-2 rounded-xl bg-blue-800 hover:bg-blue-900 text-white font-black text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer">
-                                        <span x-text="facingMode === 'user' ? '{{ $t('كاميرا خلفية 🔄', 'Caméra Arrière 🔄', 'Rear Cam 🔄') }}' : '{{ $t('كاميرا أمامية 🔄', 'Caméra Avant 🔄', 'Front Cam 🔄') }}'"></span>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                        <span x-text="facingMode === 'user' ? '{{ $t('كاميرا خلفية', 'Caméra Arrière', 'Rear Cam') }}' : '{{ $t('كاميرا أمامية', 'Caméra Avant', 'Front Cam') }}'"></span>
                                     </button>
                                 </div>
                             </div>
@@ -587,25 +615,34 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                 @if($captured_id_card_data)
                                     <div class="flex items-center gap-3 bg-white p-2.5 rounded-xl border border-blue-300">
                                         <img src="{{ $captured_id_card_data }}" class="w-24 h-16 rounded-lg object-cover border border-blue-400">
-                                        <div class="text-xs font-bold text-blue-900">
-                                            ✓ {{ $t('تم تصوير الوثيقة بنجاح بواسطة الكاميرا المباشرة', 'Document identité capturé', 'ID document captured cleanly via Live Camera') }}
+                                        <div class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
+                                            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                            <span>{{ $t('تم تصوير الوثيقة بنجاح بواسطة الكاميرا المباشرة', 'Document identité capturé', 'ID document captured cleanly via Live Camera') }}</span>
                                         </div>
                                     </div>
                                 @else
                                     <div class="flex flex-wrap items-center gap-2 mt-2">
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 012-2h2a2 2 0 012 2v1m-4 0h4"/></svg>
-                                            <span>{{ $t('اختر الهوية / الجواز من المعرض 📁', 'Galerie / Fichiers 📁', 'Choose ID / Passport File 📁') }}</span>
+                                            <span>{{ $t('اختر الهوية / الجواز من المعرض', 'Galerie / Fichiers', 'Choose ID / Passport File') }}</span>
                                             <input type="file" wire:model="id_card_file" accept="image/*,application/pdf,.pdf,.jpg,.jpeg,.png,.webp" class="hidden">
                                         </label>
 
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
-                                            <span>{{ $t('تصوير الهوية بالكاميرا 📷', 'Prendre Photo Identité 📷', 'Take Photo 📷') }}</span>
+                                            <span>{{ $t('تصوير الهوية بالكاميرا', 'Prendre Photo Identité', 'Take Photo') }}</span>
                                             <input type="file" wire:model="id_card_file" accept="image/*" capture="environment" class="hidden">
                                         </label>
                                     </div>
                                 @endif
+
+                                <div wire:loading wire:target="id_card_file" class="text-xs font-bold text-blue-700 flex items-center gap-2 mt-2">
+                                    <svg class="w-4 h-4 animate-spin text-blue-700" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    <span>{{ $t('جاري رفع وثيقة الهوية...', 'Téléversement du document en cours...', 'Uploading identity document...') }}</span>
+                                </div>
                             </div>
                             @error('id_card_file') <span class="block text-rose-600 text-[10px] font-bold mt-1">{{ $message }}</span> @enderror
                         </div>

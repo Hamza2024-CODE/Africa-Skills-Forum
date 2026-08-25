@@ -203,7 +203,7 @@ class OfficialRegistration extends Component
     {
         $locale = app()->getLocale();
         if (!$this->isOpen) {
-            session()->flash('error', $locale === 'fr' ? 'L\'inscription officielle est actuellement fermée par la direction.' : ($locale === 'en' ? 'Official registration is currently closed by administration.' : 'التسجيل الرسمي مغلق حالياً من طرف الإدارة العليا.'));
+            session()->flash("error", $locale === "fr" ? "L'inscription officielle est actuellement fermée par la direction." : ($locale === "en" ? "Official registration is currently closed by administration." : "التسجيل مغلق حالياً من طرف الإدارة."));
             return;
         }
 
@@ -212,12 +212,16 @@ class OfficialRegistration extends Component
             ? '/^(?:(?:\+?213|00213|0)[567][0-9]{8})$/'
             : '/^(?:\+|00)?(?:213|216|212|237|221|225|234|254|249|251|218|220|233|255|256|260|263|264|267|268|266|250|257|235|236|242|243|241|240|238|239|224|245|232|231|228|229|227|223|222|253|252|261|230|248|269|265|258|244|262|290|247)[0-9]{6,12}$/';
 
+        $hasPhoto = !empty($this->photo) || !empty($this->captured_photo_data);
+        $hasPressCard = !empty($this->press_card_file) || !empty($this->captured_id_card_data);
+        $hasIdCard = !empty($this->id_card_file) || !empty($this->captured_id_card_data);
+
         $rules = [
             'name'       => ['required', 'min:3', 'max:150', 'regex:/^[a-zA-Z\s\-\'\`\À-ÿ\x{0600}-\x{06FF}]+$/u'],
             'email'      => ['required', 'email', 'unique:users,email', 'regex:' . $emailRegex],
             'phone'      => ['required', 'regex:' . $phoneRegex],
             'country_id' => ['required', 'exists:countries,id'],
-            'photo'      => $this->captured_photo_data ? ['nullable'] : ['required', 'file', 'mimes:jpg,jpeg,png,webp', 'max:20480'],
+            'photo'      => $hasPhoto ? ['nullable'] : ['required'],
         ];
 
         $messages = [
@@ -232,8 +236,6 @@ class OfficialRegistration extends Component
                                      ? ($locale === 'fr' ? 'Numéro de téléphone invalide.' : ($locale === 'en' ? 'Invalid phone number.' : 'رقم الهاتف غير صحيح. يجب أن يتكون من 10 أرقام ويبدأ بـ (05 أو 06 أو 07) أو +213.'))
                                      : ($locale === 'fr' ? 'Veuillez saisir un numéro de téléphone valide.' : ($locale === 'en' ? 'Please enter a valid phone number.' : 'يرجى إدخال رقم هاتف صحيح برمز الدولة.')),
             'photo.required'      => $locale === 'fr' ? 'Veuillez téléverser ou capturer la photo officielle.' : ($locale === 'en' ? 'Please upload or capture official photo.' : 'يرجى تحميل الصورة الشخصية الرسمية أو التقاطها عبر الكاميرا المباشرة.'),
-            'photo.image'         => $locale === 'fr' ? 'Le fichier photo doit être une image valide.' : ($locale === 'en' ? 'Uploaded file must be a valid image.' : 'الملف المرفق للصورة يجب أن يكون صورة بحجم مناسب (JPG / PNG / WEBP).'),
-            'photo.max'           => $locale === 'fr' ? 'La taille de la photo ne doit pas dépasser 20 Mo.' : ($locale === 'en' ? 'Photo file size must not exceed 20 MB.' : 'حجم الصورة الشخصية كبير جداً (يجب ألا يتعدى 20 ميغابايت).'),
         ];
 
         if ($this->role === 'MEDIA_MANAGER') {
@@ -250,13 +252,10 @@ class OfficialRegistration extends Component
                 $messages['national_id.required'] = $locale === 'fr' ? 'Le numéro de passeport ou carte d\'identité est requis.' : ($locale === 'en' ? 'Passport or ID number is required.' : 'يرجى إدخال رقم جواز السفر أو بطاقة الهوية.');
             }
 
-            // Require Press Card OR ID Document (or camera capture)
-            $rules['press_card_file'] = $this->captured_id_card_data ? ['nullable'] : ['required', 'file', 'mimes:pdf,jpg,jpeg,png,webp', 'max:20480'];
+            $rules['press_card_file'] = $hasPressCard ? ['nullable'] : ['required'];
             $messages['press_card_file.required'] = $locale === 'fr' ? 'Veuillez fournir la carte de presse ou pièce d\'identité.' : ($locale === 'en' ? 'Please upload or capture press card / ID document.' : 'يرجى رفع ملف بطاقة الصحافة المهنية أو بطاقة الهوية/الجواز المعتمدة أو تصويرها بالكاميرا المباشرة.');
-            $messages['press_card_file.max'] = $locale === 'fr' ? 'Le fichier ne doit pas dépasser 20 Mo.' : ($locale === 'en' ? 'File size must not exceed 20 MB.' : 'حجم الملف كبير جداً (يجب ألا يتعدى 20 ميغابايت).');
         } else {
-            $rules['id_card_file'] = $this->captured_id_card_data ? ['nullable'] : ['required', 'file', 'mimes:pdf,jpg,jpeg,png,webp', 'max:20480'];
-            $messages['id_card_file.max'] = $locale === 'fr' ? 'Le fichier ne doit pas dépasser 20 Mo.' : ($locale === 'en' ? 'File size must not exceed 20 MB.' : 'حجم الملف كبير جداً (يجب ألا يتعدى 20 ميغابايت).');
+            $rules['id_card_file'] = $hasIdCard ? ['nullable'] : ['required'];
 
             if ($this->isAlgeria) {
                 $rules['national_id'] = ['required', 'regex:/^[0-9]{18}$/'];
@@ -268,7 +267,6 @@ class OfficialRegistration extends Component
                 $messages['national_id.required'] = $locale === 'fr' ? 'Le numéro de passeport est requis.' : ($locale === 'en' ? 'Passport number is required.' : 'يرجى إدخال رقم جواز السفر الدولي.');
                 $messages['id_card_file.required'] = $locale === 'fr' ? 'Veuillez téléverser le passeport international.' : ($locale === 'en' ? 'Please upload international passport.' : 'يرجى رفع أو تصوير النسخة الممسوحة ضوئياً لجواز السفر الدولي المعتمد.');
             }
-
         }
 
         $this->validate($rules, $messages);
