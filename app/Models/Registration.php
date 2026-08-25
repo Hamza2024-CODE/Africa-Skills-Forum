@@ -78,7 +78,8 @@ class Registration extends Model
         }
 
         $name = $this->participant?->first_name_ar ?? $this->user?->name ?? 'Candidate';
-        return 'https://ui-avatars.com/api/?name=' . urlencode($name) . '&background=06205C&color=fff&bold=true&size=200';
+        $initial = mb_substr($name, 0, 1);
+        return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="%2306205C"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="%23FFFFFF" font-size="90" font-family="sans-serif" font-weight="bold">' . rawurlencode($initial) . '</text></svg>';
     }
 
     public static function resolveFileUrl(?string $path): string

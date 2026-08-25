@@ -483,11 +483,11 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                 <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-2xl space-y-3 text-xs border border-slate-200 dark:border-slate-700">
                     <div class="flex justify-between border-b border-slate-200 dark:border-slate-600 pb-2">
                         <span class="text-slate-500 font-bold">{{ $t('الاسم بالعربية:', 'Nom en Arabe:', 'Name in Arabic:') }}</span>
-                        <span class="font-black text-slate-800 dark:text-slate-200">{{ $p?->first_name_ar }} {{ $p?->last_name_ar }}</span>
+                        <span class="font-black text-slate-800 dark:text-slate-200">{{ ($p?->first_name_ar || $p?->last_name_ar) ? ($p->first_name_ar . ' ' . $p->last_name_ar) : ($u?->name ?? '—') }}</span>
                     </div>
                     <div class="flex justify-between border-b border-slate-200 dark:border-slate-600 pb-2">
                         <span class="text-slate-500 font-bold">{{ $t('الاسم باللاتينية:', 'Nom en Latin:', 'Name in Latin:') }}</span>
-                        <span class="font-black text-slate-800 dark:text-slate-200" dir="ltr">{{ $p?->first_name_fr }} {{ $p?->last_name_fr }}</span>
+                        <span class="font-black text-slate-800 dark:text-slate-200" dir="ltr">{{ ($p?->first_name_fr || $p?->last_name_fr) ? ($p->first_name_fr . ' ' . $p->last_name_fr) : ($u?->name ?? '—') }}</span>
                     </div>
                     <div class="flex justify-between border-b border-slate-200 dark:border-slate-600 pb-2">
                         <span class="text-slate-500 font-bold">{{ $t('البريد الإلكتروني:', 'Adresse Email:', 'Email Address:') }}</span>
@@ -497,21 +497,51 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                         <span class="text-slate-500 font-bold">{{ $t('الهاتف:', 'Téléphone:', 'Phone Number:') }}</span>
                         <span class="font-mono font-bold text-slate-800 dark:text-slate-200" dir="ltr">{{ $p?->phone }}</span>
                     </div>
+                    @php
+                        $dJobPos = ($selectedRegistration->job_title ?? '') . ' ' . ($u?->position ?? '');
+                        $dCapTitle = $selectedRegistration->job_title ?: $u?->position;
+                        if (str_contains($dJobPos, 'VVIP') || str_contains($dJobPos, 'سامية')) {
+                            $dCapTitle = $t('شخصية سامية جداً (VVIP)', 'Très Haute Personnalité (VVIP)', 'VVIP Guest');
+                        } elseif (str_contains($dJobPos, 'VIP') || str_contains($dJobPos, 'شرف')) {
+                            $dCapTitle = $t('ضيف شرف (VIP)', 'Invité d\'Honneur (VIP)', 'VIP Guest');
+                        } elseif (str_contains($dJobPos, 'دبلوماسي') || str_contains($dJobPos, 'Diplomate')) {
+                            $dCapTitle = $t('دبلوماسي / مبعوث سفارة', 'Diplomate / Envoyé', 'Diplomat');
+                        } elseif (str_contains($dJobPos, 'رئيس') || str_contains($dJobPos, 'مسؤول الوفد') || str_contains($dJobPos, 'Chef')) {
+                            $dCapTitle = $t('رئيس الوفد الوطني', 'Chef de Délégation', 'Delegation Head');
+                        } elseif (str_contains($dJobPos, 'مؤطر') || str_contains($dJobPos, 'Coordinateur')) {
+                            $dCapTitle = $t('مؤطر ومرافق تنفيذي', 'Coordinateur de Délégation', 'Delegation Coordinator');
+                        } elseif (str_contains($dJobPos, 'عضو') || str_contains($dJobPos, 'Membre')) {
+                            $dCapTitle = $t('عضو رسمي في الوفد', 'Membre Officiel de Délégation', 'Official Delegation Member');
+                        } elseif ($u?->hasRole('SPEAKER') || str_contains($dJobPos, 'محاضر')) {
+                            $dCapTitle = $t('محاضر رئيسي (Speaker)', 'Conférencier Principal', 'Keynote Speaker');
+                        } elseif ($u?->hasRole('EXPERT') || str_contains($dJobPos, 'خبير')) {
+                            $dCapTitle = $t('خبير محكّم تقني (Expert)', 'Expert Juge Technique', 'Technical Expert Judge');
+                        } elseif ($u?->hasRole('MEDIA_MANAGER') || str_contains($dJobPos, 'صحافة') || str_contains($dJobPos, 'إعلام')) {
+                            $dCapTitle = $t('صحافة وإعلام معتمد (Media Press)', 'Presse & Médias Accrédités', 'Accredited Media & Press');
+                        } else {
+                            $dCapTitle = $dCapTitle ?: $t('زائر معتمد / مشارك عام', 'Visiteur Accrédité / Participant Général', 'Accredited Visitor / General Participant');
+                        }
+
+                        $dDomain = null;
+                        if ($u?->hasRole('EXPERT') && $selectedRegistration->skill) {
+                            $dDomain = $selectedRegistration->skill->getLocalized('name');
+                        }
+                        if (empty($dDomain)) {
+                            $dDomain = $selectedRegistration->organization_name ?: $selectedRegistration->job_title ?: $u?->position;
+                        }
+                        if (empty($dDomain)) {
+                            $dDomain = $t('الوفد والمنصة الوطنية', 'Délégation & Plateforme', 'Delegation & Platform');
+                        }
+                    @endphp
                     <div class="flex justify-between border-b border-slate-200 dark:border-slate-600 pb-2">
                         <span class="text-slate-500 font-bold">{{ $t('صفة المشاركة:', 'Qualité / Rôle:', 'Participation Role:') }}</span>
-                        <span class="font-black text-blue-600">
-                            @if($u?->hasRole('SPEAKER'))
-                                {{ $t('محاضر رئيسي (Speaker)', 'Conférencier Principal', 'Keynote Speaker') }}
-                            @elseif($u?->hasRole('EXPERT'))
-                                {{ $t('خبير محكّم (Expert)', 'Expert Juge', 'Expert Judge') }}
-                            @else
-                                {{ $t('مشارك عام / زائر (General Visitor)', 'Participant Général / Visiteur', 'General Participant / Visitor') }}
-                            @endif
+                        <span class="font-black text-amber-600 dark:text-amber-400">
+                            {{ $dCapTitle }}
                         </span>
                     </div>
                     <div class="flex justify-between border-b border-slate-200 dark:border-slate-600 pb-2">
                         <span class="text-slate-500 font-bold">{{ $t('التخصص والمجال:', 'Spécialité / Domaine:', 'Specialization / Skill:') }}</span>
-                        <span class="font-black text-slate-800 dark:text-slate-200">{{ $selectedRegistration->skill?->getLocalized('name') ?? $t('مشارك عام', 'Participant Général', 'General Participant') }}</span>
+                        <span class="font-black text-slate-800 dark:text-slate-200">{{ $dDomain }}</span>
                     </div>
                     @if($p?->national_id)
                         <div class="flex justify-between border-b border-slate-200 dark:border-slate-600 pb-2">
