@@ -16,15 +16,6 @@
     <meta http-equiv="Expires" content="0">
     <script>
         (function() {
-            var appBuildVersion = '2026.08.23.v3';
-            var currentBuild = localStorage.getItem('asf_build_v');
-            if (currentBuild !== appBuildVersion) {
-                localStorage.setItem('asf_build_v', appBuildVersion);
-                if (currentBuild) {
-                    window.location.reload(true);
-                }
-            }
-
             var savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 document.documentElement.classList.add('dark');
@@ -259,28 +250,7 @@
 </head>
 <body x-data="{ pwaUpdateAvailable: false, swWaiting: null }" x-init="
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js?v=2026.08.25.v7').then((reg) => {
-            reg.update();
-            if (reg.waiting) {
-                reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-            }
-            reg.addEventListener('updatefound', () => {
-                const newWorker = reg.installing;
-                newWorker.addEventListener('statechange', () => {
-                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                        newWorker.postMessage({ type: 'SKIP_WAITING' });
-                    }
-                });
-            });
-        });
-
-        let refreshing = false;
-        navigator.serviceWorker.addEventListener('controllerchange', () => {
-            if (!refreshing) {
-                refreshing = true;
-                window.location.reload();
-            }
-        });
+        navigator.serviceWorker.register('/sw.js?v=2026.08.25.v8').catch(() => {});
     }
 " class="font-sans antialiased h-full flex flex-col text-[#06205C] bg-[#F4F7FC] relative">
 
