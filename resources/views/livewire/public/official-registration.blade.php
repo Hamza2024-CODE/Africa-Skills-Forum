@@ -309,13 +309,13 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                                             <span>{{ $t('اختر صورة من المعرض / الجهاز', 'Galerie / Fichiers', 'Choose from Gallery / Files') }}</span>
-                                            <input type="file" onchange="handleFastPhotoCompress(event, 'setCapturedPhoto')" accept="image/*,image/png,image/jpeg,image/webp,.jpg,.jpeg,.png,.webp,.heic,.heif" class="hidden">
+                                            <input type="file" onchange="handleFastPhotoCompress(event, 'photo')" accept="image/*,image/png,image/jpeg,image/webp,.jpg,.jpeg,.png,.webp,.heic,.heif" class="hidden">
                                         </label>
 
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
                                             <span>{{ $t('التقاط صورة بالكاميرا', 'Prendre une Photo', 'Take Photo') }}</span>
-                                            <input type="file" onchange="handleFastPhotoCompress(event, 'setCapturedPhoto')" accept="image/*" capture="environment" class="hidden">
+                                            <input type="file" onchange="handleFastPhotoCompress(event, 'photo')" accept="image/*" capture="environment" class="hidden">
                                         </label>
                                     </div>
                                 @endif
@@ -719,80 +719,84 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
 </div>
 
 <script>
-function handleFastPhotoCompress(event, targetMethod) {
+function handleFastPhotoCompress(event, wireProperty) {
     const file = event.target.files && event.target.files[0];
     if (!file) return;
-
-    if (file.type === 'application/pdf') return;
 
     const componentEl = event.target.closest('[wire\\:id]');
     if (!componentEl || !window.Livewire) return;
     const lwComponent = Livewire.find(componentEl.getAttribute('wire:id'));
     if (!lwComponent) return;
 
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        let rawDataUrl = e.target.result;
-        if (!rawDataUrl) return;
+    // 1. Instantly display local preview image if it's an image file
+    if (file.type && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: e.target.result } }));
+        };
+        reader.readAsDataURL(file);
+    }
 
-        // INSTANTLY update local preview image on mobile phone screen!
-        window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: rawDataUrl } }));
-
-        let wireProp = 'photo';
-        if (targetMethod === 'setCapturedIdCard') {
-            try {
-                wireProp = (lwComponent.get('role') === 'MEDIA_MANAGER') ? 'press_card_file' : 'id_card_file';
-            } catch(err) {
-                wireProp = 'id_card_file';
-            }
-        }
-
-        const img = new Image();
-        img.onload = function() {
-            try {
-                const canvas = document.createElement('canvas');
-                let width = img.width;
-                let height = img.height;
-                const maxDim = 800;
-                if (width > maxDim || height > maxDim) {
-                    if (width > height) {
-                        height = Math.round((height * maxDim) / width);
-                        width = maxDim;
-                    } else {
-                        width = Math.round((width * maxDim) / height);
-                        height = maxDim;
+    // 2. Compress image if image file, or upload file directly
+    if (file.type && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const rawDataUrl = e.target.result;
+            const img = new Image();
+            img.onload = function() {
+                try {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    const maxDim = 800;
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
                     }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    canvas.toBlob(function(blob) {
+                        if (blob) {
+                            const compressedFile = new File([blob], file.name || 'uploaded_file.jpg', { type: 'image/jpeg' });
+                            lwComponent.upload(wireProperty, compressedFile, function() {
+                                if (lwComponent.$wire && typeof lwComponent.$wire.runInstantVerification === 'function') {
+                                    lwComponent.$wire.runInstantVerification();
+                                }
+                            });
+                        } else {
+                            lwComponent.upload(wireProperty, file, function() {
+                                if (lwComponent.$wire && typeof lwComponent.$wire.runInstantVerification === 'function') {
+                                    lwComponent.$wire.runInstantVerification();
+                                }
+                            });
+                        }
+                    }, 'image/jpeg', 0.8);
+                } catch (err) {
+                    lwComponent.upload(wireProperty, file, function() {
+                        if (lwComponent.$wire && typeof lwComponent.$wire.runInstantVerification === 'function') {
+                            lwComponent.$wire.runInstantVerification();
+                        }
+                    });
                 }
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
-                
-                canvas.toBlob(function(blob) {
-                    if (blob) {
-                        const compressedFile = new File([blob], file.name || 'uploaded_photo.jpg', { type: 'image/jpeg' });
-                        lwComponent.upload(wireProp, compressedFile, function() {
-                            lwComponent.call('runInstantVerification');
-                        });
-                    } else {
-                        lwComponent.upload(wireProp, file, function() {
-                            lwComponent.call('runInstantVerification');
-                        });
-                    }
-                }, 'image/jpeg', 0.8);
-            } catch (err) {
-                lwComponent.upload(wireProp, file, function() {
-                    lwComponent.call('runInstantVerification');
-                });
+            };
+            img.src = rawDataUrl;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        // PDF or non-image document upload
+        lwComponent.upload(wireProperty, file, function() {
+            if (lwComponent.$wire && typeof lwComponent.$wire.runInstantVerification === 'function') {
+                lwComponent.$wire.runInstantVerification();
             }
-        };
-        img.onerror = function() {
-            lwComponent.upload(wireProp, file, function() {
-                lwComponent.call('runInstantVerification');
-            });
-        };
-        img.src = rawDataUrl;
-    };
-    reader.readAsDataURL(file);
+        });
+    }
 }
 </script>
