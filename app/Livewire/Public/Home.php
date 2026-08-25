@@ -56,13 +56,21 @@ class Home extends Component
         $this->featuredVideoUrl = $settings->get('featured_video_url', 'https://www.youtube.com/embed/ee7fzNFUKIM');
 
         // Retrieve Admin Settings for Countdown Chronometer V8.4
-        $this->countdownTitleAr     = $settings->get('countdown_title_ar', 'الحدث القادم - العد التنازلي لافتتاح منتدى المهارات الإفريقية 2026');
-        $this->countdownTitleFr     = $settings->get('countdown_title_fr', 'Événement à venir — Décompte du Lancement d\'Africa Skills Forum 2026');
-        $this->countdownTitleEn     = $settings->get('countdown_title_en', 'Upcoming Event — Countdown to Africa Skills Forum 2026');
+        $this->countdownTitleAr     = $settings->get('countdown_title_ar', 'العد التنازلي لافتتاح منتدى السياسات الأفريقية للمهارات 2026');
+        $this->countdownTitleFr     = $settings->get('countdown_title_fr', 'Décompte du Lancement du Forum des Politiques Africaines des Compétences 2026');
+        $this->countdownTitleEn     = $settings->get('countdown_title_en', 'Countdown to African Skills Policy Forum 2026');
 
-        $this->countdownSubtitleAr  = $settings->get('countdown_subtitle_ar', 'Africa Skills Forum 2026 — مركز المؤتمرات محمد بن أحمد - وهران');
-        $this->countdownSubtitleFr  = $settings->get('countdown_subtitle_fr', 'Africa Skills Forum 2026 — Centre des Conventions Mohamed Ben Ahmed - Oran');
-        $this->countdownSubtitleEn  = $settings->get('countdown_subtitle_en', 'Africa Skills Forum 2026 — Mohamed Ben Ahmed Convention Center - Oran');
+        // Normalize if old title is cached or saved without "Policy"
+        if (str_contains($this->countdownTitleEn, 'Africa Skills Forum 2026') && !str_contains($this->countdownTitleEn, 'Policy')) {
+            $this->countdownTitleEn = str_replace('Africa Skills Forum 2026', 'African Skills Policy Forum 2026', $this->countdownTitleEn);
+        }
+        if (str_contains($this->countdownTitleAr, 'منتدى المهارات الإفريقية') && !str_contains($this->countdownTitleAr, 'السياسات')) {
+            $this->countdownTitleAr = str_replace('منتدى المهارات الإفريقية', 'منتدى السياسات الأفريقية للمهارات', $this->countdownTitleAr);
+        }
+
+        $this->countdownSubtitleAr  = $settings->get('countdown_subtitle_ar', 'منتدى السياسات الأفريقية للمهارات 2026 — مركز المؤتمرات محمد بن أحمد - وهران');
+        $this->countdownSubtitleFr  = $settings->get('countdown_subtitle_fr', 'Forum des Politiques Africaines des Compétences 2026 — Centre des Conventions Mohamed Ben Ahmed - Oran');
+        $this->countdownSubtitleEn  = $settings->get('countdown_subtitle_en', 'African Skills Policy Forum 2026 — Mohamed Ben Ahmed Convention Center - Oran');
 
         $this->countdownTargetDate  = $settings->get('countdown_target_date', '2026-11-16 09:00:00');
         $this->countdownTimezone     = $settings->get('countdown_timezone', 'Africa/Algiers');

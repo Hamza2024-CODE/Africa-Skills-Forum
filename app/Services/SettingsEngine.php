@@ -32,7 +32,7 @@ class SettingsEngine
         'appearance.glassmorphism_enabled' => 'true',
         'appearance.animation_level' => 'full',
 
-        'branding.site_name' => 'Africa Skills Forum',
+        'branding.site_name' => 'African Skills Policy Forum',
         'branding.site_logo' => '/AFRICA.png',
         'branding.site_logo_dark' => '/AFRICA.png',
         'branding.favicon' => '/AFRICA.png',
