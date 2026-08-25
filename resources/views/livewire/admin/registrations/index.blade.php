@@ -737,16 +737,16 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                             {{ $t('الصفة الرسمية للمشارك / المسجل *', 'Qualité / Rôle Officiel *', 'Official Capacity / Role *') }}
                         </label>
                         <select wire:model.live="editCapacityTitle" class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold">
-                            <option value="شخصية سامية جداً (VVIP)">👑 شخصية سامية جداً (VVIP) / Très Haute Personnalité</option>
-                            <option value="ضيف شرف (VIP)">⭐ ضيف شرف (VIP) / Invité d'Honneur</option>
-                            <option value="دبلوماسي / مبعوث سفارة">🏛️ دبلوماسي / مبعوث سفارة (Diplomat)</option>
-                            <option value="رئيس الوفد الوطني">🚩 رئيس الوفد الوطني (Chef de Délégation)</option>
-                            <option value="عضو رسمي في الوفد">🎗️ عضو رسمي في الوفد (Membre Officiel)</option>
-                            <option value="مؤطر ومرافق تنفيذي">📋 مؤطر ومرافق تنفيذي (Coordinateur)</option>
-                            <option value="محاضر رئيسي بالمنتدى">🎙️ محاضر رئيسي بالمنتدى (Keynote Speaker)</option>
-                            <option value="خبير محكّم تقني">⚖️ خبير محكّم تقني (Expert Judge)</option>
-                            <option value="صحافة وإعلام معتمد">📷 صحافة وإعلام معتمد (Media Press)</option>
-                            <option value="زائر معتمد / مشارك عام">مشارك عام / زائر معتمد (Visitor / Participant)</option>
+                            <option value="شخصية سامية جداً (VVIP)">شخصية سامية جداً (VVIP) / Très Haute Personnalité</option>
+                            <option value="ضيف شرف (VIP)">ضيف شرف (VIP) / Invité d'Honneur</option>
+                            <option value="دبلوماسي / مبعوث سفارة">دبلوماسي / مبعوث سفارة (Diplomat)</option>
+                            <option value="رئيس الوفد الوطني">رئيس الوفد الوطني (Chef de Délégation)</option>
+                            <option value="عضو رسمي في الوفد">عضو رسمي في الوفد (Membre Officiel)</option>
+                            <option value="مؤطر ومرافق تنفيذي">مؤطر ومرافق تنفيذي (Coordinateur)</option>
+                            <option value="محاضر رئيسي بالمنتدى">محاضر رئيسي بالمنتدى (Keynote Speaker)</option>
+                            <option value="خبير محكّم تقني">خبير محكّم تقني (Expert Judge)</option>
+                            <option value="صحافة وإعلام معتمد">صحافة وإعلام معتمد (Media Press)</option>
+                            <option value="زائر معتمد / مشارك عام">زائر معتمد / مشارك عام (Visitor / Participant)</option>
                         </select>
                     </div>
 
