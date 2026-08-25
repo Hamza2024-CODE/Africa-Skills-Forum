@@ -15,13 +15,6 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
             </div>
 
             <div class="relative z-10 text-center max-w-3xl mx-auto space-y-4">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0066FF]/20 border border-[#0066FF]/40 text-[#0066FF] text-xs font-black">
-                    <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                    </svg>
-                    <span>{{ $t('الأجندة الرسمية للمنتدى والقيعان', 'Agenda Officiel du Forum', 'Official Forum Agenda') }}</span>
-                </div>
-
                 <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight drop-shadow-2xl">
                     {{ $t('أحداث ولقاءات منتدى السياسات الأفريقية للمهارات', 'Événements & Sessions du Forum des Politiques Africaines des Compétences', 'African Skills Policy Forum Events & Sessions') }}
                 </h1>
