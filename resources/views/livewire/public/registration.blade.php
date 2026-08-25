@@ -600,63 +600,66 @@
 </div>
 
 <script>
-function handleFastPhotoCompress(event, targetMethod) {
+function handleFastPhotoCompress(event, wireProperty) {
     const file = event.target.files && event.target.files[0];
     if (!file) return;
 
-    if (file.type === 'application/pdf') return;
+    const targetProp = wireProperty || 'photoFile';
 
     const componentEl = event.target.closest('[wire\\:id]');
     if (!componentEl || !window.Livewire) return;
     const lwComponent = Livewire.find(componentEl.getAttribute('wire:id'));
     if (!lwComponent) return;
 
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        let rawDataUrl = e.target.result;
-        if (!rawDataUrl) return;
+    if (file.type && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            let rawDataUrl = e.target.result;
+            if (!rawDataUrl) return;
 
-        // INSTANTLY update local preview image on mobile phone screen!
-        window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: rawDataUrl } }));
+            window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: rawDataUrl } }));
 
-        const img = new Image();
-        img.onload = function() {
-            try {
-                const canvas = document.createElement('canvas');
-                let width = img.width;
-                let height = img.height;
-                const maxDim = 800;
-                if (width > maxDim || height > maxDim) {
-                    if (width > height) {
-                        height = Math.round((height * maxDim) / width);
-                        width = maxDim;
-                    } else {
-                        width = Math.round((width * maxDim) / height);
-                        height = maxDim;
+            const img = new Image();
+            img.onload = function() {
+                try {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    const maxDim = 800;
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
                     }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    canvas.toBlob(function(blob) {
+                        if (blob) {
+                            const compressedFile = new File([blob], file.name || 'photo.jpg', { type: 'image/jpeg' });
+                            lwComponent.upload(targetProp, compressedFile);
+                        } else {
+                            lwComponent.upload(targetProp, file);
+                        }
+                    }, 'image/jpeg', 0.8);
+                } catch (err) {
+                    lwComponent.upload(targetProp, file);
                 }
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
-                
-                canvas.toBlob(function(blob) {
-                    if (blob) {
-                        const compressedFile = new File([blob], file.name || 'photo.jpg', { type: 'image/jpeg' });
-                        lwComponent.upload('photoFile', compressedFile);
-                    } else {
-                        lwComponent.upload('photoFile', file);
-                    }
-                }, 'image/jpeg', 0.8);
-            } catch (err) {
-                lwComponent.upload('photoFile', file);
-            }
+            };
+            img.onerror = function() {
+                lwComponent.upload(targetProp, file);
+            };
+            img.src = rawDataUrl;
         };
-        img.onerror = function() {
-            lwComponent.upload('photoFile', file);
-        };
-        img.src = rawDataUrl;
-    };
-    reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+    } else {
+        lwComponent.upload(targetProp, file);
+    }
 }
 </script>
