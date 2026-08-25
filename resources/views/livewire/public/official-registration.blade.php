@@ -175,16 +175,36 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                         mode: 'upload',
                         cameraOpen: false,
                         stream: null,
-                        startCamera() {
+                        facingMode: 'user',
+                        startCamera(facing) {
+                            if (facing) this.facingMode = facing;
+                            this.stopCamera();
                             this.mode = 'camera';
-                            navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 } }).then(s => {
+                            const constraints = {
+                                video: {
+                                    facingMode: { ideal: this.facingMode },
+                                    width: { ideal: 1280 },
+                                    height: { ideal: 720 }
+                                }
+                            };
+                            navigator.mediaDevices.getUserMedia(constraints).then(s => {
                                 this.stream = s;
                                 $refs.video.srcObject = s;
                                 this.cameraOpen = true;
                             }).catch(err => {
-                                alert('تعذر فتح الكاميرا: ' + err.message);
-                                this.mode = 'upload';
+                                navigator.mediaDevices.getUserMedia({ video: true }).then(s => {
+                                    this.stream = s;
+                                    $refs.video.srcObject = s;
+                                    this.cameraOpen = true;
+                                }).catch(e => {
+                                    alert('تعذر فتح الكاميرا: ' + e.message);
+                                    this.mode = 'upload';
+                                });
                             });
+                        },
+                        switchCamera() {
+                            this.facingMode = (this.facingMode === 'user') ? 'environment' : 'user';
+                            this.startCamera(this.facingMode);
                         },
                         stopCamera() {
                             if (this.stream) { this.stream.getTracks().forEach(t => t.stop()); }
@@ -208,10 +228,10 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                             </label>
 
                             <div class="flex items-center gap-1.5 bg-slate-200/70 p-1 rounded-xl">
-                                <button type="button" @click="mode = 'upload'; stopCamera();" class="px-3 py-1 rounded-lg text-[11px] font-black transition" :class="mode === 'upload' ? 'bg-white text-indigo-900 shadow-xs' : 'text-slate-600'">
+                                <button type="button" @click="mode = 'upload'; stopCamera();" class="px-3 py-1 rounded-lg text-[11px] font-black transition cursor-pointer" :class="mode === 'upload' ? 'bg-white text-indigo-900 shadow-xs' : 'text-slate-600'">
                                     📁 {{ $t('رفع صورة', 'Fichier', 'Upload') }}
                                 </button>
-                                <button type="button" @click="startCamera()" class="px-3 py-1 rounded-lg text-[11px] font-black transition" :class="mode === 'camera' || mode === 'captured' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600'">
+                                <button type="button" @click="startCamera()" class="px-3 py-1 rounded-lg text-[11px] font-black transition cursor-pointer" :class="mode === 'camera' || mode === 'captured' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600'">
                                     📷 {{ $t('التقاط مباشر بالكاميرا', 'Caméra', 'Live Capture') }}
                                 </button>
                             </div>
@@ -223,10 +243,18 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                 <video x-ref="video" autoplay playsinline class="w-full h-full object-cover"></video>
                                 <div class="absolute inset-0 border-2 border-dashed border-white/50 rounded-2xl pointer-events-none"></div>
                             </div>
-                            <button type="button" @click="capture()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md transition flex items-center gap-2">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                                <span>{{ $t('التقاط الصورة الآن', 'Prendre la photo', 'Capture Photo Now') }}</span>
-                            </button>
+
+                            <div class="flex flex-wrap items-center justify-center gap-2">
+                                <button type="button" @click="capture()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md transition flex items-center gap-2 cursor-pointer">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                    <span>{{ $t('التقاط الصورة الآن', 'Prendre la photo', 'Capture Photo Now') }}</span>
+                                </button>
+
+                                <button type="button" @click="switchCamera()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                    <span x-text="facingMode === 'user' ? '{{ $t('كاميرا خلفية 🔄', 'Caméra Arrière 🔄', 'Rear Cam 🔄') }}' : '{{ $t('كاميرا أمامية 🔄', 'Caméra Avant 🔄', 'Front Cam 🔄') }}'"></span>
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Upload File Input / Preview -->
@@ -350,16 +378,36 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                             mode: 'upload',
                             cameraOpen: false,
                             stream: null,
-                            startCamera() {
+                            facingMode: 'environment',
+                            startCamera(facing) {
+                                if (facing) this.facingMode = facing;
+                                this.stopCamera();
                                 this.mode = 'camera';
-                                navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 } }).then(s => {
+                                const constraints = {
+                                    video: {
+                                        facingMode: { ideal: this.facingMode },
+                                        width: { ideal: 1280 },
+                                        height: { ideal: 720 }
+                                    }
+                                };
+                                navigator.mediaDevices.getUserMedia(constraints).then(s => {
                                     this.stream = s;
                                     $refs.docVideo.srcObject = s;
                                     this.cameraOpen = true;
                                 }).catch(err => {
-                                    alert('{{ __('messages.camera_access_error') }}');
-                                    this.mode = 'upload';
+                                    navigator.mediaDevices.getUserMedia({ video: true }).then(s => {
+                                        this.stream = s;
+                                        $refs.docVideo.srcObject = s;
+                                        this.cameraOpen = true;
+                                    }).catch(e => {
+                                        alert('تعذر فتح الكاميرا: ' + e.message);
+                                        this.mode = 'upload';
+                                    });
                                 });
+                            },
+                            switchCamera() {
+                                this.facingMode = (this.facingMode === 'user') ? 'environment' : 'user';
+                                this.startCamera(this.facingMode);
                             },
                             stopCamera() {
                                 if (this.stream) { this.stream.getTracks().forEach(t => t.stop()); }
@@ -382,10 +430,10 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                     {{ $t('رفع أو تصوير بطاقة الصحافة المهنية / بطاقة الهوية (PDF / صورة) *', 'Carte de Presse Professionnelle ou Pièce d’Identité *', 'Professional Press Card or ID Document (File or Camera) *') }}
                                 </label>
                                 <div class="flex items-center gap-1 bg-amber-200/60 p-1 rounded-xl">
-                                    <button type="button" @click="mode = 'upload'; stopCamera();" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition" :class="mode === 'upload' ? 'bg-white text-amber-950 shadow-xs' : 'text-amber-800'">
+                                    <button type="button" @click="mode = 'upload'; stopCamera();" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition cursor-pointer" :class="mode === 'upload' ? 'bg-white text-amber-950 shadow-xs' : 'text-amber-800'">
                                         📁 {{ $t('ملف', 'Fichier', 'File') }}
                                     </button>
-                                    <button type="button" @click="startCamera()" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition" :class="mode === 'camera' || mode === 'captured' ? 'bg-amber-600 text-white shadow-xs' : 'text-amber-800'">
+                                    <button type="button" @click="startCamera()" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition cursor-pointer" :class="mode === 'camera' || mode === 'captured' ? 'bg-amber-600 text-white shadow-xs' : 'text-amber-800'">
                                         📷 {{ $t('تصوير مباشر', 'Caméra', 'Camera') }}
                                     </button>
                                 </div>
@@ -399,9 +447,14 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         {{ $t('ضع بطاقة الصحافة داخل الإطار', 'Placez la carte de presse dans le cadre', 'Place press card inside frame') }}
                                     </div>
                                 </div>
-                                <button type="button" @click="capture()" class="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-black text-xs shadow-md transition flex items-center gap-1.5">
-                                    <span>📸 {{ $t('التقاط بطاقة الصحافة الآن', 'Capturer la carte', 'Capture Press Badge') }}</span>
-                                </button>
+                                <div class="flex flex-wrap items-center justify-center gap-2">
+                                    <button type="button" @click="capture()" class="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-black text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer">
+                                        <span>📸 {{ $t('التقاط بطاقة الصحافة الآن', 'Capturer la carte', 'Capture Press Badge') }}</span>
+                                    </button>
+                                    <button type="button" @click="switchCamera()" class="px-4 py-2 rounded-xl bg-amber-800 hover:bg-amber-900 text-white font-black text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer">
+                                        <span x-text="facingMode === 'user' ? '{{ $t('كاميرا خلفية 🔄', 'Caméra Arrière 🔄', 'Rear Cam 🔄') }}' : '{{ $t('كاميرا أمامية 🔄', 'Caméra Avant 🔄', 'Front Cam 🔄') }}'"></span>
+                                    </button>
+                                </div>
                             </div>
 
                             <div x-show="mode !== 'camera'">
