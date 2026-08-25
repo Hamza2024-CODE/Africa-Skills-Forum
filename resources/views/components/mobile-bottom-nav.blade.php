@@ -196,7 +196,7 @@
 
                 <div class="grid grid-cols-1 gap-3 pt-1">
                     <!-- Option 1: Competitors & Youth -->
-                    <a href="{{ route('official.registration') }}" class="p-4 rounded-2xl bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200 transition flex items-center gap-3.5 group">
+                    <a href="{{ route('registration') }}" class="p-4 rounded-2xl bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200 transition flex items-center gap-3.5 group">
                         <div class="w-11 h-11 rounded-xl bg-[#35A536] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
                         </div>

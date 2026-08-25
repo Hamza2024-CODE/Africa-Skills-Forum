@@ -64,9 +64,7 @@ Route::get('/news', News::class)->name('news');
 Route::get('/partners', Partners::class)->name('partners');
 Route::get('/contact', Contact::class)->name('contact');
 Route::get('/faq', Faq::class)->name('faq');
-Route::get('/registration', function () {
-    return redirect()->route('official.registration');
-})->name('registration');
+Route::get('/registration', Registration::class)->middleware('throttle:registration')->name('registration');
 Route::get('/registration/official', \App\Livewire\Public\OfficialRegistration::class)->name('official.registration');
 Route::get('/login', Login::class)->middleware('throttle:login')->name('login');
 Route::get('/forgot-password', \App\Livewire\Auth\ForgotPassword::class)->middleware('throttle:login')->name('password.request');
