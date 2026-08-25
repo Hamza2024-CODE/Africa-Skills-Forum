@@ -4,6 +4,7 @@ namespace App\Livewire\AfricanUnion;
 
 use App\Models\Country;
 use App\Models\DelegationArrival;
+use App\Models\DelegationMember;
 use App\Models\Registration;
 use App\Models\Zone;
 use Illuminate\Support\Facades\Auth;
