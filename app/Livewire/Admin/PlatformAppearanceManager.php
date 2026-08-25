@@ -59,6 +59,8 @@ class PlatformAppearanceManager extends Component
     public string $youtube_channel_url = 'https://www.youtube.com/@WorldSkillsAlgeria/videos';
     public string $youtube_channel_name = 'African Skills Policy Forum';
 
+    public bool $show_skills_section = true;
+
     public string $previewDevice = 'desktop';
 
     public mixed $site_logo_file = null;
@@ -121,6 +123,8 @@ class PlatformAppearanceManager extends Component
         $this->youtube_card_enabled = filter_var($settings->get('youtube_card_enabled', 'true'), FILTER_VALIDATE_BOOLEAN);
         $this->youtube_channel_url = $settings->get('youtube_channel_url', 'https://www.youtube.com/@WorldSkillsAlgeria/videos');
         $this->youtube_channel_name = $settings->get('youtube_channel_name', 'African Skills Policy Forum');
+
+        $this->show_skills_section = filter_var($settings->get('show_skills_section', 'true'), FILTER_VALIDATE_BOOLEAN);
     }
 
     public function updatedMaintenanceMode($value): void
@@ -164,6 +168,17 @@ class PlatformAppearanceManager extends Component
         $this->savedMessage = $this->youtube_card_enabled
             ? 'تم إظهار بطاقة قناة يوتيوب في مركز الفيديوهات بنجاح.'
             : 'تم إخفاء بطاقة قناة يوتيوب من مركز الفيديوهات بنجاح.';
+    }
+
+    public function toggleSkillsSection(): void
+    {
+        $this->show_skills_section = !$this->show_skills_section;
+        $settings = app(SettingsEngine::class);
+        $settings->set('show_skills_section', $this->show_skills_section ? 'true' : 'false', 'string', 'cms');
+        $settings->flushCache();
+        $this->savedMessage = $this->show_skills_section
+            ? 'تم إظهار قسم "تخصصات المنافسة ودليل المهن" في الصفحة الرئيسية بنجاح.'
+            : 'تم إخفاء قسم "تخصصات المنافسة ودليل المهن" من الصفحة الرئيسية بنجاح.';
     }
 
     public function saveAppearance(SettingsEngine $settings)

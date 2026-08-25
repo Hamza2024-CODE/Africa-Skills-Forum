@@ -838,6 +838,7 @@
     </section>
 
     <!-- 4. Featured Skills Showcase -->
+    @if(filter_var(platform()->get('show_skills_section', 'true'), FILTER_VALIDATE_BOOLEAN))
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b-2 border-slate-100/80 relative group/head cursor-default">
             {{-- Dynamic Ambient Light Glow with Hover Shimmer --}}
@@ -904,7 +905,11 @@
                                     {{ $skill->getLocalized('name') }}
                                 </h3>
                                 <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium">
-                                    {{ $skill->getLocalized('description') }}
+                                    {{ app()->getLocale() === 'fr' 
+                                        ? "Normes techniques et cahier des charges officiel pour l'épreuve " . $skill->getLocalized('name') . " selon les standards officiels."
+                                        : (app()->getLocale() === 'en' 
+                                            ? "Official technical description standard for " . $skill->getLocalized('name') . " skill according to official standards."
+                                            : "المعايير والوصف التقني الرسمي للتخصص " . $skill->getLocalized('name') . " وفق المعايير والضوابط المعتمدة.") }}
                                 </p>
                             </div>
 
@@ -925,6 +930,7 @@
             @endif
         </div>
     </section>
+    @endif
 
     <!-- 5. Media & Event Highlights Grid -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">

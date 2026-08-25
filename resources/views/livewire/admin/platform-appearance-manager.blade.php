@@ -337,6 +337,28 @@
                     </div>
                 </div>
             </div>
+
+            <!-- ════ HOMEPAGE SECTIONS VISIBILITY CONTROL ════ -->
+            <div class="glass-card rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+                <h2 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 01-1.187-2.19l.732-4.393A2 2 0 017.11 6.814l3.176.635a6 6 0 003.86-.517l.318-.158a6 6 0 013.86-.517l2.387.477a2 2 0 011.642 1.964v6.22a2 2 0 01-.927 1.69z"/></svg>
+                    <span>إدارة إظهار وإخفاء أقسام الصفحة الرئيسية</span>
+                </h2>
+
+                <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-black text-emerald-950 flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                            <span>قسم دليل تخصصات المنافسة (Competition Skills & Trade Guide)</span>
+                        </span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" wire:click="toggleSkillsSection" {{ $show_skills_section ? 'checked' : '' }} class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                        </label>
+                    </div>
+                    <p class="text-[11px] text-slate-600 font-medium">التحكم في إظهار أو إخفاء قسم تخصصات المنافسة ودليل المهن في الصفحة الرئيسية بنقرة واحدة.</p>
+                </div>
+            </div>
         </div>
 
         <!-- Live Preview Sidebar Pane -->
