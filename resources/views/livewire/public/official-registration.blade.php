@@ -289,15 +289,11 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                              @photo-preview-updated.window="if ($event.detail.property === 'photo') previewUrl = $event.detail.url"
                              class="flex flex-col sm:flex-row items-center gap-4 pt-1">
                             <div class="shrink-0">
-                                <template x-if="previewUrl">
-                                    <img :src="previewUrl" alt="Photo Preview" class="w-20 h-20 rounded-2xl object-cover border-2 border-emerald-600 shadow-md">
-                                </template>
-                                <template x-if="!previewUrl">
-                                    <div class="w-20 h-20 rounded-2xl bg-slate-200 text-slate-500 flex flex-col items-center justify-center border-2 border-dashed border-slate-300">
-                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                                        <span class="text-[9px] font-bold mt-1">{{ $t('صورة رسمية', 'Photo officielle', 'Official Photo') }}</span>
-                                    </div>
-                                </template>
+                                <img x-show="previewUrl" :src="previewUrl" alt="Photo Preview" class="w-20 h-20 rounded-2xl object-cover border-2 border-emerald-600 shadow-md">
+                                <div x-show="!previewUrl" class="w-20 h-20 rounded-2xl bg-slate-200 text-slate-500 flex flex-col items-center justify-center border-2 border-dashed border-slate-300">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                    <span class="text-[9px] font-bold mt-1">{{ $t('صورة رسمية', 'Photo officielle', 'Official Photo') }}</span>
+                                </div>
                             </div>
                             <div class="flex-1 text-center sm:text-start space-y-1">
                                 <p class="text-[10px] text-slate-500 font-medium">

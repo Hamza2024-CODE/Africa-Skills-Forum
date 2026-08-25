@@ -523,7 +523,7 @@
                                 <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs cursor-pointer shadow-md transition active:scale-95">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
                                     <span>{{ $t('التقاط صورة بالكاميرا', 'Prendre Photo', 'Take Photo with Camera') }}</span>
-                                    <input type="file" onchange="handleFastPhotoCompress(event, 'setCapturedPhoto')" accept="image/*" capture="environment" class="hidden">
+                                    <input type="file" onchange="handleFastPhotoCompress(event, 'photoFile')" accept="image/*" capture="environment" class="hidden">
                                 </label>
                             </div>
 
