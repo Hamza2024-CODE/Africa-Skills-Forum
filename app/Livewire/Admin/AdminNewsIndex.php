@@ -4,42 +4,43 @@ namespace App\Livewire\Admin;
 
 use App\Models\NewsArticle;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 #[Layout('components.dashboard.app-shell')]
 class AdminNewsIndex extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
-    public string $search       = '';
-    public string $filterStatus = '';
+    public string $search         = '';
+    public string $filterStatus   = '';
     public string $filterCategory = '';
 
-    // Form
+    // Form Modal
     public bool   $formOpen  = false;
     public bool   $isEditing = false;
     public ?int   $editingId = null;
 
-    #[Validate('required|min:3')] public string $title_ar       = '';
-    #[Validate('required|min:3')] public string $title_fr       = '';
-    #[Validate('nullable')]       public string $title_en       = '';
-    #[Validate('nullable')]       public string $category       = 'ANNOUNCEMENT';
-    #[Validate('nullable')]       public string $excerpt_ar     = '';
-    #[Validate('nullable')]       public string $excerpt_fr     = '';
-    #[Validate('nullable')]       public string $content_ar     = '';
-    #[Validate('nullable')]       public string $content_fr     = '';
-    #[Validate('nullable')]       public string $featured_image = '';
-    #[Validate('required')]       public string $status         = 'DRAFT';
+    public string $title_ar       = '';
+    public string $title_fr       = '';
+    public string $title_en       = '';
+    public string $category       = 'ANNOUNCEMENT';
+    public string $excerpt_ar     = '';
+    public string $excerpt_fr     = '';
+    public string $content_ar     = '';
+    public string $content_fr     = '';
+    public string $featured_image = '';
+    public $image; // Temporary uploaded image file
+    public string $status         = 'PUBLISHED';
 
-    // Drawer
+    // Preview Modal / Drawer
     public bool         $drawerOpen      = false;
     public ?NewsArticle $selectedArticle = null;
 
-    // Delete
+    // Delete Confirmation Modal
     public bool $deleteConfirmOpen = false;
-    public ?int $deleteTargetId   = null;
+    public ?int $deleteTargetId    = null;
 
     protected $queryString = ['search', 'filterStatus', 'filterCategory'];
 
@@ -47,7 +48,7 @@ class AdminNewsIndex extends Component
     public function updatingFilterStatus(): void   { $this->resetPage(); }
     public function updatingFilterCategory(): void { $this->resetPage(); }
 
-    /* ─── Form ─── */
+    /* ─── Form Operations ─── */
     public function openCreate(): void
     {
         $this->resetForm();
@@ -68,40 +69,63 @@ class AdminNewsIndex extends Component
         $this->content_ar     = $article->content_ar ?? '';
         $this->content_fr     = $article->content_fr ?? '';
         $this->featured_image = $article->featured_image ?? '';
-        $this->status         = $article->status ?? 'DRAFT';
+        $this->status         = $article->status ?? 'PUBLISHED';
+        $this->image          = null;
         $this->isEditing      = true;
         $this->formOpen       = true;
     }
 
     public function save(): void
     {
-        $this->validate(['title_ar' => 'required|min:3', 'title_fr' => 'required|min:3']);
+        $this->validate([
+            'title_ar' => 'required|min:3',
+            'image'    => $this->image ? 'image|max:5120' : 'nullable',
+        ], [
+            'title_ar.required' => 'يرجى إدخال عنوان الخبر بالعربية.',
+            'title_ar.min'      => 'العنوان يجب أن يتكون من 3 أحرف على الأقل.',
+            'image.image'       => 'الملف المرفق يجب أن يكون صورة صالحة (JPG / PNG / WEBP).',
+            'image.max'         => 'حجم الصورة يجب ألا يتجاوز 5 ميغابايت.',
+        ]);
+
+        $titleFr = !empty($this->title_fr) ? $this->title_fr : $this->title_ar;
+        $titleEn = !empty($this->title_en) ? $this->title_en : $titleFr;
+
+        $imagePath = $this->featured_image;
+        if ($this->image) {
+            $imagePath = $this->image->store('news_images', 'public');
+        }
 
         $data = [
             'title_ar'       => $this->title_ar,
-            'title_fr'       => $this->title_fr,
-            'title_en'       => $this->title_en ?: $this->title_fr,
-            'category'       => $this->category,
+            'title_fr'       => $titleFr,
+            'title_en'       => $titleEn,
+            'category'       => $this->category ?: 'ANNOUNCEMENT',
             'excerpt_ar'     => $this->excerpt_ar,
-            'excerpt_fr'     => $this->excerpt_fr,
+            'excerpt_fr'     => $this->excerpt_fr ?: $this->excerpt_ar,
             'content_ar'     => $this->content_ar,
-            'content_fr'     => $this->content_fr,
-            'featured_image' => $this->featured_image,
-            'status'         => $this->status,
+            'content_fr'     => $this->content_fr ?: $this->content_ar,
+            'featured_image' => $imagePath,
+            'status'         => $this->status ?: 'PUBLISHED',
             'author_id'      => \Illuminate\Support\Facades\Auth::id(),
             'published_at'   => $this->status === 'PUBLISHED' ? now() : null,
         ];
 
-        $this->isEditing
-            ? NewsArticle::findOrFail($this->editingId)->update($data)
-            : NewsArticle::create($data);
+        if ($this->isEditing && $this->editingId) {
+            $article = NewsArticle::findOrFail($this->editingId);
+            $article->update($data);
+            $msg = 'تم تحديث الخبر بنجاح';
+        } else {
+            NewsArticle::create($data);
+            $msg = 'تم إضافة الخبر الجديد بنجاح';
+        }
 
         $this->formOpen = false;
         $this->resetForm();
-        $this->dispatch('notify', ['type' => 'success', 'msg' => 'تم حفظ الخبر بنجاح']);
+        $this->dispatch('notify', ['type' => 'success', 'msg' => $msg]);
+        session()->flash('message', $msg);
     }
 
-    /* ─── Drawer ─── */
+    /* ─── Preview & Delete Operations ─── */
     public function openDrawer(int $id): void
     {
         $this->selectedArticle = NewsArticle::with('author')->find($id);
@@ -114,21 +138,34 @@ class AdminNewsIndex extends Component
         $this->deleteConfirmOpen = true;
     }
 
-    public function deleteArticle(): void
+    public function deleteArticle(int $id = null): void
     {
-        NewsArticle::findOrFail($this->deleteTargetId)->delete();
-        $this->deleteConfirmOpen = false;
-        $this->resetPage();
-        $this->dispatch('notify', ['type' => 'success', 'msg' => 'تم حذف المقال']);
+        $targetId = $id ?: $this->deleteTargetId;
+        if ($targetId) {
+            NewsArticle::findOrFail($targetId)->delete();
+            $msg = 'تم حذف الخبر بنجاح';
+            $this->deleteConfirmOpen = false;
+            $this->deleteTargetId    = null;
+            $this->resetPage();
+            $this->dispatch('notify', ['type' => 'success', 'msg' => $msg]);
+            session()->flash('message', $msg);
+        }
     }
 
     private function resetForm(): void
     {
         $this->editingId      = null;
-        $this->title_ar       = $this->title_fr = $this->title_en = '';
-        $this->excerpt_ar     = $this->excerpt_fr = $this->content_ar = $this->content_fr = $this->featured_image = '';
+        $this->title_ar       = '';
+        $this->title_fr       = '';
+        $this->title_en       = '';
+        $this->excerpt_ar     = '';
+        $this->excerpt_fr     = '';
+        $this->content_ar     = '';
+        $this->content_fr     = '';
+        $this->featured_image = '';
+        $this->image          = null;
         $this->category       = 'ANNOUNCEMENT';
-        $this->status         = 'DRAFT';
+        $this->status         = 'PUBLISHED';
         $this->resetErrorBag();
     }
 

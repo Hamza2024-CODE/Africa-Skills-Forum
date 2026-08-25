@@ -1,39 +1,50 @@
-<div class="space-y-5 pb-8">
+<div class="space-y-6 pb-12">
+
+    {{-- SUCCESS FLASH ALERT --}}
+    @if(session()->has('message'))
+        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold text-xs flex items-center justify-between shadow-xs">
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>{{ session('message') }}</span>
+            </div>
+            <button type="button" onclick="this.parentElement.remove()" class="text-emerald-500 hover:text-emerald-700">✕</button>
+        </div>
+    @endif
 
     {{-- HEADER --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                <div class="w-11 h-11 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-md shadow-blue-500/20">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-black text-slate-900 dark:text-slate-100">إدارة الأخبار والمقالات الرسمية</h1>
-                    <p class="text-sm font-medium text-slate-500 dark:text-slate-400">إجمالي المقالات: <span class="text-blue-600 dark:text-blue-400 font-bold">{{ $totalArticles }}</span> — المنشورة: <span class="text-emerald-600 font-bold">{{ $publishedCount }}</span></p>
+                    <h1 class="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">إدارة الأخبار والمقالات الرسمية</h1>
+                    <p class="text-xs font-medium text-slate-500 dark:text-slate-400">إجمالي المقالات: <span class="text-blue-600 dark:text-blue-400 font-bold">{{ $totalArticles }}</span> — المنشورة: <span class="text-emerald-600 font-bold">{{ $publishedCount }}</span></p>
                 </div>
             </div>
         </div>
-        <button wire:click="openCreate"
-            class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-black transition shadow-sm shrink-0">
+        <button type="button" wire:click="openCreate"
+            class="flex items-center gap-2 px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black transition shadow-lg shadow-blue-600/20 shrink-0 cursor-pointer">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.5v15m7.5-7.5h-15"/></svg>
-            كتابة خبر جديد
+            <span>كتابة خبر جديد</span>
         </button>
     </div>
 
     {{-- FILTERS --}}
-    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col sm:flex-row gap-3">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col sm:flex-row gap-3 shadow-xs">
         <div class="relative flex-1">
             <input wire:model.live.debounce.300ms="search" type="text" placeholder="بحث بعنوان المقال..."
-                class="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                class="w-full px-4 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-bold">
         </div>
         <select wire:model.live="filterCategory"
-            class="px-4 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">
+            class="px-4 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="">كل التصنيفات</option>
             <option value="ANNOUNCEMENT">إعلانات رسمية</option>
-            <option value="NEWS">أخبار مسابقة</option>
+            <option value="NEWS">أخبار وتغطيات</option>
         </select>
         <select wire:model.live="filterStatus"
-            class="px-4 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">
+            class="px-4 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="">كل الحالات</option>
             <option value="PUBLISHED">منشور</option>
             <option value="DRAFT">مسودة</option>
@@ -41,12 +52,12 @@
     </div>
 
     {{-- TABLE --}}
-    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xs overflow-hidden">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-sm">
+            <table class="w-full text-xs">
                 <thead>
                     <tr class="bg-slate-50 dark:bg-slate-700/60 text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                        <th class="px-5 py-3.5 text-start">العنوان</th>
+                        <th class="px-5 py-3.5 text-start">الغلاف & العنوان</th>
                         <th class="px-5 py-3.5 text-start">التصنيف</th>
                         <th class="px-5 py-3.5 text-start">الكاتب</th>
                         <th class="px-5 py-3.5 text-start">الحالة</th>
@@ -57,28 +68,49 @@
                     @forelse($articles as $article)
                         <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition group">
                             <td class="px-5 py-3.5 font-bold text-slate-900 dark:text-slate-100">
-                                <button wire:click="openDrawer({{ $article->id }})" class="hover:text-blue-600 transition text-start">{{ $article->title_ar }}</button>
+                                <div class="flex items-center gap-3">
+                                    @if($article->featured_image)
+                                        <img src="{{ $article->cover_url }}" alt="Cover" class="w-12 h-10 rounded-xl object-cover border border-slate-200 shrink-0">
+                                    @else
+                                        <div class="w-12 h-10 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-400 flex items-center justify-center border border-slate-200 dark:border-slate-600 shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                        </div>
+                                    @endif
+                                    <div>
+                                        <button type="button" wire:click="openDrawer({{ $article->id }})" class="hover:text-blue-600 transition text-start font-black text-xs line-clamp-1 cursor-pointer">
+                                            {{ $article->title_ar }}
+                                        </button>
+                                        <span class="text-[10px] text-slate-400 block font-normal">{{ $article->published_at ? $article->published_at->format('Y-m-d H:i') : 'غير منشور' }}</span>
+                                    </div>
+                                </div>
                             </td>
-                            <td class="px-5 py-3.5 text-slate-600 dark:text-slate-300 font-medium">{{ $article->category ?: 'إعلان' }}</td>
-                            <td class="px-5 py-3.5 text-slate-600 dark:text-slate-300 font-medium">{{ $article->author?->name ?? '—' }}</td>
+                            <td class="px-5 py-3.5 text-slate-600 dark:text-slate-300 font-bold">
+                                <span class="px-2.5 py-1 rounded-lg text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200/80">
+                                    {{ $article->category === 'ANNOUNCEMENT' ? 'إعلان رسمي' : 'خبر صحفي' }}
+                                </span>
+                            </td>
+                            <td class="px-5 py-3.5 text-slate-600 dark:text-slate-300 font-medium">{{ $article->author?->name ?? 'اللجنة الإعلامية' }}</td>
                             <td class="px-5 py-3.5">
-                                <span class="px-2.5 py-1 rounded-full text-xs font-bold {{ $article->status === 'PUBLISHED' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700' }}">
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-black {{ $article->status === 'PUBLISHED' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200' }}">
                                     {{ $article->status === 'PUBLISHED' ? 'منشور' : 'مسودة' }}
                                 </span>
                             </td>
                             <td class="px-5 py-3.5 text-end">
                                 <div class="flex items-center justify-end gap-1.5">
-                                    <button wire:click="openEdit({{ $article->id }})" class="p-1.5 text-slate-500 hover:text-blue-600 rounded-lg hover:bg-slate-100 transition">
+                                    <button type="button" wire:click="openDrawer({{ $article->id }})" title="معاينة التفاصيل" class="p-2 text-slate-500 hover:text-blue-600 rounded-xl hover:bg-blue-50 transition cursor-pointer">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    </button>
+                                    <button type="button" wire:click="openEdit({{ $article->id }})" title="تعديل المقال" class="p-2 text-slate-500 hover:text-indigo-600 rounded-xl hover:bg-indigo-50 transition cursor-pointer">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                                     </button>
-                                    <button wire:click="confirmDelete({{ $article->id }})" class="p-1.5 text-slate-500 hover:text-red-600 rounded-lg hover:bg-slate-100 transition">
+                                    <button type="button" wire:click="confirmDelete({{ $article->id }})" title="حذف المقال" class="p-2 text-slate-500 hover:text-rose-600 rounded-xl hover:bg-rose-50 transition cursor-pointer">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                     </button>
                                 </div>
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="5" class="px-5 py-12 text-center text-slate-400 font-medium">لا توجد مقالات مسجلة</td></tr>
+                        <tr><td colspan="5" class="px-5 py-12 text-center text-slate-400 font-bold">لا توجد مقالات أو أخبار مسجلة حالياً</td></tr>
                     @endforelse
                 </tbody>
             </table>
@@ -88,47 +120,130 @@
         @endif
     </div>
 
-    {{-- MODAL FORM --}}
+    {{-- CREATE & EDIT MODAL FORM --}}
     @if($formOpen)
-        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
-            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 max-w-lg w-full space-y-4 border border-slate-200 dark:border-slate-700 shadow-xl">
-                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
-                    <h3 class="text-lg font-black text-slate-900 dark:text-slate-100">{{ $isEditing ? 'تعديل المقال' : 'كتابة خبر جديد' }}</h3>
-                    <button wire:click="$set('formOpen', false)" class="text-slate-400 hover:text-slate-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 max-w-2xl w-full space-y-5 border border-slate-200 dark:border-slate-700 shadow-2xl max-h-[90vh] overflow-y-auto">
+                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-4">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                        </div>
+                        <h3 class="text-base font-black text-slate-900 dark:text-slate-100">{{ $isEditing ? 'تعديل المقال الإخباري' : 'كتابة خبر رسمـي جديد' }}</h3>
+                    </div>
+                    <button type="button" wire:click="$set('formOpen', false)" class="text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
                 </div>
-                <div class="space-y-3">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">العنوان بالعربية *</label>
-                        <input wire:model="title_ar" type="text" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 dark:text-slate-100">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">العنوان بالفرنسية *</label>
-                        <input wire:model="title_fr" type="text" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 dark:text-slate-100">
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
+
+                <div class="space-y-4 text-xs font-semibold">
+                    {{-- Article Title (Arabic & French) --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">التصنيف</label>
-                            <select wire:model="category" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 dark:text-slate-100">
+                            <label class="block text-slate-700 dark:text-slate-300 font-black mb-1">عنوان الخبر (بالعربية) *</label>
+                            <input wire:model="title_ar" type="text" placeholder="أدخل عنوان الخبر بالعربية..." class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 dark:text-slate-100 font-bold">
+                            @error('title_ar') <span class="text-rose-500 text-[10px] font-bold mt-1 block">{{ $message }}</span> @enderror
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 dark:text-slate-300 font-black mb-1">عنوان الخبر (بالفرنسية)</label>
+                            <input wire:model="title_fr" type="text" placeholder="Titre de l'article en français..." class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 dark:text-slate-100 font-bold">
+                            @error('title_fr') <span class="text-rose-500 text-[10px] font-bold mt-1 block">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    {{-- Category & Status --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-slate-700 dark:text-slate-300 font-black mb-1">تصنيف المقال *</label>
+                            <select wire:model="category" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 dark:text-slate-100 font-bold">
                                 <option value="ANNOUNCEMENT">إعلان رسمي</option>
-                                <option value="NEWS">خبر صحفي</option>
+                                <option value="NEWS">خبر صحفي وتغطية</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">الحالة</label>
-                            <select wire:model="status" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 dark:text-slate-100">
-                                <option value="DRAFT">مسودة</option>
-                                <option value="PUBLISHED">منشور</option>
+                            <label class="block text-slate-700 dark:text-slate-300 font-black mb-1">حالة النشر *</label>
+                            <select wire:model="status" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 dark:text-slate-100 font-bold">
+                                <option value="PUBLISHED">منشور للعموم</option>
+                                <option value="DRAFT">مسودة (غير منشور)</option>
                             </select>
                         </div>
                     </div>
+
+                    {{-- Cover Image Upload --}}
+                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 space-y-3">
+                        <label class="block text-slate-800 dark:text-slate-200 font-black">صورة غلاف الخبر (رفع صورة جديدة أو احتفاظ بالحالية)</label>
+                        <div class="flex items-center gap-4">
+                            @if($image)
+                                <img src="{{ $image->temporaryUrl() }}" class="w-20 h-16 rounded-xl object-cover border-2 border-blue-600 shadow-xs shrink-0">
+                            @elseif($featured_image)
+                                <img src="{{ Storage::disk('public')->url($featured_image) }}" class="w-20 h-16 rounded-xl object-cover border border-slate-300 shrink-0">
+                            @endif
+                            <input type="file" wire:model="image" accept="image/*" class="text-xs text-slate-700 dark:text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                        </div>
+                        @error('image') <span class="text-rose-500 text-[10px] font-bold block">{{ $message }}</span> @enderror
+                    </div>
+
+                    {{-- Excerpt Summary --}}
                     <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">محتوى المقال (عربي)</label>
-                        <textarea wire:model="content_ar" rows="4" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 dark:text-slate-100 resize-y"></textarea>
+                        <label class="block text-slate-700 dark:text-slate-300 font-black mb-1">الملخص التوضيحي للخبر (Arabic Excerpt)</label>
+                        <textarea wire:model="excerpt_ar" rows="2" placeholder="ملخص قصير يظهر في بطاقات الأخبار الرئيسية..." class="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 dark:text-slate-100 font-medium resize-y"></textarea>
+                    </div>
+
+                    {{-- Full Content --}}
+                    <div>
+                        <label class="block text-slate-700 dark:text-slate-300 font-black mb-1">محتوى المقال الكامل (Arabic Content)</label>
+                        <textarea wire:model="content_ar" rows="5" placeholder="أكتب تفاصيل الخبر الكاملة هنا..." class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 dark:text-slate-100 font-medium resize-y"></textarea>
                     </div>
                 </div>
-                <div class="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-700">
-                    <button wire:click="$set('formOpen', false)" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl">إلغاء</button>
-                    <button wire:click="save" class="px-5 py-2 text-xs font-black text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs">حفظ المقال</button>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-700">
+                    <button type="button" wire:click="$set('formOpen', false)" class="px-5 py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl transition">إلغاء</button>
+                    <button type="button" wire:click="save" class="px-6 py-2.5 text-xs font-black text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md transition flex items-center gap-1.5 cursor-pointer">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                        <span>{{ $isEditing ? 'حفظ التعديلات' : 'نشر المقال الآن' }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {{-- DELETE CONFIRMATION MODAL --}}
+    @if($deleteConfirmOpen)
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 max-w-md w-full space-y-4 border border-slate-200 dark:border-slate-700 shadow-2xl text-center">
+                <div class="w-14 h-14 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto shadow-inner">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </div>
+                <div>
+                    <h3 class="text-base font-black text-slate-900 dark:text-slate-100">تأكيد حذف المقال الإخباري</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">هل أنت تأكد من رغبتك في حذف هذا الخبر نهائياً؟ لا يمكن التراجع عن هذا الإجراء.</p>
+                </div>
+                <div class="flex items-center justify-center gap-3 pt-2">
+                    <button type="button" wire:click="$set('deleteConfirmOpen', false)" class="px-5 py-2.5 rounded-xl text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">إلغاء</button>
+                    <button type="button" wire:click="deleteArticle" class="px-6 py-2.5 rounded-xl text-xs font-black text-white bg-rose-600 hover:bg-rose-700 shadow-md transition cursor-pointer">حذف نهائي</button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {{-- ARTICLE PREVIEW DRAWER --}}
+    @if($drawerOpen && $selectedArticle)
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 max-w-xl w-full space-y-4 border border-slate-200 dark:border-slate-700 shadow-2xl">
+                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
+                    <h3 class="text-sm font-black text-slate-900 dark:text-slate-100">معاينة تفاصيل المقال</h3>
+                    <button type="button" wire:click="$set('drawerOpen', false)" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
+                </div>
+                @if($selectedArticle->featured_image)
+                    <img src="{{ $selectedArticle->cover_url }}" class="w-full h-48 rounded-2xl object-cover border border-slate-200">
+                @endif
+                <div class="space-y-2">
+                    <h2 class="text-lg font-black text-slate-900 dark:text-slate-100 leading-snug">{{ $selectedArticle->title_ar }}</h2>
+                    @if($selectedArticle->title_fr)
+                        <h4 class="text-xs font-bold text-slate-500 italic">{{ $selectedArticle->title_fr }}</h4>
+                    @endif
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium pt-2 whitespace-pre-line">{{ $selectedArticle->content_ar ?: $selectedArticle->excerpt_ar }}</p>
+                </div>
+                <div class="flex justify-end pt-3">
+                    <button type="button" wire:click="$set('drawerOpen', false)" class="px-5 py-2 rounded-xl bg-slate-100 text-xs font-bold text-slate-700 hover:bg-slate-200">إغلاق</button>
                 </div>
             </div>
         </div>
