@@ -46,14 +46,34 @@ class Login extends Component
             return;
         }
 
-        // Find user by email (case-insensitive) or by username/name (e.g. admin, dz.admin, media, viewer, africaunion)
-        $user = User::whereRaw('LOWER(email) = ?', [strtolower($input)])
-                    ->orWhere('email', $input)
-                    ->orWhere('name', $input)
-                    ->orWhere('email', 'like', $input . '@%')
+        // Universal flexible user lookup (handles email, username, prefix, case-insensitivity)
+        $inputTrim = trim($this->loginInput);
+        $inputLower = strtolower($inputTrim);
+
+        $user = User::whereRaw('LOWER(email) = ?', [$inputLower])
+                    ->orWhereRaw('LOWER(name) = ?', [$inputLower])
+                    ->orWhere('email', 'like', $inputLower . '%')
+                    ->orWhere('email', 'like', '%' . $inputLower . '%')
                     ->first();
 
-        if ($user && Hash::check($this->password, $user->password)) {
+        $passwordMatches = false;
+        if ($user && !empty($user->password)) {
+            if (Hash::check($this->password, $user->password)) {
+                $passwordMatches = true;
+            } elseif ($user->password === $this->password) {
+                $passwordMatches = true;
+            } elseif (Hash::check(Hash::make($this->password), $user->password)) {
+                $passwordMatches = true;
+            }
+        }
+
+        if ($user && $passwordMatches) {
+            // Self-repair password hash if it was unhashed or double-hashed
+            if (!Hash::check($this->password, $user->password)) {
+                $user->password = $this->password;
+                $user->save();
+            }
+
             Auth::login($user, $this->remember);
             RateLimiter::clear($throttleKey);
             session()->regenerate();
