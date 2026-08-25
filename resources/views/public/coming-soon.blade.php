@@ -5,7 +5,7 @@
 
     $title = match($locale) {
         'fr' => $settings->get('coming_soon_title_fr', 'Bientôt disponible — Forum des Politiques Africaines des Compétences 2026'),
-        'en' => $settings->get('coming_soon_title_en', 'Coming Soon — Africa Skills Policy Forum 2026'),
+        'en' => $settings->get('coming_soon_title_en', 'Coming Soon — African Skills Policy Forum 2026'),
         default => $settings->get('coming_soon_title_ar', 'انتظرونا قريباً — منتدى السياسات الأفريقية للمهارات 2026'),
     };
 
@@ -24,7 +24,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>{{ $title }} — Africa Skills Forum 2026</title>
+    <title>{{ $title }} — African Skills Policy Forum 2026</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

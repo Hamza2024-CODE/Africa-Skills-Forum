@@ -25,7 +25,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
 
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-2xl">
-                    {{ $t('فيديوهات وبث منتدى المهارات الإفريقية المباشرة', 'Vidéos & Couverture Média — Africa Skills Forum', 'Africa Skills Forum Videos & Live Coverage') }}
+                    {{ $t('فيديوهات وبث منتدى السياسات الأفريقية للمهارات المباشرة', 'Vidéos & Couverture Média — Forum des Politiques Africaines des Compétences', 'African Skills Policy Forum Videos & Live Coverage') }}
                 </h1>
                 <p class="text-xs sm:text-base text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto drop-shadow-md">
                     {{ $t('انقر على أي فيديو لمشاهدته مباشرة من القناة الرسمية داخل المنصة بدقة عالية.', 'Regardez les reportages vidéo et directes depuis la chaîne officielle.', 'Watch live video streams and forum highlights directly on the platform.') }}

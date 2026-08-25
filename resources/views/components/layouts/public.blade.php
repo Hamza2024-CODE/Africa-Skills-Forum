@@ -394,7 +394,7 @@
 
             <!-- Welcome Text Message -->
             <p class="text-[11px] sm:text-xs font-bold text-[#052D48] dark:text-white leading-snug sm:leading-relaxed">
-                {{ app()->getLocale() === 'fr' ? 'Bienvenue au Forum Africa Skills Forum 2026 ! L\'Algérie vous accueille à Oran.' : (app()->getLocale() === 'en' ? 'Welcome to Africa Skills Forum 2026! Algeria welcomes all delegations.' : 'أهلاً بكم في منتدى المهارات الإفريقية 2026! الجزائر ترحب بجميع الوفود والمشاركين بوهران.') }}
+                {{ app()->getLocale() === 'fr' ? 'Bienvenue au Forum des Politiques Africaines des Compétences 2026 ! L\'Algérie vous accueille à Oran.' : (app()->getLocale() === 'en' ? 'Welcome to African Skills Policy Forum 2026! Algeria welcomes all delegations.' : 'أهلاً بكم في منتدى السياسات الأفريقية للمهارات 2026! الجزائر ترحب بجميع الوفود والمشاركين بوهران.') }}
             </p>
 
             <!-- Interactive Quick Link Button -->

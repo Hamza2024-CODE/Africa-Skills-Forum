@@ -26,7 +26,7 @@
                     <img src="/AFRICA.png" alt="{{ platform()->name() }}" class="h-14 sm:h-16 w-auto object-contain filter drop-shadow-xl shrink-0">
                     <div>
                         <h1 class="font-black text-xl sm:text-2xl text-white leading-tight">
-                            {{ app()->getLocale() === 'fr' ? 'Africa Skills Forum 2026' : (app()->getLocale() === 'en' ? 'Africa Skills Forum 2026' : 'منتدى المهارات الإفريقية 2026') }}
+                            {{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences 2026' : (app()->getLocale() === 'en' ? 'African Skills Policy Forum 2026' : 'منتدى السياسات الأفريقية للمهارات 2026') }}
                         </h1>
                         <span class="text-[10px] font-bold text-slate-300 block mt-1">
                             {{ app()->getLocale() === 'fr' ? 'Oran, Algérie — CCO' : (app()->getLocale() === 'en' ? 'Oran, Algeria — CCO' : 'وهران، الجزائر — مركز المؤتمرات CCO') }}

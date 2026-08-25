@@ -14,7 +14,7 @@
         <div class="max-w-4xl mx-auto space-y-4">
             <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-md hover:shadow-lg transition space-y-2">
                 <h3 class="text-base font-black text-[#0B2A6F]">
-                    {{ app()->getLocale() === 'fr' ? 'Qui peut s\'inscrire et participer au Forum Africa Skills Forum ?' : (app()->getLocale() === 'en' ? 'Who can register and participate in Africa Skills Forum?' : 'من يمكنه التسجيل والمشاركة في منتدى المهارات الإفريقية Africa Skills Forum؟') }}
+                    {{ app()->getLocale() === 'fr' ? 'Qui peut s\'inscrire et participer au Forum des Politiques Africaines des Compétences ?' : (app()->getLocale() === 'en' ? 'Who can register and participate in African Skills Policy Forum?' : 'من يمكنه التسجيل والمشاركة في منتدى السياسات الأفريقية للمهارات؟') }}
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed font-medium">
                     {{ app()->getLocale() === 'fr' ? 'L\'inscription est ouverte aux délégués, experts, jeunes talents et délégations africaines partenaires.' : (app()->getLocale() === 'en' ? 'Registration is open to African delegates, experts, skilled youth, and partner national delegations.' : 'يتاح التسجيل لجميع المتربصين والخبراء والشباب والوفود الوطنية الإفريقية الشريكة، وفقاً للشروط والاعتمادات الرسمية للمنتدى.') }}

@@ -7,7 +7,7 @@
                 <div class="flex items-center gap-3 bg-white p-2 px-4 sm:px-5 rounded-2xl inline-flex shadow-md border border-slate-200/60 overflow-hidden shrink-0">
                     <img src="{{ asset('ministry-logo-trimmed.png') }}" alt="وزارة التكوين والتعليم المهنيين" class="h-7 sm:h-8 w-auto object-contain shrink-0">
                     <div class="h-5 sm:h-6 w-px bg-slate-300 shrink-0"></div>
-                    <img src="{{ asset('africa-logo-trimmed.png') }}" alt="African Union - Africa Skills Forum" class="h-7 sm:h-8 w-auto object-contain shrink-0">
+                    <img src="{{ asset('africa-logo-trimmed.png') }}" alt="African Union - African Skills Policy Forum" class="h-7 sm:h-8 w-auto object-contain shrink-0">
                 </div>
 
 
@@ -18,7 +18,7 @@
 
             <!-- Col 2: Africa Skills Forum Links -->
             <div>
-                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">{{ app()->getLocale() === 'fr' ? 'Africa Skills Forum' : (app()->getLocale() === 'en' ? 'Africa Skills Forum' : 'منتدى المهارات الإفريقية') }}</h4>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">{{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences' : (app()->getLocale() === 'en' ? 'African Skills Policy Forum' : 'منتدى السياسات الأفريقية للمهارات') }}</h4>
                 <ul class="space-y-2.5 text-xs text-blue-100/90 font-medium">
                     <li><a href="{{ route('guide') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Guide & Agenda du Forum' : (app()->getLocale() === 'en' ? 'Forum Guide & Agenda' : 'دليل وبرنامج المنتدى') }}</a></li>
                     <li><a href="{{ route('events') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Panels & Conférences' : (app()->getLocale() === 'en' ? 'Panels & Conferences' : 'الجلسات والمؤتمرات') }}</a></li>

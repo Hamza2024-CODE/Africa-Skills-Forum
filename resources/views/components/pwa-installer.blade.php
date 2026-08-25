@@ -77,7 +77,7 @@
                 </div>
                 <div class="space-y-0.5">
                     <h4 class="text-xs sm:text-sm font-black text-white leading-tight">
-                        {{ app()->getLocale() === 'fr' ? 'Application Africa Skills Forum 📱' : (app()->getLocale() === 'en' ? 'Africa Skills Forum App 📱' : 'تطبيق منتدى المهارات الإفريقية 📱') }}
+                        {{ app()->getLocale() === 'fr' ? 'Application Forum des Politiques Africaines 📱' : (app()->getLocale() === 'en' ? 'African Skills Policy Forum App 📱' : 'تطبيق منتدى السياسات الأفريقية للمهارات 📱') }}
                     </h4>
                     <p class="text-[10px] text-blue-100 font-bold leading-tight">
                         <template x-if="!isIOS">
