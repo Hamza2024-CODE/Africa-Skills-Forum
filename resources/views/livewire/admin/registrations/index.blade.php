@@ -554,7 +554,73 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                             <span class="text-slate-500 font-bold">{{ $t('رقم جواز السفر:', 'Numéro de Passeport:', 'Passport Number:') }}</span>
                             <span class="font-mono font-black text-amber-600">{{ $p->passport_number }}</span>
                         </div>
-                    @endif
+                </div>
+
+                {{-- Official Photos & Identity Documents Preview --}}
+                <div class="space-y-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+                    <h4 class="text-xs font-black text-slate-900 dark:text-slate-100 uppercase tracking-wider flex items-center gap-2">
+                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <span>{{ $t('الصور والوثائق الثبوتية المعاينة:', 'Photos & Documents Joints:', 'Photos & Verification Documents:') }}</span>
+                    </h4>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {{-- 1. Official Personal Photo Preview --}}
+                        @php
+                            $personalPhoto = $selectedRegistration->photo_url ?: $u?->avatar_url;
+                        @endphp
+                        <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 flex flex-col items-center text-center space-y-2">
+                            <span class="text-[11px] font-black text-slate-700 dark:text-slate-300">
+                                📷 {{ $t('الصورة الشخصية للاعتماد', 'Photo d\'Accréditation', 'Official Passport Photo') }}
+                            </span>
+                            @if($personalPhoto)
+                                <a href="{{ $personalPhoto }}" target="_blank" class="relative group block overflow-hidden rounded-xl border border-slate-300 shadow-sm">
+                                    <img src="{{ $personalPhoto }}" alt="Personal Photo" class="w-28 h-32 object-cover transition duration-300 group-hover:scale-105">
+                                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-[10px] font-bold transition">
+                                        🔍 {{ $t('تكبير', 'Agrandir', 'Zoom') }}
+                                    </div>
+                                </a>
+                            @else
+                                <div class="w-28 h-32 rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-400 text-xs">
+                                    {{ $t('غير متوفرة', 'Non disponible', 'Not available') }}
+                                </div>
+                            @endif
+                        </div>
+
+                        {{-- 2. National ID or Passport Document Preview --}}
+                        @php
+                            $docPath = $selectedRegistration->national_id_pdf_path 
+                                    ?? $selectedRegistration->passport_pdf_path 
+                                    ?? $selectedRegistration->documents?->first()?->file_path 
+                                    ?? null;
+                            $docUrl = $docPath ? \App\Models\Registration::resolveFileUrl($docPath) : null;
+                            $isPdf = $docPath && (str_ends_with(strtolower($docPath), '.pdf') || str_contains(strtolower($docPath), 'pdf'));
+                        @endphp
+                        <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 flex flex-col items-center text-center space-y-2">
+                            <span class="text-[11px] font-black text-slate-700 dark:text-slate-300">
+                                🪪 {{ $t('صورة الهوية / جواز السفر', 'Pièce d\'Identité / Passeport', 'ID Card / Passport') }}
+                            </span>
+                            @if($docUrl)
+                                @if($isPdf)
+                                    <a href="{{ $docUrl }}" target="_blank" class="w-28 h-32 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 flex flex-col items-center justify-center text-red-600 space-y-1 hover:bg-red-100 transition p-2">
+                                        <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                                        <span class="text-[10px] font-black">PDF Document</span>
+                                        <span class="text-[9px] underline">فتح الملف ↗</span>
+                                    </a>
+                                @else
+                                    <a href="{{ $docUrl }}" target="_blank" class="relative group block overflow-hidden rounded-xl border border-slate-300 shadow-sm">
+                                        <img src="{{ $docUrl }}" alt="ID Card / Passport" class="w-28 h-32 object-cover transition duration-300 group-hover:scale-105">
+                                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-[10px] font-bold transition">
+                                            🔍 {{ $t('تكبير', 'Agrandir', 'Zoom') }}
+                                        </div>
+                                    </a>
+                                @endif
+                            @else
+                                <div class="w-28 h-32 rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-400 text-xs font-bold">
+                                    {{ $t('غير متوفرة', 'Non disponible', 'Not available') }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
 
                 {{-- Attached Documents --}}
