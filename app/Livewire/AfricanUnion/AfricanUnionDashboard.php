@@ -116,7 +116,7 @@ class AfricanUnionDashboard extends Component
 
         $accreditations = $accreditationsQuery->paginate(12);
 
-        // Security Zones Definitions
+        // Security Zones Definitions (Multi-Language 100%)
         $securityZones = [
             [
                 'code' => 'ZONE-01',
@@ -125,7 +125,9 @@ class AfricanUnionDashboard extends Component
                 'name_en' => 'Ministerial Plenary & AU Commission Hall',
                 'access_level' => 'HIGH_SECURITY',
                 'badge_color' => '#006837', // AU Deep Green
-                'allowed_roles' => ['الوزراء الأفارقة', 'مفوضو الاتحاد الأفريقي', 'رؤساء الوفود الدبلوماسية', 'كبار الشخصيات VIP'],
+                'allowed_roles_ar' => ['الوزراء الأفارقة', 'مفوضو الاتحاد الأفريقي', 'رؤساء الوفود الدبلوماسية', 'كبار الشخصيات VIP'],
+                'allowed_roles_fr' => ['Ministres Africains', 'Commissaires UA', 'Chefs de Délégations', 'Dignitaires VIP'],
+                'allowed_roles_en' => ['African Ministers', 'AU Commissioners', 'Heads of Delegation', 'VIP Dignitaries'],
             ],
             [
                 'code' => 'ZONE-02',
@@ -134,7 +136,9 @@ class AfricanUnionDashboard extends Component
                 'name_en' => 'Ministerial Roundtables & Bilateral Lounges',
                 'access_level' => 'RESTRICTED',
                 'badge_color' => '#D4AF37', // AU Gold
-                'allowed_roles' => ['الوفود الوزارية الرسمية', 'الخبراء المعتمدون', 'المسؤولون التنفيذيون'],
+                'allowed_roles_ar' => ['الوفود الوزارية الرسمية', 'الخبراء المعتمدون', 'المسؤولون التنفيذيون'],
+                'allowed_roles_fr' => ['Délégations Ministérielles', 'Experts Accrédités', 'Cadres Exécutifs'],
+                'allowed_roles_en' => ['Official Delegations', 'Accredited Experts', 'Executive Officials'],
             ],
             [
                 'code' => 'ZONE-03',
@@ -143,7 +147,9 @@ class AfricanUnionDashboard extends Component
                 'name_en' => 'VIP Executive Protocol Lounge',
                 'access_level' => 'PROTOCOL_ONLY',
                 'badge_color' => '#0B2A6F', // Deep Navy
-                'allowed_roles' => ['ضيوف الشرف', 'الدبلوماسيون', 'الرعاة البارزون'],
+                'allowed_roles_ar' => ['ضيوف الشرف', 'الدبلوماسيون', 'الرعاة البارزون'],
+                'allowed_roles_fr' => ['Invités d\'Honneur', 'Diplomates', 'Partenaires Majeurs'],
+                'allowed_roles_en' => ['Guests of Honor', 'Diplomats', 'Major Sponsors'],
             ],
             [
                 'code' => 'ZONE-04',
@@ -152,7 +158,9 @@ class AfricanUnionDashboard extends Component
                 'name_en' => 'International Press & Broadcast Center',
                 'access_level' => 'PRESS_MEDIA',
                 'badge_color' => '#C0392B', // Media Red
-                'allowed_roles' => ['الصحافة الدولية والمحلية', 'فرق التغطية والإعلام', 'مسؤولو التواصل'],
+                'allowed_roles_ar' => ['الصحافة الدولية والمحلية', 'فرق التغطية والإعلام', 'مسؤولو التواصل'],
+                'allowed_roles_fr' => ['Presse Internationale', 'Équipes Média & TV', 'Chargés de Com'],
+                'allowed_roles_en' => ['International Press', 'Media & TV Crews', 'Communication Leads'],
             ],
             [
                 'code' => 'ZONE-05',
@@ -161,7 +169,9 @@ class AfricanUnionDashboard extends Component
                 'name_en' => 'Skills Exhibition & Technical Workshops',
                 'access_level' => 'GENERAL_ACCESS',
                 'badge_color' => '#24BDC3', // Teal
-                'allowed_roles' => ['جميع المشاركين والزوار المعتمدين', 'المتنافسون والخبراء التقنيون'],
+                'allowed_roles_ar' => ['جميع المشاركين والزوار المعتمدين', 'المتنافسون والخبراء التقنيون'],
+                'allowed_roles_fr' => ['Tous Participants Accrédités', 'Compétiteurs & Experts'],
+                'allowed_roles_en' => ['All Accredited Delegates', 'Competitors & Experts'],
             ],
         ];
 

@@ -299,6 +299,9 @@
     <!-- ════════════════════════════════════════════════════════════════════════════════════
          6. TAB 3: UNIFIED ACCREDITATION MASTER TABLE
          ════════════════════════════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════════════════════════
+         6. TAB 3: UNIFIED ACCREDITATION MASTER TABLE
+         ════════════════════════════════════════════════════════════════════════════════════ -->
     @if($activeTab === 'accreditations')
         <div class="bg-white dark:bg-[#031826] p-6 rounded-3xl border border-slate-200 dark:border-[#24BDC3]/30 shadow-xl space-y-6">
             
@@ -307,26 +310,26 @@
                 <div>
                     <h3 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
                         <svg class="w-5 h-5 text-[#006837]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        <span>السجل الموحد لبطاقات الاعتماد والمسجلين</span>
+                        <span>{{ app()->getLocale() === 'fr' ? 'Registre des Accréditations & Délégués' : (app()->getLocale() === 'en' ? 'Accreditation Master List & Delegates' : 'السجل الموحد لبطاقات الاعتماد والمسجلين') }}</span>
                     </h3>
-                    <p class="text-xs text-slate-500 font-medium">عرض تفاصيل بطاقات الاعتماد والوفود الرسمية بدون صلاحية التعديل.</p>
+                    <p class="text-xs text-slate-500 font-medium">{{ app()->getLocale() === 'fr' ? 'Consultation officielle en lecture seule des badges d\'accréditation.' : (app()->getLocale() === 'en' ? 'Official read-only accreditation master register.' : 'عرض تفاصيل بطاقات الاعتماد والوفود الرسمية بدون صلاحية التعديل.') }}</p>
                 </div>
 
                 <div class="flex flex-wrap items-center gap-3">
                     <!-- Search Input -->
                     <div class="relative">
-                        <input type="text" wire:model.live.debounce.300ms="search" placeholder="بحث بالاسم، رقم التسجيل، الجواز..." class="ps-9 pe-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs font-bold text-slate-900 dark:text-white w-64">
+                        <input type="text" wire:model.live.debounce.300ms="search" placeholder="{{ app()->getLocale() === 'fr' ? 'Rechercher nom, badge, passeport...' : (app()->getLocale() === 'en' ? 'Search name, badge number, passport...' : 'بحث بالاسم، رقم التسجيل، الجواز...') }}" class="ps-9 pe-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs font-bold text-slate-900 dark:text-white w-64">
                         <svg class="w-4 h-4 text-slate-400 absolute start-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                     </div>
 
                     <!-- Role Filter -->
                     <select wire:model.live="roleFilter" class="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs font-bold text-slate-900 dark:text-white">
-                        <option value="ALL">جميع الصفات والأدوار</option>
-                        <option value="VIP">وزراء وكبار الشخصيات (VIP)</option>
-                        <option value="DELEGATE_HEAD">رؤساء الوفود الرسمية</option>
-                        <option value="OFFICIAL">أعضاء الوفود الرسمية</option>
-                        <option value="EXPERT">الخبراء والمحاضرين</option>
-                        <option value="PRESS">الصحافة والإعلام</option>
+                        <option value="ALL">{{ app()->getLocale() === 'fr' ? 'Tous les Rôles' : (app()->getLocale() === 'en' ? 'All Roles' : 'جميع الصفات والأدوار') }}</option>
+                        <option value="VIP">{{ app()->getLocale() === 'fr' ? 'Ministres & VIP' : (app()->getLocale() === 'en' ? 'Ministers & VIPs' : 'وزراء وكبار الشخصيات (VIP)') }}</option>
+                        <option value="DELEGATE_HEAD">{{ app()->getLocale() === 'fr' ? 'Chefs de Délégation' : (app()->getLocale() === 'en' ? 'Heads of Delegation' : 'رؤساء الوفود الرسمية') }}</option>
+                        <option value="OFFICIAL">{{ app()->getLocale() === 'fr' ? 'Délégués Officiels' : (app()->getLocale() === 'en' ? 'Official Delegates' : 'أعضاء الوفود الرسمية') }}</option>
+                        <option value="EXPERT">{{ app()->getLocale() === 'fr' ? 'Experts & Intervenants' : (app()->getLocale() === 'en' ? 'Experts & Speakers' : 'الخبراء والمحاضرين') }}</option>
+                        <option value="PRESS">{{ app()->getLocale() === 'fr' ? 'Presse & Médias' : (app()->getLocale() === 'en' ? 'Press & Media' : 'الصحافة والإعلام') }}</option>
                     </select>
                 </div>
             </div>
@@ -336,12 +339,12 @@
                 <table class="w-full text-start border-collapse">
                     <thead>
                         <tr class="border-b border-slate-200 dark:border-slate-800 text-[11px] font-black uppercase text-slate-400 tracking-wider">
-                            <th class="py-3 px-4 text-start">رقم الاعتماد</th>
-                            <th class="py-3 px-4 text-start">الاسم واللقب</th>
-                            <th class="py-3 px-4 text-start">الدولة / الوفد</th>
-                            <th class="py-3 px-4 text-start">الصفة / الدور</th>
-                            <th class="py-3 px-4 text-start">حالة الاعتماد</th>
-                            <th class="py-3 px-4 text-center">المعاينة الرسمية</th>
+                            <th class="py-3 px-4 text-start">{{ app()->getLocale() === 'fr' ? 'N° Accréditation' : (app()->getLocale() === 'en' ? 'Accreditation N°' : 'رقم الاعتماد') }}</th>
+                            <th class="py-3 px-4 text-start">{{ app()->getLocale() === 'fr' ? 'Nom & Prénom' : (app()->getLocale() === 'en' ? 'Full Name' : 'الاسم واللقب') }}</th>
+                            <th class="py-3 px-4 text-start">{{ app()->getLocale() === 'fr' ? 'Pays / Délégation' : (app()->getLocale() === 'en' ? 'Country / Delegation' : 'الدولة / الوفد') }}</th>
+                            <th class="py-3 px-4 text-start">{{ app()->getLocale() === 'fr' ? 'Qualité / Rôle' : (app()->getLocale() === 'en' ? 'Role / Status' : 'الصفة / الدور') }}</th>
+                            <th class="py-3 px-4 text-start">{{ app()->getLocale() === 'fr' ? 'Statut' : (app()->getLocale() === 'en' ? 'Status' : 'حالة الاعتماد') }}</th>
+                            <th class="py-3 px-4 text-center">{{ app()->getLocale() === 'fr' ? 'Aperçu Badge' : (app()->getLocale() === 'en' ? 'Badge Preview' : 'المعاينة الرسمية') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 text-xs font-bold text-slate-700 dark:text-slate-300">
@@ -358,7 +361,7 @@
                                         @if($reg->country && $reg->country->flag_path)
                                             <img src="{{ asset($reg->country->flag_path) }}" alt="" class="w-5 h-3.5 object-cover rounded shadow-2xs">
                                         @endif
-                                        <span>{{ $reg->country ? $reg->country->name_ar : 'الاتحاد الأفريقي' }}</span>
+                                        <span>{{ $reg->country ? (app()->getLocale() === 'fr' ? ($reg->country->name_fr ?: $reg->country->name_ar) : (app()->getLocale() === 'en' ? ($reg->country->name_en ?: $reg->country->name_ar) : $reg->country->name_ar)) : 'الاتحاد الأفريقي' }}</span>
                                     </div>
                                 </td>
                                 <td class="py-3.5 px-4">
@@ -369,25 +372,25 @@
                                 <td class="py-3.5 px-4">
                                     @if($reg->status && (is_object($reg->status) ? $reg->status->value === 'APPROVED' : $reg->status === 'APPROVED'))
                                         <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200">
-                                            معتمد رسميًا ✅
+                                            {{ app()->getLocale() === 'fr' ? 'Accrédité Officiellement ✅' : (app()->getLocale() === 'en' ? 'Officially Accredited ✅' : 'معتمد رسميًا ✅') }}
                                         </span>
                                     @else
                                         <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200">
-                                            قيد المراجعة ⏳
+                                            {{ app()->getLocale() === 'fr' ? 'En Cours ⏳' : (app()->getLocale() === 'en' ? 'Pending Review ⏳' : 'قيد المراجعة ⏳') }}
                                         </span>
                                     @endif
                                 </td>
                                 <td class="py-3.5 px-4 text-center">
                                     <button wire:click="openBadgeModal({{ $reg->id }})" type="button" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-[#006837] hover:text-white font-bold text-xs transition inline-flex items-center gap-1.5">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                                        <span>معاينة البطاقة</span>
+                                        <span>{{ app()->getLocale() === 'fr' ? 'Aperçu' : (app()->getLocale() === 'en' ? 'Preview' : 'معاينة البطاقة') }}</span>
                                     </button>
                                 </td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="6" class="py-8 text-center text-slate-400 font-bold text-xs">
-                                    لا توجد تسجيلات مطابقة لخيارات البحث.
+                                    {{ app()->getLocale() === 'fr' ? 'Aucun enregistrement ne correspond aux critères.' : (app()->getLocale() === 'en' ? 'No accreditations match the search criteria.' : 'لا توجد تسجيلات مطابقة لخيارات البحث.') }}
                                 </td>
                             </tr>
                         @endforelse
@@ -411,9 +414,9 @@
             <div class="border-b border-slate-100 dark:border-slate-800 pb-4">
                 <h3 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
                     <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    <span>مصفوفة المناطق الأمنية وتصاريح الدخول للمركز</span>
+                    <span>{{ app()->getLocale() === 'fr' ? 'Matrice des Zones de Sécurité & Accès' : (app()->getLocale() === 'en' ? 'Security Access Zones & Badges Matrix' : 'مصفوفة المناطق الأمنية وتصاريح الدخول للمركز') }}</span>
                 </h3>
-                <p class="text-xs text-slate-500 font-medium">نظام التصاريح الأمنية الصادر لفعاليات وأعمال منتدى السياسات الأفريقية للمهارات 2026.</p>
+                <p class="text-xs text-slate-500 font-medium">{{ app()->getLocale() === 'fr' ? 'Système officiel d\'accréditation des zones pour le Forum 2026.' : (app()->getLocale() === 'en' ? 'Official security clearance levels for African Skills Policy Forum 2026.' : 'نظام التصاريح الأمنية الصادر لفعاليات وأعمال منتدى السياسات الأفريقية للمهارات 2026.') }}</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -437,9 +440,14 @@
                         </div>
 
                         <div class="space-y-2 pt-2 border-t border-slate-200/60 dark:border-slate-800">
-                            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">الفئات المصرح لها بالدخول:</div>
+                            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                                {{ app()->getLocale() === 'fr' ? 'Catégories Autorisées:' : (app()->getLocale() === 'en' ? 'Authorized Categories:' : 'الفئات المصرح لها بالدخول:') }}
+                            </div>
                             <div class="flex flex-wrap gap-1.5">
-                                @foreach($zone['allowed_roles'] as $roleName)
+                                @php
+                                    $rolesList = app()->getLocale() === 'fr' ? ($zone['allowed_roles_fr'] ?? $zone['allowed_roles_ar']) : (app()->getLocale() === 'en' ? ($zone['allowed_roles_en'] ?? $zone['allowed_roles_ar']) : $zone['allowed_roles_ar']);
+                                @endphp
+                                @foreach($rolesList as $roleName)
                                     <span class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-700 dark:text-slate-200">
                                         {{ $roleName }}
                                     </span>
@@ -462,51 +470,55 @@
             <div class="border-b border-slate-100 dark:border-slate-800 pb-4">
                 <h3 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
                     <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    <span>كشف تذاكر الطيران ومواعيد وصول الوفود الإفريقية الرسمية ✈️</span>
+                    <span>{{ app()->getLocale() === 'fr' ? 'Vols & Logistique des Délégations Officielles ✈️' : (app()->getLocale() === 'en' ? 'Official Flight Itineraries & Logistics ✈️' : 'كشف تذاكر الطيران ومواعيد وصول الوفود الإفريقية الرسمية ✈️') }}</span>
                 </h3>
-                <p class="text-xs text-slate-500 font-medium">سجل رحلات الطيران وتأكيد المواعيد للوفود الوزارية والدبلوماسية.</p>
+                <p class="text-xs text-slate-500 font-medium">{{ app()->getLocale() === 'fr' ? 'Suivi en temps réel des horaires d\'arrivée des délégations.' : (app()->getLocale() === 'en' ? 'Real-time flight arrival itinerary for ministerial delegations.' : 'سجل رحلات الطيران وتأكيد المواعيد للوفود الوزارية والدبلوماسية.') }}</p>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-start border-collapse">
                     <thead>
                         <tr class="border-b border-slate-200 dark:border-slate-800 text-[11px] font-black uppercase text-slate-400 tracking-wider">
-                            <th class="py-3 px-4 text-start">الدولة / الوفد</th>
-                            <th class="py-3 px-4 text-start">رقم الرحلة ✈️</th>
-                            <th class="py-3 px-4 text-start">مطار المغادرة / الوصول</th>
-                            <th class="py-3 px-4 text-start">تاريخ ووقت الوصول</th>
-                            <th class="py-3 px-4 text-center">عدد أفراد الوفد</th>
-                            <th class="py-3 px-4 text-center">حالة الحجز</th>
+                            <th class="py-3 px-4 text-start">{{ app()->getLocale() === 'fr' ? 'Pays / Délégation' : (app()->getLocale() === 'en' ? 'Country / Delegation' : 'الدولة / الوفد') }}</th>
+                            <th class="py-3 px-4 text-start">{{ app()->getLocale() === 'fr' ? 'N° de Vol ✈️' : (app()->getLocale() === 'en' ? 'Flight N° ✈️' : 'رقم الرحلة ✈️') }}</th>
+                            <th class="py-3 px-4 text-start">{{ app()->getLocale() === 'fr' ? 'Aéroport Départ / Arrivée' : (app()->getLocale() === 'en' ? 'Departure / Arrival Airport' : 'مطار المغادرة / الوصول') }}</th>
+                            <th class="py-3 px-4 text-start">{{ app()->getLocale() === 'fr' ? 'Date & Heure d\'Arrivée' : (app()->getLocale() === 'en' ? 'Arrival Date & Time' : 'تاريخ ووقت الوصول') }}</th>
+                            <th class="py-3 px-4 text-center">{{ app()->getLocale() === 'fr' ? 'Nombre de Passagers' : (app()->getLocale() === 'en' ? 'Delegates Count' : 'عدد أفراد الوفد') }}</th>
+                            <th class="py-3 px-4 text-center">{{ app()->getLocale() === 'fr' ? 'Statut Réservation' : (app()->getLocale() === 'en' ? 'Booking Status' : 'حالة الحجز') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 text-xs font-bold text-slate-700 dark:text-slate-300">
                         @forelse($arrivals as $arr)
                             <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
                                 <td class="py-3.5 px-4 font-black text-slate-900 dark:text-white">
-                                    {{ $arr->country ? $arr->country->name_ar : 'وفد رسمي' }}
+                                    {{ $arr->country ? (app()->getLocale() === 'fr' ? ($arr->country->name_fr ?: $arr->country->name_ar) : (app()->getLocale() === 'en' ? ($arr->country->name_en ?: $arr->country->name_ar) : $arr->country->name_ar)) : (app()->getLocale() === 'fr' ? 'Délégation Officielle' : (app()->getLocale() === 'en' ? 'Official Delegation' : 'وفد رسمي')) }}
                                 </td>
                                 <td class="py-3.5 px-4 font-mono font-black text-sky-600 dark:text-sky-400">
-                                    {{ $arr->flight_number ?: 'AH-2026' }}
+                                    {{ $arr->flight_number ?: '-' }}
                                 </td>
                                 <td class="py-3.5 px-4">
-                                    {{ $arr->departure_city ?: 'Algiers Airport (ALG)' }} ➔ {{ $arr->arrival_city ?: 'Oran Ahmed Ben Bella (ORN)' }}
+                                    @if($arr->departure_city || $arr->arrival_city)
+                                        {{ $arr->departure_city ?: '-' }} ➔ {{ $arr->arrival_city ?: '-' }}
+                                    @else
+                                        -
+                                    @endif
                                 </td>
                                 <td class="py-3.5 px-4 font-mono">
-                                    {{ $arr->arrival_date ? $arr->arrival_date->format('Y-m-d H:i') : '15-11-2026 14:30' }}
+                                    {{ $arr->arrival_date ? $arr->arrival_date->format('Y-m-d H:i') : '-' }}
                                 </td>
                                 <td class="py-3.5 px-4 text-center font-mono font-black">
                                     {{ $arr->passengers_count ?: 1 }}
                                 </td>
                                 <td class="py-3.5 px-4 text-center">
                                     <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200">
-                                        تذكرة مؤكدة ✈️
+                                        {{ app()->getLocale() === 'fr' ? 'Billet Confirmé ✈️' : (app()->getLocale() === 'en' ? 'Confirmed Ticket ✈️' : 'تذكرة مؤكدة ✈️') }}
                                     </span>
                                 </td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="6" class="py-8 text-center text-slate-400 font-bold text-xs">
-                                    لم يتم تسجيل رحلات طيران بعد.
+                                    {{ app()->getLocale() === 'fr' ? 'Aucun vol enregistré dans la base de données actuellement.' : (app()->getLocale() === 'en' ? 'No flight itineraries recorded in database yet.' : 'لا توجد بيانات رحلات طيران موثقة في قاعدة البيانات حالياً.') }}
                                 </td>
                             </tr>
                         @endforelse
@@ -531,7 +543,7 @@
                 <!-- Modal Header -->
                 <div class="text-center space-y-1">
                     <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 text-[10px] font-black uppercase">
-                        <span>بطاقة الاعتماد الرسمية للمنتدى — معاينة موثقة</span>
+                        <span>{{ app()->getLocale() === 'fr' ? 'Badge d\'Accréditation Officiel — Aperçu Validé' : (app()->getLocale() === 'en' ? 'Official Accreditation Badge — Verified Preview' : 'بطاقة الاعتماد الرسمية للمنتدى — معاينة موثقة') }}</span>
                     </div>
                     <h3 class="text-lg font-black text-slate-900 dark:text-white">
                         {{ $viewingRegistration->participant ? ($viewingRegistration->participant->first_name_ar . ' ' . $viewingRegistration->participant->last_name_ar) : ($viewingRegistration->user->name ?? 'مشارك') }}
@@ -550,7 +562,7 @@
 
                     <div class="space-y-1 text-center py-2">
                         <div class="text-base font-black text-white">{{ $viewingRegistration->participant ? ($viewingRegistration->participant->first_name_ar . ' ' . $viewingRegistration->participant->last_name_ar) : ($viewingRegistration->user->name ?? 'مشارك') }}</div>
-                        <div class="text-xs font-bold text-amber-200">{{ $viewingRegistration->country ? $viewingRegistration->country->name_ar : 'مفوضية الاتحاد الأفريقي' }}</div>
+                        <div class="text-xs font-bold text-amber-200">{{ $viewingRegistration->country ? (app()->getLocale() === 'fr' ? ($viewingRegistration->country->name_fr ?: $viewingRegistration->country->name_ar) : (app()->getLocale() === 'en' ? ($viewingRegistration->country->name_en ?: $viewingRegistration->country->name_ar) : $viewingRegistration->country->name_ar)) : (app()->getLocale() === 'fr' ? 'Commission de l\'Union Africaine' : (app()->getLocale() === 'en' ? 'African Union Commission' : 'مفوضية الاتحاد الأفريقي')) }}</div>
                         <div class="inline-block mt-2 px-4 py-1 rounded-full bg-amber-400 text-slate-950 font-black text-xs">
                             {{ $viewingRegistration->job_title ?: ($viewingRegistration->participant?->user?->roles?->first()?->name ?? 'عضو وفد رسمي') }}
                         </div>
@@ -564,7 +576,7 @@
 
                 <!-- Footer button -->
                 <button wire:click="closeBadgeModal" type="button" class="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 transition">
-                    إغلاق النافذة
+                    {{ app()->getLocale() === 'fr' ? 'Fermer la Fenêtre' : (app()->getLocale() === 'en' ? 'Close Window' : 'إغلاق النافذة') }}
                 </button>
             </div>
         </div>
