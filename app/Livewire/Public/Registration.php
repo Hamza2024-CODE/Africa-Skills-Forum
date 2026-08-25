@@ -50,11 +50,17 @@ class Registration extends Component
 
     // Step 3: Identity Documents & Official Photo
     public mixed $photoFile = null;
+    public ?string $capturedPhotoData = null;
     public string $identificationType = 'national_id';
     public string $nationalId = '';
     public string $passportNumber = '';
     public mixed $nationalIdFile = null;
     public mixed $passportFile = null;
+
+    public function setCapturedPhoto(string $base64Data): void
+    {
+        $this->capturedPhotoData = $base64Data;
+    }
 
     // Success Output
     public string $registrationNumber = '';
@@ -194,6 +200,8 @@ class Registration extends Component
             ? '/^(?:(?:\+?213|00213|0)[567][0-9]{8})$/'
             : '/^(?:\+|00)?[0-9]{6,15}$/';
 
+        $hasPhoto = !empty($this->photoFile) || !empty($this->capturedPhotoData);
+
         $rules = [
             'role'             => ['required', 'in:SPEAKER,VISITOR,EXPERT'],
             'countryId'        => ['required', 'exists:countries,id'],
@@ -204,7 +212,7 @@ class Registration extends Component
             'dateOfBirth'      => ['required', 'date'],
             'organizationName' => ['required', 'string', 'min:2'],
             'jobTitle'         => ['required', 'string', 'min:2'],
-            'photoFile'        => ['required', 'file', 'mimes:jpg,jpeg,png,webp', 'max:20480'],
+            'photoFile'        => $hasPhoto ? ['nullable'] : ['required'],
         ];
 
         if ($this->role === 'EXPERT') {
@@ -270,7 +278,12 @@ class Registration extends Component
         // Store Photo
         $photoPath = null;
         $photoHash = null;
-        if ($this->photoFile) {
+        if (!empty($this->capturedPhotoData)) {
+            $imgData = preg_replace('/^data:image\/\w+;base64,/', '', $this->capturedPhotoData);
+            $decodedImg = base64_decode($imgData);
+            $photoPath = 'participants/photos/captured_' . Str::random(20) . '.jpg';
+            \Illuminate\Support\Facades\Storage::disk('public')->put($photoPath, $decodedImg);
+        } elseif ($this->photoFile) {
             $photoHash = $docVerifier->calculateFileHash($this->photoFile);
             $photoPath = $this->photoFile->store('participants/photos', 'public');
         }
