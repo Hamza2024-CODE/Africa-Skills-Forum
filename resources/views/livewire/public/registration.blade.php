@@ -596,38 +596,44 @@ function handleFastPhotoCompress(event, targetMethod) {
 
     if (file.type === 'application/pdf') return;
 
+    const componentEl = event.target.closest('[wire\\:id]');
+    if (!componentEl || !window.Livewire) return;
+    const lwComponent = Livewire.find(componentEl.getAttribute('wire:id'));
+    if (!lwComponent) return;
+
     const reader = new FileReader();
     reader.onload = function(e) {
+        const dataUrl = e.target.result;
         const img = new Image();
         img.onload = function() {
-            const canvas = document.createElement('canvas');
-            let width = img.width;
-            let height = img.height;
-            const maxDim = 1200;
-            if (width > maxDim || height > maxDim) {
-                if (width > height) {
-                    height = Math.round((height * maxDim) / width);
-                    width = maxDim;
-                } else {
-                    width = Math.round((width * maxDim) / height);
-                    height = maxDim;
+            try {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+                const maxDim = 1200;
+                if (width > maxDim || height > maxDim) {
+                    if (width > height) {
+                        height = Math.round((height * maxDim) / width);
+                        width = maxDim;
+                    } else {
+                        width = Math.round((width * maxDim) / height);
+                        height = maxDim;
+                    }
                 }
-            }
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.82);
-            
-            const componentEl = event.target.closest('[wire\\:id]');
-            if (componentEl && window.Livewire) {
-                const lwComponent = Livewire.find(componentEl.getAttribute('wire:id'));
-                if (lwComponent) {
-                    lwComponent.call(targetMethod, compressedBase64);
-                }
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.82);
+                lwComponent.call(targetMethod, compressedBase64);
+            } catch (err) {
+                lwComponent.call(targetMethod, dataUrl);
             }
         };
-        img.src = e.target.result;
+        img.onerror = function() {
+            lwComponent.call(targetMethod, dataUrl);
+        };
+        img.src = dataUrl;
     };
     reader.readAsDataURL(file);
 }

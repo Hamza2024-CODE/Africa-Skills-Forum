@@ -273,7 +273,7 @@ class OfficialRegistration extends Component
 
         // Save Captured photo or Uploaded Photo
         if ($this->captured_photo_data) {
-            $imgData = preg_replace('/^data:image\/\w+;base64,/', '', $this->captured_photo_data);
+            $imgData = preg_replace('/^data:[^;]+;base64,/', '', $this->captured_photo_data);
             $decodedImg = base64_decode($imgData);
             $fileName = 'official_photos/captured_' . Str::random(20) . '.jpg';
             \Illuminate\Support\Facades\Storage::disk('public')->put($fileName, $decodedImg);
@@ -284,7 +284,7 @@ class OfficialRegistration extends Component
 
         // Save Captured ID Card / Passport or Uploaded Document
         if ($this->captured_id_card_data) {
-            $imgDataDoc = preg_replace('/^data:image\/\w+;base64,/', '', $this->captured_id_card_data);
+            $imgDataDoc = preg_replace('/^data:[^;]+;base64,/', '', $this->captured_id_card_data);
             $decodedImgDoc = base64_decode($imgDataDoc);
             $fileNameDoc = 'official_id_cards/captured_doc_' . Str::random(20) . '.jpg';
             \Illuminate\Support\Facades\Storage::disk('public')->put($fileNameDoc, $decodedImgDoc);

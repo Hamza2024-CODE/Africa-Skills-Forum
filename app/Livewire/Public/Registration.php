@@ -280,7 +280,7 @@ class Registration extends Component
         $photoPath = null;
         $photoHash = null;
         if (!empty($this->capturedPhotoData)) {
-            $imgData = preg_replace('/^data:image\/\w+;base64,/', '', $this->capturedPhotoData);
+            $imgData = preg_replace('/^data:[^;]+;base64,/', '', $this->capturedPhotoData);
             $decodedImg = base64_decode($imgData);
             $photoPath = 'participants/photos/captured_' . Str::random(20) . '.jpg';
             \Illuminate\Support\Facades\Storage::disk('public')->put($photoPath, $decodedImg);
