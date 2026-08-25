@@ -84,6 +84,7 @@
                             $user->hasRole(\App\Enums\RoleEnum::SUPER_ADMIN->value) => route('admin.dashboard'),
                             $user->hasRole(\App\Enums\RoleEnum::MEDIA_MANAGER->value) => route('admin.media.dashboard'),
                             $user->hasRole(\App\Enums\RoleEnum::COUNTRY_ADMIN->value) => route('country.dashboard'),
+                            $user->hasRole(\App\Enums\RoleEnum::AFRICAN_UNION_OBSERVER->value) => route('au.dashboard'),
                             default => route('home'),
                         };
                     @endphp

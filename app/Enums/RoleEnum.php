@@ -16,6 +16,7 @@ enum RoleEnum: string
     case EXPERT = 'EXPERT';
     case SPONSOR = 'SPONSOR';
     case EXECUTIVE_VIEWER = 'EXECUTIVE_VIEWER';
+    case AFRICAN_UNION_OBSERVER = 'AFRICAN_UNION_OBSERVER';
     case PARTICIPANT = 'PARTICIPANT';
 
     public function label(): string
@@ -33,6 +34,7 @@ enum RoleEnum: string
             self::EXPERT => 'Expert',
             self::SPONSOR => 'Official Sponsor Partner',
             self::EXECUTIVE_VIEWER => 'Executive Read-Only Viewer',
+            self::AFRICAN_UNION_OBSERVER => 'African Union Executive Observer',
             self::PARTICIPANT => 'Participant Competitor',
         };
     }

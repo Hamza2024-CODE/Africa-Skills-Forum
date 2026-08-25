@@ -65,6 +65,12 @@ class DashboardNavigationService
             ];
         }
 
+        if ($user->hasRole(RoleEnum::AFRICAN_UNION_OBSERVER->value)) {
+            return [
+                ['key' => 'au_dash', 'label' => $this->t('المقر التنفيذي للاتحاد الأفريقي', 'Commission de l\'Union Africaine', 'AU Executive Portal'), 'icon' => 'home', 'route' => 'au.dashboard'],
+            ];
+        }
+
         if ($user->hasRole(RoleEnum::COUNTRY_ADMIN->value)) {
             return [
                 ['key' => 'country_dash','label' => $this->t('كشف الوفد الموحد والتحكم',   'Centre Délégation',  'Delegation Command Center'), 'icon' => 'flag',         'route' => 'country.dashboard'],

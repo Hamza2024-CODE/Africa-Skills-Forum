@@ -50,7 +50,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 ]);
             } elseif ($roleEnum === RoleEnum::MEDIA_MANAGER) {
                 $role->givePermissionTo(['manage-media', 'manage-events', 'manage-news']);
-            } elseif ($roleEnum === RoleEnum::EXECUTIVE_VIEWER) {
+            } elseif ($roleEnum === RoleEnum::EXECUTIVE_VIEWER || $roleEnum === RoleEnum::AFRICAN_UNION_OBSERVER) {
                 $role->givePermissionTo(['executive-view-reports']);
             } elseif ($roleEnum === RoleEnum::COUNTRY_ADMIN) {
                 $role->givePermissionTo(['manage-delegations']);

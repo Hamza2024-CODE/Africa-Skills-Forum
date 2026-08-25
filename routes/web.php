@@ -184,10 +184,17 @@ Route::get('/panel/dashboard', function () {
         return redirect()->route('admin.media.dashboard');
     } elseif ($user->hasRole(RoleEnum::COUNTRY_ADMIN->value)) {
         return redirect()->route('country.dashboard');
+    } elseif ($user->hasRole(RoleEnum::AFRICAN_UNION_OBSERVER->value)) {
+        return redirect()->route('au.dashboard');
     }
 
     return redirect()->route('home');
 })->middleware('auth')->name('admin.dashboard');
+
+// African Union Executive Commission Portal Route
+Route::get('/au/dashboard', \App\Livewire\AfricanUnion\AfricanUnionDashboard::class)
+    ->middleware(['auth', 'role:' . RoleEnum::AFRICAN_UNION_OBSERVER->value . '|' . RoleEnum::SUPER_ADMIN->value])
+    ->name('au.dashboard');
 
 // Super Admin Command Center Routes
 Route::prefix('panel')->middleware(['auth', 'role:' . RoleEnum::SUPER_ADMIN->value])->name('admin.')->group(function () {
