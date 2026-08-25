@@ -369,6 +369,14 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                                         <span>{{ $t('معاينة', 'Aperçu', 'View') }}</span>
                                     </button>
 
+                                    {{-- Edit Button --}}
+                                    <button wire:click="openEditModal({{ $reg->id }})"
+                                            class="px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:hover:bg-amber-900/80 dark:text-amber-300 font-black text-[11px] border border-amber-300 dark:border-amber-800 transition flex items-center gap-1 shadow-xs"
+                                            title="{{ $t('تعديل البيانات والصور والملفات', 'Modifier les données & fichiers', 'Edit details, photos & files') }}">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                        <span>{{ $t('تعديل', 'Modifier', 'Edit') }}</span>
+                                    </button>
+
                                     {{-- Approve Button --}}
                                     @if($svUpper !== 'APPROVED')
                                         <button wire:click="approveRegistration({{ $reg->id }})"
@@ -477,6 +485,11 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                             <span>{{ $t('اعتماد وقبول', 'Approuver & Valider', 'Approve & Validate') }}</span>
                         </button>
                     @endif
+                    <button wire:click="openEditModal({{ $selectedRegistration->id }})"
+                            class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs text-center shadow-md transition flex items-center justify-center gap-2 col-span-2">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                        <span>{{ $t('تعديل البيانات والصور والملفات ✏️', 'Modifier Données & Fichiers ✏️', 'Edit Details, Photos & Files ✏️') }}</span>
+                    </button>
                 </div>
 
                 {{-- Details Section --}}
@@ -693,6 +706,128 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                     </button>
                     <button wire:click="deleteRegistration" class="px-6 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-black text-xs shadow-md transition">
                         {{ $t('تأكيد الحذف النهائي', 'Confirmer Suppression', 'Confirm Permanent Deletion') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {{-- EDIT REGISTRATION & FILES MODAL --}}
+    @if($editModalOpen)
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 max-w-xl w-full space-y-5 border border-slate-200 dark:border-slate-700 shadow-2xl my-8">
+                
+                {{-- Modal Header --}}
+                <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3">
+                    <div class="flex items-center gap-2 text-slate-900 dark:text-slate-100 font-black text-base">
+                        <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                        <span>{{ $t('تعديل بيانات المسجل والصور والملفات', 'Modifier Inscription & Fichiers', 'Edit Registrant Details & Files') }}</span>
+                    </div>
+                    <button wire:click="$set('editModalOpen', false)" class="p-2 text-slate-400 hover:text-slate-600 rounded-xl bg-slate-100 dark:bg-slate-700">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+
+                {{-- Modal Form Fields --}}
+                <div class="space-y-4 text-xs font-bold max-h-[70vh] overflow-y-auto px-1">
+                    
+                    {{-- 1. Official Capacity Title --}}
+                    <div>
+                        <label class="block text-slate-700 dark:text-slate-300 mb-1 font-black">
+                            {{ $t('الصفة الرسمية للمشارك / المسجل *', 'Qualité / Rôle Officiel *', 'Official Capacity / Role *') }}
+                        </label>
+                        <select wire:model.live="editCapacityTitle" class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold">
+                            <option value="شخصية سامية جداً (VVIP)">👑 شخصية سامية جداً (VVIP) / Très Haute Personnalité</option>
+                            <option value="ضيف شرف (VIP)">⭐ ضيف شرف (VIP) / Invité d'Honneur</option>
+                            <option value="دبلوماسي / مبعوث سفارة">🏛️ دبلوماسي / مبعوث سفارة (Diplomat)</option>
+                            <option value="رئيس الوفد الوطني">🚩 رئيس الوفد الوطني (Chef de Délégation)</option>
+                            <option value="عضو رسمي في الوفد">🎗️ عضو رسمي في الوفد (Membre Officiel)</option>
+                            <option value="مؤطر ومرافق تنفيذي">📋 مؤطر ومرافق تنفيذي (Coordinateur)</option>
+                            <option value="محاضر رئيسي بالمنتدى">🎙️ محاضر رئيسي بالمنتدى (Keynote Speaker)</option>
+                            <option value="خبير محكّم تقني">⚖️ خبير محكّم تقني (Expert Judge)</option>
+                            <option value="صحافة وإعلام معتمد">📷 صحافة وإعلام معتمد (Media Press)</option>
+                            <option value="زائر معتمد / مشارك عام">مشارك عام / زائر معتمد (Visitor / Participant)</option>
+                        </select>
+                    </div>
+
+                    {{-- 2. Organization Name --}}
+                    <div>
+                        <label class="block text-slate-700 dark:text-slate-300 mb-1 font-black">
+                            {{ $t('المؤسسة / الهيئة / الوزارة / السفارة', 'Organisme / Ministère / Ambassade', 'Organization / Ministry / Embassy') }}
+                        </label>
+                        <input type="text" wire:model.live="editOrganizationName" placeholder="مثال: رئاسة الجمهورية / وزارة التكوين المهني"
+                               class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold">
+                    </div>
+
+                    {{-- 3. Name Fields (Arabic & Latin) --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-slate-700 dark:text-slate-300 mb-1 font-black">{{ $t('الاسم بالعربية', 'Prénom (Arabe)', 'First Name (Arabic)') }}</label>
+                            <input type="text" wire:model.live="editFirstNameAr" class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold">
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 dark:text-slate-300 mb-1 font-black">{{ $t('اللقب بالعربية', 'Nom (Arabe)', 'Last Name (Arabic)') }}</label>
+                            <input type="text" wire:model.live="editLastNameAr" class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-slate-700 dark:text-slate-300 mb-1 font-black">{{ $t('الاسم باللاتينية', 'Prénom (Latin)', 'First Name (Latin)') }}</label>
+                            <input type="text" wire:model.live="editFirstNameFr" dir="ltr" class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold">
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 dark:text-slate-300 mb-1 font-black">{{ $t('اللقب باللاتينية', 'Nom (Latin)', 'Last Name (Latin)') }}</label>
+                            <input type="text" wire:model.live="editLastNameFr" dir="ltr" class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold">
+                        </div>
+                    </div>
+
+                    {{-- 4. Email & Phone --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-slate-700 dark:text-slate-300 mb-1 font-black">{{ $t('البريد الإلكتروني', 'Email', 'Email') }}</label>
+                            <input type="email" wire:model.live="editEmail" dir="ltr" class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold">
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 dark:text-slate-300 mb-1 font-black">{{ $t('رقم الهاتف', 'Téléphone', 'Phone') }}</label>
+                            <input type="text" wire:model.live="editPhone" dir="ltr" class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold">
+                        </div>
+                    </div>
+
+                    {{-- 5. Upload New Personal Photo --}}
+                    <div class="p-4 bg-emerald-50/70 dark:bg-emerald-950/40 rounded-2xl border border-emerald-200 dark:border-emerald-800 space-y-2">
+                        <label class="block text-emerald-900 dark:text-emerald-200 font-black">
+                            📷 {{ $t('رفع صورة شخصية جديدة للاعتماد (تغيير الصورة الحاليّة):', 'Télécharger nouvelle photo :', 'Upload New Photo (Replace Current):') }}
+                        </label>
+                        <input type="file" wire:model="newPhotoFile" accept="image/*"
+                               class="w-full text-xs text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-emerald-600 file:text-white hover:file:bg-emerald-700">
+                        @if($newPhotoFile)
+                            <p class="text-[11px] text-emerald-700 font-bold">✓ تم اختيار صورة جديدة جاهزة للحفظ</p>
+                        @endif
+                    </div>
+
+                    {{-- 6. Upload New ID Card / Passport File --}}
+                    <div class="p-4 bg-amber-50/70 dark:bg-amber-950/40 rounded-2xl border border-amber-200 dark:border-amber-800 space-y-2">
+                        <label class="block text-amber-900 dark:text-amber-200 font-black">
+                            🪪 {{ $t('رفع ملف الهوية / جواز السفر الجديد (تغيير الملف الحالي):', 'Télécharger nouvelle pièce d\'identité :', 'Upload New ID/Passport File (Replace Current):') }}
+                        </label>
+                        <input type="file" wire:model="newDocumentFile" accept="image/*,.pdf"
+                               class="w-full text-xs text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-amber-600 file:text-white hover:file:bg-amber-700">
+                        @if($newDocumentFile)
+                            <p class="text-[11px] text-amber-700 font-bold">✓ تم اختيار ملف هويّة جديد جاهز للحفظ</p>
+                        @endif
+                    </div>
+
+                </div>
+
+                {{-- Modal Footer --}}
+                <div class="flex items-center justify-end gap-3 border-t border-slate-200 dark:border-slate-700 pt-3">
+                    <button wire:click="$set('editModalOpen', false)" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-50">
+                        {{ $t('إلغاء', 'Annuler', 'Cancel') }}
+                    </button>
+                    <button wire:click="saveRegistrationEdit" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md transition flex items-center gap-1.5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>{{ $t('حفظ التعديلات والتحديث', 'Enregistrer les Modifications', 'Save & Apply Changes') }}</span>
                     </button>
                 </div>
             </div>

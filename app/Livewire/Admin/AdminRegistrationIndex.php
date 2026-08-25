@@ -11,10 +11,12 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+use Livewire\WithFileUploads;
+
 #[Layout('components.dashboard.app-shell')]
 class AdminRegistrationIndex extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     public string $search        = '';
     public string $filterStatus  = '';
@@ -42,6 +44,21 @@ class AdminRegistrationIndex extends Component
     public bool $deleteModalOpen   = false;
     public bool $rejectModalOpen   = false;
     public ?int $deleteTargetId   = null;
+
+    // Edit Registration Modal
+    public bool $editModalOpen = false;
+    public ?int $editRegistrationId = null;
+    public string $editFirstNameAr = '';
+    public string $editLastNameAr = '';
+    public string $editFirstNameFr = '';
+    public string $editLastNameFr = '';
+    public string $editEmail = '';
+    public string $editPhone = '';
+    public string $editCapacityTitle = '';
+    public string $editOrganizationName = '';
+    public ?int $editSkillId = null;
+    public mixed $newPhotoFile = null;
+    public mixed $newDocumentFile = null;
 
     protected $queryString = ['search', 'filterStatus', 'filterCountry', 'filterSkill', 'filterEdition', 'filterRole'];
 
@@ -143,6 +160,81 @@ class AdminRegistrationIndex extends Component
         $this->deleteConfirmOpen = false;
         $this->resetPage();
         $this->dispatch('notify', ['type' => 'success', 'msg' => 'تم حذف التسجيل نهائياً']);
+    }
+
+    /* ─── Edit Modal ─── */
+    public function openEditModal(int $id): void
+    {
+        $reg = Registration::with(['participant.user', 'skill'])->findOrFail($id);
+        $this->editRegistrationId   = $reg->id;
+        $this->editFirstNameAr      = $reg->participant?->first_name_ar ?? '';
+        $this->editLastNameAr       = $reg->participant?->last_name_ar ?? '';
+        $this->editFirstNameFr      = $reg->participant?->first_name_fr ?? $reg->participant?->first_name_latin ?? '';
+        $this->editLastNameFr       = $reg->participant?->last_name_fr ?? $reg->participant?->last_name_latin ?? '';
+        $this->editEmail            = $reg->participant?->email ?? $reg->user?->email ?? '';
+        $this->editPhone            = $reg->participant?->phone ?? '';
+        $this->editCapacityTitle    = $reg->job_title ?: ($reg->user?->position ?: 'شخصية سامية جداً (VVIP)');
+        $this->editOrganizationName = $reg->organization_name ?? '';
+        $this->editSkillId          = $reg->skill_id;
+        $this->newPhotoFile         = null;
+        $this->newDocumentFile      = null;
+        $this->editModalOpen        = true;
+    }
+
+    public function saveRegistrationEdit(): void
+    {
+        if (!$this->editRegistrationId) return;
+
+        $reg = Registration::with(['participant.user'])->findOrFail($this->editRegistrationId);
+
+        // 1. Update Registration Job Title / Capacity
+        $reg->job_title         = $this->editCapacityTitle;
+        $reg->organization_name = $this->editOrganizationName;
+        $reg->skill_id          = $this->editSkillId;
+
+        // 2. Upload New Photo if provided
+        if ($this->newPhotoFile) {
+            $photoPath = $this->newPhotoFile->store('official_photos', 'public');
+            $reg->photo_url = asset('storage/' . ltrim($photoPath, '/'));
+            if ($reg->user) {
+                $reg->user->update(['avatar_path' => $photoPath]);
+            }
+        }
+
+        // 3. Upload New Document File if provided
+        if ($this->newDocumentFile) {
+            $docPath = $this->newDocumentFile->store('official_id_cards', 'public');
+            $reg->national_id_pdf_path = $docPath;
+        }
+
+        $reg->save();
+
+        // 4. Update Participant Profile
+        if ($reg->participant) {
+            $reg->participant->update([
+                'first_name_ar' => $this->editFirstNameAr,
+                'last_name_ar'  => $this->editLastNameAr,
+                'first_name_fr' => $this->editFirstNameFr,
+                'last_name_fr'  => $this->editLastNameFr,
+                'first_name_en' => $this->editFirstNameFr,
+                'last_name_en'  => $this->editLastNameFr,
+                'email'         => $this->editEmail,
+                'phone'         => $this->editPhone,
+            ]);
+        }
+
+        // 5. Update User Record
+        if ($reg->user) {
+            $fullName = trim(($this->editFirstNameAr ?: $this->editFirstNameFr) . ' ' . ($this->editLastNameAr ?: $this->editLastNameFr));
+            $reg->user->update([
+                'name'     => $fullName ?: $reg->user->name,
+                'email'    => $this->editEmail ?: $reg->user->email,
+                'position' => $this->editCapacityTitle,
+            ]);
+        }
+
+        $this->editModalOpen = false;
+        $this->dispatch('notify', ['type' => 'success', 'msg' => 'تم تحديث بيانات المسجل والصور والملفات بنجاح']);
     }
 
     private function getFilteredQuery()
