@@ -102,11 +102,6 @@ class OfficialRegistration extends Component
                 $this->country_id = $firstCountry->id;
             }
         }
-
-        $firstSkill = Skill::where('is_active', true)->first();
-        if ($firstSkill) {
-            $this->skill_id = $firstSkill->id;
-        }
     }
 
     public function getPhonePlaceholderProperty(): string

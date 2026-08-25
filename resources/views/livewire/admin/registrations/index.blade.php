@@ -255,30 +255,58 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                                         <h4 class="font-black text-slate-900 dark:text-slate-100 text-xs leading-tight hover:text-emerald-600 cursor-pointer" wire:click="openDrawer({{ $reg->id }})">
                                             {{ $nameAr }}
                                         </h4>
+                                        @php
+                                            $jobOrPos = ($reg->job_title ?? '') . ' ' . ($u?->position ?? '');
+                                        @endphp
                                         <div class="flex items-center gap-1.5 mt-0.5">
-                                            @if($u?->hasRole('SPEAKER'))
-                                                <span class="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 text-[10px] font-black border border-emerald-300">
-                                                    {{ $t('محاضر رئيسي', 'Conférencier Principal', 'Keynote Speaker') }}
+                                            @if(str_contains($jobOrPos, 'VVIP') || str_contains($jobOrPos, 'سامية'))
+                                                <span class="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-black text-[10px] shadow-sm border border-amber-300 flex items-center gap-1">
+                                                    <svg class="w-3 h-3 text-slate-950" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                                                    <span>{{ $t('شخصية سامية جداً (VVIP)', 'Très Haute Personnalité (VVIP)', 'VVIP Guest') }}</span>
                                                 </span>
-                                            @elseif($u?->hasRole('EXPERT'))
-                                                <span class="px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950/80 text-indigo-800 dark:text-indigo-300 text-[10px] font-black border border-indigo-300">
-                                                    {{ $t('خبير محكّم', 'Expert Juge', 'Expert Judge') }}
+                                            @elseif(str_contains($jobOrPos, 'VIP') || str_contains($jobOrPos, 'شرف'))
+                                                <span class="px-2.5 py-0.5 rounded-full bg-pink-100 dark:bg-pink-950/80 text-pink-800 dark:text-pink-300 text-[10px] font-black border border-pink-300 flex items-center gap-1">
+                                                    <svg class="w-3 h-3 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                                                    <span>{{ $t('ضيف شرف (VIP)', 'Invité d\'Honneur (VIP)', 'VIP Guest') }}</span>
                                                 </span>
-                                            @elseif($u?->hasRole('MEDIA_MANAGER'))
-                                                <span class="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 text-[10px] font-black border border-amber-300">
-                                                    {{ $t('صحافة وإعلام', 'Presse & Médias', 'Media & Press') }}
+                                            @elseif(str_contains($jobOrPos, 'دبلوماسي') || str_contains($jobOrPos, 'Diplomate') || str_contains($jobOrPos, 'سفار'))
+                                                <span class="px-2.5 py-0.5 rounded-full bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 text-[10px] font-black border border-purple-300 flex items-center gap-1">
+                                                    <svg class="w-3 h-3 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0v-4a2 2 0 012-2h2a2 2 0 012 2v4"/></svg>
+                                                    <span>{{ $t('دبلوماسي / مبعوث سفارة', 'Diplomate / Envoyé', 'Diplomat') }}</span>
                                                 </span>
-                                            @elseif(str_contains($reg->job_title ?? '', 'وزير') || str_contains($u?->position ?? '', 'وزير') || str_contains($reg->job_title ?? '', 'كاتب') || str_contains($reg->job_title ?? '', 'الأمين'))
-                                                <span class="px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 text-[10px] font-black border border-purple-300">
-                                                    {{ $t('عضو حكومي / وزير', 'Membre du Gouvernement / Ministre', 'Government Official / Minister') }}
+                                            @elseif(str_contains($jobOrPos, 'رئيس الوفد') || str_contains($jobOrPos, 'مسؤول الوفد') || str_contains($jobOrPos, 'Chef de Délégation'))
+                                                <span class="px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 text-[10px] font-black border border-blue-300 flex items-center gap-1">
+                                                    <svg class="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/></svg>
+                                                    <span>{{ $t('رئيس الوفد الوطني', 'Chef de Délégation', 'Delegation Head') }}</span>
                                                 </span>
-                                            @elseif(str_contains($reg->job_title ?? '', 'وفد') || str_contains($u?->position ?? '', 'وفد') || $u?->hasRole('COUNTRY_ADMIN'))
-                                                <span class="px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 text-[10px] font-black border border-blue-300">
-                                                    {{ $t('مسؤول وفد', 'Chef de Délégation', 'Delegation Head') }}
+                                            @elseif(str_contains($jobOrPos, 'مؤطر') || str_contains($jobOrPos, 'Coordinateur'))
+                                                <span class="px-2.5 py-0.5 rounded-full bg-teal-100 dark:bg-teal-950/80 text-teal-800 dark:text-teal-300 text-[10px] font-black border border-teal-300 flex items-center gap-1">
+                                                    <svg class="w-3 h-3 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                                                    <span>{{ $t('مؤطر ومرافق تنفيذي', 'Coordinateur de Délégation', 'Delegation Coordinator') }}</span>
+                                                </span>
+                                            @elseif(str_contains($jobOrPos, 'عضو') || str_contains($jobOrPos, 'Membre'))
+                                                <span class="px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300 text-[10px] font-black border border-sky-300 flex items-center gap-1">
+                                                    <svg class="w-3 h-3 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                                    <span>{{ $t('عضو رسمي في الوفد', 'Membre Officiel de Délégation', 'Official Delegation Member') }}</span>
+                                                </span>
+                                            @elseif($u?->hasRole('SPEAKER') || str_contains($jobOrPos, 'SPEAKER') || str_contains($jobOrPos, 'محاضر'))
+                                                <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 text-[10px] font-black border border-emerald-300 flex items-center gap-1">
+                                                    <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+                                                    <span>{{ $t('محاضر رئيسي', 'Conférencier Principal', 'Keynote Speaker') }}</span>
+                                                </span>
+                                            @elseif($u?->hasRole('EXPERT') || str_contains($jobOrPos, 'EXPERT') || str_contains($jobOrPos, 'خبير'))
+                                                <span class="px-2.5 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950/80 text-indigo-800 dark:text-indigo-300 text-[10px] font-black border border-indigo-300 flex items-center gap-1">
+                                                    <svg class="w-3 h-3 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                                                    <span>{{ $t('خبير محكّم', 'Expert Juge', 'Expert Judge') }}</span>
+                                                </span>
+                                            @elseif($u?->hasRole('MEDIA_MANAGER') || str_contains($jobOrPos, 'MEDIA') || str_contains($jobOrPos, 'صحف') || str_contains($jobOrPos, 'إعلام'))
+                                                <span class="px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 text-[10px] font-black border border-amber-300 flex items-center gap-1">
+                                                    <svg class="w-3 h-3 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H14"/></svg>
+                                                    <span>{{ $t('صحافة وإعلام', 'Presse & Médias', 'Media & Press') }}</span>
                                                 </span>
                                             @else
-                                                <span class="px-2 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300 text-[10px] font-black border border-sky-300">
-                                                    {{ $t('مشارك عام / زائر', 'Participant Général / Visiteur', 'General Participant / Visitor') }}
+                                                <span class="px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px] font-black border border-slate-300 flex items-center gap-1">
+                                                    <span>{{ $t('مشارك عام / زائر', 'Participant Général / Visiteur', 'General Participant / Visitor') }}</span>
                                                 </span>
                                             @endif
                                         </div>
@@ -289,28 +317,15 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                             {{-- Domain / Skill --}}
                             <td class="p-4 font-bold text-slate-700 dark:text-slate-300">
                                 @php
-                                    $domainTitle = $reg->skill?->getLocalized('name');
-                                    if (empty($domainTitle)) {
-                                        $domainTitle = $reg->job_title;
-                                    }
-                                    if (empty($domainTitle) && !empty($u?->position)) {
-                                        $domainTitle = $u->position;
-                                    }
-                                    if (empty($domainTitle) && !empty($reg->organization_name)) {
-                                        $domainTitle = $reg->organization_name;
+                                    $domainTitle = null;
+                                    if (($u?->hasRole('EXPERT') || !empty($reg->skill_id)) && $reg->skill) {
+                                        $domainTitle = $reg->skill->getLocalized('name');
                                     }
                                     if (empty($domainTitle)) {
-                                        if ($u?->hasRole('COUNTRY_ADMIN')) {
-                                            $domainTitle = $t('مسؤول وفد وطني / دبلوماسي', 'Chef de Délégation / Diplomate', 'Delegation Head / Diplomat');
-                                        } elseif ($u?->hasRole('MEDIA_MANAGER')) {
-                                            $domainTitle = $t('صحافة وإعلام معتمد', 'Presse & Médias Accrédités', 'Accredited Media & Press');
-                                        } elseif ($u?->hasRole('SPEAKER')) {
-                                            $domainTitle = $t('محاضر رئيسي بالمنتدى', 'Conférencier Principal', 'Keynote Forum Speaker');
-                                        } elseif ($u?->hasRole('EXPERT')) {
-                                            $domainTitle = $t('خبير محكّم تقني', 'Expert Juge Technique', 'Technical Expert Judge');
-                                        } else {
-                                            $domainTitle = $t('زائر معتمد / مشارك عام', 'Visiteur Accrédité / Participant Général', 'Accredited Visitor / General Participant');
-                                        }
+                                        $domainTitle = $reg->organization_name ?: $reg->job_title ?: $u?->position;
+                                    }
+                                    if (empty($domainTitle)) {
+                                        $domainTitle = $t('الوفد والمنصة الوطنية', 'Délégation & Plateforme', 'Delegation & Platform');
                                     }
                                 @endphp
                                 <span class="font-black text-slate-900 dark:text-slate-100">{{ $domainTitle }}</span>
