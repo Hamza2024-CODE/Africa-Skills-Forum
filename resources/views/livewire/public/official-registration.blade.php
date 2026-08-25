@@ -477,16 +477,36 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                             mode: 'upload',
                             cameraOpen: false,
                             stream: null,
-                            startCamera() {
+                            facingMode: 'environment',
+                            startCamera(facing) {
+                                if (facing) this.facingMode = facing;
+                                this.stopCamera();
                                 this.mode = 'camera';
-                                navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 } }).then(s => {
+                                const constraints = {
+                                    video: {
+                                        facingMode: { ideal: this.facingMode },
+                                        width: { ideal: 1280 },
+                                        height: { ideal: 720 }
+                                    }
+                                };
+                                navigator.mediaDevices.getUserMedia(constraints).then(s => {
                                     this.stream = s;
                                     $refs.docVideo.srcObject = s;
                                     this.cameraOpen = true;
                                 }).catch(err => {
-                                    alert('{{ __('messages.camera_access_error') }}');
-                                    this.mode = 'upload';
+                                    navigator.mediaDevices.getUserMedia({ video: true }).then(s => {
+                                        this.stream = s;
+                                        $refs.docVideo.srcObject = s;
+                                        this.cameraOpen = true;
+                                    }).catch(e => {
+                                        alert('تعذر فتح الكاميرا: ' + e.message);
+                                        this.mode = 'upload';
+                                    });
                                 });
+                            },
+                            switchCamera() {
+                                this.facingMode = (this.facingMode === 'user') ? 'environment' : 'user';
+                                this.startCamera(this.facingMode);
                             },
                             stopCamera() {
                                 if (this.stream) { this.stream.getTracks().forEach(t => t.stop()); }
@@ -512,10 +532,10 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                     }}
                                 </label>
                                 <div class="flex items-center gap-1 bg-blue-200/60 p-1 rounded-xl">
-                                    <button type="button" @click="mode = 'upload'; stopCamera();" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition" :class="mode === 'upload' ? 'bg-white text-blue-950 shadow-xs' : 'text-blue-800'">
+                                    <button type="button" @click="mode = 'upload'; stopCamera();" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition cursor-pointer" :class="mode === 'upload' ? 'bg-white text-blue-950 shadow-xs' : 'text-blue-800'">
                                         📁 {{ $t('ملف', 'Fichier', 'File') }}
                                     </button>
-                                    <button type="button" @click="startCamera()" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition" :class="mode === 'camera' || mode === 'captured' ? 'bg-blue-600 text-white shadow-xs' : 'text-blue-800'">
+                                    <button type="button" @click="startCamera()" class="px-2.5 py-1 rounded-lg text-[10px] font-black transition cursor-pointer" :class="mode === 'camera' || mode === 'captured' ? 'bg-blue-600 text-white shadow-xs' : 'text-blue-800'">
                                         📷 {{ $t('تصوير مباشر', 'Caméra', 'Camera') }}
                                     </button>
                                 </div>
@@ -529,9 +549,14 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         {{ $t('ضع بطاقة التعريف أو جواز السفر داخل الإطار', 'Placez la carte d\'identité ou passeport dans le cadre', 'Place ID card or passport inside frame') }}
                                     </div>
                                 </div>
-                                <button type="button" @click="capture()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-md transition flex items-center gap-1.5">
-                                    <span>📸 {{ $t('التقاط صورة الوثيقة الآن', 'Capturer le document', 'Capture ID / Passport Document') }}</span>
-                                </button>
+                                <div class="flex flex-wrap items-center justify-center gap-2">
+                                    <button type="button" @click="capture()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer">
+                                        <span>📸 {{ $t('التقاط صورة الوثيقة الآن', 'Capturer le document', 'Capture ID / Passport Document') }}</span>
+                                    </button>
+                                    <button type="button" @click="switchCamera()" class="px-4 py-2 rounded-xl bg-blue-800 hover:bg-blue-900 text-white font-black text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer">
+                                        <span x-text="facingMode === 'user' ? '{{ $t('كاميرا خلفية 🔄', 'Caméra Arrière 🔄', 'Rear Cam 🔄') }}' : '{{ $t('كاميرا أمامية 🔄', 'Caméra Avant 🔄', 'Front Cam 🔄') }}'"></span>
+                                    </button>
+                                </div>
                             </div>
 
                             <div x-show="mode !== 'camera'">
@@ -543,29 +568,10 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         </div>
                                     </div>
                                 @else
-                                    <input type="file" wire:model="id_card_file" class="text-xs text-slate-700 file:mr-4 file:py-1.5 file:px-3.5 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                                    <input type="file" wire:model="id_card_file" accept="image/*" capture="user" class="text-xs text-slate-700 file:mr-4 file:py-1.5 file:px-3.5 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
                                 @endif
                             </div>
                             @error('id_card_file') <span class="block text-rose-600 text-[10px] font-bold mt-1">{{ $message }}</span> @enderror
-                        </div>
-                    @endif
-
-                    <!-- Password Fields (Required ONLY for JUDGE & COUNTRY_ADMIN) -->
-                    @if($role !== 'MEDIA_MANAGER')
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                            <div>
-                                <label class="block text-slate-700 font-bold mb-1">
-                                    {{ $t('كلمة السر للحساب *', 'Mot de passe *', 'Account Password *') }}
-                                </label>
-                                <input wire:model="password" type="password" placeholder="••••••••" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-bold">
-                                @error('password') <span class="text-rose-500 text-[10px] font-bold">{{ $message }}</span> @enderror
-                            </div>
-                            <div>
-                                <label class="block text-slate-700 font-bold mb-1">
-                                    {{ $t('تأكيد كلمة السر *', 'Confirmer le mot de passe *', 'Confirm Password *') }}
-                                </label>
-                                <input wire:model="password_confirmation" type="password" placeholder="••••••••" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-bold">
-                            </div>
                         </div>
                     @endif
 

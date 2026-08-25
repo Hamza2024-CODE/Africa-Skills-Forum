@@ -253,8 +253,6 @@ class OfficialRegistration extends Component
             $rules['press_card_file'] = $this->captured_id_card_data ? ['nullable'] : ['required', 'file', 'mimes:pdf,jpg,jpeg,png,webp', 'max:10240'];
             $messages['press_card_file.required'] = $locale === 'fr' ? 'Veuillez fournir la carte de presse ou pièce d\'identité.' : ($locale === 'en' ? 'Please upload or capture press card / ID document.' : 'يرجى رفع ملف بطاقة الصحافة المهنية أو بطاقة الهوية/الجواز المعتمدة أو تصويرها بالكاميرا المباشرة.');
         } else {
-            // JUDGE and COUNTRY_ADMIN require Password
-            $rules['password'] = ['required', 'string', 'min:6', 'confirmed'];
             $rules['id_card_file'] = $this->captured_id_card_data ? ['nullable'] : ['required', 'file', 'mimes:pdf,jpg,jpeg,png,webp', 'max:10240'];
 
             if ($this->isAlgeria) {
