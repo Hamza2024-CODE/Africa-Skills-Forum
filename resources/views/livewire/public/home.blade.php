@@ -297,13 +297,13 @@
                     
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 relative pt-2">
                         <!-- Horizontal Laser Connecting Line -->
-                        <div class="hidden lg:block absolute top-8 left-6 right-6 h-1 bg-slate-200 dark:bg-[#031826] -z-0 rounded-full overflow-hidden">
+                        <div class="hidden lg:block absolute top-7.5 left-8 right-8 h-1 bg-slate-200 dark:bg-[#031826] z-0 rounded-full overflow-hidden">
                             <div class="bg-gradient-to-r from-[#24BDC3] via-[#052D48] to-[#42CBD0] h-full w-full rounded-full animate-pulse"></div>
                         </div>
 
                         <!-- Step 1: Opening Ceremony -->
                         <div @click="$dispatch('open-schedule'); scheduleTab = 16" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
-                            <div class="w-11 h-11 rounded-2xl bg-teal-100 dark:bg-[#031826] text-[#24BDC3] border-2 border-teal-300 dark:border-[#24BDC3]/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
+                            <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#031826] text-[#24BDC3] border-2 border-teal-300 dark:border-[#24BDC3]/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                             </div>
                             <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#24BDC3] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Cérémonie d\'Ouverture' : (app()->getLocale() === 'en' ? 'Opening Ceremony' : 'حفل الافتتاح') }}</div>
@@ -312,7 +312,7 @@
 
                         <!-- Step 2: Ministerial Roundtable -->
                         <div @click="$dispatch('open-schedule'); scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
-                            <div class="w-11 h-11 rounded-2xl bg-teal-100 dark:bg-[#031826] text-[#24BDC3] border-2 border-teal-300 dark:border-[#24BDC3]/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
+                            <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#031826] text-[#24BDC3] border-2 border-teal-300 dark:border-[#24BDC3]/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                             </div>
                             <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#24BDC3] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Table Ronde Ministérielle' : (app()->getLocale() === 'en' ? 'Ministerial Roundtable' : 'المائدة المستديرة الوزارية') }}</div>
@@ -321,16 +321,16 @@
 
                         <!-- Step 3: Joint Declaration -->
                         <div @click="$dispatch('open-schedule'); scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
-                            <div class="w-11 h-11 rounded-2xl bg-emerald-100 text-[#35A536] border-2 border-emerald-300 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
+                            <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#031826] text-[#35A536] border-2 border-emerald-300 dark:border-emerald-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             </div>
-                            <div class="text-[11px] font-black text-slate-800 group-hover/step:text-[#35A536] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Déclaration Conjointe' : (app()->getLocale() === 'en' ? 'Joint Declaration' : 'الإعلان المشترك') }}</div>
-                            <div class="text-[10px] font-extrabold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full inline-block border border-emerald-200">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 12:15' : (app()->getLocale() === 'en' ? 'Nov. — 12:15' : 'نوفمبر — 12:15') }}</div>
+                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#35A536] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Déclaration Conjointe' : (app()->getLocale() === 'en' ? 'Joint Declaration' : 'الإعلان المشترك') }}</div>
+                            <div class="text-[10px] font-extrabold text-emerald-800 dark:text-emerald-200 bg-emerald-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-emerald-200 dark:border-emerald-500/30">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 12:15' : (app()->getLocale() === 'en' ? 'Nov. — 12:15' : 'نوفمبر — 12:15') }}</div>
                         </div>
 
                         <!-- Step 4: Expert Panels -->
                         <div @click="$dispatch('open-schedule'); scheduleTab = 17" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
-                            <div class="w-11 h-11 rounded-2xl bg-purple-100 dark:bg-[#031826] text-purple-600 dark:text-purple-300 border-2 border-purple-300 dark:border-purple-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
+                            <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#031826] text-purple-600 dark:text-purple-300 border-2 border-purple-300 dark:border-purple-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                             </div>
                             <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-purple-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Panneaux d\'Experts' : (app()->getLocale() === 'en' ? 'Expert Panels' : 'الجلسات التخصصية') }}</div>
@@ -339,7 +339,7 @@
 
                         <!-- Step 5: Where Policy Meets Talent -->
                         <div @click="$dispatch('open-schedule'); scheduleTab = 18" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
-                            <div class="w-11 h-11 rounded-2xl bg-sky-100 dark:bg-[#031826] text-sky-600 dark:text-sky-300 border-2 border-sky-300 dark:border-sky-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
+                            <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#031826] text-sky-600 dark:text-sky-300 border-2 border-sky-300 dark:border-sky-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                             </div>
                             <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-sky-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Politiques & Talents' : (app()->getLocale() === 'en' ? 'Where Policy Meets Talent' : 'التلاقي بين السياسات والمواهب') }}</div>
@@ -348,7 +348,7 @@
 
                         <!-- Step 6: Closing Ceremony -->
                         <div @click="$dispatch('open-schedule'); scheduleTab = 18" class="text-center space-y-2 relative z-10 group/step cursor-pointer">
-                            <div class="w-11 h-11 rounded-2xl bg-rose-100 dark:bg-[#031826] text-rose-600 dark:text-rose-300 border-2 border-rose-300 dark:border-rose-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
+                            <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#031826] text-rose-600 dark:text-rose-300 border-2 border-rose-300 dark:border-rose-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
                             </div>
                             <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-rose-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Cérémonie de Clôture' : (app()->getLocale() === 'en' ? 'Closing Ceremony' : 'حفل الاختتام') }}</div>
