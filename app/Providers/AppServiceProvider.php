@@ -23,7 +23,25 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // Trust reverse proxies (aaPanel / NGINX / Cloudflare / HTTPS SSL termination)
+        Request::setTrustedProxies(
+            ['*'],
+            Request::HEADER_X_FORWARDED_FOR |
+            Request::HEADER_X_FORWARDED_HOST |
+            Request::HEADER_X_FORWARDED_PORT |
+            Request::HEADER_X_FORWARDED_PROTO |
+            Request::HEADER_X_FORWARDED_AWS_ELB
+        );
+
         \Illuminate\Support\Facades\URL::forceScheme('https');
+        if (config('app.url')) {
+            \Illuminate\Support\Facades\URL::forceRootUrl(config('app.url'));
+        }
+
+        if (app()->environment('production') || request()->header('X-Forwarded-Proto') === 'https' || str_contains(config('app.url', ''), 'https')) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
 
         \Illuminate\Support\Facades\Blade::directive('assetv', function ($expression) {
             return "<?php echo \App\Services\SettingsEngine::appendCacheBuster(asset($expression)); ?>";
@@ -36,6 +54,11 @@ class AppServiceProvider extends ServiceProvider
             \Livewire\Livewire::setUpdateRoute(function ($handle) {
                 return \Illuminate\Support\Facades\Route::post('/livewire/update', $handle);
             });
+            if (method_exists(\Livewire\Livewire::class, 'setUploadRoute')) {
+                \Livewire\Livewire::setUploadRoute(function ($handle) {
+                    return \Illuminate\Support\Facades\Route::post('/livewire/upload-file', $handle);
+                });
+            }
         }
 
         Gate::policy(Country::class, CountryPolicy::class);

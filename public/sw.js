@@ -1,4 +1,4 @@
-const CACHE_NAME = 'asf-2026-v5';
+const CACHE_NAME = 'asf-2026-v7';
 const ASSETS_TO_CACHE = [
   '/manifest.json',
   '/manifest.webmanifest',
@@ -55,18 +55,10 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. Network-First for HTML navigation pages
+  // 3. Network-Only for HTML navigation pages (Never cache HTML pages to prevent stale CSRF tokens)
   if (request.mode === 'navigate' || request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(
-      fetch(request)
-        .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, responseClone));
-          }
-          return networkResponse;
-        })
-        .catch(() => caches.match(request).then((cached) => cached || fetch(request)))
+      fetch(request).catch(() => caches.match(request).then((cached) => cached || fetch(request)))
     );
     return;
   }

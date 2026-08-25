@@ -74,6 +74,11 @@ class OfficialRegistration extends Component
         $this->runInstantVerification();
     }
 
+    public function updatedPressCardFile(): void
+    {
+        $this->runInstantVerification();
+    }
+
     public function runInstantVerification(): void
     {
         $locale = app()->getLocale();

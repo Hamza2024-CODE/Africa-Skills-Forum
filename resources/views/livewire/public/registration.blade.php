@@ -441,7 +441,7 @@
                 <!-- Section 3: Professional Details -->
                 <div class="space-y-4">
                     <h3 class="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2 border-b border-slate-200 pb-3">
-                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 1320 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1"/></svg>
+                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1"/></svg>
                         <span>{{ $t('3. المؤسسة والوظيفة والتخصص (Professional & Domain):', '3. Organisme & Spécialité :', '3. Organization & Specialty:') }}</span>
                     </h3>
 
@@ -617,7 +617,9 @@ function handleFastPhotoCompress(event, wireProperty) {
             let rawDataUrl = e.target.result;
             if (!rawDataUrl) return;
 
-            window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: rawDataUrl } }));
+            if (targetProp === 'photo' || targetProp === 'photoFile') {
+                window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: rawDataUrl, property: targetProp } }));
+            }
 
             const img = new Image();
             img.onload = function() {

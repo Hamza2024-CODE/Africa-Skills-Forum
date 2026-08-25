@@ -119,6 +119,21 @@ Route::get('/offline.html', function () {
     ]);
 });
 
+// Livewire Temporary Upload & Preview Routes (Fail-safe for Nginx / aaPanel Reverse Proxies)
+Route::post(\Livewire\Mechanisms\HandleRequests\EndpointResolver::uploadPath(), function (\Illuminate\Http\Request $request) {
+    abort_unless($request->hasFile('files'), 400, 'No files provided');
+
+    $disk = \Livewire\Features\SupportFileUploads\FileUploadConfiguration::disk();
+    $controller = new \Livewire\Features\SupportFileUploads\FileUploadController();
+    $filePaths = $controller->validateAndStore($request->file('files'), $disk);
+
+    return response()->json(['paths' => $filePaths]);
+})->middleware(['web'])->name('livewire.upload-file');
+
+Route::get(\Livewire\Mechanisms\HandleRequests\EndpointResolver::previewPath(), function (string $filename, \Illuminate\Http\Request $request) {
+    return \Livewire\Drawer\Utils::pretendPreviewResponseIsPreviewFile($filename);
+})->middleware(['web'])->name('livewire.preview-file');
+
 // Language Switcher Route
 Route::match(['get', 'post'], '/lang/{locale}', function (string $locale, \Illuminate\Http\Request $request) {
     if (in_array($locale, ['ar', 'fr', 'en', 'pt'])) {

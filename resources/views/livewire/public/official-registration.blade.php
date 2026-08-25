@@ -120,8 +120,9 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
             <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-xl space-y-6">
 
                 @if(session('error'))
-                    <div class="p-3.5 bg-rose-50 text-rose-700 text-xs font-bold rounded-xl border border-rose-200">
-                        ⚠️ {{ session('error') }}
+                    <div class="p-3.5 bg-rose-50 text-rose-700 text-xs font-bold rounded-xl border border-rose-200 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                        <span>{{ session('error') }}</span>
                     </div>
                 @endif
 
@@ -273,7 +274,11 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                         <!-- Upload File Input / Preview -->
                         @php
                             $initialPhotoSrc = '';
-                            if ($captured_photo_data) {
+                            if ($photo && is_object($photo) && method_exists($photo, 'temporaryUrl')) {
+                                try {
+                                    $initialPhotoSrc = $photo->temporaryUrl();
+                                } catch (\Throwable $e) {}
+                            } elseif ($captured_photo_data) {
                                 $initialPhotoSrc = str_starts_with($captured_photo_data, 'data:') 
                                     ? $captured_photo_data 
                                     : ('data:image/jpeg;base64,' . $captured_photo_data);
@@ -281,7 +286,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                         @endphp
                         <div x-show="mode !== 'camera'" 
                              x-data="{ previewUrl: '{{ $initialPhotoSrc }}' }"
-                             @photo-preview-updated.window="previewUrl = $event.detail.url"
+                             @photo-preview-updated.window="if ($event.detail.property === 'photo') previewUrl = $event.detail.url"
                              class="flex flex-col sm:flex-row items-center gap-4 pt-1">
                             <div class="shrink-0">
                                 <template x-if="previewUrl">
@@ -509,9 +514,24 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                 @if($press_card_file)
                                     <div class="flex items-center justify-between gap-3 bg-emerald-50 p-3 rounded-xl border border-emerald-300 shadow-xs">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">
-                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                            </div>
+                                            @php
+                                                $pressCardThumb = null;
+                                                if (is_object($press_card_file) && method_exists($press_card_file, 'temporaryUrl')) {
+                                                    try {
+                                                        $mime = $press_card_file->getMimeType();
+                                                        if (str_contains($mime, 'image')) {
+                                                            $pressCardThumb = $press_card_file->temporaryUrl();
+                                                        }
+                                                    } catch (\Throwable $e) {}
+                                                }
+                                            @endphp
+                                            @if($pressCardThumb)
+                                                <img src="{{ $pressCardThumb }}" class="w-14 h-10 rounded-lg object-cover border border-emerald-400 shrink-0">
+                                            @else
+                                                <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                                </div>
+                                            @endif
                                             <div class="text-xs font-bold text-slate-900 flex flex-col">
                                                 <span class="text-emerald-700 font-extrabold flex items-center gap-1">
                                                     <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
@@ -537,13 +557,13 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                             <span>{{ $t('اختر وثيقة من المعرض / الجهاز', 'Galerie / Fichiers', 'Choose Document / Files') }}</span>
-                                            <input type="file" wire:model="press_card_file" onchange="handleFastPhotoCompress(event, 'press_card_file')" accept="image/*,application/pdf,.pdf,.jpg,.jpeg,.png,.webp" class="hidden">
+                                            <input type="file" onchange="handleFastPhotoCompress(event, 'press_card_file')" accept="image/*,application/pdf,.pdf,.jpg,.jpeg,.png,.webp" class="hidden">
                                         </label>
 
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
                                             <span>{{ $t('تصوير بالكاميرا', 'Prendre Photo', 'Take Photo') }}</span>
-                                            <input type="file" wire:model="press_card_file" onchange="handleFastPhotoCompress(event, 'press_card_file')" accept="image/*" capture="environment" class="hidden">
+                                            <input type="file" onchange="handleFastPhotoCompress(event, 'press_card_file')" accept="image/*" capture="environment" class="hidden">
                                         </label>
                                     </div>
                                 @endif
@@ -662,9 +682,24 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                 @if($id_card_file)
                                     <div class="flex items-center justify-between gap-3 bg-emerald-50 p-3 rounded-xl border border-emerald-300 shadow-xs">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">
-                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                            </div>
+                                            @php
+                                                $idCardThumb = null;
+                                                if (is_object($id_card_file) && method_exists($id_card_file, 'temporaryUrl')) {
+                                                    try {
+                                                        $mime = $id_card_file->getMimeType();
+                                                        if (str_contains($mime, 'image')) {
+                                                            $idCardThumb = $id_card_file->temporaryUrl();
+                                                        }
+                                                    } catch (\Throwable $e) {}
+                                                }
+                                            @endphp
+                                            @if($idCardThumb)
+                                                <img src="{{ $idCardThumb }}" class="w-14 h-10 rounded-lg object-cover border border-emerald-400 shrink-0">
+                                            @else
+                                                <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                                </div>
+                                            @endif
                                             <div class="text-xs font-bold text-slate-900 flex flex-col">
                                                 <span class="text-emerald-700 font-extrabold flex items-center gap-1">
                                                     <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
@@ -690,13 +725,13 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 012-2h2a2 2 0 012 2v1m-4 0h4"/></svg>
                                             <span>{{ $t('اختر الهوية / الجواز من المعرض', 'Galerie / Fichiers', 'Choose ID / Passport File') }}</span>
-                                            <input type="file" wire:model="id_card_file" onchange="handleFastPhotoCompress(event, 'id_card_file')" accept="image/*,application/pdf,.pdf,.jpg,.jpeg,.png,.webp" class="hidden">
+                                            <input type="file" onchange="handleFastPhotoCompress(event, 'id_card_file')" accept="image/*,application/pdf,.pdf,.jpg,.jpeg,.png,.webp" class="hidden">
                                         </label>
 
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
                                             <span>{{ $t('تصوير الهوية بالكاميرا', 'Prendre Photo Identité', 'Take Photo') }}</span>
-                                            <input type="file" wire:model="id_card_file" onchange="handleFastPhotoCompress(event, 'id_card_file')" accept="image/*" capture="environment" class="hidden">
+                                            <input type="file" onchange="handleFastPhotoCompress(event, 'id_card_file')" accept="image/*" capture="environment" class="hidden">
                                         </label>
                                     </div>
                                 @endif
@@ -738,11 +773,21 @@ function handleFastPhotoCompress(event, wireProperty) {
     const lwComponent = Livewire.find(componentEl.getAttribute('wire:id'));
     if (!lwComponent) return;
 
-    // 1. Instantly display local preview image if it's an image file
-    if (file.type && file.type.startsWith('image/')) {
+    const uploadSuccess = () => {
+        if (lwComponent.$wire && typeof lwComponent.$wire.runInstantVerification === 'function') {
+            lwComponent.$wire.runInstantVerification();
+        }
+    };
+
+    const uploadError = (err) => {
+        console.error('Livewire upload error:', err);
+    };
+
+    // 1. Instantly display local preview image ONLY if it's the personal photo field
+    if (wireProperty === 'photo' && file.type && file.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: e.target.result } }));
+            window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: e.target.result, property: 'photo' } }));
         };
         reader.readAsDataURL(file);
     }
@@ -758,7 +803,7 @@ function handleFastPhotoCompress(event, wireProperty) {
                     const canvas = document.createElement('canvas');
                     let width = img.width;
                     let height = img.height;
-                    const maxDim = 800;
+                    const maxDim = 1200;
                     if (width > maxDim || height > maxDim) {
                         if (width > height) {
                             height = Math.round((height * maxDim) / width);
@@ -774,39 +819,24 @@ function handleFastPhotoCompress(event, wireProperty) {
                     ctx.drawImage(img, 0, 0, width, height);
                     
                     canvas.toBlob(function(blob) {
-                        if (blob) {
-                            const compressedFile = new File([blob], file.name || 'uploaded_file.jpg', { type: 'image/jpeg' });
-                            lwComponent.upload(wireProperty, compressedFile, function() {
-                                if (lwComponent.$wire && typeof lwComponent.$wire.runInstantVerification === 'function') {
-                                    lwComponent.$wire.runInstantVerification();
-                                }
-                            });
-                        } else {
-                            lwComponent.upload(wireProperty, file, function() {
-                                if (lwComponent.$wire && typeof lwComponent.$wire.runInstantVerification === 'function') {
-                                    lwComponent.$wire.runInstantVerification();
-                                }
-                            });
-                        }
-                    }, 'image/jpeg', 0.8);
+                        const targetFile = blob 
+                            ? new File([blob], file.name ? file.name.replace(/\.[^/.]+$/, ".jpg") : 'uploaded_file.jpg', { type: 'image/jpeg' }) 
+                            : file;
+                        lwComponent.upload(wireProperty, targetFile, uploadSuccess, uploadError);
+                    }, 'image/jpeg', 0.85);
                 } catch (err) {
-                    lwComponent.upload(wireProperty, file, function() {
-                        if (lwComponent.$wire && typeof lwComponent.$wire.runInstantVerification === 'function') {
-                            lwComponent.$wire.runInstantVerification();
-                        }
-                    });
+                    lwComponent.upload(wireProperty, file, uploadSuccess, uploadError);
                 }
+            };
+            img.onerror = function() {
+                lwComponent.upload(wireProperty, file, uploadSuccess, uploadError);
             };
             img.src = rawDataUrl;
         };
         reader.readAsDataURL(file);
     } else {
         // PDF or non-image document upload
-        lwComponent.upload(wireProperty, file, function() {
-            if (lwComponent.$wire && typeof lwComponent.$wire.runInstantVerification === 'function') {
-                lwComponent.$wire.runInstantVerification();
-            }
-        });
+        lwComponent.upload(wireProperty, file, uploadSuccess, uploadError);
     }
 }
 </script>
