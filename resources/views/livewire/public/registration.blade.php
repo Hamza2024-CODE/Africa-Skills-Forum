@@ -639,17 +639,21 @@ function handleFastPhotoCompress(event, targetMethod) {
                 canvas.height = height;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height);
-                let compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
-                compressedBase64 = compressedBase64.replace(/\s+/g, '');
                 
-                window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: compressedBase64 } }));
-                lwComponent.call(targetMethod, compressedBase64);
+                canvas.toBlob(function(blob) {
+                    if (blob) {
+                        const compressedFile = new File([blob], file.name || 'photo.jpg', { type: 'image/jpeg' });
+                        lwComponent.upload('photoFile', compressedFile);
+                    } else {
+                        lwComponent.upload('photoFile', file);
+                    }
+                }, 'image/jpeg', 0.8);
             } catch (err) {
-                lwComponent.call(targetMethod, (rawDataUrl || '').replace(/\s+/g, ''));
+                lwComponent.upload('photoFile', file);
             }
         };
         img.onerror = function() {
-            lwComponent.call(targetMethod, (rawDataUrl || '').replace(/\s+/g, ''));
+            lwComponent.upload('photoFile', file);
         };
         img.src = rawDataUrl;
     };

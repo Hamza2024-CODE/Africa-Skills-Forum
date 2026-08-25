@@ -216,12 +216,21 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                             canvas.height = $refs.video.videoHeight || 480;
                             const ctx = canvas.getContext('2d');
                             ctx.drawImage($refs.video, 0, 0, canvas.width, canvas.height);
-                            let dataUrl = canvas.toDataURL('image/jpeg', 0.75);
-                            dataUrl = dataUrl.replace(/\s+/g, '');
+                            
+                            const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
                             window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: dataUrl } }));
-                            $wire.setCapturedPhoto(dataUrl);
+
+                            canvas.toBlob((blob) => {
+                                if (blob) {
+                                    const cameraFile = new File([blob], 'camera_photo.jpg', { type: 'image/jpeg' });
+                                    $wire.upload('photo', cameraFile, () => {
+                                        $wire.runInstantVerification();
+                                    });
+                                }
+                            }, 'image/jpeg', 0.8);
+
                             this.stopCamera();
-                            this.mode = 'captured';
+                            this.mode = 'upload';
                         }
                     }" class="p-5 rounded-3xl bg-slate-50 border border-slate-200/80 space-y-3">
                         <div class="flex items-center justify-between">
@@ -578,10 +587,18 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                 canvas.height = $refs.docVideo.videoHeight || 720;
                                 const ctx = canvas.getContext('2d');
                                 ctx.drawImage($refs.docVideo, 0, 0, canvas.width, canvas.height);
-                                const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
-                                $wire.setCapturedIdCard(dataUrl);
+                                
+                                canvas.toBlob((blob) => {
+                                    if (blob) {
+                                        const docFile = new File([blob], 'id_card_doc.jpg', { type: 'image/jpeg' });
+                                        $wire.upload('id_card_file', docFile, () => {
+                                            $wire.runInstantVerification();
+                                        });
+                                    }
+                                }, 'image/jpeg', 0.8);
+
                                 this.stopCamera();
-                                this.mode = 'captured';
+                                this.mode = 'upload';
                             }
                         }" class="p-4 rounded-2xl bg-blue-50/80 border border-blue-200/90 space-y-3">
                             <div class="flex items-center justify-between">
@@ -695,6 +712,15 @@ function handleFastPhotoCompress(event, targetMethod) {
         // INSTANTLY update local preview image on mobile phone screen!
         window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: rawDataUrl } }));
 
+        let wireProp = 'photo';
+        if (targetMethod === 'setCapturedIdCard') {
+            try {
+                wireProp = (lwComponent.get('role') === 'MEDIA_MANAGER') ? 'press_card_file' : 'id_card_file';
+            } catch(err) {
+                wireProp = 'id_card_file';
+            }
+        }
+
         const img = new Image();
         img.onload = function() {
             try {
@@ -715,17 +741,29 @@ function handleFastPhotoCompress(event, targetMethod) {
                 canvas.height = height;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height);
-                let compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
-                compressedBase64 = compressedBase64.replace(/\s+/g, '');
                 
-                window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: compressedBase64 } }));
-                lwComponent.call(targetMethod, compressedBase64);
+                canvas.toBlob(function(blob) {
+                    if (blob) {
+                        const compressedFile = new File([blob], file.name || 'uploaded_photo.jpg', { type: 'image/jpeg' });
+                        lwComponent.upload(wireProp, compressedFile, function() {
+                            lwComponent.call('runInstantVerification');
+                        });
+                    } else {
+                        lwComponent.upload(wireProp, file, function() {
+                            lwComponent.call('runInstantVerification');
+                        });
+                    }
+                }, 'image/jpeg', 0.8);
             } catch (err) {
-                lwComponent.call(targetMethod, (rawDataUrl || '').replace(/\s+/g, ''));
+                lwComponent.upload(wireProp, file, function() {
+                    lwComponent.call('runInstantVerification');
+                });
             }
         };
         img.onerror = function() {
-            lwComponent.call(targetMethod, (rawDataUrl || '').replace(/\s+/g, ''));
+            lwComponent.upload(wireProp, file, function() {
+                lwComponent.call('runInstantVerification');
+            });
         };
         img.src = rawDataUrl;
     };

@@ -266,28 +266,32 @@ class OfficialRegistration extends Component
 
         $this->validate($rules, $messages);
 
-        // Save Captured photo or Uploaded Photo
-        if ($this->captured_photo_data) {
+        // Save Uploaded Photo or Captured photo
+        if ($this->photo) {
+            $photoPath = $this->photo->store('official_photos', 'public');
+        } elseif ($this->captured_photo_data) {
             $imgData = preg_replace('/^data:[^;]+;base64,/', '', $this->captured_photo_data);
             $decodedImg = base64_decode($imgData);
             $fileName = 'official_photos/captured_' . Str::random(20) . '.jpg';
             \Illuminate\Support\Facades\Storage::disk('public')->put($fileName, $decodedImg);
             $photoPath = $fileName;
         } else {
-            $photoPath = $this->photo ? $this->photo->store('official_photos', 'public') : null;
+            $photoPath = null;
         }
 
-        // Save Captured ID Card / Passport or Uploaded Document
-        if ($this->captured_id_card_data) {
+        // Save Uploaded Document or Captured ID Card / Passport
+        $pressCardPath = $this->press_card_file ? $this->press_card_file->store('official_press_cards', 'public') : null;
+        $idCardPath    = $this->id_card_file ? $this->id_card_file->store('official_id_cards', 'public') : null;
+
+        if (!$idCardPath && $this->captured_id_card_data) {
             $imgDataDoc = preg_replace('/^data:[^;]+;base64,/', '', $this->captured_id_card_data);
             $decodedImgDoc = base64_decode($imgDataDoc);
             $fileNameDoc = 'official_id_cards/captured_doc_' . Str::random(20) . '.jpg';
             \Illuminate\Support\Facades\Storage::disk('public')->put($fileNameDoc, $decodedImgDoc);
             $idCardPath = $fileNameDoc;
-            $pressCardPath = $fileNameDoc;
-        } else {
-            $pressCardPath = $this->press_card_file ? $this->press_card_file->store('official_press_cards', 'public') : null;
-            $idCardPath = $this->id_card_file ? $this->id_card_file->store('official_id_cards', 'public') : null;
+            if (!$pressCardPath) {
+                $pressCardPath = $fileNameDoc;
+            }
         }
 
         // Auto-generate secure password if not provided
