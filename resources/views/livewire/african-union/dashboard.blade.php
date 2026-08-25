@@ -351,7 +351,7 @@
                                     {{ $reg->registration_number ?: ('WSAP-' . $reg->id) }}
                                 </td>
                                 <td class="py-3.5 px-4 font-black text-slate-900 dark:text-white">
-                                    {{ $reg->first_name }} {{ $reg->last_name }}
+                                    {{ $reg->participant ? ($reg->participant->first_name_ar . ' ' . $reg->participant->last_name_ar) : ($reg->user->name ?? 'مشارك') }}
                                 </td>
                                 <td class="py-3.5 px-4">
                                     <div class="flex items-center gap-2">
@@ -363,11 +363,11 @@
                                 </td>
                                 <td class="py-3.5 px-4">
                                     <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 border border-blue-200">
-                                        {{ $reg->registration_type ?: 'DELEGATE' }}
+                                        {{ $reg->job_title ?: ($reg->participant?->user?->roles?->first()?->name ?? 'عضو وفد رسمي') }}
                                     </span>
                                 </td>
                                 <td class="py-3.5 px-4">
-                                    @if(in_array($reg->accreditation_status, ['APPROVED', 'PRINTED', 'ISSUED']))
+                                    @if($reg->status && (is_object($reg->status) ? $reg->status->value === 'APPROVED' : $reg->status === 'APPROVED'))
                                         <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200">
                                             معتمد رسميًا ✅
                                         </span>
@@ -534,7 +534,7 @@
                         <span>بطاقة الاعتماد الرسمية للمنتدى — معاينة موثقة</span>
                     </div>
                     <h3 class="text-lg font-black text-slate-900 dark:text-white">
-                        {{ $viewingRegistration->first_name }} {{ $viewingRegistration->last_name }}
+                        {{ $viewingRegistration->participant ? ($viewingRegistration->participant->first_name_ar . ' ' . $viewingRegistration->participant->last_name_ar) : ($viewingRegistration->user->name ?? 'مشارك') }}
                     </h3>
                     <div class="text-xs font-mono font-black text-[#006837] dark:text-amber-400">
                         {{ $viewingRegistration->registration_number ?: ('WSAP-' . $viewingRegistration->id) }}
@@ -549,10 +549,10 @@
                     </div>
 
                     <div class="space-y-1 text-center py-2">
-                        <div class="text-base font-black text-white">{{ $viewingRegistration->first_name }} {{ $viewingRegistration->last_name }}</div>
+                        <div class="text-base font-black text-white">{{ $viewingRegistration->participant ? ($viewingRegistration->participant->first_name_ar . ' ' . $viewingRegistration->participant->last_name_ar) : ($viewingRegistration->user->name ?? 'مشارك') }}</div>
                         <div class="text-xs font-bold text-amber-200">{{ $viewingRegistration->country ? $viewingRegistration->country->name_ar : 'مفوضية الاتحاد الأفريقي' }}</div>
                         <div class="inline-block mt-2 px-4 py-1 rounded-full bg-amber-400 text-slate-950 font-black text-xs">
-                            {{ $viewingRegistration->registration_type ?: 'OFFICIAL DELEGATE' }}
+                            {{ $viewingRegistration->job_title ?: ($viewingRegistration->participant?->user?->roles?->first()?->name ?? 'عضو وفد رسمي') }}
                         </div>
                     </div>
 

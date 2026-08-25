@@ -73,8 +73,14 @@ class AfricanUnionDashboard extends Component
         // High-level statistics
         $totalParticipants = Registration::count();
         $totalCountries = Country::has('registrations')->count() ?: Country::count();
-        $ministerialCount = Registration::whereIn('registration_type', ['VIP', 'DELEGATE_HEAD', 'MINISTER', 'DIPLOMAT', 'OFFICIAL'])->count();
-        $badgesApproved = Registration::whereIn('accreditation_status', ['APPROVED', 'PRINTED', 'ISSUED'])->count();
+        $ministerialCount = Registration::where(function($q) {
+            $q->whereHas('participant.user.roles', fn($r) => $r->whereIn('name', ['COUNTRY_ADMIN', 'VIP', 'EXECUTIVE_VIEWER', 'EXPERT']))
+              ->orWhere('job_title', 'like', '%وزير%')
+              ->orWhere('job_title', 'like', '%وفد%')
+              ->orWhere('job_title', 'like', '%سفير%');
+        })->count();
+
+        $badgesApproved = Registration::where('status', 'APPROVED')->count();
         $totalFlights = DelegationArrival::count();
 
         // Countries list with delegate breakdown
@@ -83,25 +89,28 @@ class AfricanUnionDashboard extends Component
             ->get();
 
         // Query for Unified Accreditations Table
-        $accreditationsQuery = Registration::with('country')
+        $accreditationsQuery = Registration::with(['participant.user', 'country'])
             ->when(!empty($this->search), function ($q) {
                 $term = '%' . $this->search . '%';
                 $q->where(function ($sub) use ($term) {
-                    $sub->where('first_name', 'like', $term)
-                        ->orWhere('last_name', 'like', $term)
-                        ->orWhere('registration_number', 'like', $term)
-                        ->orWhere('passport_number', 'like', $term)
-                        ->orWhere('email', 'like', $term);
+                    $sub->where('registration_number', 'like', $term)
+                        ->orWhere('job_title', 'like', $term)
+                        ->orWhere('organization_name', 'like', $term)
+                        ->orWhereHas('participant', fn($p) => 
+                            $p->where('first_name_ar', 'like', $term)
+                              ->orWhere('last_name_ar', 'like', $term)
+                              ->orWhere('first_name_en', 'like', $term)
+                              ->orWhere('last_name_en', 'like', $term)
+                              ->orWhere('email', 'like', $term)
+                              ->orWhere('passport_number', 'like', $term)
+                        );
                 });
             })
             ->when($this->countryFilter !== 'ALL', function ($q) {
                 $q->where('country_id', $this->countryFilter);
             })
-            ->when($this->roleFilter !== 'ALL', function ($q) {
-                $q->where('registration_type', $this->roleFilter);
-            })
             ->when($this->statusFilter !== 'ALL', function ($q) {
-                $q->where('accreditation_status', $this->statusFilter);
+                $q->where('status', $this->statusFilter);
             })
             ->orderByDesc('created_at');
 
