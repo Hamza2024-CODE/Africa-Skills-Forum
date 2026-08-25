@@ -216,7 +216,9 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                             canvas.height = $refs.video.videoHeight || 480;
                             const ctx = canvas.getContext('2d');
                             ctx.drawImage($refs.video, 0, 0, canvas.width, canvas.height);
-                            const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                            let dataUrl = canvas.toDataURL('image/jpeg', 0.75);
+                            dataUrl = dataUrl.replace(/\s+/g, '');
+                            window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: dataUrl } }));
                             $wire.setCapturedPhoto(dataUrl);
                             this.stopCamera();
                             this.mode = 'captured';
@@ -260,23 +262,28 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                         </div>
 
                         <!-- Upload File Input / Preview -->
-                        <div x-show="mode !== 'camera'" class="flex flex-col sm:flex-row items-center gap-4 pt-1">
+                        @php
+                            $initialPhotoSrc = '';
+                            if ($captured_photo_data) {
+                                $initialPhotoSrc = str_starts_with($captured_photo_data, 'data:') 
+                                    ? $captured_photo_data 
+                                    : ('data:image/jpeg;base64,' . $captured_photo_data);
+                            }
+                        @endphp
+                        <div x-show="mode !== 'camera'" 
+                             x-data="{ previewUrl: '{{ $initialPhotoSrc }}' }"
+                             @photo-preview-updated.window="previewUrl = $event.detail.url"
+                             class="flex flex-col sm:flex-row items-center gap-4 pt-1">
                             <div class="shrink-0">
-                                @if($captured_photo_data)
-                                    @php
-                                        $photoSrc = str_starts_with($captured_photo_data, 'data:') 
-                                            ? $captured_photo_data 
-                                            : ('data:image/jpeg;base64,' . $captured_photo_data);
-                                    @endphp
-                                    <img src="{{ $photoSrc }}" alt="Captured Photo" class="w-20 h-20 rounded-2xl object-cover border-2 border-emerald-600 shadow-md">
-                                @elseif($photo)
-                                    <img src="{{ $photo->temporaryUrl() }}" alt="Preview" class="w-20 h-20 rounded-2xl object-cover border-2 border-slate-200 shadow-sm">
-                                @else
+                                <template x-if="previewUrl">
+                                    <img :src="previewUrl" alt="Photo Preview" class="w-20 h-20 rounded-2xl object-cover border-2 border-emerald-600 shadow-md">
+                                </template>
+                                <template x-if="!previewUrl">
                                     <div class="w-20 h-20 rounded-2xl bg-slate-200 text-slate-500 flex flex-col items-center justify-center border-2 border-dashed border-slate-300">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                                         <span class="text-[9px] font-bold mt-1">{{ $t('صورة رسمية', 'Photo officielle', 'Official Photo') }}</span>
                                     </div>
-                                @endif
+                                </template>
                             </div>
                             <div class="flex-1 text-center sm:text-start space-y-1">
                                 <p class="text-[10px] text-slate-500 font-medium">
@@ -682,7 +689,12 @@ function handleFastPhotoCompress(event, targetMethod) {
 
     const reader = new FileReader();
     reader.onload = function(e) {
-        const dataUrl = e.target.result;
+        let rawDataUrl = e.target.result;
+        if (!rawDataUrl) return;
+
+        // INSTANTLY update local preview image on mobile phone screen!
+        window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: rawDataUrl } }));
+
         const img = new Image();
         img.onload = function() {
             try {
@@ -705,15 +717,17 @@ function handleFastPhotoCompress(event, targetMethod) {
                 ctx.drawImage(img, 0, 0, width, height);
                 let compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
                 compressedBase64 = compressedBase64.replace(/\s+/g, '');
+                
+                window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: compressedBase64 } }));
                 lwComponent.call(targetMethod, compressedBase64);
             } catch (err) {
-                lwComponent.call(targetMethod, (dataUrl || '').replace(/\s+/g, ''));
+                lwComponent.call(targetMethod, (rawDataUrl || '').replace(/\s+/g, ''));
             }
         };
         img.onerror = function() {
-            lwComponent.call(targetMethod, (dataUrl || '').replace(/\s+/g, ''));
+            lwComponent.call(targetMethod, (rawDataUrl || '').replace(/\s+/g, ''));
         };
-        img.src = dataUrl;
+        img.src = rawDataUrl;
     };
     reader.readAsDataURL(file);
 }

@@ -613,7 +613,12 @@ function handleFastPhotoCompress(event, targetMethod) {
 
     const reader = new FileReader();
     reader.onload = function(e) {
-        const dataUrl = e.target.result;
+        let rawDataUrl = e.target.result;
+        if (!rawDataUrl) return;
+
+        // INSTANTLY update local preview image on mobile phone screen!
+        window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: rawDataUrl } }));
+
         const img = new Image();
         img.onload = function() {
             try {
@@ -636,15 +641,17 @@ function handleFastPhotoCompress(event, targetMethod) {
                 ctx.drawImage(img, 0, 0, width, height);
                 let compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
                 compressedBase64 = compressedBase64.replace(/\s+/g, '');
+                
+                window.dispatchEvent(new CustomEvent('photo-preview-updated', { detail: { url: compressedBase64 } }));
                 lwComponent.call(targetMethod, compressedBase64);
             } catch (err) {
-                lwComponent.call(targetMethod, (dataUrl || '').replace(/\s+/g, ''));
+                lwComponent.call(targetMethod, (rawDataUrl || '').replace(/\s+/g, ''));
             }
         };
         img.onerror = function() {
-            lwComponent.call(targetMethod, (dataUrl || '').replace(/\s+/g, ''));
+            lwComponent.call(targetMethod, (rawDataUrl || '').replace(/\s+/g, ''));
         };
-        img.src = dataUrl;
+        img.src = rawDataUrl;
     };
     reader.readAsDataURL(file);
 }
