@@ -50,6 +50,15 @@ class PlatformAppearanceManager extends Component
     public string $coming_soon_subtitle_fr = '';
     public string $coming_soon_subtitle_en = '';
 
+    // Social Media Cards (Facebook & YouTube)
+    public bool $facebook_card_enabled = true;
+    public string $facebook_page_url = 'https://www.facebook.com/WorldSkillsAlgeria?locale=fr_FR';
+    public string $facebook_page_name = 'African Skills Policy Forum';
+
+    public bool $youtube_card_enabled = true;
+    public string $youtube_channel_url = 'https://www.youtube.com/@WorldSkillsAlgeria/videos';
+    public string $youtube_channel_name = 'African Skills Policy Forum';
+
     public string $previewDevice = 'desktop';
 
     public mixed $site_logo_file = null;
@@ -104,6 +113,14 @@ class PlatformAppearanceManager extends Component
         $this->coming_soon_subtitle_ar = $settings->get('coming_soon_subtitle_ar', 'المنصة الرسمية تحت التحديث والتجهيز حالياً استعداداً للانطلاق الرسمي بوهران.');
         $this->coming_soon_subtitle_fr = $settings->get('coming_soon_subtitle_fr', 'La plateforme officielle est actuellement en cours de préparation pour le lancement à Oran.');
         $this->coming_soon_subtitle_en = $settings->get('coming_soon_subtitle_en', 'The official platform is currently being prepared for launch in Oran.');
+
+        $this->facebook_card_enabled = filter_var($settings->get('facebook_card_enabled', 'true'), FILTER_VALIDATE_BOOLEAN);
+        $this->facebook_page_url = $settings->get('facebook_page_url', 'https://www.facebook.com/WorldSkillsAlgeria?locale=fr_FR');
+        $this->facebook_page_name = $settings->get('facebook_page_name', 'African Skills Policy Forum');
+
+        $this->youtube_card_enabled = filter_var($settings->get('youtube_card_enabled', 'true'), FILTER_VALIDATE_BOOLEAN);
+        $this->youtube_channel_url = $settings->get('youtube_channel_url', 'https://www.youtube.com/@WorldSkillsAlgeria/videos');
+        $this->youtube_channel_name = $settings->get('youtube_channel_name', 'African Skills Policy Forum');
     }
 
     public function updatedMaintenanceMode($value): void
@@ -215,6 +232,14 @@ class PlatformAppearanceManager extends Component
         $settings->set('coming_soon_subtitle_ar', $this->coming_soon_subtitle_ar, 'string', 'system');
         $settings->set('coming_soon_subtitle_fr', $this->coming_soon_subtitle_fr, 'string', 'system');
         $settings->set('coming_soon_subtitle_en', $this->coming_soon_subtitle_en, 'string', 'system');
+
+        $settings->set('facebook_card_enabled', $this->facebook_card_enabled ? 'true' : 'false', 'string', 'social');
+        $settings->set('facebook_page_url', $this->facebook_page_url, 'string', 'social');
+        $settings->set('facebook_page_name', $this->facebook_page_name, 'string', 'social');
+
+        $settings->set('youtube_card_enabled', $this->youtube_card_enabled ? 'true' : 'false', 'string', 'social');
+        $settings->set('youtube_channel_url', $this->youtube_channel_url, 'string', 'social');
+        $settings->set('youtube_channel_name', $this->youtube_channel_name, 'string', 'social');
 
         $settings->flushCache();
 

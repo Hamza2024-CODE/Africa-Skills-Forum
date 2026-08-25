@@ -289,6 +289,54 @@
                     </div>
                 </div>
             </div>
+
+            <!-- ════ SOCIAL MEDIA CARDS CONTROL SECTION (FACEBOOK & YOUTUBE) ════ -->
+            <div class="glass-card rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+                <h2 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                    <span>إدارة بطاقات وسائط التواصل الاجتماعي (فيسبوك ويوتيوب)</span>
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                    <!-- Facebook Card Settings -->
+                    <div class="p-4 rounded-2xl bg-blue-50/70 border border-blue-200/80 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-black text-blue-950 flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-blue-600 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                <span>بطاقة صفحة الفيسبوك الرسمية</span>
+                            </span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" wire:model="facebook_card_enabled" class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
+                        <p class="text-[11px] text-slate-600 font-medium">إظهار أو إخفاء بطاقة الفيسبوك في معرض الصور وتغيير الرابط الرسمي.</p>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 mb-1">رابط صفحة الفيسبوك الرسمية</label>
+                            <input type="text" wire:model="facebook_page_url" placeholder="https://www.facebook.com/..." class="w-full px-3 py-2 rounded-xl border border-blue-200 text-xs font-bold bg-white text-slate-900">
+                        </div>
+                    </div>
+
+                    <!-- YouTube Card Settings -->
+                    <div class="p-4 rounded-2xl bg-red-50/70 border border-red-200/80 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-black text-red-950 flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-red-600 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                <span>بطاقة قناة يوتيوب الرسمية</span>
+                            </span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" wire:model="youtube_card_enabled" class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+                            </label>
+                        </div>
+                        <p class="text-[11px] text-slate-600 font-medium">إظهار أو إخفاء بطاقة اليوتيوب في مركز الفيديوهات وتغيير رابط القناة.</p>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 mb-1">رابط قناة اليوتيوب الرسمية</label>
+                            <input type="text" wire:model="youtube_channel_url" placeholder="https://www.youtube.com/@.../videos" class="w-full px-3 py-2 rounded-xl border border-red-200 text-xs font-bold bg-white text-slate-900">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Live Preview Sidebar Pane -->

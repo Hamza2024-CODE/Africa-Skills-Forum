@@ -34,29 +34,31 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
         </div>
 
         <!-- Official YouTube Channel Banner (Glassmorphism Effect) -->
-        <div class="relative rounded-3xl p-6 sm:p-8 text-white shadow-2xl bg-gradient-to-r from-red-600/85 via-red-700/85 to-[#06205C]/90 backdrop-blur-xl border border-white/20 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
-            <div class="absolute -end-16 -top-16 w-64 h-64 rounded-full bg-red-400/20 blur-2xl pointer-events-none"></div>
+        @if(filter_var(platform()->get('youtube_card_enabled', 'true'), FILTER_VALIDATE_BOOLEAN))
+            <div class="relative rounded-3xl p-6 sm:p-8 text-white shadow-2xl bg-gradient-to-r from-red-600/85 via-red-700/85 to-[#06205C]/90 backdrop-blur-xl border border-white/20 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
+                <div class="absolute -end-16 -top-16 w-64 h-64 rounded-full bg-red-400/20 blur-2xl pointer-events-none"></div>
 
-            <div class="flex items-center gap-5 relative z-10 text-[#{{ app()->getLocale() === 'ar' ? 'right' : 'left' }}">
-                <div class="w-16 h-16 rounded-2xl bg-white/90 backdrop-blur-md text-red-600 flex items-center justify-center font-black text-2xl shadow-xl shrink-0 border border-white">
-                    <svg class="w-10 h-10 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <div class="flex items-center gap-5 relative z-10 text-[#{{ app()->getLocale() === 'ar' ? 'right' : 'left' }}">
+                    <div class="w-16 h-16 rounded-2xl bg-white/90 backdrop-blur-md text-red-600 flex items-center justify-center font-black text-2xl shadow-xl shrink-0 border border-white">
+                        <svg class="w-10 h-10 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </div>
+                    <div>
+                        <span class="px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-black uppercase tracking-wider">
+                            {{ $t('القناة الرسمية المعتمدة', 'Chaîne Officielle', 'Official Channel') }}
+                        </span>
+                        <h2 class="text-xl sm:text-2xl font-black mt-1.5 drop-shadow">{{ platform()->get('youtube_channel_name', platform()->name()) }}</h2>
+                        <p class="text-xs text-red-100 mt-0.5 font-medium">
+                            {{ $t('جميع الفيديوهات مربوطة بقاعدة البيانات وتعمل مباشرة عبر مشغل اليوتيوب بالمنصة.', 'Toutes les vidéos sont liées à la base de données et diffusées directement.', 'All videos are linked to the database and streamed directly from YouTube.') }}
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <span class="px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-black uppercase tracking-wider">
-                        {{ $t('القناة الرسمية المعتمدة', 'Chaîne Officielle', 'Official Channel') }}
-                    </span>
-                    <h2 class="text-xl sm:text-2xl font-black mt-1.5 drop-shadow">{{ platform()->name() }}</h2>
-                    <p class="text-xs text-red-100 mt-0.5 font-medium">
-                        {{ $t('جميع الفيديوهات مربوطة بقاعدة البيانات وتعمل مباشرة عبر مشغل اليوتيوب بالمنصة.', 'Toutes les vidéos sont liées à la base de données et diffusées directement.', 'All videos are linked to the database and streamed directly from YouTube.') }}
-                    </p>
-                </div>
+
+                <a href="{{ platform()->get('youtube_channel_url', 'https://www.youtube.com/@WorldSkillsAlgeria/videos') }}" target="_blank" class="relative z-10 w-full md:w-auto px-7 py-3.5 rounded-2xl bg-white/90 hover:bg-white backdrop-blur-md text-red-600 font-extrabold text-xs shadow-xl transition flex items-center justify-center gap-2.5 shrink-0 transform hover:-translate-y-1 border border-white cursor-pointer">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    <span>{{ $t('زيارة قائمة فيديوهات القناة الرسمية', 'Visiter les Vidéos YouTube', 'Visit Official YouTube Channel') }}</span>
+                </a>
             </div>
-
-            <a href="https://www.youtube.com/@WorldSkillsAlgeria/videos" target="_blank" class="relative z-10 w-full md:w-auto px-7 py-3.5 rounded-2xl bg-white/90 hover:bg-white backdrop-blur-md text-red-600 font-extrabold text-xs shadow-xl transition flex items-center justify-center gap-2.5 shrink-0 transform hover:-translate-y-1 border border-white">
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                <span>{{ $t('زيارة قائمة فيديوهات القناة (@WorldSkillsAlgeria/videos)', 'Visiter les Vidéos YouTube', 'Visit YouTube Videos (@WorldSkillsAlgeria/videos)') }}</span>
-            </a>
-        </div>
+        @endif
 
         <!-- Video Grid (2 Columns Glassmorphism Layout) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
