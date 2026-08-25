@@ -144,6 +144,28 @@ class PlatformAppearanceManager extends Component
             : 'تم إيقاف تفعيل وضع "انتظرونا قريباً" وعادت الواجهة العامة للعمل بشكل طبيعي.';
     }
 
+    public function toggleFacebookCard(): void
+    {
+        $this->facebook_card_enabled = !$this->facebook_card_enabled;
+        $settings = app(SettingsEngine::class);
+        $settings->set('facebook_card_enabled', $this->facebook_card_enabled ? 'true' : 'false', 'string', 'social');
+        $settings->flushCache();
+        $this->savedMessage = $this->facebook_card_enabled
+            ? 'تم إظهار بطاقة صفحة الفيسبوك في معرض الصور بنجاح.'
+            : 'تم إخفاء بطاقة صفحة الفيسبوك من معرض الصور بنجاح.';
+    }
+
+    public function toggleYoutubeCard(): void
+    {
+        $this->youtube_card_enabled = !$this->youtube_card_enabled;
+        $settings = app(SettingsEngine::class);
+        $settings->set('youtube_card_enabled', $this->youtube_card_enabled ? 'true' : 'false', 'string', 'social');
+        $settings->flushCache();
+        $this->savedMessage = $this->youtube_card_enabled
+            ? 'تم إظهار بطاقة قناة يوتيوب في مركز الفيديوهات بنجاح.'
+            : 'تم إخفاء بطاقة قناة يوتيوب من مركز الفيديوهات بنجاح.';
+    }
+
     public function saveAppearance(SettingsEngine $settings)
     {
         $user = Auth::user();
