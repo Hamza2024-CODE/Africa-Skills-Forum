@@ -63,7 +63,7 @@
 
             <!-- Action Buttons with Smooth Hover Animations -->
             <div class="flex flex-wrap items-center gap-4 pt-2">
-                <a href="{{ route('registration') }}" class="px-8 py-4 rounded-2xl btn-teal-gradient font-black text-sm flex items-center gap-2.5 group">
+                <a href="{{ route('official.registration') }}" class="px-8 py-4 rounded-2xl btn-teal-gradient font-black text-sm flex items-center gap-2.5 group">
                     <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                     <span>{{ __('messages.register_now') }}</span>
                 </a>
@@ -1193,7 +1193,7 @@
                 </p>
             </div>
             
-            <a href="{{ route('registration') }}" class="px-8 py-3.5 rounded-2xl bg-white text-[#0052CC] font-bold text-xs shadow-xl hover:bg-blue-50 transition flex items-center gap-2 flex-shrink-0 hover:scale-105">
+            <a href="{{ route('official.registration') }}" class="px-8 py-3.5 rounded-2xl bg-white text-[#0052CC] font-bold text-xs shadow-xl hover:bg-blue-50 transition flex items-center gap-2 flex-shrink-0 hover:scale-105">
                 <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                 <span>{{ __('messages.register_now') }}</span>
             </a>

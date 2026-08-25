@@ -108,7 +108,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                     </div>
 
                     <div class="shrink-0 flex items-center gap-3">
-                        <a href="{{ route('registration') }}" class="px-5 py-2.5 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white text-xs font-bold shadow transition flex items-center gap-1.5">
+                        <a href="{{ route('official.registration') }}" class="px-5 py-2.5 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white text-xs font-bold shadow transition flex items-center gap-1.5">
                             <span>{{ $t('طلب الحضور / الاعتماد', 'Demander l\'Accréditation', 'Request Access') }}</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                         </a>

@@ -106,7 +106,7 @@
                             <svg class="w-3.5 h-3.5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
                         <div x-show="regOpen" x-transition class="absolute top-full right-0 mt-2 w-80 rounded-2xl bg-white shadow-xl border border-slate-100 py-2 z-50 text-start">
-                            <a href="{{ route('registration') }}" data-navigate-ignore class="block px-4 py-3 text-xs font-bold text-[#052D48] hover:bg-slate-50 hover:text-[#24BDC3] border-b border-slate-100">
+                            <a href="{{ route('official.registration') }}" data-navigate-ignore class="block px-4 py-3 text-xs font-bold text-[#052D48] hover:bg-slate-50 hover:text-[#24BDC3] border-b border-slate-100">
                                 <div class="font-extrabold text-slate-900 flex items-center gap-2 justify-start">
                                     <svg class="w-4 h-4 text-[#24BDC3] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                     <span>{{ app()->getLocale() === 'fr' ? '1. Inscription Participants, Experts & Intervenants' : (app()->getLocale() === 'en' ? '1. Participants, Experts & Speakers Registration' : '1. تسجيل المشاركين والخبراء والمحاضرين') }}</span>
@@ -188,7 +188,7 @@
                             <span>{{ app()->getLocale() === 'fr' ? 'Accréditation & Inscription' : (app()->getLocale() === 'en' ? 'Accreditation & Registration' : 'بوابات التسجيل والاعتماد') }}</span>
                         </div>
                         
-                        <a href="{{ route('registration') }}" @click="mobileMenuOpen = false" class="block p-2.5 rounded-xl bg-white hover:bg-teal-50 border border-teal-100 shadow-xs transition">
+                        <a href="{{ route('official.registration') }}" @click="mobileMenuOpen = false" class="block p-2.5 rounded-xl bg-white hover:bg-teal-50 border border-teal-100 shadow-xs transition">
                             <div class="flex items-center justify-between">
                                 <span class="text-xs font-black text-slate-900">{{ app()->getLocale() === 'fr' ? '1. Inscription Participants & Experts' : (app()->getLocale() === 'en' ? '1. Participants & Experts' : '1. تسجيل المشاركين والخبراء والمحاضرين') }}</span>
                             </div>
@@ -274,7 +274,7 @@
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
                             <span>{{ __('messages.login') }}</span>
                         </a>
-                        <a href="{{ route('registration') }}" @click="mobileMenuOpen = false" class="w-full py-2.5 rounded-xl bg-[#24BDC3] hover:bg-[#1fa3a8] text-white text-center font-black text-xs shadow-md transition flex items-center justify-center gap-2">
+                        <a href="{{ route('official.registration') }}" @click="mobileMenuOpen = false" class="w-full py-2.5 rounded-xl bg-[#24BDC3] hover:bg-[#1fa3a8] text-white text-center font-black text-xs shadow-md transition flex items-center justify-center gap-2">
                             <span>{{ __('messages.register') }}</span>
                         </a>
                     @endguest

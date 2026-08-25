@@ -101,7 +101,7 @@
                     </div>
 
                     <div class="pt-2 flex flex-wrap gap-4">
-                        <a href="{{ route('registration') }}"
+                        <a href="{{ route('official.registration') }}"
                            class="px-6 py-3.5 bg-gradient-to-r from-[#35A536] via-emerald-700 to-[#092C1D] text-white font-black rounded-2xl text-xs shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center gap-2">
                             <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>

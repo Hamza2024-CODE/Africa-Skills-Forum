@@ -43,7 +43,7 @@
                 <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">{{ app()->getLocale() === 'fr' ? 'Informations & Accès' : (app()->getLocale() === 'en' ? 'Forum Info & Access' : 'الدليل والخدمات') }}</h4>
                 <ul class="space-y-2.5 text-xs text-blue-100/90 font-medium">
                     <li><a href="{{ route('guide') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Guide du Forum' : (app()->getLocale() === 'en' ? 'Forum Guide' : 'دليل المشاركة') }}</a></li>
-                    <li><a href="{{ route('registration') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Accréditation & Inscription' : (app()->getLocale() === 'en' ? 'Accreditation & Registration' : 'التسجيل والاعتماد الرسمي') }}</a></li>
+                    <li><a href="{{ route('official.registration') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Accréditation & Inscription' : (app()->getLocale() === 'en' ? 'Accreditation & Registration' : 'التسجيل والاعتماد الرسمي') }}</a></li>
                     <li><a href="{{ route('faq') }}" class="hover:text-[#24BDC3] transition">{{ __('messages.faq') }}</a></li>
                     <li><a href="{{ route('contact') }}" class="hover:text-[#24BDC3] transition">{{ __('messages.contact') }}</a></li>
                 </ul>
