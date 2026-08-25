@@ -25,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
     {
         \Illuminate\Support\Facades\URL::forceScheme('https');
 
+        \Illuminate\Support\Facades\Blade::directive('assetv', function ($expression) {
+            return "<?php echo \App\Services\SettingsEngine::appendCacheBuster(asset($expression)); ?>";
+        });
+
         if (class_exists(\Livewire\Livewire::class)) {
             \Livewire\Livewire::setScriptRoute(function ($handle) {
                 return \Illuminate\Support\Facades\Route::get('/livewire/livewire.js', $handle);

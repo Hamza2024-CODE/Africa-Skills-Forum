@@ -86,11 +86,52 @@ class SettingsEngine
             return GlobalSetting::all()->pluck('value', 'key')->toArray();
         });
 
-        if (!array_key_exists($key, $settings)) {
-            return $default ?? (self::DEFAULTS[$key] ?? null);
+        $value = array_key_exists($key, $settings) ? $settings[$key] : ($default ?? (self::DEFAULTS[$key] ?? null));
+
+        if (is_string($value) && (
+            str_contains($key, 'logo') || 
+            str_contains($key, 'banner') || 
+            str_contains($key, 'favicon') || 
+            str_contains($key, 'slide') || 
+            str_contains($key, 'image') || 
+            str_contains($key, 'photo') || 
+            str_contains($key, 'avatar') || 
+            preg_match('/\.(png|jpg|jpeg|svg|webp|gif)$/i', $value)
+        )) {
+            return self::appendCacheBuster($value);
         }
 
-        return $settings[$key];
+        return $value;
+    }
+
+    public static function appendCacheBuster(string $url): string
+    {
+        if (empty($url) || str_contains($url, '?v=')) {
+            return $url;
+        }
+
+        $parsedPath = parse_url($url, PHP_URL_PATH);
+        if (!$parsedPath) {
+            return $url;
+        }
+
+        $cleanPath = ltrim($parsedPath, '/');
+        if (str_starts_with($cleanPath, 'storage/')) {
+            $cleanPath = substr($cleanPath, 8);
+        }
+
+        $storageFile = storage_path('app/public/' . $cleanPath);
+        $publicFile = public_path(ltrim($parsedPath, '/'));
+
+        if (file_exists($storageFile)) {
+            $v = filemtime($storageFile);
+        } elseif (file_exists($publicFile)) {
+            $v = filemtime($publicFile);
+        } else {
+            $v = time();
+        }
+
+        return $url . (str_contains($url, '?') ? '&' : '?') . 'v=' . $v;
     }
 
     public function set(string $key, mixed $value, string $type = 'string', string $group = 'general', ?string $description = null): void

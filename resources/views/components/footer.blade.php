@@ -5,9 +5,9 @@
             <!-- Col 1: Official Dual Logos & Summary -->
             <div class="space-y-4">
                 <div class="flex items-center gap-3 bg-white p-2 px-4 sm:px-5 rounded-2xl inline-flex shadow-md border border-slate-200/60 overflow-hidden shrink-0">
-                    <img src="{{ asset('ministry-logo-trimmed.png') }}" alt="وزارة التكوين والتعليم المهنيين" class="h-7 sm:h-8 w-auto object-contain shrink-0">
+                    <img src="@assetv('ministry-logo-trimmed.png')" alt="وزارة التكوين والتعليم المهنيين" class="h-7 sm:h-8 w-auto object-contain shrink-0">
                     <div class="h-5 sm:h-6 w-px bg-slate-300 shrink-0"></div>
-                    <img src="{{ asset('africa-logo-trimmed.png') }}" alt="African Union - African Skills Policy Forum" class="h-7 sm:h-8 w-auto object-contain shrink-0">
+                    <img src="@assetv('africa-logo-trimmed.png')" alt="African Union - African Skills Policy Forum" class="h-7 sm:h-8 w-auto object-contain shrink-0">
                 </div>
 
 

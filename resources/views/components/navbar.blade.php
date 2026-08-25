@@ -6,7 +6,7 @@
             <a href="{{ route('home') }}" class="flex items-center gap-1.5 sm:gap-3 group shrink-0 py-1" title="{{ platform()->name() }}">
                 <div class="flex items-center gap-1.5 sm:gap-3 bg-slate-50/90 dark:bg-[#052D48]/80 hover:bg-slate-100/90 p-1 sm:p-1.5 px-2 sm:px-3 rounded-2xl border border-slate-200/80 dark:border-[#24BDC3]/30 shadow-xs overflow-hidden shrink-0 transition max-w-[62vw] sm:max-w-none">
                     <!-- 1. Ministry Seal Logo -->
-                    <img src="{{ asset('ministry-logo-trimmed.png') }}" 
+                    <img src="@assetv('ministry-logo-trimmed.png')" 
                          alt="الجمهورية الجزائرية الديمقراطية الشعبية - وزارة التكوين والتعليم المهنيين" 
                          class="h-5 sm:h-8 md:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105 shrink-0 bg-white/90 dark:bg-white rounded-lg p-0.5">
                     
@@ -14,7 +14,7 @@
                     <div class="h-4 sm:h-6 w-px bg-slate-300 dark:bg-[#24BDC3]/40 shrink-0"></div>
                     
                     <!-- 2. African Union / Africa Skills Forum Logo -->
-                    <img src="{{ asset('africa-logo-trimmed.png') }}" 
+                    <img src="@assetv('africa-logo-trimmed.png')" 
                          alt="African Union - Africa Skills Forum" 
                          class="h-5 sm:h-8 md:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105 shrink-0 bg-white/90 dark:bg-white rounded-lg p-0.5">
                 </div>
