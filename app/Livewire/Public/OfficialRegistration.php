@@ -207,9 +207,9 @@ class OfficialRegistration extends Component
             ? '/^(?:(?:\+?213|00213|0)[567][0-9]{8})$/'
             : '/^(?:\+|00)?(?:213|216|212|237|221|225|234|254|249|251|218|220|233|255|256|260|263|264|267|268|266|250|257|235|236|242|243|241|240|238|239|224|245|232|231|228|229|227|223|222|253|252|261|230|248|269|265|258|244|262|290|247)[0-9]{6,12}$/';
 
-        $hasPhoto = !empty($this->photo) || !empty($this->captured_photo_data);
-        $hasPressCard = !empty($this->press_card_file) || !empty($this->captured_id_card_data);
-        $hasIdCard = !empty($this->id_card_file) || !empty($this->captured_id_card_data);
+        $hasPhoto     = !empty($this->photo) || !empty($this->captured_photo_data);
+        $hasPressCard = !empty($this->press_card_file) || !empty($this->captured_id_card_data) || $hasPhoto;
+        $hasIdCard    = !empty($this->id_card_file) || !empty($this->captured_id_card_data) || $hasPhoto;
 
         $rules = [
             'name'       => ['required', 'min:3', 'max:150', 'regex:/^[a-zA-Z\s\-\'\`\À-ÿ\x{0600}-\x{06FF}]+$/u'],
@@ -220,17 +220,21 @@ class OfficialRegistration extends Component
         ];
 
         $messages = [
-            'name.required'       => $locale === 'fr' ? 'Veuillez saisir le nom et prénom complet.' : ($locale === 'en' ? 'Please enter full name.' : 'يرجى إدخال الاسم واللقب الكامل.'),
-            'name.regex'          => $locale === 'fr' ? 'Le nom doit contenir uniquement des lettres arabes ou latines.' : ($locale === 'en' ? 'Name must contain Arabic or Latin letters only.' : 'الاسم يجب أن يتكون من أحرف عربية أو لاتينية فقط دون رموز خاصة.'),
-            'email.required'      => $locale === 'fr' ? 'Veuillez saisir l\'adresse email officielle.' : ($locale === 'en' ? 'Please enter official email address.' : 'يرجى إدخال البريد الإلكتروني الرسمي.'),
-            'email.email'         => $locale === 'fr' ? 'Format d\'email invalide.' : ($locale === 'en' ? 'Invalid email format.' : 'صيغة البريد الإلكتروني غير صحيحة.'),
-            'email.unique'        => $locale === 'fr' ? 'Cet email est déjà enregistré.' : ($locale === 'en' ? 'This email is already registered.' : 'هذا البريد الإلكتروني مسجل مسبقاً في المنصة.'),
-            'email.regex'         => $locale === 'fr' ? 'Veuillez saisir un email valide.' : ($locale === 'en' ? 'Please enter a valid email address.' : 'يرجى إدخال بريد إلكتروني صحيح ومعتمد (مثل Gmail / Yahoo / Outlook).'),
-            'phone.required'      => $locale === 'fr' ? 'Le numéro de téléphone est requis.' : ($locale === 'en' ? 'Phone number is required.' : 'يرجى إدخال رقم الهاتف.'),
-            'phone.regex'         => $this->isAlgeria
-                                     ? ($locale === 'fr' ? 'Numéro de téléphone invalide.' : ($locale === 'en' ? 'Invalid phone number.' : 'رقم الهاتف غير صحيح. يجب أن يتكون من 10 أرقام ويبدأ بـ (05 أو 06 أو 07) أو +213.'))
-                                     : ($locale === 'fr' ? 'Veuillez saisir un numéro de téléphone valide.' : ($locale === 'en' ? 'Please enter a valid phone number.' : 'يرجى إدخال رقم هاتف صحيح برمز الدولة.')),
-            'photo.required'      => $locale === 'fr' ? 'Veuillez téléverser ou capturer la photo officielle.' : ($locale === 'en' ? 'Please upload or capture official photo.' : 'يرجى تحميل الصورة الشخصية الرسمية أو التقاطها عبر الكاميرا المباشرة.'),
+            'name.required'         => $locale === 'fr' ? 'Veuillez saisir le nom et prénom complet.' : ($locale === 'en' ? 'Please enter full name.' : 'يرجى إدخال الاسم واللقب الكامل.'),
+            'name.regex'            => $locale === 'fr' ? 'Le nom doit contenir uniquement des lettres arabes ou latines.' : ($locale === 'en' ? 'Name must contain Arabic or Latin letters only.' : 'الاسم يجب أن يتكون من أحرف عربية أو لاتينية فقط دون رموز خاصة.'),
+            'email.required'        => $locale === 'fr' ? 'Veuillez saisir l\'adresse email officielle.' : ($locale === 'en' ? 'Please enter official email address.' : 'يرجى إدخال البريد الإلكتروني الرسمي.'),
+            'email.email'           => $locale === 'fr' ? 'Format d\'email invalide.' : ($locale === 'en' ? 'Invalid email format.' : 'صيغة البريد الإلكتروني غير صحيحة.'),
+            'email.unique'          => $locale === 'fr' ? 'Cet email est déjà enregistré.' : ($locale === 'en' ? 'This email is already registered.' : 'هذا البريد الإلكتروني مسجل مسبقاً في المنصة.'),
+            'email.regex'           => $locale === 'fr' ? 'Veuillez saisir un email valide.' : ($locale === 'en' ? 'Please enter a valid email address.' : 'يرجى إدخال بريد إلكتروني صحيح ومعتمد (مثل Gmail / Yahoo / Outlook).'),
+            'phone.required'        => $locale === 'fr' ? 'Le numéro de téléphone est requis.' : ($locale === 'en' ? 'Phone number is required.' : 'يرجى إدخال رقم الهاتف.'),
+            'phone.regex'           => $this->isAlgeria
+                                       ? ($locale === 'fr' ? 'Numéro de téléphone invalide.' : ($locale === 'en' ? 'Invalid phone number.' : 'رقم الهاتف غير صحيح. يجب أن يتكون من 10 أرقام ويبدأ بـ (05 أو 06 أو 07) أو +213.'))
+                                       : ($locale === 'fr' ? 'Veuillez saisir un numéro de téléphone valide.' : ($locale === 'en' ? 'Please enter a valid phone number.' : 'يرجى إدخال رقم هاتف صحيح برمز الدولة.')),
+            'photo.required'        => $locale === 'fr' ? 'Veuillez téléverser ou capturer la photo officielle.' : ($locale === 'en' ? 'Please upload or capture official photo.' : 'يرجى تحميل الصورة الشخصية الرسمية أو التقاطها عبر الكاميرا المباشرة.'),
+            'photo.uploaded'        => $locale === 'fr' ? 'Échec du téléversement de la photo. (Taille max 50Mo).' : ($locale === 'en' ? 'Photo upload failed (Max 50MB).' : 'عذراً، تعذر رفع الصورة الشخصية. يرجى اختيار صورة بحجم أقل من 50 ميغابايت.'),
+            'id_card_file.uploaded' => $locale === 'fr' ? 'Échec du téléversement de la pièce d\'identité.' : ($locale === 'en' ? 'ID card file upload failed.' : 'عذراً، تعذر رفع ملف بطاقة التعريف/جواز السفر. يرجى إعادة اختيار ملف بحجم أقل من 50 ميغابايت بصيغة PDF أو صورة.'),
+            'id_card_file.required' => $locale === 'fr' ? 'Veuillez téléverser la pièce d\'identité ou le passeport.' : ($locale === 'en' ? 'Please upload ID card or passport.' : 'يرجى إرفاق صورة بطاقة التعريف الوطنية أو جواز السفر أو تصويرها بالكاميرا.'),
+            'press_card_file.uploaded' => $locale === 'fr' ? 'Échec du téléversement de la carte presse.' : ($locale === 'en' ? 'Press card upload failed.' : 'عذراً، تعذر رفع وثيقة الصحافة. يرجى إرفاق صورة أو ملف بحجم مناسب.'),
         ];
 
         if ($this->role === 'MEDIA_MANAGER') {
