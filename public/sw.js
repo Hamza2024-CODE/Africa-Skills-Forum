@@ -1,4 +1,4 @@
-const CACHE_NAME = 'asf-2026-v4';
+const CACHE_NAME = 'asf-2026-v5';
 const ASSETS_TO_CACHE = [
   '/manifest.json',
   '/manifest.webmanifest',
@@ -10,9 +10,7 @@ const ASSETS_TO_CACHE = [
 self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE))
   );
 });
 
@@ -38,30 +36,48 @@ self.addEventListener('message', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
+  const request = event.request;
+  const url = new URL(request.url);
 
-  // Network-First strategy for HTML/Navigation requests to guarantee live updates in installed PWA
-  if (event.request.mode === 'navigate' || event.request.headers.get('accept')?.includes('text/html')) {
+  // 1. Never intercept non-GET requests (POST, PUT, DELETE)
+  if (request.method !== 'GET') return;
+
+  // 2. Never intercept Livewire endpoints, uploads, previews, admin panel, or API routes
+  if (
+    url.pathname.includes('livewire') ||
+    url.pathname.includes('upload-file') ||
+    url.pathname.includes('preview-file') ||
+    url.pathname.startsWith('/api') ||
+    url.pathname.startsWith('/panel') ||
+    url.searchParams.has('signature') ||
+    url.searchParams.has('expires')
+  ) {
+    return;
+  }
+
+  // 3. Network-First for HTML navigation pages
+  if (request.mode === 'navigate' || request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(
-      fetch(event.request)
+      fetch(request)
         .then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, responseClone));
           }
           return networkResponse;
         })
-        .catch(() => caches.match(event.request).then((cached) => cached || fetch(event.request)))
+        .catch(() => caches.match(request).then((cached) => cached || fetch(request)))
     );
     return;
   }
 
-  // Stale-While-Revalidate strategy for static assets
+  // 4. Stale-While-Revalidate for static assets (images, css, js)
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      const fetchPromise = fetch(event.request).then((networkResponse) => {
+    caches.match(request).then((cachedResponse) => {
+      const fetchPromise = fetch(request).then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse.clone()));
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, responseClone));
         }
         return networkResponse;
       }).catch(() => {});

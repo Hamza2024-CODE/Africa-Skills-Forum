@@ -152,7 +152,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                         <button type="button" wire:click="$set('role', 'COUNTRY_ADMIN')"
                             class="p-4 rounded-2xl border-2 text-center transition flex flex-col items-center justify-center gap-2 {{ $role === 'COUNTRY_ADMIN' ? 'border-[#0B2A6F] bg-blue-50/70 text-[#0B2A6F] font-black shadow-xs ring-2 ring-[#0B2A6F]' : 'border-slate-200 bg-slate-50/60 text-slate-600 font-bold hover:bg-slate-100' }}">
                             <div class="w-10 h-10 rounded-xl {{ $role === 'COUNTRY_ADMIN' ? 'bg-[#0B2A6F] text-white' : 'bg-slate-200 text-slate-600' }} flex items-center justify-center transition">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V8.5dM12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V8.5M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
                             </div>
                             <span class="text-xs font-black">{{ $t('الوفود الوطنية والضيوف والدبلوماسيون', 'Délégation Nationale & Invités', 'National Delegation & Guests') }}</span>
                         </button>
@@ -507,17 +507,22 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
 
                              <div x-show="mode !== 'camera'">
                                 @if($press_card_file)
-                                    <div class="flex items-center gap-3 bg-white p-2.5 rounded-xl border border-amber-300 shadow-xs">
-                                        <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold shrink-0">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                    <div class="flex items-center justify-between gap-3 bg-emerald-50 p-3 rounded-xl border border-emerald-300 shadow-xs">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">
+                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                            </div>
+                                            <div class="text-xs font-bold text-slate-900 flex flex-col">
+                                                <span class="text-emerald-700 font-extrabold flex items-center gap-1">
+                                                    <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                                    <span>{{ $t('تم رفع وثيقة الصحافة بنجاح', 'Carte presse téléversée avec succès', 'Press card uploaded successfully') }}</span>
+                                                </span>
+                                                <span class="text-[11px] text-slate-600 font-mono mt-0.5">{{ is_object($press_card_file) ? $press_card_file->getClientOriginalName() : 'تم الرفع' }}</span>
+                                            </div>
                                         </div>
-                                        <div class="text-xs font-bold text-amber-900 flex flex-col">
-                                            <span class="text-emerald-700 font-extrabold flex items-center gap-1">
-                                                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                                                <span>{{ $t('تم رفع وثيقة الصحافة بنجاح', 'Carte presse téléversée avec succès', 'Press card uploaded successfully') }}</span>
-                                            </span>
-                                            <span class="text-[10px] text-slate-500 font-mono mt-0.5">{{ $press_card_file->getClientOriginalName() }}</span>
-                                        </div>
+                                        <button type="button" wire:click="$set('press_card_file', null)" class="px-2.5 py-1 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-bold transition">
+                                            {{ $t('تغيير', 'Changer', 'Change') }}
+                                        </button>
                                     </div>
                                 @elseif($captured_id_card_data)
                                     <div class="flex items-center gap-3 bg-white p-2.5 rounded-xl border border-amber-300">
@@ -532,13 +537,13 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                             <span>{{ $t('اختر وثيقة من المعرض / الجهاز', 'Galerie / Fichiers', 'Choose Document / Files') }}</span>
-                                            <input type="file" onchange="handleFastPhotoCompress(event, 'press_card_file')" accept="image/*,application/pdf,.pdf,.jpg,.jpeg,.png,.webp" class="hidden">
+                                            <input type="file" wire:model="press_card_file" onchange="handleFastPhotoCompress(event, 'press_card_file')" accept="image/*,application/pdf,.pdf,.jpg,.jpeg,.png,.webp" class="hidden">
                                         </label>
 
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
                                             <span>{{ $t('تصوير بالكاميرا', 'Prendre Photo', 'Take Photo') }}</span>
-                                            <input type="file" onchange="handleFastPhotoCompress(event, 'press_card_file')" accept="image/*" capture="environment" class="hidden">
+                                            <input type="file" wire:model="press_card_file" onchange="handleFastPhotoCompress(event, 'press_card_file')" accept="image/*" capture="environment" class="hidden">
                                         </label>
                                     </div>
                                 @endif
@@ -655,17 +660,22 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
 
                             <div x-show="mode !== 'camera'">
                                 @if($id_card_file)
-                                    <div class="flex items-center gap-3 bg-white p-2.5 rounded-xl border border-blue-300 shadow-xs">
-                                        <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                    <div class="flex items-center justify-between gap-3 bg-emerald-50 p-3 rounded-xl border border-emerald-300 shadow-xs">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">
+                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                            </div>
+                                            <div class="text-xs font-bold text-slate-900 flex flex-col">
+                                                <span class="text-emerald-700 font-extrabold flex items-center gap-1">
+                                                    <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                                    <span>{{ $t('تم رفع وثيقة الهوية / الجواز بنجاح', 'Document téléversé avec succès', 'Document uploaded successfully') }}</span>
+                                                </span>
+                                                <span class="text-[11px] text-slate-600 font-mono mt-0.5">{{ is_object($id_card_file) ? $id_card_file->getClientOriginalName() : 'تم الرفع' }}</span>
+                                            </div>
                                         </div>
-                                        <div class="text-xs font-bold text-blue-900 flex flex-col">
-                                            <span class="text-emerald-700 font-extrabold flex items-center gap-1">
-                                                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                                                <span>{{ $t('تم رفع وثيقة الهوية / الجواز بنجاح', 'Document téléversé avec succès', 'Document uploaded successfully') }}</span>
-                                            </span>
-                                            <span class="text-[10px] text-slate-500 font-mono mt-0.5">{{ $id_card_file->getClientOriginalName() }}</span>
-                                        </div>
+                                        <button type="button" wire:click="$set('id_card_file', null)" class="px-2.5 py-1 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-bold transition">
+                                            {{ $t('تغيير', 'Changer', 'Change') }}
+                                        </button>
                                     </div>
                                 @elseif($captured_id_card_data)
                                     <div class="flex items-center gap-3 bg-white p-2.5 rounded-xl border border-blue-300">
@@ -680,13 +690,13 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 012-2h2a2 2 0 012 2v1m-4 0h4"/></svg>
                                             <span>{{ $t('اختر الهوية / الجواز من المعرض', 'Galerie / Fichiers', 'Choose ID / Passport File') }}</span>
-                                            <input type="file" onchange="handleFastPhotoCompress(event, 'id_card_file')" accept="image/*,application/pdf,.pdf,.jpg,.jpeg,.png,.webp" class="hidden">
+                                            <input type="file" wire:model="id_card_file" onchange="handleFastPhotoCompress(event, 'id_card_file')" accept="image/*,application/pdf,.pdf,.jpg,.jpeg,.png,.webp" class="hidden">
                                         </label>
 
                                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
                                             <span>{{ $t('تصوير الهوية بالكاميرا', 'Prendre Photo Identité', 'Take Photo') }}</span>
-                                            <input type="file" onchange="handleFastPhotoCompress(event, 'id_card_file')" accept="image/*" capture="environment" class="hidden">
+                                            <input type="file" wire:model="id_card_file" onchange="handleFastPhotoCompress(event, 'id_card_file')" accept="image/*" capture="environment" class="hidden">
                                         </label>
                                     </div>
                                 @endif
