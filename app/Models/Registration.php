@@ -84,7 +84,7 @@ class Registration extends Model
     public static function resolveFileUrl(?string $path): string
     {
         if (!$path) return '';
-        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://') || str_starts_with($path, 'data:')) {
             return $path;
         }
 

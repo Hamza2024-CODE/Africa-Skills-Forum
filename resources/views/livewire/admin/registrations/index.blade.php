@@ -242,11 +242,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                             <td class="p-4">
                                 <div class="flex items-center gap-3">
                                     @php
-                                        $avatarUrl = $u?->avatar_url;
-                                        if (!$avatarUrl && !empty($reg->photo_url)) {
-                                            $cleanPath = preg_replace('/^.*?storage\//', '', $reg->photo_url);
-                                            $avatarUrl = '/storage/' . ltrim($cleanPath, '/');
-                                        }
+                                        $avatarUrl = $reg->photo_url ?: $u?->avatar_url;
                                     @endphp
                                     @if($avatarUrl)
                                         <img src="{{ $avatarUrl }}" alt="Avatar" class="w-9 h-9 rounded-full object-cover border border-slate-200 shadow-xs">
@@ -428,11 +424,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                 <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
                     <div class="flex items-center gap-3">
                         @php
-                            $drawerAvatarUrl = $u?->avatar_url;
-                            if (!$drawerAvatarUrl && !empty($selectedRegistration->photo_url)) {
-                                $cleanPath = preg_replace('/^.*?storage\//', '', $selectedRegistration->photo_url);
-                                $drawerAvatarUrl = '/storage/' . ltrim($cleanPath, '/');
-                            }
+                            $drawerAvatarUrl = $selectedRegistration->photo_url ?: $u?->avatar_url;
                         @endphp
                         @if($drawerAvatarUrl)
                             <img src="{{ $drawerAvatarUrl }}" alt="Avatar" class="w-12 h-12 rounded-2xl object-cover border-2 border-emerald-500 shadow-md">

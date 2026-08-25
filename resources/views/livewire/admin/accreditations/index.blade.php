@@ -142,7 +142,7 @@
                             $regNumber   = $reg?->registration_number ?? ($badge?->badge_uuid ? substr($badge->badge_uuid, 0, 18) : ('USR-' . str_pad($u->id, 5, '0', STR_PAD_LEFT)));
                             $countryName = $reg?->country?->name_ar ?? $u->country?->name_ar ?? 'الجزائر';
                             $skillOrOrg  = $reg?->skill?->name_ar ?? $u->organization?->name_ar ?? 'المنصة الوطنية';
-                            $photoUrl    = $u->avatar_url;
+                            $photoUrl    = $reg?->photo_url ?: $u->avatar_url;
                         @endphp
                         <tr class="hover:bg-slate-50 transition">
                             <td class="px-4 py-4 text-center">

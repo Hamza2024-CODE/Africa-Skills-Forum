@@ -35,9 +35,10 @@ class User extends Authenticatable
         $path = $this->avatar_path ?: ($this->participant?->registrations?->first()?->photo_url);
 
         if ($path) {
-            if (str_contains($path, 'ui-avatars.com')) {
+            if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://') || str_starts_with($path, 'data:')) {
                 return $path;
             }
+
             $cleanPath = preg_replace('/^.*?storage\//', '', $path);
             $cleanPath = ltrim($cleanPath, '/');
             $fullPath = storage_path('app/public/' . $cleanPath);
