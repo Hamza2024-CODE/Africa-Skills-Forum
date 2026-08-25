@@ -14,6 +14,7 @@ use App\Models\Skill;
 use App\Models\User;
 use App\Services\DocumentVerificationService;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
