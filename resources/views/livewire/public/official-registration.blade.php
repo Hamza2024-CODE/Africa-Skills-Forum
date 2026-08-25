@@ -263,7 +263,12 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                         <div x-show="mode !== 'camera'" class="flex flex-col sm:flex-row items-center gap-4 pt-1">
                             <div class="shrink-0">
                                 @if($captured_photo_data)
-                                    <img src="{{ $captured_photo_data }}" alt="Captured Photo" class="w-20 h-20 rounded-2xl object-cover border-2 border-indigo-600 shadow-md">
+                                    @php
+                                        $photoSrc = str_starts_with($captured_photo_data, 'data:') 
+                                            ? $captured_photo_data 
+                                            : ('data:image/jpeg;base64,' . $captured_photo_data);
+                                    @endphp
+                                    <img src="{{ $photoSrc }}" alt="Captured Photo" class="w-20 h-20 rounded-2xl object-cover border-2 border-emerald-600 shadow-md">
                                 @elseif($photo)
                                     <img src="{{ $photo->temporaryUrl() }}" alt="Preview" class="w-20 h-20 rounded-2xl object-cover border-2 border-slate-200 shadow-sm">
                                 @else
@@ -684,7 +689,7 @@ function handleFastPhotoCompress(event, targetMethod) {
                 const canvas = document.createElement('canvas');
                 let width = img.width;
                 let height = img.height;
-                const maxDim = 1200;
+                const maxDim = 800;
                 if (width > maxDim || height > maxDim) {
                     if (width > height) {
                         height = Math.round((height * maxDim) / width);
@@ -698,14 +703,15 @@ function handleFastPhotoCompress(event, targetMethod) {
                 canvas.height = height;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height);
-                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.82);
+                let compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
+                compressedBase64 = compressedBase64.replace(/\s+/g, '');
                 lwComponent.call(targetMethod, compressedBase64);
             } catch (err) {
-                lwComponent.call(targetMethod, dataUrl);
+                lwComponent.call(targetMethod, (dataUrl || '').replace(/\s+/g, ''));
             }
         };
         img.onerror = function() {
-            lwComponent.call(targetMethod, dataUrl);
+            lwComponent.call(targetMethod, (dataUrl || '').replace(/\s+/g, ''));
         };
         img.src = dataUrl;
     };

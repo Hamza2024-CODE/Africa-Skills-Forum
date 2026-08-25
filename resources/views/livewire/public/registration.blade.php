@@ -537,9 +537,19 @@
                         </div>
 
                         @if($capturedPhotoData || $photoFile)
+                            @php
+                                $pubPhotoSrc = null;
+                                if ($capturedPhotoData) {
+                                    $pubPhotoSrc = str_starts_with($capturedPhotoData, 'data:') 
+                                        ? $capturedPhotoData 
+                                        : ('data:image/jpeg;base64,' . $capturedPhotoData);
+                                } elseif ($photoFile) {
+                                    $pubPhotoSrc = $photoFile->temporaryUrl();
+                                }
+                            @endphp
                             <div class="mt-3 p-4 bg-emerald-50 rounded-2xl border border-emerald-300 flex items-center justify-between">
                                 <div class="flex items-center gap-3">
-                                    <img src="{{ $capturedPhotoData ?: $photoFile->temporaryUrl() }}" class="w-14 h-14 rounded-2xl object-cover border-2 border-emerald-500 shadow-md">
+                                    <img src="{{ $pubPhotoSrc }}" class="w-14 h-14 rounded-2xl object-cover border-2 border-emerald-500 shadow-md">
                                     <div>
                                         <span class="text-xs font-black text-emerald-900 block">{{ $t('تم اختيار صورتك الشخصية بنجاح', 'Photo sélectionnée avec succès', 'Photo selected successfully') }}</span>
                                         <span class="text-[11px] font-mono text-emerald-700 block">{{ $t('جاهزة للاعتماد والطباعة على شارتك الـ 3D', 'Prête pour le badge 3D', 'Ready for 3D badge printing') }}</span>
@@ -610,7 +620,7 @@ function handleFastPhotoCompress(event, targetMethod) {
                 const canvas = document.createElement('canvas');
                 let width = img.width;
                 let height = img.height;
-                const maxDim = 1200;
+                const maxDim = 800;
                 if (width > maxDim || height > maxDim) {
                     if (width > height) {
                         height = Math.round((height * maxDim) / width);
@@ -624,14 +634,15 @@ function handleFastPhotoCompress(event, targetMethod) {
                 canvas.height = height;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height);
-                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.82);
+                let compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
+                compressedBase64 = compressedBase64.replace(/\s+/g, '');
                 lwComponent.call(targetMethod, compressedBase64);
             } catch (err) {
-                lwComponent.call(targetMethod, dataUrl);
+                lwComponent.call(targetMethod, (dataUrl || '').replace(/\s+/g, ''));
             }
         };
         img.onerror = function() {
-            lwComponent.call(targetMethod, dataUrl);
+            lwComponent.call(targetMethod, (dataUrl || '').replace(/\s+/g, ''));
         };
         img.src = dataUrl;
     };

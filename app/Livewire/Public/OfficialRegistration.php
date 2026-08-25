@@ -54,13 +54,13 @@ class OfficialRegistration extends Component
 
     public function setCapturedPhoto(string $base64Data): void
     {
-        $this->captured_photo_data = $base64Data;
+        $this->captured_photo_data = trim(preg_replace('/\s+/', '', $base64Data));
         $this->runInstantVerification();
     }
 
     public function setCapturedIdCard(string $base64Data): void
     {
-        $this->captured_id_card_data = $base64Data;
+        $this->captured_id_card_data = trim(preg_replace('/\s+/', '', $base64Data));
         $this->runInstantVerification();
     }
 

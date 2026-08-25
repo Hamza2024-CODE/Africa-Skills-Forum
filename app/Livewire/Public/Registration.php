@@ -60,7 +60,7 @@ class Registration extends Component
 
     public function setCapturedPhoto(string $base64Data): void
     {
-        $this->capturedPhotoData = $base64Data;
+        $this->capturedPhotoData = trim(preg_replace('/\s+/', '', $base64Data));
     }
 
     // Success Output
