@@ -494,7 +494,44 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 text-xs font-bold text-slate-700 dark:text-slate-300">
-                        @forelse($arrivals as $arr)
+                        @php $hasFlights = false; @endphp
+
+                        @foreach($memberArrivals as $mem)
+                            @php $hasFlights = true; @endphp
+                            <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                                <td class="py-3.5 px-4 font-black text-slate-900 dark:text-white">
+                                    <div class="flex items-center gap-2">
+                                        @if($mem->delegation?->country?->flag_path)
+                                            <img src="{{ asset($mem->delegation->country->flag_path) }}" alt="" class="w-5 h-3.5 object-cover rounded shadow-2xs">
+                                        @endif
+                                        <div>
+                                            <div>{{ $mem->first_name }} {{ $mem->last_name }}</div>
+                                            <div class="text-[10px] text-slate-400 font-medium">{{ $mem->delegation?->country ? (app()->getLocale() === 'fr' ? ($mem->delegation->country->name_fr ?: $mem->delegation->country->name_ar) : (app()->getLocale() === 'en' ? ($mem->delegation->country->name_en ?: $mem->delegation->country->name_ar) : $mem->delegation->country->name_ar)) : 'وفد رسمي' }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-3.5 px-4 font-mono font-black text-sky-600 dark:text-sky-400">
+                                    {{ $mem->arrival_flight ?: '-' }}
+                                </td>
+                                <td class="py-3.5 px-4">
+                                    {{ $mem->departure_flight ?: 'Algiers Airport (ALG)' }}
+                                </td>
+                                <td class="py-3.5 px-4 font-mono">
+                                    {{ $mem->arrival_date ? (is_string($mem->arrival_date) ? $mem->arrival_date : $mem->arrival_date->format('Y-m-d H:i')) : '-' }}
+                                </td>
+                                <td class="py-3.5 px-4 text-center font-mono font-black">
+                                    1
+                                </td>
+                                <td class="py-3.5 px-4 text-center">
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200">
+                                        {{ app()->getLocale() === 'fr' ? 'Billet Confirmé ✈️' : (app()->getLocale() === 'en' ? 'Confirmed Ticket ✈️' : 'تذكرة مؤكدة ✈️') }}
+                                    </span>
+                                </td>
+                            </tr>
+                        @endforeach
+
+                        @foreach($arrivals as $arr)
+                            @php $hasFlights = true; @endphp
                             <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
                                 <td class="py-3.5 px-4 font-black text-slate-900 dark:text-white">
                                     {{ $arr->country ? (app()->getLocale() === 'fr' ? ($arr->country->name_fr ?: $arr->country->name_ar) : (app()->getLocale() === 'en' ? ($arr->country->name_en ?: $arr->country->name_ar) : $arr->country->name_ar)) : (app()->getLocale() === 'fr' ? 'Délégation Officielle' : (app()->getLocale() === 'en' ? 'Official Delegation' : 'وفد رسمي')) }}
@@ -510,7 +547,7 @@
                                     @endif
                                 </td>
                                 <td class="py-3.5 px-4 font-mono">
-                                    {{ $arr->arrival_date ? $arr->arrival_date->format('Y-m-d H:i') : '-' }}
+                                    {{ $arr->arrival_date ? (is_string($arr->arrival_date) ? $arr->arrival_date : $arr->arrival_date->format('Y-m-d H:i')) : '-' }}
                                 </td>
                                 <td class="py-3.5 px-4 text-center font-mono font-black">
                                     {{ $arr->passengers_count ?: 1 }}
@@ -521,13 +558,15 @@
                                     </span>
                                 </td>
                             </tr>
-                        @empty
+                        @endforeach
+
+                        @if(!$hasFlights)
                             <tr>
                                 <td colspan="6" class="py-8 text-center text-slate-400 font-bold text-xs">
                                     {{ app()->getLocale() === 'fr' ? 'Aucun vol enregistré dans la base de données actuellement.' : (app()->getLocale() === 'en' ? 'No flight itineraries recorded in database yet.' : 'لا توجد بيانات رحلات طيران موثقة في قاعدة البيانات حالياً.') }}
                                 </td>
                             </tr>
-                        @endforelse
+                        @endif
                     </tbody>
                 </table>
             </div>
