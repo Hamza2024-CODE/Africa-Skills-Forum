@@ -217,7 +217,7 @@ class OfficialRegistration extends Component
             'email'      => ['required', 'email', 'unique:users,email', 'regex:' . $emailRegex],
             'phone'      => ['required', 'regex:' . $phoneRegex],
             'country_id' => ['required', 'exists:countries,id'],
-            'photo'      => $this->captured_photo_data ? ['nullable'] : ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'photo'      => $this->captured_photo_data ? ['nullable'] : ['required', 'file', 'mimes:jpg,jpeg,png,webp', 'max:20480'],
         ];
 
         $messages = [
@@ -233,6 +233,7 @@ class OfficialRegistration extends Component
                                      : ($locale === 'fr' ? 'Veuillez saisir un numéro de téléphone valide.' : ($locale === 'en' ? 'Please enter a valid phone number.' : 'يرجى إدخال رقم هاتف صحيح برمز الدولة.')),
             'photo.required'      => $locale === 'fr' ? 'Veuillez téléverser ou capturer la photo officielle.' : ($locale === 'en' ? 'Please upload or capture official photo.' : 'يرجى تحميل الصورة الشخصية الرسمية أو التقاطها عبر الكاميرا المباشرة.'),
             'photo.image'         => $locale === 'fr' ? 'Le fichier photo doit être une image valide.' : ($locale === 'en' ? 'Uploaded file must be a valid image.' : 'الملف المرفق للصورة يجب أن يكون صورة بحجم مناسب (JPG / PNG / WEBP).'),
+            'photo.max'           => $locale === 'fr' ? 'La taille de la photo ne doit pas dépasser 20 Mo.' : ($locale === 'en' ? 'Photo file size must not exceed 20 MB.' : 'حجم الصورة الشخصية كبير جداً (يجب ألا يتعدى 20 ميغابايت).'),
         ];
 
         if ($this->role === 'MEDIA_MANAGER') {
@@ -250,10 +251,12 @@ class OfficialRegistration extends Component
             }
 
             // Require Press Card OR ID Document (or camera capture)
-            $rules['press_card_file'] = $this->captured_id_card_data ? ['nullable'] : ['required', 'file', 'mimes:pdf,jpg,jpeg,png,webp', 'max:10240'];
+            $rules['press_card_file'] = $this->captured_id_card_data ? ['nullable'] : ['required', 'file', 'mimes:pdf,jpg,jpeg,png,webp', 'max:20480'];
             $messages['press_card_file.required'] = $locale === 'fr' ? 'Veuillez fournir la carte de presse ou pièce d\'identité.' : ($locale === 'en' ? 'Please upload or capture press card / ID document.' : 'يرجى رفع ملف بطاقة الصحافة المهنية أو بطاقة الهوية/الجواز المعتمدة أو تصويرها بالكاميرا المباشرة.');
+            $messages['press_card_file.max'] = $locale === 'fr' ? 'Le fichier ne doit pas dépasser 20 Mo.' : ($locale === 'en' ? 'File size must not exceed 20 MB.' : 'حجم الملف كبير جداً (يجب ألا يتعدى 20 ميغابايت).');
         } else {
-            $rules['id_card_file'] = $this->captured_id_card_data ? ['nullable'] : ['required', 'file', 'mimes:pdf,jpg,jpeg,png,webp', 'max:10240'];
+            $rules['id_card_file'] = $this->captured_id_card_data ? ['nullable'] : ['required', 'file', 'mimes:pdf,jpg,jpeg,png,webp', 'max:20480'];
+            $messages['id_card_file.max'] = $locale === 'fr' ? 'Le fichier ne doit pas dépasser 20 Mo.' : ($locale === 'en' ? 'File size must not exceed 20 MB.' : 'حجم الملف كبير جداً (يجب ألا يتعدى 20 ميغابايت).');
 
             if ($this->isAlgeria) {
                 $rules['national_id'] = ['required', 'regex:/^[0-9]{18}$/'];

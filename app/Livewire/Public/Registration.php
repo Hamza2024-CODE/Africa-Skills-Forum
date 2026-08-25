@@ -204,7 +204,7 @@ class Registration extends Component
             'dateOfBirth'      => ['required', 'date'],
             'organizationName' => ['required', 'string', 'min:2'],
             'jobTitle'         => ['required', 'string', 'min:2'],
-            'photoFile'        => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'photoFile'        => ['required', 'file', 'mimes:jpg,jpeg,png,webp', 'max:20480'],
         ];
 
         if ($this->role === 'EXPERT') {
@@ -236,6 +236,7 @@ class Registration extends Component
             'jobTitle.required'         => $locale === 'fr' ? 'Le titre professionnel est requis.' : ($locale === 'en' ? 'Job title is required.' : 'الصفة المهنية / المسمى الوظيفي مطلوب.'),
             'skillId.required'          => $locale === 'fr' ? 'Veuillez sélectionner votre domaine d\'expertise.' : ($locale === 'en' ? 'Please select domain of expertise.' : 'يرجى اختيار مجال التخصص والخبرة للخبير المحكّم.'),
             'photoFile.required'        => $locale === 'fr' ? 'Veuillez charger votre photo officielle.' : ($locale === 'en' ? 'Please upload your official photo.' : 'يرجى تحميل الصورة الشخصية الرسمية المعتمدة على الشارة.'),
+            'photoFile.max'             => $locale === 'fr' ? 'La taille de la photo ne doit pas dépasser 20 Mo.' : ($locale === 'en' ? 'Photo file size must not exceed 20 MB.' : 'حجم الصورة الشخصية كبير جداً (يجب ألا يتعدى 20 ميغابايت).'),
             'nationalId.required'       => $locale === 'fr' ? 'Le numéro NIN (18 chiffres) est requis.' : ($locale === 'en' ? 'NIN number (18 digits) is required.' : 'رقم التعريف الوطني (18 رقماً) مطلوب.'),
             'nationalId.regex'          => $locale === 'fr' ? 'Le numéro NIN doit comporter exactement 18 chiffres.' : ($locale === 'en' ? 'NIN must be exactly 18 digits.' : 'يجب أن يتكون رقم بطاقة التعريف الوطنية (NIN) من 18 رقماً بالضبط.'),
             'passportNumber.required'   => $locale === 'fr' ? 'Le numéro de passeport est requis.' : ($locale === 'en' ? 'Passport number is required.' : 'رقم جواز السفر مطلوب.'),
