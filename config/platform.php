@@ -11,21 +11,21 @@ return [
     |
     */
 
-    'name' => env('PLATFORM_NAME', 'Africa Skills Forum'),
+    'name' => env('PLATFORM_NAME', 'African Skills Policy Forum'),
 
-    'short_name' => env('PLATFORM_SHORT_NAME', 'ASF'),
+    'short_name' => env('PLATFORM_SHORT_NAME', 'ASPF'),
 
-    'domain' => env('PLATFORM_DOMAIN', 'africaskillsforum.org'),
+    'domain' => env('PLATFORM_DOMAIN', 'africaskills-policyforum.worldskills.dz'),
 
-    'email' => env('PLATFORM_EMAIL', 'contact@africaskillsforum.org'),
+    'email' => env('PLATFORM_EMAIL', 'contact@africaskills-policyforum.worldskills.dz'),
 
     'organization' => env(
         'PLATFORM_ORGANIZATION',
-        'Africa Skills Forum Executive Committee'
+        'African Skills Policy Forum Executive Committee'
     ),
 
     'event' => env(
         'PLATFORM_EVENT',
-        'Africa Skills Forum 2026/2027'
+        'African Skills Policy Forum 2026'
     ),
 ];

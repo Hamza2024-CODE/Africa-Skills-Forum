@@ -9,7 +9,7 @@ class PlatformService
      */
     public function name(): string
     {
-        return (string) config('platform.name', 'Africa Skills Forum');
+        return (string) config('platform.name', 'African Skills Policy Forum');
     }
 
     /**
