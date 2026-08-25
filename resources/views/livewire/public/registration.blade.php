@@ -497,20 +497,34 @@
                             {{ $t('الصورة الشخصية الرسمية (تحميل من جهازك أو هاتفك) *', 'Photo d\'Identité Officielle (Télécharger depuis votre appareil) *', 'Official Identity Photo (Upload from device) *') }}
                         </label>
                         
-                        <div class="relative border-2 border-dashed border-slate-300 hover:border-emerald-500 rounded-3xl p-8 text-center bg-white hover:bg-emerald-50/40 transition-all cursor-pointer group shadow-sm">
-                            <input type="file" wire:model="photoFile" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-20">
-                            <div class="space-y-3">
-                                <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-sm">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <div class="border-2 border-dashed border-slate-300 hover:border-emerald-500 rounded-3xl p-6 text-center bg-white hover:bg-emerald-50/40 transition-all shadow-sm space-y-4">
+                            <div class="space-y-2">
+                                <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
+                                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                                 </div>
                                 <div>
                                     <span class="text-sm font-black text-slate-900 block">
-                                        {{ $t('اضغط هنا لاختيار أو رفع صورتك الشخصية الرسمية من معرض الصور / الجهاز', 'Cliquez ici pour sélectionner votre photo d\'identité officielle', 'Click here to upload your official identity photo') }}
+                                        {{ $t('اختر صورتك الشخصية الرسمية من الهاتف أو الكمبيوتر', 'Sélectionnez votre photo d\'identité officielle', 'Upload your official identity photo') }}
                                     </span>
                                     <span class="text-xs text-slate-500 block mt-1">
                                         {{ $t('يجب أن تكون الصورة واضحة بخلفية بيضاء (JPG, PNG, WEBP — Max 5MB)', 'La photo doit être claire sur fond blanc (JPG, PNG, WEBP — Max 5MB)', 'Photo must be clear on a white background (JPG, PNG, WEBP — Max 5MB)') }}
                                     </span>
                                 </div>
+                            </div>
+
+                            <!-- Dual Mobile Upload Buttons (Gallery vs Camera) -->
+                            <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+                                <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs cursor-pointer shadow-md transition active:scale-95">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                    <span>{{ $t('اختر صورة من المعرض / الجهاز 📁', 'Galerie / Fichiers 📁', 'Choose from Gallery / Files 📁') }}</span>
+                                    <input type="file" wire:model="photoFile" accept="image/*,image/png,image/jpeg,image/webp,.jpg,.jpeg,.png,.webp" class="hidden">
+                                </label>
+
+                                <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs cursor-pointer shadow-md transition active:scale-95">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
+                                    <span>{{ $t('التقاط صورة بالكاميرا 📷', 'Prendre Photo 📷', 'Take Photo with Camera 📷') }}</span>
+                                    <input type="file" wire:model="photoFile" accept="image/*" capture="environment" class="hidden">
+                                </label>
                             </div>
                         </div>
 

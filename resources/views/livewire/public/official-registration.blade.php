@@ -281,7 +281,19 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         ✓ {{ $t('تم التقاط الصورة بنجاح بواسطة الكاميرا المباشرة', 'Photo capturée par caméra', 'Photo captured cleanly via Live Camera') }}
                                     </div>
                                 @else
-                                    <input type="file" wire:model="photo" accept="image/*" capture="user" class="text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 cursor-pointer">
+                                    <div class="flex flex-wrap items-center gap-2 mt-2">
+                                        <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                            <span>{{ $t('اختر صورة من المعرض / الجهاز 📁', 'Galerie / Fichiers 📁', 'Choose from Gallery / Files 📁') }}</span>
+                                            <input type="file" wire:model="photo" accept="image/*,image/png,image/jpeg,image/webp,.jpg,.jpeg,.png,.webp" class="hidden">
+                                        </label>
+
+                                        <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
+                                            <span>{{ $t('التقاط صورة بالكاميرا 📷', 'Prendre une Photo 📷', 'Take Photo 📷') }}</span>
+                                            <input type="file" wire:model="photo" accept="image/*" capture="environment" class="hidden">
+                                        </label>
+                                    </div>
                                 @endif
 
                                 @error('photo') <span class="block text-rose-500 text-[10px] font-bold mt-1">{{ $message }}</span> @enderror
@@ -457,7 +469,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                 </div>
                             </div>
 
-                            <div x-show="mode !== 'camera'">
+                             <div x-show="mode !== 'camera'">
                                 @if($captured_id_card_data)
                                     <div class="flex items-center gap-3 bg-white p-2.5 rounded-xl border border-amber-300">
                                         <img src="{{ $captured_id_card_data }}" class="w-24 h-16 rounded-lg object-cover border border-amber-400">
@@ -466,7 +478,19 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         </div>
                                     </div>
                                 @else
-                                    <input type="file" wire:model="press_card_file" class="text-xs text-slate-700 file:mr-4 file:py-1.5 file:px-3.5 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-amber-600 file:text-white hover:file:bg-amber-700 cursor-pointer">
+                                    <div class="flex flex-wrap items-center gap-2 mt-2">
+                                        <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                            <span>{{ $t('اختر وثيقة من المعرض / الجهاز 📁', 'Galerie / Fichiers 📁', 'Choose Document / Files 📁') }}</span>
+                                            <input type="file" wire:model="press_card_file" accept="image/*,application/pdf,.pdf,.jpg,.jpeg,.png,.webp" class="hidden">
+                                        </label>
+
+                                        <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
+                                            <span>{{ $t('تصوير بالكاميرا 📷', 'Prendre Photo 📷', 'Take Photo 📷') }}</span>
+                                            <input type="file" wire:model="press_card_file" accept="image/*" capture="environment" class="hidden">
+                                        </label>
+                                    </div>
                                 @endif
                             </div>
                             @error('press_card_file') <span class="block text-rose-600 text-[10px] font-bold mt-1">{{ $message }}</span> @enderror
@@ -568,7 +592,19 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         </div>
                                     </div>
                                 @else
-                                    <input type="file" wire:model="id_card_file" accept="image/*" capture="user" class="text-xs text-slate-700 file:mr-4 file:py-1.5 file:px-3.5 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                                    <div class="flex flex-wrap items-center gap-2 mt-2">
+                                        <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 012-2h2a2 2 0 012 2v1m-4 0h4"/></svg>
+                                            <span>{{ $t('اختر الهوية / الجواز من المعرض 📁', 'Galerie / Fichiers 📁', 'Choose ID / Passport File 📁') }}</span>
+                                            <input type="file" wire:model="id_card_file" accept="image/*,application/pdf,.pdf,.jpg,.jpeg,.png,.webp" class="hidden">
+                                        </label>
+
+                                        <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer shadow-sm transition active:scale-95">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
+                                            <span>{{ $t('تصوير الهوية بالكاميرا 📷', 'Prendre Photo Identité 📷', 'Take Photo 📷') }}</span>
+                                            <input type="file" wire:model="id_card_file" accept="image/*" capture="environment" class="hidden">
+                                        </label>
+                                    </div>
                                 @endif
                             </div>
                             @error('id_card_file') <span class="block text-rose-600 text-[10px] font-bold mt-1">{{ $message }}</span> @enderror
