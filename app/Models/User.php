@@ -40,7 +40,10 @@ class User extends Authenticatable
             }
             $cleanPath = preg_replace('/^.*?storage\//', '', $path);
             $cleanPath = ltrim($cleanPath, '/');
-            return '/storage/' . $cleanPath;
+            $fullPath = storage_path('app/public/' . $cleanPath);
+            $v = file_exists($fullPath) ? filemtime($fullPath) : time();
+
+            return asset('storage/' . $cleanPath) . '?v=' . $v;
         }
 
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=06205C&color=fff&bold=true&size=200';

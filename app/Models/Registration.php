@@ -93,7 +93,10 @@ class Registration extends Model
             $cleanPath = substr($cleanPath, 8);
         }
 
-        return asset('storage/' . ltrim($cleanPath, '/'));
+        $fullPath = storage_path('app/public/' . $cleanPath);
+        $v = file_exists($fullPath) ? filemtime($fullPath) : time();
+
+        return asset('storage/' . ltrim($cleanPath, '/')) . '?v=' . $v;
     }
 
     public function edition()
