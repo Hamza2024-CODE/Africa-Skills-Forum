@@ -227,7 +227,13 @@
                         <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                         <span>{{ app()->getLocale() === 'fr' ? 'Périmètres de Sécurité Officiels' : (app()->getLocale() === 'en' ? 'Official Security Zones Summary' : 'ملخص المناطق والمراكز الأمنية') }}</span>
                     </h3>
-                    <p class="text-xs text-slate-500 font-medium">مستويات الوصول والتصاريح الأمنية الصادرة لمفوضية الاتحاد الأفريقي والوفود الوزارية.</p>
+                    <p class="text-xs text-slate-500 font-medium">
+                        {{ app()->getLocale() === 'fr' 
+                            ? 'Niveaux d\'accès et badges de sécurité émis pour la Commission UA et les délégations.' 
+                            : (app()->getLocale() === 'en' 
+                                ? 'Security clearance levels and access permissions issued for AU Commission and delegations.' 
+                                : 'مستويات الوصول والتصاريح الأمنية الصادرة لمفوضية الاتحاد الأفريقي والوفود الوزارية.') }}
+                    </p>
                 </div>
 
                 <div class="space-y-3">
@@ -260,9 +266,9 @@
                 <div>
                     <h3 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
                         <svg class="w-5 h-5 text-[#006837]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 012 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V14m-3 7c9 0 9-9 9-9s-9 0-9 9z"/></svg>
-                        <span>كشف الوفود والدول الإفريقية المسجلة في المنتدى</span>
+                        <span>{{ app()->getLocale() === 'fr' ? 'Délégations & États Membres Africains' : (app()->getLocale() === 'en' ? 'African Member States & Registered Delegations' : 'كشف الوفود والدول الإفريقية المسجلة في المنتدى') }}</span>
                     </h3>
-                    <p class="text-xs text-slate-500 font-medium">عرض جميع الدول الإفريقية وتعداد الوفود المعتمدة رسميًا لكل دولة.</p>
+                    <p class="text-xs text-slate-500 font-medium">{{ app()->getLocale() === 'fr' ? 'Liste complète des 54 États membres et effectifs des délégations.' : (app()->getLocale() === 'en' ? 'Complete list of 54 African Member States and accredited delegation counts.' : 'عرض جميع الدول الإفريقية وتعداد الوفود المعتمدة رسميًا لكل دولة.') }}</p>
                 </div>
             </div>
 
