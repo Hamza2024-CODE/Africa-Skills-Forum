@@ -554,6 +554,7 @@ $t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => 
                             <span class="text-slate-500 font-bold">{{ $t('رقم جواز السفر:', 'Numéro de Passeport:', 'Passport Number:') }}</span>
                             <span class="font-mono font-black text-amber-600">{{ $p->passport_number }}</span>
                         </div>
+                    @endif
                 </div>
 
                 {{-- Official Photos & Identity Documents Preview --}}
