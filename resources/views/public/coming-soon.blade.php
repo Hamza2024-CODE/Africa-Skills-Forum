@@ -271,7 +271,7 @@
 
     <!-- Footer Area -->
     <footer class="relative z-30 w-full max-w-5xl mx-auto p-4 sm:p-6 text-center text-xs font-medium text-slate-600 dark:text-slate-300/80">
-        © 2026 {{ platform()->name() }}. {{ $locale === 'fr' ? 'Tous droits réservés — République Algérienne & Union Africaine' : ($locale === 'en' ? 'All rights reserved — Republic of Algeria & African Union' : 'جميع الحقوق محفوظة — الجمهورية الجزائرية الديمقراطية الشعبية ومفوضية الاتحاد الأفريقي') }}
+        © 2026 {{ $locale === 'fr' ? 'Forum des Politiques Africaines des Compétences' : ($locale === 'en' ? 'African Skills Policy Forum' : 'منتدى السياسات الأفريقية للمهارات') }}. {{ $locale === 'fr' ? 'Tous droits réservés — République Algérienne & Union Africaine' : ($locale === 'en' ? 'All rights reserved — Republic of Algeria & African Union' : 'جميع الحقوق محفوظة — الجمهورية الجزائرية الديمقراطية الشعبية ومفوضية الاتحاد الأفريقي') }}
     </footer>
 
     <!-- Alpine.js CDN -->

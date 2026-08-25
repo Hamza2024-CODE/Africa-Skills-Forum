@@ -66,7 +66,7 @@
 
         <!-- Footer Bottom Bar -->
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-[11px] text-slate-500 font-medium">
-            <p>© {{ date('Y') }} {{ platform()->name() }}. {{ app()->getLocale() === 'fr' ? 'Tous droits réservés.' : (app()->getLocale() === 'en' ? 'All rights reserved.' : 'جميع الحقوق محفوظة.') }}</p>
+            <p>© {{ date('Y') }} {{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences' : (app()->getLocale() === 'en' ? 'African Skills Policy Forum' : 'منتدى السياسات الأفريقية للمهارات') }}. {{ app()->getLocale() === 'fr' ? 'Tous droits réservés.' : (app()->getLocale() === 'en' ? 'All rights reserved.' : 'جميع الحقوق محفوظة.') }}</p>
             <div class="flex items-center gap-4">
                 <a href="{{ route('privacy') }}" class="hover:text-slate-400">
                     {{ app()->getLocale() === 'fr' ? 'Politique de confidentialité' : (app()->getLocale() === 'en' ? 'Privacy Policy' : 'سياسة الخصوصية') }}
