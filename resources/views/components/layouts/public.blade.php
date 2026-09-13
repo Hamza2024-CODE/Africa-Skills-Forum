@@ -259,10 +259,10 @@
             for (var k of keys) caches.delete(k);
         });
     }
-" class="font-sans antialiased min-h-screen flex flex-col text-[#06205C] bg-[#F4F7FC] relative">
+" class="font-sans antialiased min-h-screen flex flex-col text-[#06205C] dark:text-[#F8FAFC] bg-[#F4F7FC] dark:bg-[#02101b] relative transition-colors duration-300">
 
     <!-- Global Pan-African Cultural Vector Pattern Overlay (Authentic Background Motifs from 6991441) -->
-    <div class="pointer-events-none fixed inset-0 -z-10 opacity-[0.14] dark:opacity-[0.08] bg-repeat bg-[length:480px_480px]" style="background-image: url('/images/african_pattern_bg.jpg');"></div>
+    <div class="pointer-events-none fixed inset-0 z-0 opacity-20 dark:opacity-15 bg-repeat bg-[length:400px_400px] transition-opacity duration-300" style="background-image: url('/images/african_pattern_bg.jpg');"></div>
 
     @if($isMaintenance && $isAdmin)
         <div class="bg-amber-500 text-slate-950 px-4 py-2 text-xs font-black text-center shadow-lg sticky top-0 z-50 flex items-center justify-center gap-3">
@@ -300,7 +300,7 @@
     <x-navbar />
 
     <!-- Page Main Content -->
-    <main class="flex-grow pb-16 md:pb-0">
+    <main class="flex-grow pb-16 md:pb-0 relative z-10">
         {{ $slot }}
     </main>
 

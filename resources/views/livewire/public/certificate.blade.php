@@ -1,7 +1,7 @@
 <div class="py-12 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
     @php
         $locale = app()->getLocale();
-         = function(, , ,  = null) { return polyTrans(, , , ); };
+        $t = function($ar, $fr, $en, $pt = null) { return polyTrans($ar, $fr, $en, $pt); };
     @endphp
     
     <!-- Printable Trilingual Certificate Container -->

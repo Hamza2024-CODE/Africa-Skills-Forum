@@ -3,12 +3,12 @@ $locale = app()->getLocale();
 $t = function($ar, $fr, $en, $pt = null) { return polyTrans($ar, $fr, $en, $pt); };
 @endphp
 
-<div style="min-height:100vh; background:linear-gradient(180deg,#f8fafc 0%,#eff6ff 40%,#f1f5f9 100%); padding:3rem 1rem 4rem; font-family:system-ui,sans-serif;">
+<div class="min-h-screen py-8 px-4 sm:px-6 lg:px-8 relative font-sans">
     <div class="max-w-3xl mx-auto space-y-8">
 
         <!-- Header Bar with Language Switcher & Branding -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/90 backdrop-blur-md p-4 rounded-3xl border border-slate-200/80 shadow-md">
-            <a href="{{ route('home') }}" class="flex items-center gap-3 bg-slate-50 hover:bg-slate-100 p-2 px-3.5 rounded-2xl border border-slate-200/70 transition">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/90 dark:bg-[#031826]/90 backdrop-blur-md p-4 rounded-3xl border border-slate-200/80 dark:border-[#24BDC3]/30 shadow-md">
+            <a href="{{ route('home') }}" class="flex items-center gap-3 bg-slate-50 dark:bg-[#052D48] hover:bg-slate-100 dark:hover:bg-[#083b5e] p-2 px-3.5 rounded-2xl border border-slate-200/70 dark:border-[#24BDC3]/20 transition">
                 <img src="{{ asset('ministry-logo-trimmed.png') }}" alt="وزارة التكوين والتعليم المهنيين" class="h-8 sm:h-9 w-auto object-contain">
                 <div class="h-6 w-px bg-slate-300"></div>
                 <img src="{{ asset('africa-logo-trimmed.png') }}" alt="African Union - Africa Skills Forum" class="h-8 sm:h-9 w-auto object-contain">

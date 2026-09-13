@@ -1,6 +1,6 @@
 @php
 $locale = app()->getLocale();
- = function(, , ,  = null) { return polyTrans(, , , ); };
+$t = function($ar, $fr, $en, $pt = null) { return polyTrans($ar, $fr, $en, $pt); };
 @endphp
 
 <div class="py-12">

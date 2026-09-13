@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
@@ -243,4 +246,56 @@ body {
     background: linear-gradient(135deg, #24BDC3 0%, #FFFFFF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+
+/* Global Universal Dark Mode Polish */
+.dark body {
+    background-color: #02101b !important;
+    color: #F8FAFC !important;
+}
+
+.dark .bg-white {
+    background-color: #031826 !important;
+    border-color: rgba(36, 189, 195, 0.2) !important;
+    color: #F8FAFC !important;
+}
+
+.dark .bg-slate-50 {
+    background-color: #052D48 !important;
+    border-color: rgba(36, 189, 195, 0.2) !important;
+    color: #F8FAFC !important;
+}
+
+.dark .bg-slate-100 {
+    background-color: #083b5e !important;
+    color: #F8FAFC !important;
+}
+
+.dark .text-slate-900,
+.dark .text-slate-800 {
+    color: #F8FAFC !important;
+}
+
+.dark .text-slate-700,
+.dark .text-slate-600 {
+    color: #94A3B8 !important;
+}
+
+.dark .border-slate-200,
+.dark .border-slate-300 {
+    border-color: rgba(36, 189, 195, 0.2) !important;
+}
+
+.dark input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+.dark select,
+.dark textarea {
+    background-color: #052D48 !important;
+    color: #FFFFFF !important;
+    border-color: rgba(36, 189, 195, 0.3) !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+    color: #64748B !important;
 }

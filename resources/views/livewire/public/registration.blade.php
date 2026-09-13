@@ -1,4 +1,4 @@
-<div class="pt-28 pb-16 bg-slate-50/80 min-h-screen relative overflow-hidden"
+<div class="pt-28 pb-16 min-h-screen relative overflow-hidden"
      x-data="{
          draftRestored: false,
          draft: {

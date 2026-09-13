@@ -1,7 +1,7 @@
 <div class="min-h-screen bg-[#F4F7FC] flex items-center justify-center p-4 sm:p-8" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
     @php
         $locale = app()->getLocale();
-         = function(, , ,  = null) { return polyTrans(, , , ); };
+        $t = function($ar, $fr, $en, $pt = null) { return polyTrans($ar, $fr, $en, $pt); };
     @endphp
 
     <div class="w-full max-w-xl">
