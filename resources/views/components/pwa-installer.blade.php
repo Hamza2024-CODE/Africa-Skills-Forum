@@ -95,7 +95,7 @@
                     </button>
                 </template>
 
-                <button type="button" @click="dismissBanner()" class="p-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition cursor-pointer" title="إغلاق">
+                <button type="button" @click="dismissBanner()" class="p-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition cursor-pointer" title="{{ polyTrans('إغلاق', 'Fermer', 'Close', 'Fechar') }}">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
@@ -105,11 +105,11 @@
         <div x-show="showAndroidGuide" x-transition class="mt-3 pt-3 border-t border-white/15 text-xs space-y-2 text-amber-200">
             <p class="font-bold flex items-center gap-1.5">
                 <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <span>طريقة التثبيت المباشر على أندرويد:</span>
+                <span>{{ polyTrans('طريقة التثبيت المباشر على أندرويد:', 'Installation directe sur Android :', 'Direct installation on Android:', 'Instalação direta no Android:') }}</span>
             </p>
             <ol class="list-decimal list-inside text-[11px] text-white/90 space-y-1 font-medium">
-                <li>اضغط خيارات المتصفح <strong class="text-amber-300">⋮ (الثلاث نقاط بالخيارات العلوية)</strong>.</li>
-                <li>اختر <strong class="text-amber-300">"التثبيت في الشاشة الرئيسية" (Add to Home screen / Install app)</strong>.</li>
+                <li>{{ polyTrans('اضغط خيارات المتصفح', 'Appuyez sur les options du navigateur', 'Tap browser options', 'Toque nas opções do navegador') }} <strong class="text-amber-300">{{ polyTrans('⋮ (الثلاث نقاط بالخيارات العلوية)', '⋮ (les 3 points en haut)', '⋮ (the 3 dots at top)', '⋮ (os 3 pontos no topo)') }}</strong>.</li>
+                <li>{{ polyTrans('اختر', 'Sélectionnez', 'Select', 'Selecione') }} <strong class="text-amber-300">{{ polyTrans('"التثبيت في الشاشة الرئيسية" (Add to Home screen / Install app)', '"Ajouter à l\'écran d\'accueil" / "Installer"', '"Add to Home screen" / "Install app"', '"Adicionar ao ecrã principal" / "Instalar aplicação"') }}</strong>.</li>
             </ol>
         </div>
     </div>

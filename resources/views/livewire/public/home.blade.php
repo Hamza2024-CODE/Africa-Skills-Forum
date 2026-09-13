@@ -79,11 +79,11 @@
                 </a>
                 <a href="{{ route('guide') }}" class="px-8 py-4 rounded-2xl bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-extrabold text-sm border border-white/30 shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2.5 group">
                     <svg class="w-5 h-5 text-[#24BDC3] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <span>{{ app()->getLocale() === 'fr' ? 'Découvrir la Vision & Guide' : (app()->getLocale() === 'en' ? 'Explore Forum Vision & Guide' : 'رؤية ودليل المنتدى') }}</span>
+                    <span>{{ polyTrans('رؤية ودليل المنتدى', 'Découvrir la Vision & Guide', 'Explore Forum Vision & Guide') }}</span>
                 </a>
                 <button @click="$dispatch('open-schedule'); showScheduleModal = true" class="px-8 py-4 rounded-2xl btn-petrol-gradient font-black text-sm shadow-xl flex items-center gap-2.5 group cursor-pointer">
                     <svg class="w-5 h-5 text-[#24BDC3] group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    <span>{{ app()->getLocale() === 'fr' ? 'Programme Officiel' : (app()->getLocale() === 'en' ? 'Official Event Schedule' : 'جدول أعمال المنتدى') }}</span>
+                    <span>{{ polyTrans('جدول أعمال المنتدى', 'Programme Officiel', 'Official Event Schedule') }}</span>
                 </button>
             </div>
 
@@ -93,7 +93,7 @@
                 <div class="p-4 sm:p-5 rounded-2xl bg-white/10 dark:bg-[#031826]/80 backdrop-blur-md border border-white/20 dark:border-[#24BDC3]/30 flex items-center justify-between gap-3 shadow-xl hover:-translate-y-1 hover:border-[#24BDC3] hover:shadow-[0_0_25px_rgba(36,189,195,0.3)] transition-all duration-300 group">
                     <div class="space-y-1">
                         <div class="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight drop-shadow-sm">+30</div>
-                        <div class="text-xs text-teal-100 font-bold leading-snug">{{ app()->getLocale() === 'fr' ? 'Pays africains' : (app()->getLocale() === 'en' ? 'African countries' : 'دولة مشاركة') }}</div>
+                        <div class="text-xs text-teal-100 font-bold leading-snug">{{ polyTrans('دولة مشاركة', 'Pays africains', 'African countries') }}</div>
                     </div>
                     <div class="w-11 h-11 rounded-2xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#24BDC3] group-hover:text-[#02101b] transition-all duration-300 shadow-md">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 012 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V14m-3 7c9 0 9-9 9-9s-9 0-9 9z"/></svg>
@@ -104,7 +104,7 @@
                 <div class="p-4 sm:p-5 rounded-2xl bg-white/10 dark:bg-[#031826]/80 backdrop-blur-md border border-white/20 dark:border-[#24BDC3]/30 flex items-center justify-between gap-3 shadow-xl hover:-translate-y-1 hover:border-[#24BDC3] hover:shadow-[0_0_25px_rgba(36,189,195,0.3)] transition-all duration-300 group">
                     <div class="space-y-1">
                         <div class="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight drop-shadow-sm">+20</div>
-                        <div class="text-xs text-teal-100 font-bold leading-snug">{{ app()->getLocale() === 'fr' ? 'Ministres attendus' : (app()->getLocale() === 'en' ? 'Ministers expected' : 'وزيراً متوقعاً') }}</div>
+                        <div class="text-xs text-teal-100 font-bold leading-snug">{{ polyTrans('وزيراً متوقعاً', 'Ministres attendus', 'Ministers expected') }}</div>
                     </div>
                     <div class="w-11 h-11 rounded-2xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#24BDC3] group-hover:text-[#02101b] transition-all duration-300 shadow-md">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
@@ -115,7 +115,7 @@
                 <div class="p-4 sm:p-5 rounded-2xl bg-white/10 dark:bg-[#031826]/80 backdrop-blur-md border border-white/20 dark:border-[#24BDC3]/30 flex items-center justify-between gap-3 shadow-xl hover:-translate-y-1 hover:border-[#24BDC3] hover:shadow-[0_0_25px_rgba(36,189,195,0.3)] transition-all duration-300 group">
                     <div class="space-y-1">
                         <div class="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight drop-shadow-sm">2</div>
-                        <div class="text-xs text-teal-100 font-bold leading-snug">{{ app()->getLocale() === 'fr' ? 'Tables rondes ministérielles' : (app()->getLocale() === 'en' ? 'Ministerial Roundtables' : 'موائد مستديرة وزارية') }}</div>
+                        <div class="text-xs text-teal-100 font-bold leading-snug">{{ polyTrans('موائد مستديرة وزارية', 'Tables rondes ministérielles', 'Ministerial Roundtables') }}</div>
                     </div>
                     <div class="w-11 h-11 rounded-2xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#24BDC3] group-hover:text-[#02101b] transition-all duration-300 shadow-md">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
@@ -126,7 +126,7 @@
                 <div class="p-4 sm:p-5 rounded-2xl bg-white/10 dark:bg-[#031826]/80 backdrop-blur-md border border-white/20 dark:border-[#24BDC3]/30 flex items-center justify-between gap-3 shadow-xl hover:-translate-y-1 hover:border-[#24BDC3] hover:shadow-[0_0_25px_rgba(36,189,195,0.3)] transition-all duration-300 group">
                     <div class="space-y-1">
                         <div class="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight drop-shadow-sm">7</div>
-                        <div class="text-xs text-teal-100 font-bold leading-snug">{{ app()->getLocale() === 'fr' ? 'Axes thématiques' : (app()->getLocale() === 'en' ? 'Thematic workshops' : 'ورشات تخصصية') }}</div>
+                        <div class="text-xs text-teal-100 font-bold leading-snug">{{ polyTrans('ورشات تخصصية', 'Axes thématiques', 'Thematic workshops') }}</div>
                     </div>
                     <div class="w-11 h-11 rounded-2xl bg-[#24BDC3]/20 border border-[#24BDC3]/50 text-[#24BDC3] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#24BDC3] group-hover:text-[#02101b] transition-all duration-300 shadow-md">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7M5 11.5v5.5a2.5 2.5 0 005 0v-5.5"/></svg>
@@ -218,7 +218,7 @@
                     <div class="inline-flex items-center gap-2">
                         <span class="w-2.5 h-2.5 rounded-full bg-[#24BDC3] animate-ping"></span>
                         <h4 class="text-base sm:text-lg font-black text-slate-600 dark:text-teal-200 uppercase tracking-wide">
-                            {{ app()->getLocale() === 'fr' ? 'ÉVÉNEMENT À VENIR // UPCOMING' : (app()->getLocale() === 'en' ? 'UPCOMING EVENT // NEXT STAGE' : 'الحدث القادم // UPCOMING STAGE') }}
+                            {{ polyTrans('الحدث القادم // UPCOMING STAGE', 'ÉVÉNEMENT À VENIR // UPCOMING', 'UPCOMING EVENT // NEXT STAGE') }}
                         </h4>
                     </div>
 
@@ -228,6 +228,8 @@
                             {{ $countdownTitleFr }}
                         @elseif(app()->getLocale() === 'en')
                             {{ $countdownTitleEn }}
+                        @elseif(app()->getLocale() === 'pt')
+                            {{ $countdownTitlePt }}
                         @else
                             {{ $countdownTitleAr }}
                         @endif
@@ -236,7 +238,7 @@
                     <!-- Venue Pill Badge with Hover Glow -->
                     <div class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-slate-50 dark:bg-[#052D48]/90 backdrop-blur-md border border-slate-200 dark:border-[#24BDC3]/30 shadow-sm text-slate-700 dark:text-slate-200 text-xs font-bold hover:shadow-md hover:border-[#24BDC3] transition-all duration-300">
                         <svg class="w-4 h-4 text-[#24BDC3] shrink-0 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <span>{{ app()->getLocale() === 'fr' ? platform()->get('venue_name_fr', 'Centre des Conventions Mohamed Ben Ahmed (CCO) — Oran, Algérie') : (app()->getLocale() === 'en' ? platform()->get('venue_name_en', 'Mohamed Ben Ahmed Convention Center (CCO) — Oran, Algeria') : platform()->get('venue_name', 'مركز المؤتمرات محمد بن أحمد (CCO) — وهران، الجزائر')) }}</span>
+                        <span>{{ polyTrans(platform()->get('venue_name', 'مركز المؤتمرات محمد بن أحمد (CCO) — وهران، الجزائر'), platform()->get('venue_name_fr', 'Centre des Conventions Mohamed Ben Ahmed (CCO) — Oran, Algérie'), platform()->get('venue_name_en', 'Mohamed Ben Ahmed Convention Center (CCO) — Oran, Algeria'), platform()->get('venue_name_pt', 'Centro de Convenções Mohamed Ben Ahmed (CCO) — Orão, Argélia')) }}</span>
                     </div>
 
                 </div>
@@ -270,7 +272,7 @@
                                 {{ str_pad($eventCountdown['days'] ?? 104, 2, '0', STR_PAD_LEFT) }}
                             </div>
                             <div class="text-[11px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest">
-                                {{ app()->getLocale() === 'fr' ? 'JOUR' : (app()->getLocale() === 'en' ? 'DAY' : 'يوم') }}
+                                {{ polyTrans('يوم', 'JOUR', 'DAY') }}
                             </div>
                             <div class="w-full h-1.5 bg-teal-100 dark:bg-[#052D48] rounded-full overflow-hidden">
                                 <div class="bg-gradient-to-r from-[#24BDC3] to-[#42CBD0] h-full rounded-full" style="width:80%"></div>
@@ -286,7 +288,7 @@
                                 {{ str_pad($eventCountdown['hours'] ?? 7, 2, '0', STR_PAD_LEFT) }}
                             </div>
                             <div class="text-[11px] font-black text-slate-600 uppercase tracking-widest">
-                                {{ app()->getLocale() === 'fr' ? 'HEURE' : (app()->getLocale() === 'en' ? 'HOUR' : 'ساعة') }}
+                                {{ polyTrans('ساعة', 'HEURE', 'HOUR') }}
                             </div>
                             <div class="w-full h-1.5 bg-emerald-100 rounded-full overflow-hidden">
                                 <div class="bg-gradient-to-r from-[#35A536] to-emerald-400 h-full rounded-full" style="width:60%"></div>
@@ -302,7 +304,7 @@
                                 {{ str_pad($eventCountdown['minutes'] ?? 14, 2, '0', STR_PAD_LEFT) }}
                             </div>
                             <div class="text-[11px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest">
-                                {{ app()->getLocale() === 'fr' ? 'MIN' : (app()->getLocale() === 'en' ? 'MIN' : 'دقيقة') }}
+                                {{ polyTrans('دقيقة', 'MIN', 'MIN') }}
                             </div>
                             <div class="w-full h-1.5 bg-teal-100 dark:bg-[#052D48] rounded-full overflow-hidden">
                                 <div class="bg-gradient-to-r from-[#24BDC3] to-[#42CBD0] h-full rounded-full" style="width:75%"></div>
@@ -318,7 +320,7 @@
                                 {{ str_pad($eventCountdown['seconds'] ?? 36, 2, '0', STR_PAD_LEFT) }}
                             </div>
                             <div class="text-[11px] font-black text-[#24BDC3] uppercase tracking-widest">
-                                {{ app()->getLocale() === 'fr' ? 'SEC' : (app()->getLocale() === 'en' ? 'SEC' : 'ثانية') }}
+                                {{ polyTrans('ثانية', 'SEC', 'SEC') }}
                             </div>
                             <div class="w-full h-1.5 bg-teal-100 dark:bg-[#052D48] rounded-full overflow-hidden">
                                 <div class="bg-gradient-to-r from-[#24BDC3] to-[#42CBD0] h-full w-full rounded-full animate-pulse"></div>
@@ -337,11 +339,11 @@
                         <h3 class="text-3xl sm:text-4xl font-black tracking-tight text-white drop-shadow-md">
                             <span dir="ltr" class="inline-block font-mono">16 - 18</span>
                         </h3>
-                        <p class="text-base font-black text-[#24BDC3]">{{ app()->getLocale() === 'fr' ? 'Novembre 2026' : (app()->getLocale() === 'en' ? 'November 2026' : 'نوفمبر 2026') }}</p>
+                        <p class="text-base font-black text-[#24BDC3]">{{ polyTrans('نوفمبر 2026', 'Novembre 2026', 'November 2026') }}</p>
                     </div>
 
                     <div class="pt-3 border-t border-white/15 text-xs font-black text-teal-200/90 tracking-wide">
-                        {{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences' : (app()->getLocale() === 'en' ? 'Africa Skills Policy Forum 2026' : 'منتدى السياسات الأفريقية للمهارات 2026') }}
+                        {{ polyTrans('منتدى السياسات الأفريقية للمهارات 2026', 'Forum des Politiques Africaines des Compétences', 'Africa Skills Policy Forum 2026') }}
                     </div>
                 </div>
 
@@ -355,9 +357,9 @@
                     <div class="flex items-center justify-between">
                         <h4 class="text-base font-black text-[#052D48] dark:text-white flex items-center gap-2">
                             <svg class="w-5 h-5 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Étapes Clés du Forum' : (app()->getLocale() === 'en' ? 'Key Forum Stages' : 'مراحل المنتدى الرئيسية') }}</span>
+                            <span>{{ polyTrans('مراحل المنتدى الرئيسية', 'Étapes Clés du Forum', 'Key Forum Stages') }}</span>
                         </h4>
-                        <span class="text-xs font-bold text-slate-500 dark:text-slate-400">{{ app()->getLocale() === 'fr' ? '6 étapes officielles' : (app()->getLocale() === 'en' ? '6 official stages' : '6 محطات رسمية') }}</span>
+                        <span class="text-xs font-bold text-slate-500 dark:text-slate-400">{{ polyTrans('6 محطات رسمية', '6 étapes officielles', '6 official stages') }}</span>
                     </div>
                     
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 relative pt-2">
@@ -371,8 +373,8 @@
                             <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#031826] text-[#24BDC3] border-2 border-teal-300 dark:border-[#24BDC3]/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                             </div>
-                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#24BDC3] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Cérémonie d\'Ouverture' : (app()->getLocale() === 'en' ? 'Opening Ceremony' : 'حفل الافتتاح') }}</div>
-                            <div class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm" style="background-color: #0f766e; color: #ffffff !important; border: 1px solid #14b8a6;">16 {{ app()->getLocale() === 'fr' ? 'Nov. — 18:00' : (app()->getLocale() === 'en' ? 'Nov. — 18:00' : 'نوفمبر — 18:00') }}</div>
+                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#24BDC3] transition-colors leading-tight">{{ polyTrans('حفل الافتتاح', 'Cérémonie d\'Ouverture', 'Opening Ceremony') }}</div>
+                            <div class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm" style="background-color: #0f766e; color: #ffffff !important; border: 1px solid #14b8a6;">16 {{ polyTrans('نوفمبر — 18:00', 'Nov. — 18:00', 'Nov. — 18:00') }}</div>
                         </div>
 
                         <!-- Step 2: Ministerial Roundtable -->
@@ -380,8 +382,8 @@
                             <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#031826] text-[#24BDC3] border-2 border-teal-300 dark:border-[#24BDC3]/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                             </div>
-                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#24BDC3] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Table Ronde Ministérielle' : (app()->getLocale() === 'en' ? 'Ministerial Roundtable' : 'المائدة المستديرة الوزارية') }}</div>
-                            <div class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm" style="background-color: #d97706; color: #ffffff !important; border: 1px solid #f59e0b;">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 09:30' : (app()->getLocale() === 'en' ? 'Nov. — 09:30' : 'نوفمبر — 09:30') }}</div>
+                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#24BDC3] transition-colors leading-tight">{{ polyTrans('المائدة المستديرة الوزارية', 'Table Ronde Ministérielle', 'Ministerial Roundtable') }}</div>
+                            <div class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm" style="background-color: #d97706; color: #ffffff !important; border: 1px solid #f59e0b;">17 {{ polyTrans('نوفمبر — 09:30', 'Nov. — 09:30', 'Nov. — 09:30') }}</div>
                         </div>
 
                         <!-- Step 3: Joint Declaration -->
@@ -389,8 +391,8 @@
                             <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#031826] text-[#35A536] border-2 border-emerald-300 dark:border-emerald-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             </div>
-                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#35A536] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Déclaration Conjointe' : (app()->getLocale() === 'en' ? 'Joint Declaration' : 'الإعلان المشترك') }}</div>
-                            <div class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm" style="background-color: #059669; color: #ffffff !important; border: 1px solid #10b981;">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 12:15' : (app()->getLocale() === 'en' ? 'Nov. — 12:15' : 'نوفمبر — 12:15') }}</div>
+                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#35A536] transition-colors leading-tight">{{ polyTrans('الإعلان المشترك', 'Déclaration Conjointe', 'Joint Declaration') }}</div>
+                            <div class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm" style="background-color: #059669; color: #ffffff !important; border: 1px solid #10b981;">17 {{ polyTrans('نوفمبر — 12:15', 'Nov. — 12:15', 'Nov. — 12:15') }}</div>
                         </div>
 
                         <!-- Step 4: Expert Panels -->
@@ -398,8 +400,8 @@
                             <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#031826] text-purple-600 dark:text-purple-300 border-2 border-purple-300 dark:border-purple-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                             </div>
-                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-purple-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Panneaux d\'Experts' : (app()->getLocale() === 'en' ? 'Expert Panels' : 'الجلسات التخصصية') }}</div>
-                            <div class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm" style="background-color: #7c3aed; color: #ffffff !important; border: 1px solid #8b5cf6;">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 14:00' : (app()->getLocale() === 'en' ? 'Nov. — 14:00' : 'نوفمبر — 14:00') }}</div>
+                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-purple-600 transition-colors leading-tight">{{ polyTrans('الجلسات التخصصية', 'Panneaux d\'Experts', 'Expert Panels') }}</div>
+                            <div class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm" style="background-color: #7c3aed; color: #ffffff !important; border: 1px solid #8b5cf6;">17 {{ polyTrans('نوفمبر — 14:00', 'Nov. — 14:00', 'Nov. — 14:00') }}</div>
                         </div>
 
                         <!-- Step 5: Where Policy Meets Talent -->
@@ -407,8 +409,8 @@
                             <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#031826] text-sky-600 dark:text-sky-300 border-2 border-sky-300 dark:border-sky-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                             </div>
-                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-sky-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Politiques & Talents' : (app()->getLocale() === 'en' ? 'Where Policy Meets Talent' : 'التلاقي بين السياسات والمواهب') }}</div>
-                            <div class="text-[10px] font-extrabold text-sky-700 dark:text-sky-200 bg-sky-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-sky-200 dark:border-[#24BDC3]/30">18 {{ app()->getLocale() === 'fr' ? 'Nov. — 09:30' : (app()->getLocale() === 'en' ? 'Nov. — 09:30' : 'نوفمبر — 09:30') }}</div>
+                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-sky-600 transition-colors leading-tight">{{ polyTrans('التلاقي بين السياسات والمواهب', 'Politiques & Talents', 'Where Policy Meets Talent') }}</div>
+                            <div class="text-[10px] font-extrabold text-sky-700 dark:text-sky-200 bg-sky-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-sky-200 dark:border-[#24BDC3]/30">18 {{ polyTrans('نوفمبر — 09:30', 'Nov. — 09:30', 'Nov. — 09:30') }}</div>
                         </div>
 
                         <!-- Step 6: Closing Ceremony -->
@@ -416,8 +418,8 @@
                             <div class="w-11 h-11 rounded-2xl bg-white dark:bg-[#031826] text-rose-600 dark:text-rose-300 border-2 border-rose-300 dark:border-rose-500/50 flex items-center justify-center mx-auto shadow-md group-hover/step:-translate-y-1.5 group-hover/step:scale-110 transition-all duration-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
                             </div>
-                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-rose-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Cérémonie de Clôture' : (app()->getLocale() === 'en' ? 'Closing Ceremony' : 'حفل الاختتام') }}</div>
-                            <div class="text-[10px] font-extrabold text-rose-700 dark:text-rose-200 bg-rose-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-rose-200 dark:border-[#24BDC3]/30">18 {{ app()->getLocale() === 'fr' ? 'Nov. — 14:00' : (app()->getLocale() === 'en' ? 'Nov. — 14:00' : 'نوفمبر — 14:00') }}</div>
+                            <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-rose-600 transition-colors leading-tight">{{ polyTrans('حفل الاختتام', 'Cérémonie de Clôture', 'Closing Ceremony') }}</div>
+                            <div class="text-[10px] font-extrabold text-rose-700 dark:text-rose-200 bg-rose-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-rose-200 dark:border-[#24BDC3]/30">18 {{ polyTrans('نوفمبر — 14:00', 'Nov. — 14:00', 'Nov. — 14:00') }}</div>
                         </div>
                     </div>
                 </div>
@@ -429,15 +431,15 @@
                             <div class="w-8 h-8 rounded-xl bg-emerald-100 text-[#35A536] flex items-center justify-center shadow-xs group-hover/about:scale-110 transition-transform">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                             </div>
-                            <span>{{ app()->getLocale() === 'fr' ? 'À Propos du Forum // ABOUT' : (app()->getLocale() === 'en' ? 'About the Forum // ABOUT' : 'عن المنتدى // ABOUT FORUM') }}</span>
+                            <span>{{ polyTrans('عن المنتدى // ABOUT FORUM', 'À Propos du Forum // ABOUT', 'About the Forum // ABOUT') }}</span>
                         </div>
                         <p class="text-xs text-slate-600 font-bold leading-relaxed">
-                            {{ app()->getLocale() === 'fr' ? 'Une plateforme africaine de premier plan réunissant talents, experts et décideurs pour autonomiser la jeunesse et développer les compétences.' : (app()->getLocale() === 'en' ? 'A leading African platform bringing together talents, experts and decision-makers to empower youth and drive skills development across Africa.' : 'منصة إفريقية رائدة تجمع المواهب والخبراء وصناع القرار لتمكين الشباب، تطوير المهارات، وقيادة مستقبل العمل في إفريقيا.') }}
+                            {{ polyTrans('منصة إفريقية رائدة تجمع المواهب والخبراء وصناع القرار لتمكين الشباب، تطوير المهارات، وقيادة مستقبل العمل في إفريقيا.', 'Une plateforme africaine de premier plan réunissant talents, experts et décideurs pour autonomiser la jeunesse et développer les compétences.', 'A leading African platform bringing together talents, experts and decision-makers to empower youth and drive skills development across Africa.') }}
                         </p>
                     </div>
 
                     <a href="{{ route('guide') }}" class="inline-flex items-center gap-2 text-xs font-black text-[#35A536] hover:text-emerald-700 transition-colors pt-2 group-hover/about:translate-x-1">
-                        <span>{{ app()->getLocale() === 'fr' ? 'En savoir plus sur le Forum' : (app()->getLocale() === 'en' ? 'Learn more about the Forum' : 'المزيد عن المنتدى') }}</span>
+                        <span>{{ polyTrans('المزيد عن المنتدى', 'En savoir plus sur le Forum', 'Learn more about the Forum') }}</span>
                         <svg class="w-4 h-4 text-[#35A536] group-hover/about:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                 </div>
@@ -503,17 +505,17 @@
                         </div>
                         <div>
                             <span class="text-xs font-black text-[#35A536] uppercase tracking-widest block">
-                                {{ app()->getLocale() === 'fr' ? 'Événement Politique de Haut Niveau' : (app()->getLocale() === 'en' ? 'Principal High-Level Political Summit' : 'الحدث السياسي الرفيع المستوى الرئيسي') }}
+                                {{ polyTrans('الحدث السياسي الرفيع المستوى الرئيسي', 'Événement Politique de Haut Niveau', 'Principal High-Level Political Summit') }}
                             </span>
                             <h2 class="text-2xl sm:text-3xl font-black text-[#0B2A6F]">
-                                {{ !empty($forumData['name']) ? $forumData['name'] : (app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences 2026' : (app()->getLocale() === 'en' ? 'Africa Skills Policy Forum 2026' : 'منتدى السياسات الأفريقية للمهارات 2026')) }}
+                                {{ !empty($forumData['name']) ? $forumData['name'] : (polyTrans('منتدى السياسات الأفريقية للمهارات 2026', 'Forum des Politiques Africaines des Compétences 2026', 'Africa Skills Policy Forum 2026')) }}
                             </h2>
                         </div>
                     </div>
 
                     <div class="px-5 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-black text-[#0B2A6F] flex items-center gap-2 shadow-xs">
                         <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <span>{{ !empty($forumData['dates']) ? $forumData['dates'] : (app()->getLocale() === 'fr' ? '16 – 18 Novembre 2026' : (app()->getLocale() === 'en' ? '16 – 18 November 2026' : '16 - 18 نوفمبر 2026')) }}</span>
+                        <span>{{ !empty($forumData['dates']) ? $forumData['dates'] : (polyTrans('16 - 18 نوفمبر 2026', '16 – 18 Novembre 2026', '16 – 18 November 2026')) }}</span>
                     </div>
                 </div>
 
@@ -522,11 +524,11 @@
                     
                     <div class="lg:col-span-7 space-y-4">
                         <h3 class="text-xl sm:text-2xl font-black text-[#0B2A6F]">
-                            {{ app()->getLocale() === 'fr' ? 'Qu\'est-ce que le Forum des Politiques Africaines des Compétences ?' : (app()->getLocale() === 'en' ? 'What is Africa’s Skills Policy Forum?' : 'ما هو منتدى السياسات الأفريقية للمهارات؟') }}
+                            {{ polyTrans('ما هو منتدى السياسات الأفريقية للمهارات؟', 'Qu\'est-ce que le Forum des Politiques Africaines des Compétences ?', 'What is Africa’s Skills Policy Forum?') }}
                         </h3>
 
                         <p class="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
-                            {{ !empty($forumData['description']) ? $forumData['description'] : (app()->getLocale() === 'fr' ? 'Le Forum des Politiques Africaines des Compétences est co-organisé par le Ministère de la Formation et de l\'Enseignement Professionnels d\'Algérie et la Commission de l\'Union Africaine, constituant le principal événement politique de haut niveau. Le Forum réunit les ministres africains chargés de l\'EFTP, des experts techniques et des partenaires institutionnels internationaux pour un programme d\'action fondé sur le dialogue ministériel, la coopération continentale et l\'engagement politique conjoint.' : (app()->getLocale() === 'en' ? 'The African Skills Policy Forum is co-organized by Algeria\'s Ministry of Vocational Training and Education and the African Union Commission, serving as the principal high-level political summit. The Forum brings together African Ministers responsible for technical and vocational education and training, together with technical experts and institutional and international partners, for a working programme of ministerial dialogue, continental cooperation, and shared political commitment.' : 'يُنظَّم منتدى السياسات الأفريقية للمهارات بشراكة بين وزارة التكوين والتعليم المهنيين بالجزائر ومفوضية الاتحاد الأفريقي، ليكون الحدث السياسي الرفيع المستوى الرئيسي. يجمع المنتدى الوزراء الأفارقة المكلفين بالتكوين والتعليم المهنيين، إلى جانب الخبراء التقنيين والشركاء المؤسساتيين والدوليين، في برنامج عمل يقوم على الحوار الوزاري والتعاون القاري والالتزام السياسي المشترك.')) }}
+                            {{ !empty($forumData['description']) ? $forumData['description'] : (polyTrans('يُنظَّم منتدى السياسات الأفريقية للمهارات بشراكة بين وزارة التكوين والتعليم المهنيين بالجزائر ومفوضية الاتحاد الأفريقي، ليكون الحدث السياسي الرفيع المستوى الرئيسي. يجمع المنتدى الوزراء الأفارقة المكلفين بالتكوين والتعليم المهنيين، إلى جانب الخبراء التقنيين والشركاء المؤسساتيين والدوليين، في برنامج عمل يقوم على الحوار الوزاري والتعاون القاري والالتزام السياسي المشترك.', 'Le Forum des Politiques Africaines des Compétences est co-organisé par le Ministère de la Formation et de l\'Enseignement Professionnels d\'Algérie et la Commission de l\'Union Africaine, constituant le principal événement politique de haut niveau. Le Forum réunit les ministres africains chargés de l\'EFTP, des experts techniques et des partenaires institutionnels internationaux pour un programme d\'action fondé sur le dialogue ministériel, la coopération continentale et l\'engagement politique conjoint.', 'The African Skills Policy Forum is co-organized by Algeria\'s Ministry of Vocational Training and Education and the African Union Commission, serving as the principal high-level political summit. The Forum brings together African Ministers responsible for technical and vocational education and training, together with technical experts and institutional and international partners, for a working programme of ministerial dialogue, continental cooperation, and shared political commitment.')) }}
                         </p>
 
                         <div class="p-5 rounded-2xl bg-emerald-50/60 border-s-4 border-[#35A536] border-y border-e border-slate-200/80 space-y-1 shadow-xs">
@@ -544,27 +546,27 @@
                     <div class="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-2 gap-3.5">
                         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1 hover:bg-white hover:shadow-md transition">
                             <div class="text-2xl font-black text-[#F5A800]">{{ $forumData['stat_countries'] ?? '+30' }}</div>
-                            <div class="text-xs font-bold text-slate-600">{{ app()->getLocale() === 'fr' ? 'Pays participants' : (app()->getLocale() === 'en' ? 'Participating countries' : '+30 دولة مشاركة') }}</div>
+                            <div class="text-xs font-bold text-slate-600">{{ polyTrans('+30 دولة مشاركة', 'Pays participants', 'Participating countries') }}</div>
                         </div>
 
                         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1 hover:bg-white hover:shadow-md transition">
                             <div class="text-2xl font-black text-[#35A536]">{{ $forumData['stat_ministers'] ?? '+20' }}</div>
-                            <div class="text-xs font-bold text-slate-600">{{ app()->getLocale() === 'fr' ? 'Ministres attendus' : (app()->getLocale() === 'en' ? 'Ministers expected' : '+20 وزيراً متوقعاً') }}</div>
+                            <div class="text-xs font-bold text-slate-600">{{ polyTrans('+20 وزيراً متوقعاً', 'Ministres attendus', 'Ministers expected') }}</div>
                         </div>
 
                         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1 hover:bg-white hover:shadow-md transition">
                             <div class="text-2xl font-black text-[#0B2A6F]">{{ $forumData['stat_roundtables'] ?? '2' }}</div>
-                            <div class="text-xs font-bold text-slate-600">{{ app()->getLocale() === 'fr' ? 'Tables rondes ministérielles' : (app()->getLocale() === 'en' ? 'Ministerial Roundtables' : '2 موائد مستديرة وزارية') }}</div>
+                            <div class="text-xs font-bold text-slate-600">{{ polyTrans('2 موائد مستديرة وزارية', 'Tables rondes ministérielles', 'Ministerial Roundtables') }}</div>
                         </div>
 
                         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1 hover:bg-white hover:shadow-md transition">
                             <div class="text-2xl font-black text-purple-600">2+</div>
-                            <div class="text-xs font-bold text-slate-600">{{ app()->getLocale() === 'fr' ? 'Panneaux de haut niveau' : (app()->getLocale() === 'en' ? 'High-level panels' : '+2 جلسات رفيعة المستوى') }}</div>
+                            <div class="text-xs font-bold text-slate-600">{{ polyTrans('+2 جلسات رفيعة المستوى', 'Panneaux de haut niveau', 'High-level panels') }}</div>
                         </div>
 
                         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1 hover:bg-white hover:shadow-md transition col-span-2 sm:col-span-1 xl:col-span-2">
                             <div class="text-2xl font-black text-emerald-600">7</div>
-                            <div class="text-xs font-bold text-slate-600">{{ app()->getLocale() === 'fr' ? '7 Axes thématiques' : (app()->getLocale() === 'en' ? '7 Thematic panels' : '7 ورشات ومحاور تخصصية') }}</div>
+                            <div class="text-xs font-bold text-slate-600">{{ polyTrans('7 ورشات ومحاور تخصصية', '7 Axes thématiques', '7 Thematic panels') }}</div>
                         </div>
                     </div>
 
@@ -579,13 +581,13 @@
             <div class="text-center max-w-3xl mx-auto space-y-2">
                 <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 text-[#35A536] border border-emerald-200 text-xs font-black">
                     <svg class="w-4 h-4 text-[#35A536]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                    <span>{{ app()->getLocale() === 'fr' ? '7 Axes Thématiques' : (app()->getLocale() === 'en' ? '7 Thematic Panels & Tracks' : 'المحاور التخصصية السبعة') }}</span>
+                    <span>{{ polyTrans('المحاور التخصصية السبعة', '7 Axes Thématiques', '7 Thematic Panels & Tracks') }}</span>
                 </div>
                 <h3 class="text-2xl sm:text-4xl font-black text-[#0B2A6F]">
-                    {{ app()->getLocale() === 'fr' ? 'Les 7 Axes Thématiques du Forum' : (app()->getLocale() === 'en' ? 'The 7 Core Thematic Panels' : 'المحاور والأجندة التخصصية السبعة للمنتدى') }}
+                    {{ polyTrans('المحاور والأجندة التخصصية السبعة للمنتدى', 'Les 7 Axes Thématiques du Forum', 'The 7 Core Thematic Panels') }}
                 </h3>
                 <p class="text-xs sm:text-sm text-slate-500 font-medium max-w-xl mx-auto">
-                    {{ app()->getLocale() === 'fr' ? 'Orientations stratégiques pour relever les défis des compétences et façonner l\'avenir du travail en Afrique.' : (app()->getLocale() === 'en' ? 'Strategic directions addressing key skills challenges and shaping the future of work in Africa.' : 'محاور استراتيجية تناقش التحولات الكبرى وإصلاح المناهج وصناعة مهارات الغد.') }}
+                    {{ polyTrans('محاور استراتيجية تناقش التحولات الكبرى وإصلاح المناهج وصناعة مهارات الغد.', 'Orientations stratégiques pour relever les défis des compétences et façonner l\'avenir du travail en Afrique.', 'Strategic directions addressing key skills challenges and shaping the future of work in Africa.') }}
                 </p>
             </div>
 
@@ -597,10 +599,10 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     </div>
                     <h4 class="text-base font-black text-[#0B2A6F] group-hover:text-[#35A536] transition">
-                        1. {{ app()->getLocale() === 'fr' ? 'Réforme des Politiques d\'EFTP' : (app()->getLocale() === 'en' ? 'TVET Policy Reform' : 'إصلاح سياسات التكوين والتعليم المهني') }}
+                        1. {{ polyTrans('إصلاح سياسات التكوين والتعليم المهني', 'Réforme des Politiques d\'EFTP', 'TVET Policy Reform') }}
                     </h4>
                     <p class="text-xs text-slate-600 font-medium leading-relaxed">
-                        {{ app()->getLocale() === 'fr' ? 'Modernisation des cadres nationaux, harmonisation des certifications et politiques inclusives pour la jeunesse.' : (app()->getLocale() === 'en' ? 'Modernizing national frameworks, aligning qualifications, and implementing inclusive skills policies.' : 'تحديث الأطر الوطنية، توحيد مؤهلات التكوين، وتطوير المناهج لتتوافق مع معايير الجودة القارية.') }}
+                        {{ polyTrans('تحديث الأطر الوطنية، توحيد مؤهلات التكوين، وتطوير المناهج لتتوافق مع معايير الجودة القارية.', 'Modernisation des cadres nationaux, harmonisation des certifications et politiques inclusives pour la jeunesse.', 'Modernizing national frameworks, aligning qualifications, and implementing inclusive skills policies.') }}
                     </p>
                 </div>
 
@@ -610,10 +612,10 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h6m-6 0V10m6 11V10m-6 0a2 2 0 012-2h2a2 2 0 012 2m-6 0V6a2 2 0 012-2h2a2 2 0 012 2v4"/></svg>
                     </div>
                     <h4 class="text-base font-black text-[#0B2A6F] group-hover:text-[#35A536] transition">
-                        2. {{ app()->getLocale() === 'fr' ? 'Compétences pour l\'Industrialisation' : (app()->getLocale() === 'en' ? 'Skills for Industrialization' : 'المهارات للتصنيع') }}
+                        2. {{ polyTrans('المهارات للتصنيع', 'Compétences pour l\'Industrialisation', 'Skills for Industrialization') }}
                     </h4>
                     <p class="text-xs text-slate-600 font-medium leading-relaxed">
-                        {{ app()->getLocale() === 'fr' ? 'Aligner la formation professionnelle sur les priorités industrielles continentales et le secteur manufacturier.' : (app()->getLocale() === 'en' ? 'Aligning vocational training with continental manufacturing goals and industrial infrastructure development.' : 'ربط برامج التكوين بااحتياجات القطاع الصناعي والتصنيعي والتكنولوجي لبناء اقتصاد قوي.') }}
+                        {{ polyTrans('ربط برامج التكوين بااحتياجات القطاع الصناعي والتصنيعي والتكنولوجي لبناء اقتصاد قوي.', 'Aligner la formation professionnelle sur les priorités industrielles continentales et le secteur manufacturier.', 'Aligning vocational training with continental manufacturing goals and industrial infrastructure development.') }}
                     </p>
                 </div>
 
@@ -623,10 +625,10 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <h4 class="text-base font-black text-[#0B2A6F] group-hover:text-[#F5A800] transition">
-                        3. {{ app()->getLocale() === 'fr' ? 'Financement du Développement des Compétences' : (app()->getLocale() === 'en' ? 'Financing Skills Development' : 'تمويل تطوير المهارات') }}
+                        3. {{ polyTrans('تمويل تطوير المهارات', 'Financement du Développement des Compétences', 'Financing Skills Development') }}
                     </h4>
                     <p class="text-xs text-slate-600 font-medium leading-relaxed">
-                        {{ app()->getLocale() === 'fr' ? 'Explorer des modèles de financement durables, partenariats public-privé et fonds d\'investissement.' : (app()->getLocale() === 'en' ? 'Exploring sustainable financing models, public-private partnerships, and innovative skills funds.' : 'ابتكار نماذج تمويل مستدامة، الشراكة بين القطاعين العام والخاص، واستثمار الموارد لبناء الكفاءات.') }}
+                        {{ polyTrans('ابتكار نماذج تمويل مستدامة، الشراكة بين القطاعين العام والخاص، واستثمار الموارد لبناء الكفاءات.', 'Explorer des modèles de financement durables, partenariats public-privé et fonds d\'investissement.', 'Exploring sustainable financing models, public-private partnerships, and innovative skills funds.') }}
                     </p>
                 </div>
 
@@ -636,10 +638,10 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     </div>
                     <h4 class="text-base font-black text-[#0B2A6F] group-hover:text-purple-600 transition">
-                        4. {{ app()->getLocale() === 'fr' ? 'IA & l\'Avenir de l\'EFTP' : (app()->getLocale() === 'en' ? 'Artificial Intelligence & Future of TVET' : 'الذكاء الاصطناعي ومستقبل التكوين المهني') }}
+                        4. {{ polyTrans('الذكاء الاصطناعي ومستقبل التكوين المهني', 'IA & l\'Avenir de l\'EFTP', 'Artificial Intelligence & Future of TVET') }}
                     </h4>
                     <p class="text-xs text-slate-600 font-medium leading-relaxed">
-                        {{ app()->getLocale() === 'fr' ? 'Intégrer les technologies émergentes, la numérisation et l\'intelligence artificielle dans la formation.' : (app()->getLocale() === 'en' ? 'Integrating artificial intelligence, digital learning tools, and future-proof tech in vocational curricula.' : 'دمج الذكاء الاصطناعي، التحول الرقمي، والمؤهلات التكنولوجية الحديثة في التكوين والتعليم المهني.') }}
+                        {{ polyTrans('دمج الذكاء الاصطناعي، التحول الرقمي، والمؤهلات التكنولوجية الحديثة في التكوين والتعليم المهني.', 'Intégrer les technologies émergentes, la numérisation et l\'intelligence artificielle dans la formation.', 'Integrating artificial intelligence, digital learning tools, and future-proof tech in vocational curricula.') }}
                     </p>
                 </div>
 
@@ -649,10 +651,10 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 012 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V14m-3 7c9 0 9-9 9-9s-9 0-9 9z"/></svg>
                     </div>
                     <h4 class="text-base font-black text-[#0B2A6F] group-hover:text-teal-700 transition">
-                        5. {{ app()->getLocale() === 'fr' ? 'Compétences Vertes & Transition Juste' : (app()->getLocale() === 'en' ? 'Green Skills & Just Transition' : 'المهارات الخضراء والانتقال العادل') }}
+                        5. {{ polyTrans('المهارات الخضراء والانتقال العادل', 'Compétences Vertes & Transition Juste', 'Green Skills & Just Transition') }}
                     </h4>
                     <p class="text-xs text-slate-600 font-medium leading-relaxed">
-                        {{ app()->getLocale() === 'fr' ? 'Préparer la main-d\'œuvre aux énergies renouvelables, l\'économie circulaire et la durabilité.' : (app()->getLocale() === 'en' ? 'Preparing the workforce for renewable energy, circular economies, and sustainable green transition.' : 'تأهيل اليد العاملة والشباب في مجالات الطاقة المتجددة، الاقتصاد الأخضر، والاستدامة البيئية.') }}
+                        {{ polyTrans('تأهيل اليد العاملة والشباب في مجالات الطاقة المتجددة، الاقتصاد الأخضر، والاستدامة البيئية.', 'Préparer la main-d\'œuvre aux énergies renouvelables, l\'économie circulaire et la durabilité.', 'Preparing the workforce for renewable energy, circular economies, and sustainable green transition.') }}
                     </p>
                 </div>
 
@@ -662,10 +664,10 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                     </div>
                     <h4 class="text-base font-black text-[#0B2A6F] group-hover:text-sky-700 transition">
-                        6. {{ app()->getLocale() === 'fr' ? 'Coopération Continentale & Gouvernance' : (app()->getLocale() === 'en' ? 'Continental Cooperation & Governance' : 'التعاون القاري والحوكمة') }}
+                        6. {{ polyTrans('التعاون القاري والحوكمة', 'Coopération Continentale & Gouvernance', 'Continental Cooperation & Governance') }}
                     </h4>
                     <p class="text-xs text-slate-600 font-medium leading-relaxed">
-                        {{ app()->getLocale() === 'fr' ? 'Renforcer les alliances bilatérales et multilatérales et la gouvernance conjointe inter-états.' : (app()->getLocale() === 'en' ? 'Strengthening bilateral and multilateral TVET partnerships across African Member States.' : 'تعزيز الشراكات الدبلوماسية والقارية بين الدول الأعضاء والتأطير المؤسساتي المشترك.') }}
+                        {{ polyTrans('تعزيز الشراكات الدبلوماسية والقارية بين الدول الأعضاء والتأطير المؤسساتي المشترك.', 'Renforcer les alliances bilatérales et multilatérales et la gouvernance conjointe inter-états.', 'Strengthening bilateral and multilateral TVET partnerships across African Member States.') }}
                     </p>
                 </div>
 
@@ -675,10 +677,10 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
                     </div>
                     <h4 class="text-base font-black text-[#0B2A6F] group-hover:text-indigo-700 transition">
-                        7. {{ app()->getLocale() === 'fr' ? 'Compétences Numériques & Inclusion' : (app()->getLocale() === 'en' ? 'Digital Skills & Inclusion' : 'المهارات الرقمية والشمول الاجتماعي') }}
+                        7. {{ polyTrans('المهارات الرقمية والشمول الاجتماعي', 'Compétences Numériques & Inclusion', 'Digital Skills & Inclusion') }}
                     </h4>
                     <p class="text-xs text-slate-600 font-medium leading-relaxed">
-                        {{ app()->getLocale() === 'fr' ? 'Démocratiser l\'accès aux compétences numériques, réduire la fracture numérique et autonomiser la jeunesse et les femmes.' : (app()->getLocale() === 'en' ? 'Democratizing digital skills access, bridging the digital divide, and empowering youth and women.' : 'تيسير الوصول للتربية الرقمية والتكنولوجية، ردم الفجوة الرقمية، وتمكين الشباب والمرأة في إفريقيا.') }}
+                        {{ polyTrans('تيسير الوصول للتربية الرقمية والتكنولوجية، ردم الفجوة الرقمية، وتمكين الشباب والمرأة في إفريقيا.', 'Démocratiser l\'accès aux compétences numériques, réduire la fracture numérique et autonomiser la jeunesse et les femmes.', 'Democratizing digital skills access, bridging the digital divide, and empowering youth and women.') }}
                     </p>
                 </div>
 
@@ -691,14 +693,14 @@
                 <div>
                     <div class="flex items-center gap-1.5 text-xs font-black text-[#35A536] uppercase tracking-widest">
                         <svg class="w-3.5 h-3.5 text-[#35A536]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                        <span>{{ app()->getLocale() === 'fr' ? 'Déroulement Officiel du Programme' : (app()->getLocale() === 'en' ? 'Official Forum Programme Flow' : 'التسلسل الإجرائي لبرنامج المنتدى') }}</span>
+                        <span>{{ polyTrans('التسلسل الإجرائي لبرنامج المنتدى', 'Déroulement Officiel du Programme', 'Official Forum Programme Flow') }}</span>
                     </div>
                     <h3 class="text-2xl font-black text-[#0B2A6F]">
-                        {{ app()->getLocale() === 'fr' ? 'Parcours du Forum — 17 Novembre 2026' : (app()->getLocale() === 'en' ? 'Forum Working Programme — 17 November 2026' : 'مسار المنتدى — 17 نوفمبر 2026') }}
+                        {{ polyTrans('مسار المنتدى — 17 نوفمبر 2026', 'Parcours du Forum — 17 Novembre 2026', 'Forum Working Programme — 17 November 2026') }}
                     </h3>
                 </div>
                 <span class="px-4 py-2 rounded-2xl bg-amber-50 text-[#F5A800] border border-amber-200 text-xs font-black">
-                    {{ app()->getLocale() === 'fr' ? '6 Étapes Majeures' : (app()->getLocale() === 'en' ? '6 Key Stages' : '6 محطات رسمية') }}
+                    {{ polyTrans('6 محطات رسمية', '6 Étapes Majeures', '6 Key Stages') }}
                 </span>
             </div>
 
@@ -709,10 +711,10 @@
                 <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-[#0B2A6F] transition text-center space-y-2 group">
                     <div class="w-10 h-10 rounded-xl bg-blue-100 text-[#0B2A6F] flex items-center justify-center font-black mx-auto group-hover:scale-110 transition">1</div>
                     <h5 class="text-xs font-black text-[#0B2A6F]">
-                        {{ app()->getLocale() === 'fr' ? 'Cérémonie d\'Ouverture' : (app()->getLocale() === 'en' ? 'Opening Ceremony' : 'حفل الافتتاح') }}
+                        {{ polyTrans('حفل الافتتاح', 'Cérémonie d\'Ouverture', 'Opening Ceremony') }}
                     </h5>
                     <p class="text-[11px] text-slate-500 font-medium">
-                        {{ app()->getLocale() === 'fr' ? 'Allocutions officielles & accueil' : (app()->getLocale() === 'en' ? 'Official keynotes & welcome' : 'الكلمات الرسمية واستقبال الوفود') }}
+                        {{ polyTrans('الكلمات الرسمية واستقبال الوفود', 'Allocutions officielles & accueil', 'Official keynotes & welcome') }}
                     </p>
                 </div>
 
@@ -720,10 +722,10 @@
                 <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-[#35A536] transition text-center space-y-2 group">
                     <div class="w-10 h-10 rounded-xl bg-emerald-100 text-[#35A536] flex items-center justify-center font-black mx-auto group-hover:scale-110 transition">2</div>
                     <h5 class="text-xs font-black text-[#0B2A6F]">
-                        {{ app()->getLocale() === 'fr' ? 'Table Ronde Ministérielle' : (app()->getLocale() === 'en' ? 'Ministerial Roundtable' : 'الطاولة المستديرة الوزارية') }}
+                        {{ polyTrans('الطاولة المستديرة الوزارية', 'Table Ronde Ministérielle', 'Ministerial Roundtable') }}
                     </h5>
                     <p class="text-[11px] text-slate-500 font-medium">
-                        {{ app()->getLocale() === 'fr' ? 'Dialogue ministériel & débats' : (app()->getLocale() === 'en' ? '2 High-level ministerial sessions' : 'جلستان وزارياتان للحوار القاري') }}
+                        {{ polyTrans('جلستان وزارياتان للحوار القاري', 'Dialogue ministériel & débats', '2 High-level ministerial sessions') }}
                     </p>
                 </div>
 
@@ -731,10 +733,10 @@
                 <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-200 hover:border-[#F5A800] transition text-center space-y-2 group">
                     <div class="w-10 h-10 rounded-xl bg-amber-100 text-[#F5A800] flex items-center justify-center font-black mx-auto group-hover:scale-110 transition">3</div>
                     <h5 class="text-xs font-black text-amber-900">
-                        {{ app()->getLocale() === 'fr' ? 'Déclaration Conjointe' : (app()->getLocale() === 'en' ? 'Joint Declaration' : 'الإعلان المشترك') }}
+                        {{ polyTrans('الإعلان المشترك', 'Déclaration Conjointe', 'Joint Declaration') }}
                     </h5>
                     <p class="text-[11px] text-amber-700 font-medium">
-                        {{ app()->getLocale() === 'fr' ? 'Adoption de la Déclaration 2026' : (app()->getLocale() === 'en' ? 'Adopting Skills for Tomorrow' : 'اعتماد إعلان مهارات المستقبل') }}
+                        {{ polyTrans('اعتماد إعلان مهارات المستقبل', 'Adoption de la Déclaration 2026', 'Adopting Skills for Tomorrow') }}
                     </p>
                 </div>
 
@@ -742,10 +744,10 @@
                 <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-purple-500 transition text-center space-y-2 group">
                     <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-black mx-auto group-hover:scale-110 transition">4</div>
                     <h5 class="text-xs font-black text-[#0B2A6F]">
-                        {{ app()->getLocale() === 'fr' ? 'Panneaux d\'Experts' : (app()->getLocale() === 'en' ? 'Expert Panels' : 'الجلسات التخصصية') }}
+                        {{ polyTrans('الجلسات التخصصية', 'Panneaux d\'Experts', 'Expert Panels') }}
                     </h5>
                     <p class="text-[11px] text-slate-500 font-medium">
-                        {{ app()->getLocale() === 'fr' ? '5+ débats thématiques' : (app()->getLocale() === 'en' ? '5+ high-level expert panels' : 'جلسات نقاش مع الخبراء الدوليين') }}
+                        {{ polyTrans('جلسات نقاش مع الخبراء الدوليين', '5+ débats thématiques', '5+ high-level expert panels') }}
                     </p>
                 </div>
 
@@ -753,10 +755,10 @@
                 <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-sky-500 transition text-center space-y-2 group">
                     <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-black mx-auto group-hover:scale-110 transition">5</div>
                     <h5 class="text-xs font-black text-[#0B2A6F]">
-                        {{ app()->getLocale() === 'fr' ? 'Politiques & Talents' : (app()->getLocale() === 'en' ? 'Where Policy Meets Talent' : 'التلاقي بين السياسات والمواهب') }}
+                        {{ polyTrans('التلاقي بين السياسات والمواهب', 'Politiques & Talents', 'Where Policy Meets Talent') }}
                     </h5>
                     <p class="text-[11px] text-slate-500 font-medium">
-                        {{ app()->getLocale() === 'fr' ? 'Rencontre jeunes & décideurs' : (app()->getLocale() === 'en' ? 'Bridging leadership and youth' : 'ربط صناع القرار بالشباب الإفريقي') }}
+                        {{ polyTrans('ربط صناع القرار بالشباب الإفريقي', 'Rencontre jeunes & décideurs', 'Bridging leadership and youth') }}
                     </p>
                 </div>
 
@@ -764,10 +766,10 @@
                 <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-rose-500 transition text-center space-y-2 group">
                     <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center font-black mx-auto group-hover:scale-110 transition">6</div>
                     <h5 class="text-xs font-black text-[#0B2A6F]">
-                        {{ app()->getLocale() === 'fr' ? 'Cérémonie de Clôture' : (app()->getLocale() === 'en' ? 'Closing Ceremony' : 'حفل الاختتام') }}
+                        {{ polyTrans('حفل الاختتام', 'Cérémonie de Clôture', 'Closing Ceremony') }}
                     </h5>
                     <p class="text-[11px] text-slate-500 font-medium">
-                        {{ app()->getLocale() === 'fr' ? 'Conclusions & recommandations' : (app()->getLocale() === 'en' ? 'Final remarks & commitments' : 'توصيات وختام فعاليات المنتدى') }}
+                        {{ polyTrans('توصيات وختام فعاليات المنتدى', 'Conclusions & recommandations', 'Final remarks & commitments') }}
                     </p>
                 </div>
 
@@ -779,10 +781,10 @@
             <div class="text-center max-w-3xl mx-auto space-y-2">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#0B2A6F] border border-blue-200 text-xs font-black">
                     <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <span>{{ app()->getLocale() === 'fr' ? 'Objectifs Stratégiques' : (app()->getLocale() === 'en' ? 'Core Forum Objectives' : 'الأهداف الاستراتيجية الـ 5 للمنتدى') }}</span>
+                    <span>{{ polyTrans('الأهداف الاستراتيجية الـ 5 للمنتدى', 'Objectifs Stratégiques', 'Core Forum Objectives') }}</span>
                 </div>
                 <h3 class="text-2xl sm:text-4xl font-black text-[#0B2A6F]">
-                    {{ app()->getLocale() === 'fr' ? 'Les 5 Objectifs Majeurs du Forum' : (app()->getLocale() === 'en' ? 'The 5 Core Strategic Objectives' : 'الأهداف الـ 5 الرئيسية لمنتدى المهارات') }}
+                    {{ polyTrans('الأهداف الـ 5 الرئيسية لمنتدى المهارات', 'Les 5 Objectifs Majeurs du Forum', 'The 5 Core Strategic Objectives') }}
                 </h3>
             </div>
 
@@ -794,14 +796,10 @@
                         01
                     </div>
                     <h4 class="text-base font-black text-[#0B2A6F] leading-snug">
-                        {{ app()->getLocale() === 'fr' ? 'Mettre en œuvre la Stratégie Continentale d\'EFTP (2025–34)' : (app()->getLocale() === 'en' ? 'Advance Continental TVET Strategy (2025–34)' : 'تنفيذ الاستراتيجية القارية للتكوين المهني (2025–2034)') }}
+                        {{ polyTrans('تنفيذ الاستراتيجية القارية للتكوين المهني (2025–2034)', 'Mettre en œuvre la Stratégie Continentale d\'EFTP (2025–34)', 'Advance Continental TVET Strategy (2025–34)') }}
                     </h4>
                     <p class="text-xs text-slate-600 font-medium leading-relaxed">
-                        {{ app()->getLocale() === 'fr' 
-                            ? 'Faire progresser la mise en œuvre de la stratégie continentale d\'EFTP (2025–34) dans les États membres africains et traduire les engagements en actions concrètes.' 
-                            : (app()->getLocale() === 'en' 
-                                ? 'Advance the implementation of the Continental TVET Strategy (2025–34) across African Member States, translating continental commitments into concrete action.' 
-                                : 'النهوض بتنفيذ الاستراتيجية القارية للتكوين المهني والتقني (2025–2034) عبر الدول الأعضاء الأفريقية، وترجمة الالتزامات القارية إلى إجراءات ملموسة.') }}
+                        {{ polyTrans('النهوض بتنفيذ الاستراتيجية القارية للتكوين المهني والتقني (2025–2034) عبر الدول الأعضاء الأفريقية، وترجمة الالتزامات القارية إلى إجراءات ملموسة.', 'Faire progresser la mise en œuvre de la stratégie continentale d\'EFTP (2025–34) dans les États membres africains et traduire les engagements en actions concrètes.', 'Advance the implementation of the Continental TVET Strategy (2025–34) across African Member States, translating continental commitments into concrete action.') }}
                     </p>
                 </div>
 
@@ -811,14 +809,10 @@
                         02
                     </div>
                     <h4 class="text-base font-black text-[#0B2A6F] leading-snug">
-                        {{ app()->getLocale() === 'fr' ? 'Plateforme Structurée d\'Échange d\'Expériences' : (app()->getLocale() === 'en' ? 'Structured TVET Exchange Platform' : 'منصة منظمة لتبادل التجارب الناجحة') }}
+                        {{ polyTrans('منصة منظمة لتبادل التجارب الناجحة', 'Plateforme Structurée d\'Échange d\'Expériences', 'Structured TVET Exchange Platform') }}
                     </h4>
                     <p class="text-xs text-slate-600 font-medium leading-relaxed">
-                        {{ app()->getLocale() === 'fr' 
-                            ? 'Créer une plateforme structurée permettant aux ministères africains d\'échanger des expériences éprouvées — réforme des programmes, modèles de financement et partenariats.' 
-                            : (app()->getLocale() === 'en' 
-                                ? 'Create a structured platform for African Ministries to exchange proven experience in TVET — curricula reform, financing models, industry partnerships, and apprenticeship systems.' 
-                                : 'إنشاء منصة منظمة تتيح للوزارات الأفريقية تبادل التجارب الناجحة في مجال التكوين المهني — إصلاح المناهج، نماذج التمويل، الشراكات مع القطاع الصناعي، وأنظمة التمهين.') }}
+                        {{ polyTrans('إنشاء منصة منظمة تتيح للوزارات الأفريقية تبادل التجارب الناجحة في مجال التكوين المهني — إصلاح المناهج، نماذج التمويل، الشراكات مع القطاع الصناعي، وأنظمة التمهين.', 'Créer une plateforme structurée permettant aux ministères africains d\'échanger des expériences éprouvées — réforme des programmes, modèles de financement et partenariats.', 'Create a structured platform for African Ministries to exchange proven experience in TVET — curricula reform, financing models, industry partnerships, and apprenticeship systems.') }}
                     </p>
                 </div>
 
@@ -828,14 +822,10 @@
                         03
                     </div>
                     <h4 class="text-base font-black text-[#0B2A6F] leading-snug">
-                        {{ app()->getLocale() === 'fr' ? 'Adopter la Déclaration sur les Compétences de Demain' : (app()->getLocale() === 'en' ? 'Adopt Declaration on Skills for Tomorrow' : 'اعتماد إعلان مهارات المستقبل') }}
+                        {{ polyTrans('اعتماد إعلان مهارات المستقبل', 'Adopter la Déclaration sur les Compétences de Demain', 'Adopt Declaration on Skills for Tomorrow') }}
                     </h4>
                     <p class="text-xs text-slate-600 font-medium leading-relaxed">
-                        {{ app()->getLocale() === 'fr' 
-                            ? 'Adopter une Déclaration sur les compétences de demain, anticipant les besoins futurs des économies africaines au-delà des programmes actuels.' 
-                            : (app()->getLocale() === 'en' 
-                                ? 'Adopt a Declaration on Skills for Tomorrow, anticipating the technical and vocational skills Africa\'s economies will need in the years ahead.' 
-                                : 'اعتماد إعلان حول مهارات المستقبل، يستشرف المهارات التقنية والمهنية التي ستحتاجها اقتصادات إفريقيا في السنوات القادمة، وليس فقط تلك المدرجة حاليًا.') }}
+                        {{ polyTrans('اعتماد إعلان حول مهارات المستقبل، يستشرف المهارات التقنية والمهنية التي ستحتاجها اقتصادات إفريقيا في السنوات القادمة، وليس فقط تلك المدرجة حاليًا.', 'Adopter une Déclaration sur les compétences de demain, anticipant les besoins futurs des économies africaines au-delà des programmes actuels.', 'Adopt a Declaration on Skills for Tomorrow, anticipating the technical and vocational skills Africa\'s economies will need in the years ahead.') }}
                     </p>
                 </div>
 
@@ -845,14 +835,10 @@
                         04
                     </div>
                     <h4 class="text-base font-black text-[#0B2A6F] leading-snug">
-                        {{ app()->getLocale() === 'fr' ? 'Renforcer les Partenariats Bilatéraux & Multilatéraux' : (app()->getLocale() === 'en' ? 'Strengthen Bilateral & Multilateral Alliances' : 'تعزيز الشراكات الثنائية والمتعددة الأطراف') }}
+                        {{ polyTrans('تعزيز الشراكات الثنائية والمتعددة الأطراف', 'Renforcer les Partenariats Bilatéraux & Multilatéraux', 'Strengthen Bilateral & Multilateral Alliances') }}
                     </h4>
                     <p class="text-xs text-slate-600 font-medium leading-relaxed">
-                        {{ app()->getLocale() === 'fr' 
-                            ? 'Renforcer les partenariats bilatéraux et multilatéraux en matière d\'EFTP entre les États membres africains et les partenaires institutionnels internationaux.' 
-                            : (app()->getLocale() === 'en' 
-                                ? 'Strengthen bilateral and multilateral partnerships in TVET between African Member States and international institutional partners.' 
-                                : 'تعزيز الشراكات الثنائية والمتعددة الأطراف في مجال التكوين المهني بين الدول الأفريقية الأعضاء والشركاء المؤسساتيين الدوليين.') }}
+                        {{ polyTrans('تعزيز الشراكات الثنائية والمتعددة الأطراف في مجال التكوين المهني بين الدول الأفريقية الأعضاء والشركاء المؤسساتيين الدوليين.', 'Renforcer les partenariats bilatéraux et multilatéraux en matière d\'EFTP entre les États membres africains et les partenaires institutionnels internationaux.', 'Strengthen bilateral and multilateral partnerships in TVET between African Member States and international institutional partners.') }}
                     </p>
                 </div>
 
@@ -862,14 +848,10 @@
                         05
                     </div>
                     <h4 class="text-base font-black text-[#0B2A6F] leading-snug">
-                        {{ app()->getLocale() === 'fr' ? 'Programme de Renforcement des Capacités des Jeunes' : (app()->getLocale() === 'en' ? 'Youth Capacity-Building Programme' : 'برنامج لبناء قدرات الشباب الأفريقي') }}
+                        {{ polyTrans('برنامج لبناء قدرات الشباب الأفريقي', 'Programme de Renforcement des Capacités des Jeunes', 'Youth Capacity-Building Programme') }}
                     </h4>
                     <p class="text-xs text-slate-600 font-medium leading-relaxed">
-                        {{ app()->getLocale() === 'fr' 
-                            ? 'Déployer un programme dédié au renforcement des capacités de la jeunesse africaine dans 5 compétences prioritaires, au-delà de la compétition.' 
-                            : (app()->getLocale() === 'en' 
-                                ? 'Deliver a dedicated capacity-building programme for African youth across five priority skills, reinforcing technical capacities beyond the competition floor.' 
-                                : 'تنفيذ برنامج مخصص لبناء القدرات لفائدة الشباب الأفريقي في خمسة اختصاصات ذات أولوية، بما يعزز القدرات التقنية للمشاركين خارج فضاء المنافسة.') }}
+                        {{ polyTrans('تنفيذ برنامج مخصص لبناء القدرات لفائدة الشباب الأفريقي في خمسة اختصاصات ذات أولوية، بما يعزز القدرات التقنية للمشاركين خارج فضاء المنافسة.', 'Déployer un programme dédié au renforcement des capacités de la jeunesse africaine dans 5 compétences prioritaires, au-delà de la compétition.', 'Deliver a dedicated capacity-building programme for African youth across five priority skills, reinforcing technical capacities beyond the competition floor.') }}
                     </p>
                 </div>
 
@@ -881,22 +863,22 @@
     <!-- 3. Dynamic Real DB Statistics Grid tailored for Africa Skills Policy Forum 2026 -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            <x-animated-counter :target="30" :label="app()->getLocale() === 'fr' ? 'Pays Africains' : (app()->getLocale() === 'en' ? 'African Nations' : 'الدول الإفريقية')" :description="app()->getLocale() === 'fr' ? 'Délégations officielles' : (app()->getLocale() === 'en' ? 'Official Delegations' : 'الوفود الوطنية الرسمية')" color="text-[#F5A800]">
+            <x-animated-counter :target="30" :label="polyTrans('الدول الإفريقية', 'Pays Africains', 'African Nations')" :description="polyTrans('الوفود الوطنية الرسمية', 'Délégations officielles', 'Official Delegations')" color="text-[#F5A800]">
                 <x-slot:icon><svg class="w-6 h-6 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 012 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V14m-3 7c9 0 9-9 9-9s-9 0-9 9z"/></svg></x-slot:icon>
             </x-animated-counter>
-            <x-animated-counter :target="$stats['ministers'] ?? 20" :label="app()->getLocale() === 'fr' ? 'Ministres Attendus' : (app()->getLocale() === 'en' ? 'Ministers Expected' : 'الوزراء والوفود')" :description="app()->getLocale() === 'fr' ? 'Ministres de la Formation' : (app()->getLocale() === 'en' ? 'Vocational Ministers' : 'وزراء التكوين والتعليم المهني')" color="text-[#35A536]">
+            <x-animated-counter :target="$stats['ministers'] ?? 20" :label="polyTrans('الوزراء والوفود', 'Ministres Attendus', 'Ministers Expected')" :description="polyTrans('وزراء التكوين والتعليم المهني', 'Ministres de la Formation', 'Vocational Ministers')" color="text-[#35A536]">
                 <x-slot:icon><svg class="w-6 h-6 text-[#35A536]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></x-slot:icon>
             </x-animated-counter>
-            <x-animated-counter :target="$stats['experts'] ?? 0" :label="app()->getLocale() === 'fr' ? 'Experts & Conférenciers' : (app()->getLocale() === 'en' ? 'Experts & Speakers' : 'الخبراء والمحاضرون')" :description="app()->getLocale() === 'fr' ? 'Panélistes internationaux' : (app()->getLocale() === 'en' ? 'International Panelists' : 'المحاضرون والخبراء التقنيون')" color="text-[#F5A800]">
+            <x-animated-counter :target="$stats['experts'] ?? 0" :label="polyTrans('الخبراء والمحاضرون', 'Experts & Conférenciers', 'Experts & Speakers')" :description="polyTrans('المحاضرون والخبراء التقنيون', 'Panélistes internationaux', 'International Panelists')" color="text-[#F5A800]">
                 <x-slot:icon><svg class="w-6 h-6 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></x-slot:icon>
             </x-animated-counter>
-            <x-animated-counter :target="$stats['participants'] ?? 0" :label="app()->getLocale() === 'fr' ? 'Délégués Inscrits' : (app()->getLocale() === 'en' ? 'Registered Delegates' : 'المشاركين المسجلين')" :description="app()->getLocale() === 'fr' ? 'Délégués & Jeunes' : (app()->getLocale() === 'en' ? 'African Delegates & Youth' : 'الوفود والمشاركون الشباب')" color="text-[#0B2A6F]">
+            <x-animated-counter :target="$stats['participants'] ?? 0" :label="polyTrans('المشاركين المسجلين', 'Délégués Inscrits', 'Registered Delegates')" :description="polyTrans('الوفود والمشاركون الشباب', 'Délégués & Jeunes', 'African Delegates & Youth')" color="text-[#0B2A6F]">
                 <x-slot:icon><svg class="w-6 h-6 text-[#0B2A6F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg></x-slot:icon>
             </x-animated-counter>
-            <x-animated-counter :target="$stats['panels'] ?? 7" :label="app()->getLocale() === 'fr' ? 'Axes & Sessions' : (app()->getLocale() === 'en' ? 'Panels & Sessions' : 'الورشات والجلسات')" :description="app()->getLocale() === 'fr' ? 'Thématiques du Forum' : (app()->getLocale() === 'en' ? 'Forum Key Panels' : 'الورشات والجلسات التخصصية')" color="text-[#35A536]">
+            <x-animated-counter :target="$stats['panels'] ?? 7" :label="polyTrans('الورشات والجلسات', 'Axes & Sessions', 'Panels & Sessions')" :description="polyTrans('الورشات والجلسات التخصصية', 'Thématiques du Forum', 'Forum Key Panels')" color="text-[#35A536]">
                 <x-slot:icon><svg class="w-6 h-6 text-[#35A536]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg></x-slot:icon>
             </x-animated-counter>
-            <x-animated-counter :target="$stats['partners'] ?? 10" :label="app()->getLocale() === 'fr' ? 'Partenaires Officiels' : (app()->getLocale() === 'en' ? 'Official Partners' : 'الشركاء والرعاة')" :description="app()->getLocale() === 'fr' ? 'Soutien institutionnel' : (app()->getLocale() === 'en' ? 'Institutional Support' : 'الدعم المؤسساتي والدولي')" color="text-[#0B2A6F]">
+            <x-animated-counter :target="$stats['partners'] ?? 10" :label="polyTrans('الشركاء والرعاة', 'Partenaires Officiels', 'Official Partners')" :description="polyTrans('الدعم المؤسساتي والدولي', 'Soutien institutionnel', 'Institutional Support')" color="text-[#0B2A6F]">
                 <x-slot:icon><svg class="w-6 h-6 text-[#0B2A6F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></x-slot:icon>
             </x-animated-counter>
         </div>
@@ -918,7 +900,7 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 01-1.187-2.19l.732-4.393A2 2 0 017.11 6.814l3.176.635a6 6 0 003.86-.517l.318-.158a6 6 0 013.86-.517l2.387.477a2 2 0 011.642 1.964v6.22a2 2 0 01-.927 1.69z"/></svg>
                     </span>
                     <span class="bg-gradient-to-r from-[#06205C] via-[#0038A8] to-[#0066FF] group-hover/head:from-[#0066FF] group-hover/head:via-[#00A3FF] group-hover/head:to-[#06205C] bg-clip-text text-transparent transition-all duration-500">
-                        {{ app()->getLocale() === 'fr' ? 'Métiers de la Compétition & Guide Technique' : (app()->getLocale() === 'en' ? 'Competition Skills & Trade Guide' : 'تخصصات المنافسة ودليل المهن') }}
+                        {{ polyTrans('تخصصات المنافسة ودليل المهن', 'Métiers de la Compétition & Guide Technique', 'Competition Skills & Trade Guide') }}
                     </span>
                 </h2>
 
@@ -927,6 +909,8 @@
                         Explorez les métiers de la compétition: Nous vous invitons à consulter le guide des métiers pour découvrir tous les détails et normes techniques de chaque compétence.
                     @elseif(app()->getLocale() === 'en')
                         Explore competition skills: We invite you to visit the skills directory to review full details and technical standards for each trade.
+                    @elseif(app()->getLocale() === 'pt')
+                        Explore as competências da competição: Convidamo-lo a consultar o guia de profissões para conhecer todos os detalhes e normas técnicas de cada profissão.
                     @else
                         استكشف تخصصات المنافسة: ندعوك لزيارة دليل المهن للاطلاع على كافة التفاصيل والمعايير التقنية الخاصة بكل مهارة.
                     @endif
@@ -934,7 +918,7 @@
             </div>
 
             <a href="{{ route('skills') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[#0B2A6F] to-[#35A536] hover:from-[#35A536] hover:to-[#0B2A6F] text-white text-xs font-black shadow-lg hover:scale-105 transition-all duration-300 group/btn self-start md:self-auto border border-white/20">
-                <span>{{ app()->getLocale() === 'fr' ? 'Guide des Métiers' : (app()->getLocale() === 'en' ? 'Skills & Trades Directory' : 'دليل المهن والتخصصات') }}</span>
+                <span>{{ polyTrans('دليل المهن والتخصصات', 'Guide des Métiers', 'Skills & Trades Directory') }}</span>
                 <svg class="w-4 h-4 text-white group-hover/btn:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
         </div>
@@ -959,7 +943,7 @@
 
                             {{-- Sector Badge (Top-End) --}}
                             <div class="absolute top-4 end-4 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-wider border border-white/20">
-                                {{ $skill->category ? $skill->category->getLocalized('name') : 'تكنولوجيا المعلومات والاتصالات' }}
+                                {{ $skill->category ? $skill->category->getLocalized('name') : polyTrans('تكنولوجيا المعلومات والاتصالات', 'Technologies de l\'information et de la communication', 'Information and Communication Technology', 'Tecnologias de Informação e Comunicação') }}
                             </div>
                         </div>
 
@@ -970,17 +954,18 @@
                                     {{ $skill->getLocalized('name') }}
                                 </h3>
                                 <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium">
-                                    {{ app()->getLocale() === 'fr' 
-                                        ? "Normes techniques et cahier des charges officiel pour l'épreuve " . $skill->getLocalized('name') . " selon les standards officiels."
-                                        : (app()->getLocale() === 'en' 
-                                            ? "Official technical description standard for " . $skill->getLocalized('name') . " skill according to official standards."
-                                            : "المعايير والوصف التقني الرسمي للتخصص " . $skill->getLocalized('name') . " وفق المعايير والضوابط المعتمدة.") }}
+                                    {{ polyTrans(
+                                        "المعايير والوصف التقني الرسمي للتخصص " . $skill->getLocalized('name') . " وفق المعايير والضوابط المعتمدة.",
+                                        "Normes techniques et cahier des charges officiel pour l'épreuve " . $skill->getLocalized('name') . " selon les standards officiels.",
+                                        "Official technical description standard for " . $skill->getLocalized('name') . " skill according to official standards.",
+                                        "Normas técnicas e descrição oficial para a especialidade " . $skill->getLocalized('name') . " de acordo com os padrões oficiais."
+                                    ) }}
                                 </p>
                             </div>
 
                             <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
                                 <span class="inline-flex items-center gap-1.5 text-xs font-black text-[#0B2A6F] group-hover:text-[#35A536] transition">
-                                    <span>{{ __('messages.skills') }} — {{ app()->getLocale() === 'fr' ? 'Détails & Cahier des charges' : (app()->getLocale() === 'en' ? 'Details & Specs' : 'عرض التفاصيل والمعايير التقنية') }}</span>
+                                    <span>{{ __('messages.skills') }} — {{ polyTrans('عرض التفاصيل والمعايير التقنية', 'Détails & Cahier des charges', 'Details & Specs') }}</span>
                                     <svg class="w-4 h-4 text-[#35A536] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                                 </span>
                             </div>
@@ -990,7 +975,7 @@
                 @endforeach
             @else
                 <div class="col-span-3 bg-white rounded-3xl p-8 text-center text-slate-400 font-medium text-sm">
-                    {{ app()->getLocale() === 'fr' ? 'Aucune discipline disponible actuellement.' : (app()->getLocale() === 'en' ? 'No trade categories added yet.' : 'لا توجد تخصصات مضافة حالياً.') }}
+                    {{ polyTrans('لا توجد تخصصات مضافة حالياً.', 'Aucune discipline disponible actuellement.', 'No trade categories added yet.') }}
                 </div>
             @endif
         </div>
@@ -1012,12 +997,12 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
                     </span>
                     <span class="bg-gradient-to-r from-[#06205C] via-amber-900 to-orange-600 group-hover/head:from-orange-600 group-hover/head:via-amber-500 group-hover/head:to-[#06205C] bg-clip-text text-transparent transition-all duration-500">
-                        {{ app()->getLocale() === 'fr' ? 'Centre Média & Presse' : (app()->getLocale() === 'en' ? 'Media & Press Center' : 'المركز الإعلامي والتغطيات') }}
+                        {{ polyTrans('المركز الإعلامي والتغطيات', 'Centre Média & Presse', 'Media & Press Center') }}
                     </span>
                 </h2>
 
                 <p class="text-xs sm:text-sm text-slate-500 font-bold max-w-xl group-hover/head:text-slate-700 transition-colors">
-                    {{ app()->getLocale() === 'fr' ? 'Actualités, événements, galeries photos et médias' : (app()->getLocale() === 'en' ? 'Latest news, events, photos and video coverage' : 'متابعة حية لجميع المستجدات، الفعاليات، المعارض والتغطيات المصورة للأولمبياد') }}
+                    {{ polyTrans('متابعة حية لجميع المستجدات، الفعاليات، المعارض والتغطيات المصورة للأولمبياد', 'Actualités, événements, galeries photos et médias', 'Latest news, events, photos and video coverage') }}
                 </p>
             </div>
         </div>
@@ -1028,7 +1013,7 @@
             <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200/80 flex flex-col justify-between">
                 <div>
                     <h3 class="text-sm font-bold text-[#06205C] mb-4">
-                        {{ app()->getLocale() === 'fr' ? 'Galerie Photos' : (app()->getLocale() === 'en' ? 'Photo Gallery' : 'معرض الصور') }}
+                        {{ polyTrans('معرض الصور', 'Galerie Photos', 'Photo Gallery') }}
                     </h3>
                     <div class="space-y-3">
                         @if(count($albums) > 0)
@@ -1070,7 +1055,7 @@
             <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200/80 flex flex-col justify-between">
                 <div>
                     <h3 class="text-sm font-bold text-[#06205C] mb-4">
-                        {{ app()->getLocale() === 'fr' ? 'Agenda & Événements' : (app()->getLocale() === 'en' ? 'Events & Calendar' : 'الأجندة والفعاليات') }}
+                        {{ polyTrans('الأجندة والفعاليات', 'Agenda & Événements', 'Events & Calendar') }}
                     </h3>
                     <div class="space-y-3">
                         @php
@@ -1088,7 +1073,14 @@
                                         <h4 class="text-xs font-bold text-[#06205C] group-hover/ev:text-[#24BDC3] transition-colors line-clamp-1">
                                             {{ $ev->getLocalized('title') }}
                                         </h4>
-                                        <span class="text-[10px] text-slate-400 block line-clamp-1">{{ $ev->venue ?: 'مركز المؤتمرات — وهران' }}</span>
+                                        <span class="text-[10px] text-slate-400 block line-clamp-1">
+                                            {{ polyTrans(
+                                                $ev->venue ?: 'مركز المؤتمرات — وهران',
+                                                ($ev->venue && str_contains($ev->venue, 'عبد اللطيف رحال')) ? 'Centre International des Conférences Abdelatif Rahal' : ($ev->venue ?: 'Centre des Conventions — Oran'),
+                                                ($ev->venue && str_contains($ev->venue, 'عبد اللطيف رحال')) ? 'Abdelatif Rahal International Conference Center' : ($ev->venue ?: 'Mohamed Ben Ahmed Convention Center — Oran'),
+                                                ($ev->venue && str_contains($ev->venue, 'عبد اللطيف رحال')) ? 'Centro Internacional de Conferências Abdelatif Rahal' : ($ev->venue ?: 'Centro de Convenções — Orão')
+                                            ) }}
+                                        </span>
                                     </div>
                                 </a>
                             @endforeach
@@ -1096,11 +1088,11 @@
                             <a href="{{ route('events') }}" class="flex items-start gap-3 group/ev">
                                 <div class="w-10 h-10 rounded-xl bg-teal-50 text-[#24BDC3] flex flex-col items-center justify-center flex-shrink-0 font-bold border border-teal-200">
                                     <span class="text-xs leading-none">16</span>
-                                    <span class="text-[9px] uppercase">{{ app()->getLocale() === 'fr' ? 'NOV' : (app()->getLocale() === 'en' ? 'NOV' : 'نوفمبر') }}</span>
+                                    <span class="text-[9px] uppercase">{{ polyTrans('نوفمبر', 'NOV', 'NOV') }}</span>
                                 </div>
                                 <div>
                                     <h4 class="text-xs font-bold text-[#06205C] group-hover/ev:text-[#24BDC3] transition-colors">
-                                        {{ app()->getLocale() === 'fr' ? 'Cérémonie d\'Ouverture Officielle du Forum' : (app()->getLocale() === 'en' ? 'Official Forum Opening Ceremony' : 'حفل الافتتاح الرسمي لمنتدى السياسات الأفريقية للمهارات 2026') }}
+                                        {{ polyTrans('حفل الافتتاح الرسمي لمنتدى السياسات الأفريقية للمهارات 2026', 'Cérémonie d\'Ouverture Officielle du Forum', 'Official Forum Opening Ceremony') }}
                                     </h4>
                                     <span class="text-[10px] text-slate-400">Mohamed Ben Ahmed Convention Center — Oran</span>
                                 </div>
@@ -1118,7 +1110,7 @@
             <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200/80 flex flex-col justify-between">
                 <div>
                     <h3 class="text-sm font-bold text-[#06205C] mb-4">
-                        {{ app()->getLocale() === 'fr' ? 'Actualités & Articles' : (app()->getLocale() === 'en' ? 'News & Updates' : 'الأخبار والمشاركات') }}
+                        {{ polyTrans('الأخبار والمشاركات', 'Actualités & Articles', 'News & Updates') }}
                     </h3>
                     <div class="space-y-3">
                         @if(count($news) > 0)
@@ -1160,7 +1152,7 @@
             <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200/80 flex flex-col justify-between">
                 <div>
                     <h3 class="text-sm font-bold text-[#06205C] mb-4">
-                        {{ app()->getLocale() === 'fr' ? 'Centre Vidéos' : (app()->getLocale() === 'en' ? 'Video Center' : 'مركز الفيديوهات والتغطيات') }}
+                        {{ polyTrans('مركز الفيديوهات والتغطيات', 'Centre Vidéos', 'Video Center') }}
                     </h3>
                     <button @click="showVideoModal = true" class="relative rounded-2xl overflow-hidden bg-[#020A24] group block w-full text-right focus:outline-none h-32 border border-slate-800 shadow-md">
                         @if($featuredVideoThumbUrl)
@@ -1204,12 +1196,12 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                 </span>
                 <span class="bg-gradient-to-r from-[#06205C] via-[#0038A8] to-[#0066FF] group-hover/head:from-[#0066FF] group-hover/head:via-purple-600 group-hover/head:to-[#06205C] bg-clip-text text-transparent transition-all duration-500">
-                    {{ app()->getLocale() === 'fr' ? 'Partenaires & Sponsors Officiels' : (app()->getLocale() === 'en' ? 'Official Partners & Sponsors' : 'الشركاء والرعاة المميزون') }}
+                    {{ polyTrans('الشركاء والرعاة المميزون', 'Partenaires & Sponsors Officiels', 'Official Partners & Sponsors') }}
                 </span>
             </h3>
 
             <p class="text-xs sm:text-sm text-slate-500 font-bold max-w-lg group-hover/head:text-slate-700 transition-colors">
-                {{ app()->getLocale() === 'fr' ? 'Soutien industriel et institutionnel' : (app()->getLocale() === 'en' ? 'Supporting Industrial & Institutional Partners' : 'المؤسسات الرائدة والهيئات الصناعية الداعمة لأولمبياد المهن 2026') }}
+                {{ polyTrans('المؤسسات الرائدة والهيئات الصناعية الداعمة لأولمبياد المهن 2026', 'Soutien industriel et institutionnel', 'Supporting Industrial & Institutional Partners') }}
             </p>
         </div>
 
@@ -1233,7 +1225,7 @@
                 @endforeach
             @else
                 <div class="text-xs text-slate-400 font-bold">
-                    {{ app()->getLocale() === 'fr' ? 'Aucun partenaire disponible' : (app()->getLocale() === 'en' ? 'No featured partners yet' : 'لا يوجد شركاء مميزون حالياً.') }}
+                    {{ polyTrans('لا يوجد شركاء مميزون حالياً.', 'Aucun partenaire disponible', 'No featured partners yet') }}
                 </div>
             @endif
         </div>
@@ -1251,10 +1243,10 @@
 
             <div class="space-y-3 max-w-xl text-center {{ app()->getLocale() === 'ar' ? 'md:text-right' : 'md:text-left' }}">
                 <h2 class="text-2xl sm:text-3xl font-black leading-tight">
-                    {{ app()->getLocale() === 'fr' ? 'Rejoignez le plus grand événement des compétences en Afrique !' : (app()->getLocale() === 'en' ? 'Join the Largest Skills Event in Africa!' : 'كن جزءاً من أكبر حدث للمهارات في إفريقيا!') }}
+                    {{ polyTrans('كن جزءاً من أكبر حدث للمهارات في إفريقيا!', 'Rejoignez le plus grand événement des compétences en Afrique !', 'Join the Largest Skills Event in Africa!') }}
                 </h2>
                 <p class="text-xs text-blue-100 font-bold">
-                    {{ app()->getLocale() === 'fr' ? 'Inscrivez-vous maintenant pour participer au développement des compétences au Centre des Conventions d\'Oran.' : (app()->getLocale() === 'en' ? 'Register now to shape the future of skills at Mohamed Ben Ahmed Convention Center in Oran.' : 'سجل الآن وشارك في صناعة المستقبل وتطوير المهارات بمركز المؤتمرات محمد بن أحمد بولاية وهران.') }}
+                    {{ polyTrans('سجل الآن وشارك في صناعة المستقبل وتطوير المهارات بمركز المؤتمرات محمد بن أحمد بولاية وهران.', 'Inscrivez-vous maintenant pour participer au développement des compétences au Centre des Conventions d\'Oran.', 'Register now to shape the future of skills at Mohamed Ben Ahmed Convention Center in Oran.') }}
                 </p>
             </div>
             
@@ -1303,10 +1295,10 @@
                     <!-- Official Dual Brand Logos -->
                     <div class="flex items-center gap-2 sm:gap-3 bg-white dark:bg-[#052033] p-1.5 sm:p-2 px-2.5 sm:px-4 rounded-xl sm:rounded-2xl border border-slate-200/90 dark:border-[#24BDC3]/30 shadow-xs shrink-0">
                         <img src="{{ asset('ministry-logo-trimmed.png') }}" 
-                             alt="الجمهورية الجزائرية الديمقراطية الشعبية" 
+                             alt="{{ polyTrans('الجمهورية الجزائرية الديمقراطية الشعبية', 'République Algérienne Démocratique et Populaire', 'People\'s Democratic Republic of Algeria', 'República Argelina Democrática e Popular') }}" 
                              class="h-5 sm:h-7 w-auto object-contain shrink-0 dark:hidden">
                         <img src="{{ asset('ministry-logo-white-trimmed.png') }}" 
-                             alt="الجمهورية الجزائرية الديمقراطية الشعبية" 
+                             alt="{{ polyTrans('الجمهورية الجزائرية الديمقراطية الشعبية', 'République Algérienne Démocratique et Populaire', 'People\'s Democratic Republic of Algeria', 'República Argelina Democrática e Popular') }}" 
                              class="h-5 sm:h-7 w-auto object-contain shrink-0 hidden dark:block">
                         
                         <div class="h-5 sm:h-6 w-px bg-slate-300 dark:bg-white/20 shrink-0"></div>
@@ -1324,14 +1316,14 @@
 
                 <div class="space-y-1 flex-1 sm:text-right w-full">
                     <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-[#24BDC3]/15 border border-blue-200/80 dark:border-[#24BDC3]/30 text-[10px] sm:text-[11px] font-black text-[#0B2A6F] dark:text-[#24BDC3]">
-                        <span>{{ app()->getLocale() === 'fr' ? 'Programme Officiel 2026' : (app()->getLocale() === 'en' ? 'Official Forum Programme' : 'برنامج الفعاليات الرسمي 2026') }}</span>
+                        <span>{{ polyTrans('برنامج الفعاليات الرسمي 2026', 'Programme Officiel 2026', 'Official Forum Programme') }}</span>
                     </div>
                     <h3 class="text-sm sm:text-2xl font-black text-[#0B2A6F] dark:text-white tracking-tight leading-snug">
-                        {{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences' : (app()->getLocale() === 'en' ? 'African Skills Policy Forum' : 'منتدى السياسات الأفريقية للمهارات 2026') }}
+                        {{ polyTrans('منتدى السياسات الأفريقية للمهارات 2026', 'Forum des Politiques Africaines des Compétences', 'African Skills Policy Forum') }}
                     </h3>
                     <p class="text-[10px] sm:text-xs text-slate-500 dark:text-teal-200/80 font-bold flex items-center gap-1 sm:justify-end">
                         <svg class="w-3.5 h-3.5 text-brand-500 dark:text-[#24BDC3] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <span>{{ app()->getLocale() === 'fr' ? '16 – 18 Novembre 2026 • Centre des Conventions d\'Oran' : (app()->getLocale() === 'en' ? '16 – 18 November 2026 • Mohamed Ben Ahmed Convention Center - Oran' : '16 – 18 نوفمبر 2026 • مركز المؤتمرات محمد بن أحمد - وهران') }}</span>
+                        <span>{{ polyTrans('16 – 18 نوفمبر 2026 • مركز المؤتمرات محمد بن أحمد - وهران', '16 – 18 Novembre 2026 • Centre des Conventions d\'Oran', '16 – 18 November 2026 • Mohamed Ben Ahmed Convention Center - Oran') }}</span>
                     </p>
                 </div>
 
@@ -1348,21 +1340,21 @@
                             class="px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-black text-[11px] sm:text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                             :class="scheduleTab === 16 ? 'bg-[#0B2A6F] dark:bg-gradient-to-r dark:from-[#24BDC3] dark:to-[#00969B] text-white dark:text-[#02101b] shadow-md' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-white/5'">
                         <svg class="w-3.5 h-3.5 text-amber-400 dark:text-[#02101b] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <span>16 {{ app()->getLocale() === 'fr' ? 'Nov.' : (app()->getLocale() === 'en' ? 'Nov.' : 'نوفمبر') }} <span class="hidden sm:inline">— {{ app()->getLocale() === 'fr' ? 'Jour 1' : (app()->getLocale() === 'en' ? 'Day 1' : 'اليوم الأول') }}</span></span>
+                        <span>16 {{ polyTrans('نوفمبر', 'Nov.', 'Nov.') }} <span class="hidden sm:inline">— {{ polyTrans('اليوم الأول', 'Jour 1', 'Day 1') }}</span></span>
                     </button>
 
                     <button @click="scheduleTab = 17" 
                             class="px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-black text-[11px] sm:text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                             :class="scheduleTab === 17 ? 'bg-[#35A536] dark:bg-gradient-to-r dark:from-[#35A536] dark:to-emerald-600 text-white shadow-md' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-white/5'">
                         <svg class="w-3.5 h-3.5 text-emerald-200 dark:text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                        <span>17 {{ app()->getLocale() === 'fr' ? 'Nov.' : (app()->getLocale() === 'en' ? 'Nov.' : 'نوفمبر') }} <span class="hidden sm:inline">— {{ app()->getLocale() === 'fr' ? 'Jour 2' : (app()->getLocale() === 'en' ? 'Day 2' : 'اليوم الثاني') }}</span></span>
+                        <span>17 {{ polyTrans('نوفمبر', 'Nov.', 'Nov.') }} <span class="hidden sm:inline">— {{ polyTrans('اليوم الثاني', 'Jour 2', 'Day 2') }}</span></span>
                     </button>
 
                     <button @click="scheduleTab = 18" 
                             class="px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-black text-[11px] sm:text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                             :class="scheduleTab === 18 ? 'bg-[#24BDC3] dark:bg-gradient-to-r dark:from-purple-500 dark:to-indigo-600 text-white shadow-md' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-white/5'">
                         <svg class="w-3.5 h-3.5 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                        <span>18 {{ app()->getLocale() === 'fr' ? 'Nov.' : (app()->getLocale() === 'en' ? 'Nov.' : 'نوفمبر') }} <span class="hidden sm:inline">— {{ app()->getLocale() === 'fr' ? 'Jour 3' : (app()->getLocale() === 'en' ? 'Day 3' : 'اليوم الثالث') }}</span></span>
+                        <span>18 {{ polyTrans('نوفمبر', 'Nov.', 'Nov.') }} <span class="hidden sm:inline">— {{ polyTrans('اليوم الثالث', 'Jour 3', 'Day 3') }}</span></span>
                     </button>
                 </div>
             </div>
@@ -1380,14 +1372,14 @@
                         <div class="space-y-1 flex-1">
                             <div class="flex items-center gap-2">
                                 <span class="px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-400/15 text-amber-800 dark:text-amber-300 text-[10px] font-black border border-amber-200 dark:border-amber-400/30">
-                                    {{ app()->getLocale() === 'fr' ? 'Cérémonie d\'Ouverture' : (app()->getLocale() === 'en' ? 'Official Opening' : 'حفل الافتتاح الرسمي') }}
+                                    {{ polyTrans('حفل الافتتاح الرسمي', 'Cérémonie d\'Ouverture', 'Official Opening') }}
                                 </span>
                             </div>
                             <h4 class="text-sm sm:text-lg font-black text-[#0B2A6F] dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-300 transition leading-snug">
-                                {{ app()->getLocale() === 'fr' ? 'Cérémonie d\'Ouverture Officielle du Forum et de la Compétition' : (app()->getLocale() === 'en' ? 'Opening Ceremony marking the official launch of African Skills Policy forum' : 'حفل الافتتاح الرسمي المنظم لإطلاق منتدى السياسات الأفريقية للمهارات والمسابقات الرسمية') }}
+                                {{ polyTrans('حفل الافتتاح الرسمي المنظم لإطلاق منتدى السياسات الأفريقية للمهارات والمسابقات الرسمية', 'Cérémonie d\'Ouverture Officielle du Forum et de la Compétition', 'Opening Ceremony marking the official launch of African Skills Policy forum') }}
                             </h4>
                             <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
-                                {{ app()->getLocale() === 'fr' ? 'Lancement officiel du Forum des Politiques Africaines des Compétences avec la présence des hautes autorités et des délégations continentales.' : (app()->getLocale() === 'en' ? 'Official opening ceremony launching the African Skills Policy Forum alongside technical competition events with continental delegations.' : 'الافتتاح الرسمي للمنتدى بحضور رفيع المستوى للوزراء والوفود الأفريقية والشركاء الدوليين.') }}
+                                {{ polyTrans('الافتتاح الرسمي للمنتدى بحضور رفيع المستوى للوزراء والوفود الأفريقية والشركاء الدوليين.', 'Lancement officiel du Forum des Politiques Africaines des Compétences avec la présence des hautes autorités et des délégations continentales.', 'Official opening ceremony launching the African Skills Policy Forum alongside technical competition events with continental delegations.') }}
                             </p>
                         </div>
                     </div>
@@ -1400,14 +1392,14 @@
                         <div class="space-y-1 flex-1">
                             <div class="flex items-center gap-2">
                                 <span class="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-[#35A536]/15 text-emerald-800 dark:text-emerald-300 text-[10px] font-black border border-emerald-200 dark:border-[#35A536]/30">
-                                    {{ app()->getLocale() === 'fr' ? 'Dîner de Gala Protocolaire' : (app()->getLocale() === 'en' ? 'Protocol Gala Dinner' : 'عشاء عمل بروتوكولي') }}
+                                    {{ polyTrans('عشاء عمل بروتوكولي', 'Dîner de Gala Protocolaire', 'Protocol Gala Dinner') }}
                                 </span>
                             </div>
                             <h4 class="text-sm sm:text-lg font-black text-[#0B2A6F] dark:text-white group-hover:text-[#35A536] dark:group-hover:text-emerald-300 transition leading-snug">
-                                {{ app()->getLocale() === 'fr' ? 'Dîner de Gala pour les Ministres, Officiels de l\'UA et Autorités Algériennes' : (app()->getLocale() === 'en' ? 'Gala Dinner for Ministers, African Union officials, and Algerian officials' : 'عشاء عمل بروتوكولي رسمي للوزراء، ومسؤولي الاتحاد الأفريقي، والمسؤولين الجزائريين') }}
+                                {{ polyTrans('عشاء عمل بروتوكولي رسمي للوزراء، ومسؤولي الاتحاد الأفريقي، والمسؤولين الجزائريين', 'Dîner de Gala pour les Ministres, Officiels de l\'UA et Autorités Algériennes', 'Gala Dinner for Ministers, African Union officials, and Algerian officials') }}
                             </h4>
                             <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
-                                {{ app()->getLocale() === 'fr' ? 'Organisé selon l\'ordre protocolaire à la suite de la cérémonie d\'ouverture.' : (app()->getLocale() === 'en' ? 'Held in protocol order following the Opening Ceremony.' : 'يُقام وفقًا للترتيب البروتوكولي الرسمي عقب حفل الافتتاح مباشرة.') }}
+                                {{ polyTrans('يُقام وفقًا للترتيب البروتوكولي الرسمي عقب حفل الافتتاح مباشرة.', 'Organisé selon l\'ordre protocolaire à la suite de la cérémonie d\'ouverture.', 'Held in protocol order following the Opening Ceremony.') }}
                             </p>
                         </div>
                     </div>
@@ -1423,14 +1415,14 @@
                         <div class="space-y-1 flex-1">
                             <div class="flex flex-wrap items-center gap-1.5">
                                 <span class="px-2 py-0.5 rounded-full bg-teal-50 dark:bg-[#24BDC3]/15 text-teal-800 dark:text-[#24BDC3] text-[10px] font-black border border-teal-200 dark:border-[#24BDC3]/30">
-                                    {{ app()->getLocale() === 'fr' ? 'Session Ministérielle I' : (app()->getLocale() === 'en' ? 'Ministerial Session I' : 'الجلسة الوزارية الأولى') }}
+                                    {{ polyTrans('الجلسة الوزارية الأولى', 'Session Ministérielle I', 'Ministerial Session I') }}
                                 </span>
                                 <span class="px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-400/15 text-amber-800 dark:text-amber-300 text-[10px] font-black border border-amber-200 dark:border-amber-400/30">
-                                    {{ app()->getLocale() === 'fr' ? 'Présidente: S.E. Mme Nacima Arhab' : (app()->getLocale() === 'en' ? 'Chair: H.E. Ms. Nacima Arhab' : 'رئاسة الجلسة: معالي السيدة نسيمة أرحاب') }}
+                                    {{ polyTrans('رئاسة الجلسة: معالي السيدة نسيمة أرحاب', 'Présidente: S.E. Mme Nacima Arhab', 'Chair: H.E. Ms. Nacima Arhab') }}
                                 </span>
                             </div>
                             <h4 class="text-sm sm:text-lg font-black text-[#0B2A6F] dark:text-white group-hover:text-[#24BDC3] transition leading-snug">
-                                {{ app()->getLocale() === 'fr' ? 'Faire progresser les systèmes d\'EFTP pour l\'Agenda 2063 et la transformation industrielle' : (app()->getLocale() === 'en' ? 'Advancing TVET Systems for Agenda 2063 and Africa\'s Industrial Transformation' : 'تطوير أنظمة التكوين المهني والتقني لتحقيق أجندة 2063 والتحول الصناعي في إفريقيا') }}
+                                {{ polyTrans('تطوير أنظمة التكوين المهني والتقني لتحقيق أجندة 2063 والتحول الصناعي في إفريقيا', 'Faire progresser les systèmes d\'EFTP pour l\'Agenda 2063 et la transformation industrielle', 'Advancing TVET Systems for Agenda 2063 and Africa\'s Industrial Transformation') }}
                             </h4>
                         </div>
                     </div>
@@ -1443,14 +1435,14 @@
                         <div class="space-y-1 flex-1">
                             <div class="flex flex-wrap items-center gap-1.5">
                                 <span class="px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-400/15 text-amber-800 dark:text-amber-300 text-[10px] font-black border border-amber-200 dark:border-amber-400/30">
-                                    {{ app()->getLocale() === 'fr' ? 'Session Ministérielle II — « Compétences de Demain »' : (app()->getLocale() === 'en' ? 'Session II — “Skills of Tomorrow”' : 'الجلسة الوزارية الثانية — « مهارات الغد »') }}
+                                    {{ polyTrans('الجلسة الوزارية الثانية — « مهارات الغد »', 'Session Ministérielle II — « Compétences de Demain »', 'Session II — “Skills of Tomorrow”') }}
                                 </span>
                                 <span class="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-400/15 text-emerald-800 dark:text-emerald-300 text-[10px] font-black border border-emerald-200 dark:border-emerald-400/30">
-                                    {{ app()->getLocale() === 'fr' ? 'Président: Prof. Gaspard Banyankimbona' : (app()->getLocale() === 'en' ? 'Chair: Prof. Gaspard Banyankimbona' : 'رئاسة الجلسة: الأستاذ غاسبار بنيانكيمبونا') }}
+                                    {{ polyTrans('رئاسة الجلسة: الأستاذ غاسبار بنيانكيمبونا', 'Président: Prof. Gaspard Banyankimbona', 'Chair: Prof. Gaspard Banyankimbona') }}
                                 </span>
                             </div>
                             <h4 class="text-sm sm:text-lg font-black text-[#0B2A6F] dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-300 transition leading-snug">
-                                {{ app()->getLocale() === 'fr' ? 'Préparer la main-d\'œuvre africaine aux industries émergentes' : (app()->getLocale() === 'en' ? 'Preparing Africa\'s Workforce for Emerging Industries' : 'إعداد القوى العاملة الإفريقية للصناعات والقطاعات الناشئة') }}
+                                {{ polyTrans('إعداد القوى العاملة الإفريقية للصناعات والقطاعات الناشئة', 'Préparer la main-d\'œuvre africaine aux industries émergentes', 'Preparing Africa\'s Workforce for Emerging Industries') }}
                             </h4>
                         </div>
                     </div>
@@ -1463,14 +1455,14 @@
                         <div class="space-y-1 flex-1">
                             <div class="flex items-center gap-2">
                                 <span class="px-2 py-0.5 rounded-full bg-[#35A536] text-white text-[10px] font-black shadow-xs">
-                                    {{ app()->getLocale() === 'fr' ? 'Déclaration Conjointe' : (app()->getLocale() === 'en' ? 'Joint Declaration' : 'اعتماد الإعلان المشترك') }}
+                                    {{ polyTrans('اعتماد الإعلان المشترك', 'Déclaration Conjointe', 'Joint Declaration') }}
                                 </span>
                             </div>
                             <h4 class="text-sm sm:text-lg font-black text-[#0B2A6F] dark:text-emerald-300 leading-snug">
-                                {{ app()->getLocale() === 'fr' ? 'Adoption de la Déclaration Conjointe sur l\'Agenda des Compétences en Afrique' : (app()->getLocale() === 'en' ? 'Joint Declaration on Africa\'s Skills Agenda' : 'إصدار واعتماد الإعلان المشترك حول أجندة المهارات في إفريقيا') }}
+                                {{ polyTrans('إصدار واعتماد الإعلان المشترك حول أجندة المهارات في إفريقيا', 'Adoption de la Déclaration Conjointe sur l\'Agenda des Compétences en Afrique', 'Joint Declaration on Africa\'s Skills Agenda') }}
                             </h4>
                             <p class="text-[11px] sm:text-xs text-slate-700 dark:text-slate-300 font-medium leading-relaxed">
-                                {{ app()->getLocale() === 'fr' ? 'Les sessions I et II se concluent par l\'adoption de la Déclaration conjointe ministérielle.' : (app()->getLocale() === 'en' ? 'Sessions I and II culminate in a joint Declaration on Africa\'s skills agenda.' : 'تتوج الجلستان الوزاريتان الأولى والثانية باعتمد وثيقة الإعلان المشترك حول المستقبل القاري للمهارات.') }}
+                                {{ polyTrans('تتوج الجلستان الوزاريتان الأولى والثانية باعتمد وثيقة الإعلان المشترك حول المستقبل القاري للمهارات.', 'Les sessions I et II se concluent par l\'adoption de la Déclaration conjointe ministérielle.', 'Sessions I and II culminate in a joint Declaration on Africa\'s skills agenda.') }}
                             </p>
                         </div>
                     </div>
@@ -1482,7 +1474,7 @@
                                 12:30 – 14:00
                             </div>
                             <span class="text-xs font-bold text-slate-700 dark:text-slate-300">
-                                {{ app()->getLocale() === 'fr' ? 'Pause Déjeuner & Réseautage Protocolaire' : (app()->getLocale() === 'en' ? 'Lunch Break & Networking' : 'استراحة غداء وتواصل شبكي بين الوفود') }}
+                                {{ polyTrans('استراحة غداء وتواصل شبكي بين الوفود', 'Pause Déjeuner & Réseautage Protocolaire', 'Lunch Break & Networking') }}
                             </span>
                         </div>
                     </div>
@@ -1495,11 +1487,11 @@
                         <div class="space-y-1 flex-1">
                             <div class="flex items-center gap-2">
                                 <span class="px-2 py-0.5 rounded-full bg-purple-50 dark:bg-purple-500/15 text-purple-800 dark:text-purple-300 text-[10px] font-black border border-purple-200 dark:border-purple-500/30">
-                                    {{ app()->getLocale() === 'fr' ? 'Panel I — Technologie & IA' : (app()->getLocale() === 'en' ? 'Panel I — AI & Digital' : 'الورشة التخصصية الأولى — الذكاء الاصطناعي') }}
+                                    {{ polyTrans('الورشة التخصصية الأولى — الذكاء الاصطناعي', 'Panel I — Technologie & IA', 'Panel I — AI & Digital') }}
                                 </span>
                             </div>
                             <h4 class="text-sm sm:text-lg font-black text-[#0B2A6F] dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-300 transition leading-snug">
-                                {{ app()->getLocale() === 'fr' ? 'Intelligence Artificielle, Transformation Numérique et L\'Avenir de l\'EFTP' : (app()->getLocale() === 'en' ? 'Artificial Intelligence, Digital Transformation and the Future of TVET' : 'الذكاء الاصطناعي، التحول الرقمي ومستقبل التكوين والتعليم المهني') }}
+                                {{ polyTrans('الذكاء الاصطناعي، التحول الرقمي ومستقبل التكوين والتعليم المهني', 'Intelligence Artificielle, Transformation Numérique et L\'Avenir de l\'EFTP', 'Artificial Intelligence, Digital Transformation and the Future of TVET') }}
                             </h4>
                         </div>
                     </div>
@@ -1512,11 +1504,11 @@
                         <div class="space-y-1 flex-1">
                             <div class="flex items-center gap-2">
                                 <span class="px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-400/15 text-sky-800 dark:text-sky-300 text-[10px] font-black border border-sky-200 dark:border-sky-400/30">
-                                    {{ app()->getLocale() === 'fr' ? 'Panel II — Écosystème & Partenariats' : (app()->getLocale() === 'en' ? 'Panel II — Skills Ecosystem' : 'الورشة التخصصية الثانية — منظومة الشراكات') }}
+                                    {{ polyTrans('الورشة التخصصية الثانية — منظومة الشراكات', 'Panel II — Écosystème & Partenariats', 'Panel II — Skills Ecosystem') }}
                                 </span>
                             </div>
                             <h4 class="text-sm sm:text-lg font-black text-[#0B2A6F] dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition leading-snug">
-                                {{ app()->getLocale() === 'fr' ? 'Construire l\'Écosystème des Compétences en Afrique' : (app()->getLocale() === 'en' ? 'Building Africa\'s Skills Ecosystem' : 'بناء منظومة المهارات الإفريقية: التعاون بين الحكومة والقطاع الصناعي والمؤسسات لتحقيق التميز') }}
+                                {{ polyTrans('بناء منظومة المهارات الإفريقية: التعاون بين الحكومة والقطاع الصناعي والمؤسسات لتحقيق التميز', 'Construire l\'Écosystème des Compétences en Afrique', 'Building Africa\'s Skills Ecosystem') }}
                             </h4>
                         </div>
                     </div>
@@ -1532,14 +1524,14 @@
                         <div class="space-y-1 flex-1">
                             <div class="flex items-center gap-2">
                                 <span class="px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-400/15 text-sky-800 dark:text-sky-300 text-[10px] font-black border border-sky-200 dark:border-sky-400/30">
-                                    {{ app()->getLocale() === 'fr' ? 'Session Interactive & Débat' : (app()->getLocale() === 'en' ? 'Open Q&A Session' : 'جلسة حوار مفتوحة — أسئلة وأجوبة') }}
+                                    {{ polyTrans('جلسة حوار مفتوحة — أسئلة وأجوبة', 'Session Interactive & Débat', 'Open Q&A Session') }}
                                 </span>
                             </div>
                             <h4 class="text-sm sm:text-lg font-black text-[#0B2A6F] dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300 transition leading-snug">
-                                {{ app()->getLocale() === 'fr' ? 'Là où la politique rencontre le talent (Where Policy Meets Talent)' : (app()->getLocale() === 'en' ? 'Where Policy Meets Talent' : 'التلاقي بين السياسات والمواهب (Where Policy Meets Talent)') }}
+                                {{ polyTrans('التلاقي بين السياسات والمواهب (Where Policy Meets Talent)', 'Là où la politique rencontre le talent (Where Policy Meets Talent)', 'Where Policy Meets Talent') }}
                             </h4>
                             <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
-                                {{ app()->getLocale() === 'fr' ? 'Session ouverte de questions-réponses réunissant les ministres africains et les jeunes compétiteurs et stagiaires. Les stagiaires posent leurs questions directement aux ministres sur l\'avenir de l\'EFTP et les politiques de compétences.' : (app()->getLocale() === 'en' ? 'An open Q&A session bringing together African Ministers and the young competitors and trainees of the Competition. Trainees put their questions directly to Ministers on the future of TVET, skills policy, and opportunity across the continent.' : 'جلسة حوار مفتوحة تجمع بين الوزراء الأفارقة والمتسابقين والمتدربين الشباب، يطرح فيها المتدربون أسئلتهم مباشرة على الوزراء حول مستقبل التكوين المهني وسياسات المهارات في القارة.') }}
+                                {{ polyTrans('جلسة حوار مفتوحة تجمع بين الوزراء الأفارقة والمتسابقين والمتدربين الشباب، يطرح فيها المتدربون أسئلتهم مباشرة على الوزراء حول مستقبل التكوين المهني وسياسات المهارات في القارة.', 'Session ouverte de questions-réponses réunissant les ministres africains et les jeunes compétiteurs et stagiaires. Les stagiaires posent leurs questions directement aux ministres sur l\'avenir de l\'EFTP et les politiques de compétences.', 'An open Q&A session bringing together African Ministers and the young competitors and trainees of the Competition. Trainees put their questions directly to Ministers on the future of TVET, skills policy, and opportunity across the continent.') }}
                             </p>
                         </div>
                     </div>
@@ -1552,14 +1544,14 @@
                         <div class="space-y-1.5 flex-1">
                             <div class="flex items-center gap-2">
                                 <span class="px-2.5 py-0.5 rounded-full bg-[#35A536] text-white text-[10px] font-black shadow-xs">
-                                    {{ app()->getLocale() === 'fr' ? 'Déclaration Conjointe' : (app()->getLocale() === 'en' ? 'Joint Declaration' : 'الإعلان المشترك حول أجندة المهارات') }}
+                                    {{ polyTrans('الإعلان المشترك حول أجندة المهارات', 'Déclaration Conjointe', 'Joint Declaration') }}
                                 </span>
                             </div>
                             <h4 class="text-base sm:text-lg font-black text-[#0B2A6F] dark:text-emerald-300">
-                                {{ app()->getLocale() === 'fr' ? 'Déclaration Conjointe sur l\'Agenda des Compétences en Afrique' : (app()->getLocale() === 'en' ? 'Joint Declaration on Africa\'s Skills Agenda' : 'إصدار واعتماد الإعلان المشترك حول أجندة المهارات في إفريقيا') }}
+                                {{ polyTrans('إصدار واعتماد الإعلان المشترك حول أجندة المهارات في إفريقيا', 'Déclaration Conjointe sur l\'Agenda des Compétences en Afrique', 'Joint Declaration on Africa\'s Skills Agenda') }}
                             </h4>
                             <p class="text-[11px] sm:text-xs text-slate-700 dark:text-slate-300 font-medium leading-relaxed">
-                                {{ app()->getLocale() === 'fr' ? 'Les sessions I et II se concluent par l\'adoption d\'une Déclaration conjointe sur l\'agenda des compétences en Afrique.' : (app()->getLocale() === 'en' ? 'Sessions I and II culminate in a joint Declaration on Africa\'s skills agenda.' : 'تتوج الجلستان الأولى والثانية بإصدار واعتماد إعلان مشترك حول أجندة المهارات في إفريقيا.') }}
+                                {{ polyTrans('تتوج الجلستان الأولى والثانية بإصدار واعتماد إعلان مشترك حول أجندة المهارات في إفريقيا.', 'Les sessions I et II se concluent par l\'adoption d\'une Déclaration conjointe sur l\'agenda des compétences en Afrique.', 'Sessions I and II culminate in a joint Declaration on Africa\'s skills agenda.') }}
                             </p>
                         </div>
                     </div>
@@ -1570,26 +1562,26 @@
             <!-- Modal Footer Controls (Dual Theme) -->
             <div class="p-4 sm:p-5 border-t border-slate-200 dark:border-[#24BDC3]/20 bg-slate-50/90 dark:bg-[#020b12]/95 relative z-10 flex flex-wrap items-center justify-between gap-3 sm:gap-4">
                 <div class="text-xs text-slate-600 dark:text-teal-300/90 font-bold flex items-center gap-2">
-                    <span>{{ app()->getLocale() === 'fr' ? 'Centre des Conventions Mohamed Ben Ahmed — Oran' : (app()->getLocale() === 'en' ? 'Mohamed Ben Ahmed Convention Center — Oran' : 'مركز المؤتمرات محمد بن أحمد — وهران') }}</span>
+                    <span>{{ polyTrans('مركز المؤتمرات محمد بن أحمد — وهران', 'Centre des Conventions Mohamed Ben Ahmed — Oran', 'Mohamed Ben Ahmed Convention Center — Oran') }}</span>
                 </div>
 
                 <div class="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto justify-end">
                     <!-- PDF Preview Button -->
                     <button @click="showPdfModal = true" class="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs shadow-md transition duration-300 flex items-center gap-2 cursor-pointer">
                         <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                        <span>{{ app()->getLocale() === 'fr' ? 'Consulter PDF' : (app()->getLocale() === 'en' ? 'Preview PDF' : 'معاينة الملف PDF') }}</span>
+                        <span>{{ polyTrans('معاينة الملف PDF', 'Consulter PDF', 'Preview PDF') }}</span>
                     </button>
 
                     <!-- PDF Download Button -->
                     <a href="{{ asset('African-Skills-Policy-Forum-Programme.pdf') }}" download 
                        class="px-4 py-2.5 rounded-xl bg-[#24BDC3] hover:bg-teal-400 text-slate-950 font-black text-xs shadow-md transition duration-300 flex items-center gap-2 cursor-pointer">
                         <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                        <span>{{ app()->getLocale() === 'fr' ? 'Télécharger PDF' : (app()->getLocale() === 'en' ? 'Download PDF' : 'تحميل البرنامج PDF') }}</span>
+                        <span>{{ polyTrans('تحميل البرنامج PDF', 'Télécharger PDF', 'Download PDF') }}</span>
                     </a>
 
                     <!-- Proceed to Platform Button -->
                     <button @click="showScheduleModal = false" class="px-5 py-2.5 rounded-xl bg-[#0B2A6F] dark:bg-white/10 hover:bg-blue-900 dark:hover:bg-white/20 text-white font-black text-xs border border-transparent dark:border-white/20 transition duration-300 flex items-center gap-2 cursor-pointer">
-                        <span>{{ app()->getLocale() === 'fr' ? 'Continuer' : (app()->getLocale() === 'en' ? 'Proceed' : 'المتابعة للمنصة') }}</span>
+                        <span>{{ polyTrans('المتابعة للمنصة', 'Continuer', 'Proceed') }}</span>
                         <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </button>
                 </div>
@@ -1620,7 +1612,7 @@
                     </div>
                     <div>
                         <h3 class="text-base sm:text-lg font-black text-[#0B2A6F]">
-                            {{ app()->getLocale() === 'fr' ? 'Programme Officiel PDF — Forum des Politiques' : (app()->getLocale() === 'en' ? 'Official PDF Programme — African Skills Forum' : 'البرنامج الرسمي لمنتدى السياسات (ملف PDF)') }}
+                            {{ polyTrans('البرنامج الرسمي لمنتدى السياسات (ملف PDF)', 'Programme Officiel PDF — Forum des Politiques', 'Official PDF Programme — African Skills Forum') }}
                         </h3>
                         <p class="text-xs text-slate-500 font-medium">African-Skills-Policy-Forum-Programme.pdf</p>
                     </div>
@@ -1630,13 +1622,13 @@
                     <a href="{{ asset('African-Skills-Policy-Forum-Programme.pdf') }}" download 
                        class="px-4 py-2 rounded-xl bg-[#35A536] hover:bg-emerald-700 text-white font-black text-xs transition flex items-center gap-2 shadow-xs">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                        <span>{{ app()->getLocale() === 'fr' ? 'Télécharger' : (app()->getLocale() === 'en' ? 'Download' : 'تحميل PDF') }}</span>
+                        <span>{{ polyTrans('تحميل PDF', 'Télécharger', 'Download') }}</span>
                     </a>
 
                     <a href="{{ asset('African-Skills-Policy-Forum-Programme.pdf') }}" target="_blank" 
                        class="px-4 py-2 rounded-xl bg-[#0B2A6F] hover:bg-blue-900 text-white font-black text-xs transition flex items-center gap-2 shadow-xs">
                         <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                        <span>{{ app()->getLocale() === 'fr' ? 'Ouvrir plein écran' : (app()->getLocale() === 'en' ? 'Open Fullscreen' : 'فتح في نافذة كاملة') }}</span>
+                        <span>{{ polyTrans('فتح في نافذة كاملة', 'Ouvrir plein écran', 'Open Fullscreen') }}</span>
                     </a>
                     
                     <button @click="showPdfModal = false" class="w-9 h-9 rounded-xl bg-slate-200 hover:bg-rose-600 hover:text-white text-slate-600 flex items-center justify-center transition cursor-pointer shrink-0">
@@ -1651,11 +1643,11 @@
                 <div class="p-3 mb-3 rounded-2xl bg-blue-50 border border-blue-200 text-[#0B2A6F] text-xs font-bold flex flex-wrap items-center justify-between gap-3 shrink-0">
                     <div class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M12 6v6m8 6a9 9 0 11-18 0 9 9 0 0118 0"/></svg>
-                        <span>{{ app()->getLocale() === 'fr' ? 'Mobile : Pour une meilleure expérience sur smartphone, cliquez sur "فتح الملف" لفتحه مباشرة.' : (app()->getLocale() === 'en' ? 'Mobile users: Tap "Open Fullscreen" for instant viewing in your native PDF reader.' : 'مستخدمي الهواتف الذكية: انقر فوق "فتح الملف" أو "تحميل PDF" لمشاهدة المستند بسلاسة على هاتفك.') }}</span>
+                        <span>{{ polyTrans('مستخدمي الهواتف الذكية: انقر فوق "فتح الملف" أو "تحميل PDF" لمشاهدة المستند بسلاسة على هاتفك.', 'Mobile : Pour une meilleure expérience sur smartphone, cliquez sur "فتح الملف" لفتحه مباشرة.', 'Mobile users: Tap "Open Fullscreen" for instant viewing in your native PDF reader.') }}</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <a href="{{ route('pdf.view', ['file' => 'African-Skills-Policy-Forum-Programme.pdf']) }}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-xl bg-[#0B2A6F] text-white font-black text-xs shrink-0 shadow-xs flex items-center gap-1">
-                            <span>{{ app()->getLocale() === 'fr' ? 'Ouvrir ↗' : (app()->getLocale() === 'en' ? 'Open ↗' : 'فتح الملف ↗') }}</span>
+                            <span>{{ polyTrans('فتح الملف ↗', 'Ouvrir ↗', 'Open ↗') }}</span>
                         </a>
                     </div>
                 </div>
@@ -1664,9 +1656,9 @@
                     <object data="{{ route('pdf.view', ['file' => 'African-Skills-Policy-Forum-Programme.pdf']) }}" type="application/pdf" class="w-full h-full">
                         <iframe src="{{ route('pdf.view', ['file' => 'African-Skills-Policy-Forum-Programme.pdf']) }}#toolbar=1" class="w-full h-full border-0">
                             <div class="p-8 text-center text-xs font-bold text-slate-700 space-y-4">
-                                <p>{{ app()->getLocale() === 'fr' ? 'Votre navigateur mobile ne prend pas en charge la prévisualisation directe.' : 'متصفح هاتفك لا يدعم المعاينة المدمجة مباشرة.' }}</p>
+                                <p>{{ polyTrans('متصفح هاتفك لا يدعم المعاينة المدمجة مباشرة.', 'Votre navigateur mobile ne prend pas en charge la prévisualisation directe.', 'Your mobile browser does not support direct preview.', 'O seu navegador móvel não suporta a pré-visualização direta.') }}</p>
                                 <a href="{{ route('pdf.view', ['file' => 'African-Skills-Policy-Forum-Programme.pdf']) }}" target="_blank" class="inline-block px-6 py-3 rounded-xl bg-[#0B2A6F] text-white font-black text-xs">
-                                    انقر هنا لفتح الملف على هاتفك
+                                    {{ polyTrans('انقر هنا لفتح الملف على هاتفك', 'Cliquez ici pour ouvrir le fichier sur votre téléphone', 'Tap here to open file on your phone', 'Clique aqui para abrir o ficheiro no seu telemóvel') }}
                                 </a>
                             </div>
                         </iframe>

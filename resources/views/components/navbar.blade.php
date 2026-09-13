@@ -7,7 +7,7 @@
                 <div class="flex items-center gap-1.5 sm:gap-3 bg-slate-50/90 dark:bg-[#052D48]/80 hover:bg-slate-100/90 p-1 sm:p-1.5 px-2 sm:px-3 rounded-2xl border border-slate-200/80 dark:border-[#24BDC3]/30 shadow-xs overflow-hidden shrink-0 transition max-w-[46vw] sm:max-w-none">
                     <!-- 1. Ministry Seal Logo -->
                     <img src="/ministry-logo-trimmed.png" 
-                         alt="الجمهورية الجزائرية الديمقراطية الشعبية - وزارة التكوين والتعليم المهنيين" 
+                         alt="{{ polyTrans('الجمهورية الجزائرية الديمقراطية الشعبية - وزارة التكوين والتعليم المهنيين', 'République Algérienne Démocratique et Populaire - Ministère de la Formation et de l\'Enseignement Professionnels', 'People\'s Democratic Republic of Algeria - Ministry of Vocational Education and Training', 'República Argelina Democrática e Popular - Ministério da Formação e Ensino Profissionais') }}" 
                          class="h-5 sm:h-8 md:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105 shrink-0 bg-white/90 dark:bg-white rounded-lg p-0.5">
                     
                     <!-- Vertical Divider Line -->
@@ -171,7 +171,7 @@
                 <div class="space-y-5">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                         <div class="flex items-center gap-2 bg-slate-50 p-1.5 px-3 rounded-2xl border border-slate-200/80">
-                            <img src="{{ asset('ministry-logo-trimmed.png') }}" alt="وزارة التكوين والتعليم المهنيين" class="h-7 w-auto object-contain">
+                            <img src="{{ asset('ministry-logo-trimmed.png') }}" alt="{{ polyTrans('وزارة التكوين والتعليم المهنيين', 'Ministère de la Formation et de l\'Enseignement Professionnels', 'Ministry of Vocational Education and Training', 'Ministério da Formação e Ensino Profissionais') }}" class="h-7 w-auto object-contain">
                             <div class="h-5 w-px bg-slate-300"></div>
                             <img src="{{ asset('africa-logo-trimmed.png') }}" alt="Africa Skills Forum Logo" class="h-7 w-auto object-contain">
                         </div>

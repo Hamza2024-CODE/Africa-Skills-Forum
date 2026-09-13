@@ -266,9 +266,9 @@
 
     @if($isMaintenance && $isAdmin)
         <div class="bg-amber-500 text-slate-950 px-4 py-2 text-xs font-black text-center shadow-lg sticky top-0 z-50 flex items-center justify-center gap-3">
-            <span>⚠️ {{ app()->getLocale() === 'fr' ? 'Le mode "Bientôt disponible" (Maintenance) est activé pour les visiteurs.' : (app()->getLocale() === 'en' ? 'Maintenance / Coming Soon Mode is currently ACTIVE for visitors.' : 'وضع "انتظرونا قريباً / الصيانة" مفعّل حالياً لزوار الواجهة العامة.') }}</span>
+            <span class="inline-flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-950 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg><span>{{ polyTrans('وضع "انتظرونا قريباً / الصيانة" مفعّل حالياً لزوار الواجهة العامة.', 'Le mode "Bientôt disponible" (Maintenance) est activé pour les visiteurs.', 'Maintenance / Coming Soon Mode is currently ACTIVE for visitors.', 'O modo "Em Breve / Manutenção" está atualmente ativo para os visitantes.') }}</span></span>
             <a href="{{ route('admin.appearance') }}" class="px-3 py-1 rounded-lg bg-slate-950 text-amber-400 font-bold hover:bg-slate-900 transition">
-                {{ app()->getLocale() === 'fr' ? 'Désactiver' : (app()->getLocale() === 'en' ? 'Manage' : 'إدارة أو إيقاف التفعيل') }}
+                {{ polyTrans('إدارة أو إيقاف التفعيل', 'Désactiver', 'Manage', 'Gerir ou Desativar') }}
             </a>
         </div>
     @endif
@@ -279,16 +279,16 @@
             <span class="w-3 h-3 rounded-full bg-brand-sky animate-ping"></span>
             <div class="text-xs font-bold">
                 <span class="block text-slate-200">
-                    {{ app()->getLocale() === 'fr' ? 'Mise à jour disponible' : (app()->getLocale() === 'en' ? 'New update available' : 'تحديث جديد لمنصة WSAP متوفر') }}
+                    {{ polyTrans('تحديث جديد لمنصة WSAP متوفر', 'Mise à jour disponible', 'New update available', 'Nova atualização da plataforma WSAP disponível') }}
                 </span>
                 <span class="text-[10px] text-slate-400 font-medium">
-                    {{ app()->getLocale() === 'fr' ? 'Cliquez pour mettre à jour la plateforme' : (app()->getLocale() === 'en' ? 'Click to update platform' : 'اضغط لتحديث المنصة بآخر المميزات') }}
+                    {{ polyTrans('اضغط لتحديث المنصة بآخر المميزات', 'Cliquez pour mettre à jour la plateforme', 'Click to update platform', 'Clique para atualizar a plataforma com os recursos mais recentes') }}
                 </span>
             </div>
         </div>
         <div class="flex items-center gap-2">
             <button @click="if (swWaiting) { swWaiting.postMessage({ type: 'SKIP_WAITING' }); }" class="px-4 py-2 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white text-xs font-bold transition shadow-md">
-                {{ app()->getLocale() === 'fr' ? 'Mettre à jour' : (app()->getLocale() === 'en' ? 'Update Now' : 'تحديث الآن') }}
+                {{ polyTrans('تحديث الآن', 'Mettre à jour', 'Update Now', 'Atualizar Agora') }}
             </button>
             <button @click="pwaUpdateAvailable = false" class="text-slate-400 hover:text-white p-1 text-xs font-bold">
                 ✕
@@ -360,7 +360,7 @@
              class="bg-white dark:bg-[#031826] text-slate-900 dark:text-white p-3 sm:p-4 rounded-2xl sm:rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.5)] border-2 border-[#24BDC3]/40 space-y-1.5 sm:space-y-2 relative transform -rotate-1 group hover:rotate-0 transition-transform">
             
             <!-- Close Button -->
-            <button @click="speechOpen = false; dismissed = (window.innerWidth >= 640)" class="absolute -top-2 -end-2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center text-[10px] sm:text-xs font-black shadow-md hover:bg-red-600 transition" title="إغلاق">
+            <button @click="speechOpen = false; dismissed = (window.innerWidth >= 640)" class="absolute -top-2 -end-2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center text-[10px] sm:text-xs font-black shadow-md hover:bg-red-600 transition" title="{{ polyTrans('إغلاق', 'Fermer', 'Close', 'Fechar') }}">
                 ✕
             </button>
 
@@ -368,13 +368,13 @@
             <div class="flex items-center gap-1.5 sm:gap-2">
                 <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#24BDC3] animate-ping"></span>
                 <span class="text-[9px] sm:text-[10px] font-black text-[#052D48] dark:text-[#24BDC3] uppercase tracking-wider">
-                    ✦ {{ app()->getLocale() === 'fr' ? 'Mascotte Officielle 2026' : (app()->getLocale() === 'en' ? 'Official Mascot 2026' : 'رمز التميز والمهارات 2026') }}
+                    ✦ {{ polyTrans('رمز التميز والمهارات 2026', 'Mascotte Officielle 2026', 'Official Mascot 2026', 'Mascote Oficial 2026') }}
                 </span>
             </div>
 
             <!-- Welcome Text Message -->
             <p class="text-[11px] sm:text-xs font-bold text-[#052D48] dark:text-white leading-snug sm:leading-relaxed">
-                {{ app()->getLocale() === 'fr' ? 'Bienvenue au Forum des Politiques Africaines des Compétences 2026 ! L\'Algérie vous accueille à Oran.' : (app()->getLocale() === 'en' ? 'Welcome to African Skills Policy Forum 2026! Algeria welcomes all delegations.' : 'أهلاً بكم في منتدى السياسات الأفريقية للمهارات 2026! الجزائر ترحب بجميع الوفود والمشاركين بوهران.') }}
+                {{ polyTrans('أهلاً بكم في منتدى السياسات الأفريقية للمهارات 2026! الجزائر ترحب بجميع الوفود والمشاركين بوهران.', 'Bienvenue au Forum des Politiques Africaines des Compétences 2026 ! L\'Algérie vous accueille à Oran.', 'Welcome to African Skills Policy Forum 2026! Algeria welcomes all delegations.', 'Bem-vindo ao Fórum de Políticas Africanas de Competências 2026! A Argélia acolhe todas as delegações em Orão.') }}
             </p>
 
             <!-- Interactive Quick Link Button -->
