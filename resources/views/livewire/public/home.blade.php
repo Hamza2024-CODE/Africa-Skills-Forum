@@ -1,7 +1,7 @@
 <div class="space-y-12 pb-16" x-data="{ showScheduleModal: false, scheduleTab: 16, showVideoModal: false, showPdfModal: false }" @open-schedule.window="showScheduleModal = true">
 
     <!-- 1. Pan-African Summit Hero Stage (Ultra-Modern African Leadership Aesthetic & Auto-Slider) -->
-    <section class="relative bg-gradient-to-br from-[#052D48] via-[#031826] to-[#010a12] text-white pt-16 pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-b-[3.5rem] border-b-2 border-[#24BDC3]/50 shadow-2xl"
+    <section class="relative bg-gradient-to-br from-[#052D48] via-[#031826] to-[#010a12] text-white pt-16 pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden shadow-2xl"
              x-data="{
                  activeSlide: 0,
                  slides: {{ $heroSlidesJson }},
@@ -133,8 +133,8 @@
 
         </div>
             <!-- Pan-African Cultural Animated Wavy Transition Divider (Hero to Content Stage) -->
-        <div class="absolute bottom-0 inset-x-0 w-full overflow-hidden leading-none pointer-events-none z-20">
-            <svg class="relative block w-full h-16 sm:h-20 md:h-24 lg:h-28 text-[#F4F7FC] dark:text-[#02101b]" viewBox="0 0 1440 140" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <div class="absolute bottom-0 inset-x-0 w-full overflow-hidden leading-none pointer-events-none z-20" style="bottom: -1px;">
+            <svg class="relative block w-full text-[#F4F7FC] dark:text-[#02101b]" viewBox="0 0 1440 140" preserveAspectRatio="none" style="width: 100% !important; height: 110px !important; min-height: 80px !important; display: block !important;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <!-- Authentic African Green Motif Ribbon Strip (from Official Cultural Artwork 6991441) -->
                     <pattern id="hero-african-green-motif" width="320" height="32" patternUnits="userSpaceOnUse" x="0" y="0">
@@ -147,6 +147,22 @@
 
 
 
+
+                <!-- Layer 1: Ambient Cyan Glow Wave -->
+                <path fill="#24BDC3" fill-opacity="0.30" d="M0,50 C320,15 640,85 960,35 C1160,10 1340,55 1440,50 L1440,140 L0,140 Z">
+                    <animate attributeName="d" dur="8s" repeatCount="indefinite"
+                        values="M0,50 C320,15 640,85 960,35 C1160,10 1340,55 1440,50 L1440,140 L0,140 Z;
+                                M0,40 C300,75 640,25 980,65 C1180,40 1320,15 1440,40 L1440,140 L0,140 Z;
+                                M0,50 C320,15 640,85 960,35 C1160,10 1340,55 1440,50 L1440,140 L0,140 Z" />
+                </path>
+
+                <!-- Layer 2: Main Base Fill Wave (Completely covers dark blue beneath ribbon with page background) -->
+                <path fill="#F4F7FC" class="dark:fill-[#02101b]" d="M0,80 C320,45 640,115 960,65 C1160,40 1340,85 1440,80 L1440,140 L0,140 Z">
+                    <animate attributeName="d" dur="9s" repeatCount="indefinite"
+                        values="M0,80 C320,45 640,115 960,65 C1160,40 1340,85 1440,80 L1440,140 L0,140 Z;
+                                M0,72 C280,100 580,55 900,100 C1120,70 1300,45 1440,72 L1440,140 L0,140 Z;
+                                M0,80 C320,45 640,115 960,65 C1160,40 1340,85 1440,80 L1440,140 L0,140 Z" />
+                </path>
 
                 <!-- Layer 3: Vibrant Authentic Green African Geometric Ribbon Band (Prominent & Vivid) -->
                 <path fill="url(#hero-african-green-motif)" stroke="#1f9c98" stroke-width="1" d="M0,50 C320,15 640,85 960,35 C1160,10 1340,55 1440,50 L1440,80 C1340,85 1160,40 960,65 C640,115 320,45 0,80 Z">

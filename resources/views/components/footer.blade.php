@@ -1,6 +1,6 @@
 <!-- Pan-African Cultural Animated Wavy Transition Divider (Zero Gap, Seamlessly Welded into Deep Blue Footer) -->
-<div class="relative w-full overflow-hidden leading-none z-20 pointer-events-none mt-16 -mb-1">
-    <svg class="w-full block h-16 sm:h-20 md:h-24 lg:h-28" viewBox="0 0 1440 100" preserveAspectRatio="none" style="width: 100%; display: block;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div class="relative w-full overflow-hidden leading-none z-20 pointer-events-none mt-16" style="margin-bottom: -2px;">
+    <svg class="w-full block" viewBox="0 0 1440 100" preserveAspectRatio="none" style="width: 100% !important; height: 90px !important; min-height: 70px !important; display: block !important;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
             <!-- Authentic African Green Motif Ribbon Strip -->
             <pattern id="footer-african-motif" width="320" height="34" patternUnits="userSpaceOnUse" x="0" y="0">
@@ -53,7 +53,7 @@
     </svg>
 </div>
 
-<footer class="relative text-white pt-8 pb-16 transition-colors duration-300 bg-cover bg-center overflow-hidden shadow-2xl" style="background-image: linear-gradient(to bottom, #052D48 0%, rgba(5, 45, 72, 0.88) 25%, rgba(2, 16, 27, 0.95) 100%), url('/images/blue_bg.jpg'); background-size: cover; background-position: center; margin-top: -2px;">
+<footer class="relative text-white pt-8 pb-28 sm:pb-24 transition-colors duration-300 bg-cover bg-center overflow-hidden shadow-2xl" style="background-image: linear-gradient(to bottom, #052D48 0%, rgba(5, 45, 72, 0.88) 25%, rgba(2, 16, 27, 0.95) 100%), url('/images/blue_bg.jpg'); background-size: cover; background-position: center; margin-top: -2px;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-[#094064]/80 dark:border-[#083b5e]/80">
             

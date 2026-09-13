@@ -9,7 +9,7 @@
 @endif
 
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" class="h-full">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" class="min-h-full">
 <head>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
@@ -221,7 +221,7 @@
             touch-action: manipulation;
         }
 
-        img, svg, video, iframe {
+        img, video, iframe {
             max-width: 100%;
             height: auto;
         }
@@ -259,7 +259,7 @@
             for (var k of keys) caches.delete(k);
         });
     }
-" class="font-sans antialiased h-full flex flex-col text-[#06205C] bg-[#F4F7FC] relative">
+" class="font-sans antialiased min-h-screen flex flex-col text-[#06205C] bg-[#F4F7FC] relative">
 
     <!-- Global Pan-African Cultural Vector Pattern Overlay (Authentic Background Motifs from 6991441) -->
     <div class="pointer-events-none fixed inset-0 -z-10 opacity-[0.14] dark:opacity-[0.08] bg-repeat bg-[length:480px_480px]" style="background-image: url('/images/african_pattern_bg.jpg');"></div>
