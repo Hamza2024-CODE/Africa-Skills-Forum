@@ -137,21 +137,9 @@
                     </pattern>
                 </defs>
 
-                <!-- Layer 1: Ambient Cyan Glow Wave -->
-                <path fill="#24BDC3" fill-opacity="0.35" d="M0,50 C320,15 640,85 960,35 C1160,10 1340,55 1440,50 L1440,140 L0,140 Z">
-                    <animate attributeName="d" dur="8s" repeatCount="indefinite"
-                        values="M0,50 C320,15 640,85 960,35 C1160,10 1340,55 1440,50 L1440,140 L0,140 Z;
-                                M0,40 C300,75 640,25 980,65 C1180,40 1320,15 1440,40 L1440,140 L0,140 Z;
-                                M0,50 C320,15 640,85 960,35 C1160,10 1340,55 1440,50 L1440,140 L0,140 Z" />
-                </path>
 
-                <!-- Layer 2: Main Base Fill Wave (Seamless Transition to Page Background) -->
-                <path fill="currentColor" d="M0,75 C320,40 640,105 960,60 C1160,30 1340,75 1440,75 L1440,140 L0,140 Z">
-                    <animate attributeName="d" dur="9s" repeatCount="indefinite"
-                        values="M0,75 C320,40 640,105 960,60 C1160,30 1340,75 1440,75 L1440,140 L0,140 Z;
-                                M0,68 C280,95 580,50 900,95 C1120,65 1300,35 1440,68 L1440,140 L0,140 Z;
-                                M0,75 C320,40 640,105 960,60 C1160,30 1340,75 1440,75 L1440,140 L0,140 Z" />
-                </path>
+
+
 
                 <!-- Layer 3: Vibrant Authentic Green African Geometric Ribbon Band (Prominent & Vivid) -->
                 <path fill="url(#hero-african-green-motif)" stroke="#1f9c98" stroke-width="1" d="M0,50 C320,15 640,85 960,35 C1160,10 1340,55 1440,50 L1440,80 C1340,85 1160,40 960,65 C640,115 320,45 0,80 Z">
@@ -1232,7 +1220,7 @@
 
     <!-- 7. Call to Action Banner -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="rounded-3xl bg-gradient-to-r from-[#0038A8] via-[#0066FF] to-[#00A3FF] text-white p-8 lg:p-12 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 group">
+        <div class="rounded-3xl text-white p-8 lg:p-12 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 group bg-cover bg-center" style="background-image: linear-gradient(135deg, rgba(0, 45, 140, 0.88), rgba(0, 102, 255, 0.82)), url('/images/blue_bg.jpg');">
             
             <div class="flex items-center flex-shrink-0 bg-white/95 backdrop-blur-md p-3 rounded-2xl border border-white/30 shadow-lg">
                 <img src="/AFRICA.png" alt="{{ platform()->name() }}" class="h-14 sm:h-16 w-auto object-contain drop-shadow-md">
