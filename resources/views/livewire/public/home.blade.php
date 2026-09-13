@@ -51,9 +51,9 @@
             <div class="space-y-4 max-w-4xl">
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] text-white drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]">
-                    {{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences 2026' : (app()->getLocale() === 'en' ? 'Africa Skills Policy Forum 2026' : 'منتدى السياسات الأفريقية للمهارات 2026') }}
+                    {{ polyTrans('منتدى السياسات الأفريقية للمهارات 2026', 'Forum des Politiques Africaines des Compétences 2026', 'Africa Skills Policy Forum 2026', 'Fórum de Políticas Africanas de Competências 2026') }}
                     <span class="text-[#24BDC3] block mt-2 text-xl sm:text-3xl lg:text-4xl font-black">
-                        "{{ $forumData['slogan'] ?? 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي' }}"
+                        "{{ polyTrans("صياغة مستقبل المهارات، تمكين الشباب الأفريقي", "Façonner l'avenir des compétences, autonomiser la jeunesse africaine", "Shaping the Future of Skills, Empowering Africa's Youth", "Moldar o Futuro das Competências, Capacitar a Juventude Africana") }}"
                     </span>
                 </h1>
 
@@ -62,6 +62,8 @@
                         Le principal sommet politique de haut niveau réunissant les ministres africains, experts et partenaires internationaux autour du principe fondateur: L'avenir des compétences en Afrique doit être façonné par les Africains eux-mêmes.
                     @elseif(app()->getLocale() === 'en')
                         The principal high-level political summit bringing together African Ministers, technical experts, and international partners around the core principle: Africa's skills future must be shaped by Africans themselves.
+                    @elseif(app()->getLocale() === 'pt')
+                        A principal cimeira política de alto nível que reúne ministros africanos, peritos técnicos e parceiros institucionais e internacionais em torno do princípio fundamental: o futuro das competências em África deve ser moldado pelos próprios africanos.
                     @else
                         الحدث السياسي الرفيع المستوى الرئيسي الذي يجمع الوزراء الأفارقة والخبراء التقنيين والشركاء المؤسساتيين والدوليين، تجسيدًا لمبدأ أساسي: مستقبل المهارات في إفريقيا يجب أن يُصاغ من قِبل الأفارقة أنفسهم.
                     @endif
@@ -530,10 +532,10 @@
                         <div class="p-5 rounded-2xl bg-emerald-50/60 border-s-4 border-[#35A536] border-y border-e border-slate-200/80 space-y-1 shadow-xs">
                             <div class="flex items-center gap-1.5 text-xs font-black uppercase text-[#35A536] tracking-wider">
                                 <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
-                                <span>{{ app()->getLocale() === 'fr' ? 'Principe Fondateur' : (app()->getLocale() === 'en' ? 'Founding Principle' : 'المبدأ الأساسي للمنتدى') }}</span>
+                                <span>{{ polyTrans('المبدأ الأساسي للمنتدى', 'Principe Fondateur', 'Founding Principle', 'Princípio Fundamental') }}</span>
                             </div>
                             <blockquote class="text-base sm:text-lg font-black text-[#0B2A6F]">
-                                "{{ !empty($forumData['principle']) ? $forumData['principle'] : (app()->getLocale() === 'fr' ? 'Façonner l\'avenir des compétences, autonomiser la jeunesse africaine' : (app()->getLocale() === 'en' ? 'Shaping the Future of Skills, Empowering Africa\'s Youth' : 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي')) }}"
+                                "{{ polyTrans('صياغة مستقبل المهارات، تمكين الشباب الأفريقي', 'Façonner l\'avenir des compétences, autonomiser la jeunesse africaine', 'Shaping the Future of Skills, Empowering Africa\'s Youth', 'Moldar o Futuro das Competências, Capacitar a Juventude Africana') }}"
                             </blockquote>
                         </div>
                     </div>

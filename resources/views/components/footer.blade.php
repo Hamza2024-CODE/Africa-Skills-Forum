@@ -67,18 +67,18 @@
 
 
                 <p class="text-xs text-blue-100/80 leading-relaxed">
-                    {{ app()->getLocale() === 'fr' ? 'Rassemblement des délégations nationales et internationales au Centre des Conventions Mohamed Ben Ahmed à Oran.' : (app()->getLocale() === 'en' ? 'Gathering of national and international delegations at Mohamed Ben Ahmed Convention Center in Oran.' : 'تجمع الوفود الوطنية والدولية بمركز المؤتمرات محمد بن أحمد بولاية وهران.') }}
+                    {{ polyTrans('تجمع الوفود الوطنية والدولية بمركز المؤتمرات محمد بن أحمد بولاية وهران.', 'Rassemblement des délégations nationales et internationales au Centre des Conventions Mohamed Ben Ahmed à Oran.', 'Gathering of national and international delegations at Mohamed Ben Ahmed Convention Center in Oran.', 'Reunião de delegações nacionais e internacionais no Centro de Convenções Mohamed Ben Ahmed em Orão.') }}
                 </p>
             </div>
 
             <!-- Col 2: Africa Skills Forum Links -->
             <div>
-                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">{{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences' : (app()->getLocale() === 'en' ? 'African Skills Policy Forum' : 'منتدى السياسات الأفريقية للمهارات') }}</h4>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">{{ polyTrans('منتدى السياسات الأفريقية للمهارات', 'Forum des Politiques Africaines des Compétences', 'African Skills Policy Forum', 'Fórum de Políticas Africanas de Competências') }}</h4>
                 <ul class="space-y-2.5 text-xs text-blue-100/90 font-medium">
-                    <li><a href="{{ route('guide') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Guide & Agenda du Forum' : (app()->getLocale() === 'en' ? 'Forum Guide & Agenda' : 'دليل وبرنامج المنتدى') }}</a></li>
-                    <li><a href="{{ route('events') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Panels & Conférences' : (app()->getLocale() === 'en' ? 'Panels & Conferences' : 'الجلسات والمؤتمرات') }}</a></li>
+                    <li><a href="{{ route('guide') }}" class="hover:text-[#24BDC3] transition">{{ polyTrans('دليل وبرنامج المنتدى', 'Guide & Agenda du Forum', 'Forum Guide & Agenda', 'Guia e Agenda do Fórum') }}</a></li>
+                    <li><a href="{{ route('events') }}" class="hover:text-[#24BDC3] transition">{{ polyTrans('الجلسات والمؤتمرات', 'Panels & Conférences', 'Panels & Conferences', 'Sessões e Conferências') }}</a></li>
                     @if(platform()->get('show_partners_section', true))
-                        <li><a href="{{ route('partners') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Exposition & Partenaires' : (app()->getLocale() === 'en' ? 'Expo & Partners' : 'المعرض والشركاء') }}</a></li>
+                        <li><a href="{{ route('partners') }}" class="hover:text-[#24BDC3] transition">{{ polyTrans('المعرض والشركاء', 'Exposition & Partenaires', 'Expo & Partners', 'Exposição e Parceiros') }}</a></li>
                     @endif
 
                     <li>
@@ -87,7 +87,7 @@
                                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
                                 <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
                             </span>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Direct TV (Écrans)' : (app()->getLocale() === 'en' ? 'Live TV Broadcast' : 'شاشة البث المباشر (Live TV)') }}</span>
+                            <span>{{ polyTrans('شاشة البث المباشر (Live TV)', 'Direct TV (Écrans)', 'Live TV Broadcast', 'Transmissão em Direto (Live TV)') }}</span>
                         </a>
                     </li>
                 </ul>
@@ -95,10 +95,10 @@
 
             <!-- Col 3: Forum Quick Links -->
             <div>
-                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">{{ app()->getLocale() === 'fr' ? 'Informations & Accès' : (app()->getLocale() === 'en' ? 'Forum Info & Access' : 'الدليل والخدمات') }}</h4>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">{{ polyTrans('الدليل والخدمات', 'Informations & Accès', 'Forum Info & Access', 'Informações e Acesso') }}</h4>
                 <ul class="space-y-2.5 text-xs text-blue-100/90 font-medium">
-                    <li><a href="{{ route('guide') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Guide du Forum' : (app()->getLocale() === 'en' ? 'Forum Guide' : 'دليل المشاركة') }}</a></li>
-                    <li><a href="{{ route('official.registration') }}" class="hover:text-[#24BDC3] transition">{{ app()->getLocale() === 'fr' ? 'Accréditation & Inscription' : (app()->getLocale() === 'en' ? 'Accreditation & Registration' : 'التسجيل والاعتماد الرسمي') }}</a></li>
+                    <li><a href="{{ route('guide') }}" class="hover:text-[#24BDC3] transition">{{ polyTrans('دليل المشاركة', 'Guide du Forum', 'Forum Guide', 'Guia de Participação') }}</a></li>
+                    <li><a href="{{ route('official.registration') }}" class="hover:text-[#24BDC3] transition">{{ polyTrans('التسجيل والاعتماد الرسمي', 'Accréditation & Inscription', 'Accreditation & Registration', 'Registo e Acreditação Oficial') }}</a></li>
                     <li><a href="{{ route('faq') }}" class="hover:text-[#24BDC3] transition">{{ __('messages.faq') }}</a></li>
                     <li><a href="{{ route('contact') }}" class="hover:text-[#24BDC3] transition">{{ __('messages.contact') }}</a></li>
                 </ul>
@@ -107,12 +107,12 @@
             <!-- Col 4: Newsletter & Socials -->
             <div class="space-y-4">
                 <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-2">
-                    {{ app()->getLocale() === 'fr' ? 'Abonnez-vous à notre newsletter' : (app()->getLocale() === 'en' ? 'Subscribe to our newsletter' : 'اشترك في نشرتنا الإخبارية') }}
+                    {{ polyTrans('اشترك في نشرتنا الإخبارية', 'Abonnez-vous à notre newsletter', 'Subscribe to our newsletter', 'Subscreva a nossa newsletter') }}
                 </h4>
                 <div class="flex items-center gap-2 bg-[#031D2F] p-1.5 rounded-xl border border-[#0A436A]">
-                    <input type="email" placeholder="{{ app()->getLocale() === 'fr' ? 'Entrez votre email...' : (app()->getLocale() === 'en' ? 'Enter your email...' : 'أدخل بريدك الإلكتروني') }}" class="w-full bg-transparent px-3 text-xs text-white placeholder-blue-300 focus:outline-none">
+                    <input type="email" placeholder="{{ polyTrans('أدخل بريدك الإلكتروني', 'Entrez votre email...', 'Enter your email...', 'Introduza o seu email...') }}" class="w-full bg-transparent px-3 text-xs text-white placeholder-blue-300 focus:outline-none">
                     <button class="px-4 py-2 rounded-lg bg-[#24BDC3] hover:bg-[#1fa3a8] text-white font-bold text-xs transition">
-                        {{ app()->getLocale() === 'fr' ? 'S\'abonner' : (app()->getLocale() === 'en' ? 'Subscribe' : 'اشترك') }}
+                        {{ polyTrans('اشترك', 'S\'abonner', 'Subscribe', 'Subscrever') }}
                     </button>
                 </div>
             </div>
@@ -121,14 +121,14 @@
 
         <!-- Footer Bottom Bar -->
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-[11px] text-slate-500 font-medium">
-            <p>© {{ date('Y') }} {{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences' : (app()->getLocale() === 'en' ? 'African Skills Policy Forum' : 'منتدى السياسات الأفريقية للمهارات') }}. {{ app()->getLocale() === 'fr' ? 'Tous droits réservés.' : (app()->getLocale() === 'en' ? 'All rights reserved.' : 'جميع الحقوق محفوظة.') }}</p>
+            <p>© {{ date('Y') }} {{ polyTrans('منتدى السياسات الأفريقية للمهارات', 'Forum des Politiques Africaines des Compétences', 'African Skills Policy Forum', 'Fórum de Políticas Africanas de Competências') }}. {{ polyTrans('جميع الحقوق محفوظة.', 'Tous droits réservés.', 'All rights reserved.', 'Todos os direitos reservados.') }}</p>
             <div class="flex items-center gap-4">
                 <a href="{{ route('privacy') }}" class="hover:text-slate-400">
-                    {{ app()->getLocale() === 'fr' ? 'Politique de confidentialité' : (app()->getLocale() === 'en' ? 'Privacy Policy' : 'سياسة الخصوصية') }}
+                    {{ polyTrans('سياسة الخصوصية', 'Politique de confidentialité', 'Privacy Policy', 'Política de Privacidade') }}
                 </a>
                 <span>|</span>
                 <a href="{{ route('terms') }}" class="hover:text-slate-400">
-                    {{ app()->getLocale() === 'fr' ? 'Conditions d\'utilisation' : (app()->getLocale() === 'en' ? 'Terms of Use' : 'شروط الاستخدام') }}
+                    {{ polyTrans('شروط الاستخدام', 'Conditions d\'utilisation', 'Terms of Use', 'Termos de Utilização') }}
                 </a>
             </div>
         </div>
