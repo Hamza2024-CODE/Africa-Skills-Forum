@@ -4,11 +4,11 @@
     <div class="text-center space-y-3">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-600 font-black text-xs">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            <span>{{ app()->getLocale() === 'fr' ? 'Portail de Sécurité Crypté' : (app()->getLocale() === 'en' ? 'Encrypted Security Portal' : 'بوابة التوثيق المشفرة — Encrypted Security Portal') }}</span>
+            <span>{{ app()->getLocale() === 'pt' ? (__('بوابة التوثيق المشفرة — Encrypted Security Portal') !== 'بوابة التوثيق المشفرة — Encrypted Security Portal' ? __('بوابة التوثيق المشفرة — Encrypted Security Portal') : 'Encrypted Security Portal') : (polyTrans('بوابة التوثيق المشفرة — Encrypted Security Portal', 'Portail de Sécurité Crypté', 'Encrypted Security Portal')) }}</span>
         </div>
-        <h1 class="text-3xl font-black text-[#06205C]">{{ app()->getLocale() === 'fr' ? 'Vérification & Cryptage des Badges d\'Accréditation' : (app()->getLocale() === 'en' ? 'Accreditation Badge Verification System' : 'نظام التثبت والتشفير الإلكتروني لشارات الاعتماد') }}</h1>
+        <h1 class="text-3xl font-black text-[#06205C]">{{ polyTrans('نظام التثبت والتشفير الإلكتروني لشارات الاعتماد', 'Vérification & Cryptage des Badges d\'Accréditation', 'Accreditation Badge Verification System') }}</h1>
         <p class="text-xs text-slate-500 font-medium max-w-lg mx-auto">
-            {{ app()->getLocale() === 'fr' ? 'Cryptage haute sécurité Zero-Trust garantissant la protection contre la falsification.' : (app()->getLocale() === 'en' ? 'High-security Zero-Trust encryption ensuring anti-counterfeiting.' : 'تشفير عالي الأمان بنظام Zero-Trust يضمن منع التزوير وحصر تفكيك بيانات الشارات لإدارة المنصة والأدمن فقط.') }}
+            {{ app()->getLocale() === 'pt' ? (__('تشفير عالي الأمان بنظام Zero-Trust يضمن منع التزوير وحصر تفكيك بيانات الشارات لإدارة المنصة والأدمن فقط.') !== 'تشفير عالي الأمان بنظام Zero-Trust يضمن منع التزوير وحصر تفكيك بيانات الشارات لإدارة المنصة والأدمن فقط.' ? __('تشفير عالي الأمان بنظام Zero-Trust يضمن منع التزوير وحصر تفكيك بيانات الشارات لإدارة المنصة والأدمن فقط.') : 'High-security Zero-Trust encryption ensuring anti-counterfeiting.') : (polyTrans('تشفير عالي الأمان بنظام Zero-Trust يضمن منع التزوير وحصر تفكيك بيانات الشارات لإدارة المنصة والأدمن فقط.', 'Cryptage haute sécurité Zero-Trust garantissant la protection contre la falsification.', 'High-security Zero-Trust encryption ensuring anti-counterfeiting.')) }}
         </p>
     </div>
 
@@ -16,11 +16,11 @@
     <div class="bg-white rounded-3xl p-6 shadow-xl border border-slate-200/80">
         <form wire:submit.prevent="verify" class="flex flex-col sm:flex-row items-center gap-3">
             <div class="w-full relative">
-                <input type="text" wire:model="query" placeholder="{{ app()->getLocale() === 'fr' ? 'Entrez le code badge crypté...' : (app()->getLocale() === 'en' ? 'Enter encrypted badge code...' : 'أدخل رمز الشارة المشفر أو رقم التوثيق...') }}" class="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono font-bold text-[#06205C] focus:ring-2 focus:ring-brand-500">
+                <input type="text" wire:model="query" placeholder="{{ app()->getLocale() === 'pt' ? (__('أدخل رمز الشارة المشفر أو رقم التوثيق...') !== 'أدخل رمز الشارة المشفر أو رقم التوثيق...' ? __('أدخل رمز الشارة المشفر أو رقم التوثيق...') : 'Enter encrypted badge code...') : (polyTrans('أدخل رمز الشارة المشفر أو رقم التوثيق...', 'Entrez le code badge crypté...', 'Enter encrypted badge code...')) }}" class="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono font-bold text-[#06205C] focus:ring-2 focus:ring-brand-500">
                 <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
             </div>
             <button type="submit" class="w-full sm:w-auto px-8 py-3 rounded-2xl bg-brand-500 hover:bg-brand-600 text-white font-black text-xs shadow-md transition flex items-center justify-center gap-2 shrink-0">
-                <span>{{ app()->getLocale() === 'fr' ? 'Vérifier Badge' : (app()->getLocale() === 'en' ? 'Verify Code' : 'فحص كود الاعتماد') }}</span>
+                <span>{{ app()->getLocale() === 'pt' ? (__('فحص كود الاعتماد') !== 'فحص كود الاعتماد' ? __('فحص كود الاعتماد') : 'Verify Code') : (polyTrans('فحص كود الاعتماد', 'Vérifier Badge', 'Verify Code')) }}</span>
             </button>
         </form>
     </div>
@@ -34,16 +34,16 @@
                 </div>
                 <div class="space-y-1">
                     <h3 class="text-xl font-black text-rose-900">
-                        {{ app()->getLocale() === 'fr' ? 'Accès Restreint — Scanner Officiel Requis' : (app()->getLocale() === 'en' ? 'Access Restricted — Official Platform Scanner Required' : 'مسح أمني مقيد — الماسح الداخلي للمنصة مطلوب') }}
+                        {{ app()->getLocale() === 'pt' ? (__('مسح أمني مقيد — الماسح الداخلي للمنصة مطلوب') !== 'مسح أمني مقيد — الماسح الداخلي للمنصة مطلوب' ? __('مسح أمني مقيد — الماسح الداخلي للمنصة مطلوب') : 'Access Restricted — Official Platform Scanner Required') : (polyTrans('مسح أمني مقيد — الماسح الداخلي للمنصة مطلوب', 'Accès Restreint — Scanner Officiel Requis', 'Access Restricted — Official Platform Scanner Required')) }}
                     </h3>
                     <p class="text-xs text-rose-700 font-medium max-w-md mx-auto leading-relaxed">
-                        {{ app()->getLocale() === 'fr' ? 'Ce code QR est réservé au scanner officiel de la plateforme Africa Skills Forum. Les caméras externes ne sont pas autorisées à décoder ce badge.' : (app()->getLocale() === 'en' ? 'This QR code is strictly reserved for the internal platform scanner. External phone cameras are restricted.' : 'رمز الـ QR مخصص حصرياً للمسح الداخلي عبر المنصة الرسمية. الكاميرات الخارجية غير مصرح لها بتفكيك بيانات الاعتماد الميدانية.') }}
+                        {{ app()->getLocale() === 'pt' ? (__('رمز الـ QR مخصص حصرياً للمسح الداخلي عبر المنصة الرسمية. الكاميرات الخارجية غير مصرح لها بتفكيك بيانات الاعتماد الميدانية.') !== 'رمز الـ QR مخصص حصرياً للمسح الداخلي عبر المنصة الرسمية. الكاميرات الخارجية غير مصرح لها بتفكيك بيانات الاعتماد الميدانية.' ? __('رمز الـ QR مخصص حصرياً للمسح الداخلي عبر المنصة الرسمية. الكاميرات الخارجية غير مصرح لها بتفكيك بيانات الاعتماد الميدانية.') : 'This QR code is strictly reserved for the internal platform scanner. External phone cameras are restricted.') : (polyTrans('رمز الـ QR مخصص حصرياً للمسح الداخلي عبر المنصة الرسمية. الكاميرات الخارجية غير مصرح لها بتفكيك بيانات الاعتماد الميدانية.', 'Ce code QR est réservé au scanner officiel de la plateforme Africa Skills Forum. Les caméras externes ne sont pas autorisées à décoder ce badge.', 'This QR code is strictly reserved for the internal platform scanner. External phone cameras are restricted.')) }}
                     </p>
                 </div>
                 <div class="pt-2">
                     <a href="{{ route('admin.scanner') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-[#06205C] hover:bg-[#041640] text-white font-black text-xs shadow-md transition">
                         <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-                        <span>{{ app()->getLocale() === 'fr' ? 'Ouvrir le Scanner Officiel' : (app()->getLocale() === 'en' ? 'Open Official Scanner' : 'تسجيل الدخول وفتح الماسح الداخلي للمنصة') }}</span>
+                        <span>{{ app()->getLocale() === 'pt' ? (__('تسجيل الدخول وفتح الماسح الداخلي للمنصة') !== 'تسجيل الدخول وفتح الماسح الداخلي للمنصة' ? __('تسجيل الدخول وفتح الماسح الداخلي للمنصة') : 'Open Official Scanner') : (polyTrans('تسجيل الدخول وفتح الماسح الداخلي للمنصة', 'Ouvrir le Scanner Officiel', 'Open Official Scanner')) }}</span>
                     </a>
                 </div>
             </div>

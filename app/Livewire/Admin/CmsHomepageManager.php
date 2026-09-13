@@ -109,12 +109,12 @@ class CmsHomepageManager extends Component
         $this->cta_text_fr = $settings->get('home_cta_text_fr', 'Faites partie du plus grand événement des compétences en Afrique!');
         $this->cta_text_en = $settings->get('home_cta_text_en', 'Be part of the largest skills event in Africa!');
 
-        // Hero Slider image URLs from DB
-        $this->hero_slide_1_url = $settings->get('hero_slide_1', '/image.png');
-        $this->hero_slide_2_url = $settings->get('hero_slide_2', '');
-        $this->hero_slide_3_url = $settings->get('hero_slide_3', '');
-        $this->hero_slide_4_url = $settings->get('hero_slide_4', '');
-        $this->hero_slide_5_url = $settings->get('hero_slide_5', '');
+        // Hero Slider image URLs from DB (with authentic forum fallbacks)
+        $this->hero_slide_1_url = $settings->get('hero_slide_1', '/images/hero_slide_1.png');
+        $this->hero_slide_2_url = $settings->get('hero_slide_2', '/images/hero_slide_2.png');
+        $this->hero_slide_3_url = $settings->get('hero_slide_3', '/images/hero_slide_3.png');
+        $this->hero_slide_4_url = $settings->get('hero_slide_4', '/images/blue_bg.jpg');
+        $this->hero_slide_5_url = $settings->get('hero_slide_5', '/images/channels4_banner.jpg');
 
         $this->featured_video_url = $settings->get('featured_video_url', 'https://www.youtube.com/watch?v=ee7fzNFUKIM');
         $this->featured_video_title_ar = $settings->get('featured_video_title_ar', 'أجواء أولمبياد المهن العالمي بالجزائر');
@@ -269,6 +269,12 @@ class CmsHomepageManager extends Component
         $settings->set('forum.stat_ministers', $this->forum_stat_ministers);
         $settings->set('forum.stat_roundtables', $this->forum_stat_roundtables);
         $settings->set('forum.stat_panels', $this->forum_stat_panels);
+
+        // Clear public homepage cache so changes show immediately
+        \Illuminate\Support\Facades\Cache::forget('public_home_data_ar');
+        \Illuminate\Support\Facades\Cache::forget('public_home_data_fr');
+        \Illuminate\Support\Facades\Cache::forget('public_home_data_en');
+        \Illuminate\Support\Facades\Cache::forget('public_home_data_pt');
 
         $this->savedMessage = 'تم حفظ كافة إعدادات منتدى السياسات والمحتوى الرئيسي بنجاح، وتحديث قاعدة البيانات بالكامل.';
     }

@@ -19,14 +19,14 @@
             <div class="relative z-10 text-center max-w-3xl mx-auto space-y-5">
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 backdrop-blur-md text-blue-200 text-xs font-black">
                     <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <span>{{ app()->getLocale() === 'fr' ? 'Aperçu Descriptif Officiel' : (app()->getLocale() === 'en' ? 'Official Descriptive Showcase' : 'حالة تعريفية استعراضية للمنتدى') }}</span>
+                    <span>{{ app()->getLocale() === 'pt' ? (__('حالة تعريفية استعراضية للمنتدى') !== 'حالة تعريفية استعراضية للمنتدى' ? __('حالة تعريفية استعراضية للمنتدى') : 'Official Descriptive Showcase') : (polyTrans('حالة تعريفية استعراضية للمنتدى', 'Aperçu Descriptif Officiel', 'Official Descriptive Showcase')) }}</span>
                 </div>
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-2xl">
-                    {{ app()->getLocale() === 'fr' ? 'Guide Descriptif des Métiers & Compétences' : (app()->getLocale() === 'en' ? 'Descriptive Guide to Trade Skills & Specializations' : 'الدليل التعريفي للتخصصات والمهن') }}
+                    {{ app()->getLocale() === 'pt' ? (__('الدليل التعريفي للتخصصات والمهن') !== 'الدليل التعريفي للتخصصات والمهن' ? __('الدليل التعريفي للتخصصات والمهن') : 'Descriptive Guide to Trade Skills & Specializations') : (polyTrans('الدليل التعريفي للتخصصات والمهن', 'Guide Descriptif des Métiers & Compétences', 'Descriptive Guide to Trade Skills & Specializations')) }}
                 </h1>
                 <p class="text-xs sm:text-base text-slate-200 font-medium leading-relaxed max-w-2xl mx-auto drop-shadow-md">
-                    {{ app()->getLocale() === 'fr' ? 'Présentation descriptive et fiche technique officielle des 64 métiers classés par secteur.' : (app()->getLocale() === 'en' ? 'Comprehensive descriptive showcase of the 64 official trade skills categorized by sector with technical specifications.' : 'عرض تعريفي استعراضي شامل للتخصصات والمهن الـ 64 المعتمدة مصنفة حسب القطاعات مع الصور التوصيفية والكراسات التقنية الرسمية.') }}
+                    {{ app()->getLocale() === 'pt' ? (__('عرض تعريفي استعراضي شامل للتخصصات والمهن الـ 64 المعتمدة مصنفة حسب القطاعات مع الصور التوصيفية والكراسات التقنية الرسمية.') !== 'عرض تعريفي استعراضي شامل للتخصصات والمهن الـ 64 المعتمدة مصنفة حسب القطاعات مع الصور التوصيفية والكراسات التقنية الرسمية.' ? __('عرض تعريفي استعراضي شامل للتخصصات والمهن الـ 64 المعتمدة مصنفة حسب القطاعات مع الصور التوصيفية والكراسات التقنية الرسمية.') : 'Comprehensive descriptive showcase of the 64 official trade skills categorized by sector with technical specifications.') : (polyTrans('عرض تعريفي استعراضي شامل للتخصصات والمهن الـ 64 المعتمدة مصنفة حسب القطاعات مع الصور التوصيفية والكراسات التقنية الرسمية.', 'Présentation descriptive et fiche technique officielle des 64 métiers classés par secteur.', 'Comprehensive descriptive showcase of the 64 official trade skills categorized by sector with technical specifications.')) }}
                 </p>
             </div>
         </div>
@@ -38,7 +38,7 @@
                 {{-- Search Bar --}}
                 <div class="relative w-full md:w-96">
                     <input type="text" wire:model.live.debounce.300ms="search"
-                           placeholder="{{ app()->getLocale() === 'fr' ? 'Rechercher un métier...' : (app()->getLocale() === 'en' ? 'Search skill name or code...' : 'ابحث باسم المهنة أو الكود (مثال: SKILL-01)...') }}"
+                           placeholder="{{ app()->getLocale() === 'pt' ? (__('ابحث باسم المهنة أو الكود (مثال: SKILL-01)...') !== 'ابحث باسم المهنة أو الكود (مثال: SKILL-01)...' ? __('ابحث باسم المهنة أو الكود (مثال: SKILL-01)...') : 'Search skill name or code...') : (polyTrans('ابحث باسم المهنة أو الكود (مثال: SKILL-01)...', 'Rechercher un métier...', 'Search skill name or code...')) }}"
                            class="w-full pr-11 pl-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-bold text-[#06205C] focus:outline-none focus:ring-2 focus:ring-[#0066FF] shadow-inner">
                     <svg class="w-5 h-5 text-slate-400 absolute end-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -49,7 +49,7 @@
                 <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
                     <button type="button" wire:click="$set('selectedCategory', '')"
                             class="px-4 py-2.5 rounded-2xl text-xs font-black transition shadow-sm {{ $selectedCategory === '' ? 'bg-[#0066FF] text-white shadow-blue-500/30' : 'bg-slate-100 text-slate-700 hover:bg-slate-200' }}">
-                        {{ app()->getLocale() === 'fr' ? 'Tous les secteurs' : (app()->getLocale() === 'en' ? 'All Sectors (64 Skills)' : 'كافة القطاعات (64 مهنة)') }}
+                        {{ app()->getLocale() === 'pt' ? (__('كافة القطاعات (64 مهنة)') !== 'كافة القطاعات (64 مهنة)' ? __('كافة القطاعات (64 مهنة)') : 'All Sectors (64 Skills)') : (polyTrans('كافة القطاعات (64 مهنة)', 'Tous les secteurs', 'All Sectors (64 Skills)')) }}
                     </button>
                     @foreach($categories as $cat)
                         <button type="button" wire:click="$set('selectedCategory', '{{ $cat->id }}')"
@@ -119,7 +119,7 @@
                                     {{-- DETAILS BUTTON --}}
                                     <button type="button" wire:click="openSkillDetails({{ $skill->id }})" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center gap-1.5">
                                         <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                        <span>{{ app()->getLocale() === 'fr' ? 'Détails' : (app()->getLocale() === 'en' ? 'Details' : 'عرض التفاصيل') }}</span>
+                                        <span>{{ app()->getLocale() === 'pt' ? (__('عرض التفاصيل') !== 'عرض التفاصيل' ? __('عرض التفاصيل') : 'Details') : (polyTrans('عرض التفاصيل', 'Détails', 'Details')) }}</span>
                                     </button>
 
                                     {{-- REVIEW PDF BUTTON --}}
@@ -134,7 +134,7 @@
                                 </div>
 
                                 <a href="{{ route('registration', ['skill_id' => $skill->id]) }}" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white font-bold text-xs shadow transition flex items-center justify-center">
-                                    {{ app()->getLocale() === 'fr' ? 'S\'inscrire' : (app()->getLocale() === 'en' ? 'Register' : 'التسجيل بالمهنة') }}
+                                    {{ polyTrans('التسجيل بالمهنة', 'S\'inscrire', 'Register') }}
                                 </a>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                 @endforeach
             @else
                 <div class="col-span-full p-16 text-center text-slate-400 bg-white rounded-3xl border border-slate-200 text-xs font-bold space-y-3">
-                    <p>{{ app()->getLocale() === 'fr' ? 'Aucun métier correspondant.' : (app()->getLocale() === 'en' ? 'No matching skills found.' : 'لا توجد تخصصات مطابقة لخيارات البحث.') }}</p>
+                    <p>{{ app()->getLocale() === 'pt' ? (__('لا توجد تخصصات مطابقة لخيارات البحث.') !== 'لا توجد تخصصات مطابقة لخيارات البحث.' ? __('لا توجد تخصصات مطابقة لخيارات البحث.') : 'No matching skills found.') : (polyTrans('لا توجد تخصصات مطابقة لخيارات البحث.', 'Aucun métier correspondant.', 'No matching skills found.')) }}</p>
                 </div>
             @endif
         </div>
@@ -184,18 +184,18 @@
                     <!-- Modal Details Grid -->
                     <div class="grid grid-cols-2 gap-4 text-xs font-semibold text-slate-600 bg-slate-50 p-4 rounded-2xl border border-slate-200">
                         <div>
-                            <span class="text-[10px] text-slate-400 font-bold block mb-1">{{ app()->getLocale() === 'fr' ? 'Secteur & Catégorie' : (app()->getLocale() === 'en' ? 'Sector & Category' : 'القطاع والفئة') }}</span>
-                            <span class="font-bold text-[#06205C]">{{ $selectedSkill->category ? $selectedSkill->category->getLocalized('name') : (app()->getLocale() === 'fr' ? 'Secteur Technologie & Métiers' : (app()->getLocale() === 'en' ? 'Technology & Skills Sector' : 'قطاع التكنولوجيا والمهن')) }}</span>
+                            <span class="text-[10px] text-slate-400 font-bold block mb-1">{{ app()->getLocale() === 'pt' ? (__('القطاع والفئة') !== 'القطاع والفئة' ? __('القطاع والفئة') : 'Sector & Category') : (polyTrans('القطاع والفئة', 'Secteur & Catégorie', 'Sector & Category')) }}</span>
+                            <span class="font-bold text-[#06205C]">{{ $selectedSkill->category ? $selectedSkill->category->getLocalized('name') : (app()->getLocale() === 'pt' ? (__('قطاع التكنولوجيا والمهن') !== 'قطاع التكنولوجيا والمهن' ? __('قطاع التكنولوجيا والمهن') : 'Technology & Skills Sector') : (polyTrans('قطاع التكنولوجيا والمهن', 'Secteur Technologie & Métiers', 'Technology & Skills Sector'))) }}</span>
                         </div>
                         <div>
-                            <span class="text-[10px] text-slate-400 font-bold block mb-1">{{ app()->getLocale() === 'fr' ? 'Âge Admissible' : (app()->getLocale() === 'en' ? 'Eligible Age' : 'شرط العمر المقبول') }}</span>
-                            <span class="font-bold text-emerald-600">{{ $selectedSkill->min_age ?? 16 }} {{ app()->getLocale() === 'fr' ? 'à' : (app()->getLocale() === 'en' ? 'to' : 'إلى') }} {{ $selectedSkill->max_age ?? 22 }} {{ app()->getLocale() === 'fr' ? 'ans' : (app()->getLocale() === 'en' ? 'years' : 'سنة') }}</span>
+                            <span class="text-[10px] text-slate-400 font-bold block mb-1">{{ app()->getLocale() === 'pt' ? (__('شرط العمر المقبول') !== 'شرط العمر المقبول' ? __('شرط العمر المقبول') : 'Eligible Age') : (polyTrans('شرط العمر المقبول', 'Âge Admissible', 'Eligible Age')) }}</span>
+                            <span class="font-bold text-emerald-600">{{ $selectedSkill->min_age ?? 16 }} {{ app()->getLocale() === 'pt' ? (__('إلى') !== 'إلى' ? __('إلى') : 'to') : (polyTrans('إلى', 'à', 'to')) }} {{ $selectedSkill->max_age ?? 22 }} {{ app()->getLocale() === 'pt' ? (__('سنة') !== 'سنة' ? __('سنة') : 'years') : (polyTrans('سنة', 'ans', 'years')) }}</span>
                         </div>
                     </div>
 
                     <!-- Description -->
                     <div class="space-y-2">
-                        <h4 class="text-xs font-black text-[#06205C] uppercase">{{ app()->getLocale() === 'fr' ? 'Description Technique Officielle :' : (app()->getLocale() === 'en' ? 'Official Technical Description:' : 'الوصف الفني للمهنة:') }}</h4>
+                        <h4 class="text-xs font-black text-[#06205C] uppercase">{{ app()->getLocale() === 'pt' ? (__('الوصف الفني للمهنة:') !== 'الوصف الفني للمهنة:' ? __('الوصف الفني للمهنة:') : 'Official Technical Description:') : (polyTrans('الوصف الفني للمهنة:', 'Description Technique Officielle :', 'Official Technical Description:')) }}</h4>
                         <p class="text-xs text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-2xl border border-slate-100">
                             {{ $selectedSkill->getLocalized('description') }}
                         </p>
@@ -204,12 +204,12 @@
                     <!-- Skill Equipment Checklist -->
                     @if(count($selectedSkillEquipments) > 0)
                         <div class="space-y-3">
-                            <h4 class="text-xs font-black text-[#06205C] uppercase">{{ app()->getLocale() === 'fr' ? 'Équipements et outils requis :' : (app()->getLocale() === 'en' ? 'Required technical equipment & tools:' : 'التجهيزات والأدوات الفنية المطلوبة:') }}</h4>
+                            <h4 class="text-xs font-black text-[#06205C] uppercase">{{ app()->getLocale() === 'pt' ? (__('التجهيزات والأدوات الفنية المطلوبة:') !== 'التجهيزات والأدوات الفنية المطلوبة:' ? __('التجهيزات والأدوات الفنية المطلوبة:') : 'Required technical equipment & tools:') : (polyTrans('التجهيزات والأدوات الفنية المطلوبة:', 'Équipements et outils requis :', 'Required technical equipment & tools:')) }}</h4>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
                                 @foreach($selectedSkillEquipments as $eq)
                                     <div class="flex items-center gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
                                         <span class="w-2 h-2 rounded-full bg-[#0066FF]"></span>
-                                        <span class="font-bold">{{ !empty($eq->equipmentItem) ? $eq->equipmentItem->getLocalized('name') : ($eq->getLocalized('name') ?: (app()->getLocale() === 'fr' ? 'Équipement Technique' : (app()->getLocale() === 'en' ? 'Technical Equipment' : 'تجهيزات ومعدات فنية'))) }}</span>
+                                        <span class="font-bold">{{ !empty($eq->equipmentItem) ? $eq->equipmentItem->getLocalized('name') : ($eq->getLocalized('name') ?: (app()->getLocale() === 'pt' ? (__('تجهيزات ومعدات فنية') !== 'تجهيزات ومعدات فنية' ? __('تجهيزات ومعدات فنية') : 'Technical Equipment') : (polyTrans('تجهيزات ومعدات فنية', 'Équipement Technique', 'Technical Equipment')))) }}</span>
                                     </div>
                                 @endforeach
                             </div>
@@ -220,18 +220,18 @@
                     <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
                         <div class="flex items-center gap-2 w-full sm:w-auto">
                             <button type="button" wire:click="closeSkillDetails" @click="$wire.closeSkillDetails()" class="px-4 py-3 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition cursor-pointer">
-                                {{ app()->getLocale() === 'fr' ? 'Fermer' : (app()->getLocale() === 'en' ? 'Close' : 'إغلاق') }}
+                                {{ app()->getLocale() === 'pt' ? (__('إغلاق') !== 'إغلاق' ? __('إغلاق') : 'Close') : (polyTrans('إغلاق', 'Fermer', 'Close')) }}
                             </button>
                             @if($selectedSkill->getPdfUrl())
                                 <button type="button" wire:click="openPdfViewer({{ $selectedSkill->id }})" @click="$wire.openPdfViewer({{ $selectedSkill->id }})" class="px-4 py-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#0066FF] border border-blue-200 text-xs font-black transition flex items-center gap-2 cursor-pointer">
                                     <svg class="w-4 h-4 text-[#0066FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                    <span>{{ app()->getLocale() === 'fr' ? 'Consulter le PDF' : (app()->getLocale() === 'en' ? 'Review PDF Spec' : 'مراجعة الكراسة التقنية (PDF)') }}</span>
+                                    <span>{{ app()->getLocale() === 'pt' ? (__('مراجعة الكراسة التقنية (PDF)') !== 'مراجعة الكراسة التقنية (PDF)' ? __('مراجعة الكراسة التقنية (PDF)') : 'Review PDF Spec') : (polyTrans('مراجعة الكراسة التقنية (PDF)', 'Consulter le PDF', 'Review PDF Spec')) }}</span>
                                 </button>
                             @endif
                         </div>
 
                         <a href="{{ route('registration', ['skill_id' => $selectedSkill->id]) }}" class="w-full sm:w-auto px-8 py-3 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white text-xs font-black shadow-lg transition flex items-center justify-center gap-2 cursor-pointer">
-                            <span>{{ app()->getLocale() === 'fr' ? 'S\'inscrire Immédiatement' : (app()->getLocale() === 'en' ? 'Register Immediately' : 'التسجيل الفوري في هذه المهنة') }}</span>
+                            <span>{{ polyTrans('التسجيل الفوري في هذه المهنة', 'S\'inscrire Immédiatement', 'Register Immediately') }}</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     </div>

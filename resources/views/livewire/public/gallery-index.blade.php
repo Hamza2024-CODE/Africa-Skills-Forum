@@ -1,6 +1,6 @@
 @php
 $locale = app()->getLocale();
-$t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr, 'en' => $en, default => $ar }; };
+ = function(, , ,  = null) { return polyTrans(, , , ); };
 @endphp
 
 <div class="py-12" x-data="{ activePhotoIndex: 0, photos: [] }">

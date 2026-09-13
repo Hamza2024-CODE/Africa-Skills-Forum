@@ -1,6 +1,6 @@
 @php
 $locale = app()->getLocale();
-$t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr, 'en' => $en, default => $ar }; };
+$t = function($ar, $fr, $en, $pt = null) { return polyTrans($ar, $fr, $en, $pt); };
 @endphp
 
 <div style="min-height:100vh; background:linear-gradient(180deg,#f8fafc 0%,#eff6ff 40%,#f1f5f9 100%); padding:3rem 1rem 4rem; font-family:system-ui,sans-serif;">
@@ -18,6 +18,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                 <a href="{{ route('lang.switch', ['locale' => 'ar']) }}" class="px-2.5 py-1 rounded-lg text-xs font-black {{ $locale === 'ar' ? 'bg-[#0B2A6F] text-white shadow-xs' : 'text-slate-600 hover:bg-slate-100' }}">عربي</a>
                 <a href="{{ route('lang.switch', ['locale' => 'fr']) }}" class="px-2.5 py-1 rounded-lg text-xs font-black {{ $locale === 'fr' ? 'bg-[#0B2A6F] text-white shadow-xs' : 'text-slate-600 hover:bg-slate-100' }}">FR</a>
                 <a href="{{ route('lang.switch', ['locale' => 'en']) }}" class="px-2.5 py-1 rounded-lg text-xs font-black {{ $locale === 'en' ? 'bg-[#0B2A6F] text-white shadow-xs' : 'text-slate-600 hover:bg-slate-100' }}">EN</a>
+                <a href="{{ route('lang.switch', ['locale' => 'pt']) }}" class="px-2.5 py-1 rounded-lg text-xs font-black {{ $locale === 'pt' ? 'bg-[#0B2A6F] text-white shadow-xs' : 'text-slate-600 hover:bg-slate-100' }}">PT</a>
             </div>
         </div>
 
@@ -198,7 +199,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                     $refs.video.srcObject = s;
                                     this.cameraOpen = true;
                                 }).catch(e => {
-                                    alert('تعذر فتح الكاميرا: ' + e.message);
+                                    alert('{{ $t('تعذر فتح الكاميرا: ', 'Impossible d\'accéder à la caméra: ', 'Cannot access camera: ', 'Não foi possível aceder à câmara: ') }}' + e.message);
                                     this.mode = 'upload';
                                 });
                             });
@@ -351,7 +352,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                             <input wire:model.live.debounce.150ms="national_id"
                                    type="text"
                                    @if($isAlgeria) maxlength="18" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 18);" @endif
-                                   placeholder="{{ $isAlgeria ? '109283746501928374 (18 رقم)' : 'A92837465' }}"
+                                   placeholder="{{ $isAlgeria ? '109283746501928374 (' . $t('18 رقم', '18 chiffres', '18 digits', '18 dígitos') . ')' : 'A92837465' }}"
                                    class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-mono font-bold">
                             @error('national_id') <span class="block text-rose-500 text-[10px] font-bold mt-1">{{ $message }}</span> @enderror
                         </div>
@@ -445,7 +446,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         $refs.docVideo.srcObject = s;
                                         this.cameraOpen = true;
                                     }).catch(e => {
-                                        alert('تعذر فتح الكاميرا: ' + e.message);
+                                        alert('{{ $t('تعذر فتح الكاميرا: ', 'Impossible d\'accéder à la caméra: ', 'Cannot access camera: ', 'Não foi possível aceder à câmara: ') }}' + e.message);
                                         this.mode = 'upload';
                                     });
                                 });
@@ -602,7 +603,7 @@ $t = function($ar, $fr, $en) use ($locale) { return match($locale) { 'fr' => $fr
                                         $refs.docVideo.srcObject = s;
                                         this.cameraOpen = true;
                                     }).catch(e => {
-                                        alert('تعذر فتح الكاميرا: ' + e.message);
+                                        alert('{{ $t('تعذر فتح الكاميرا: ', 'Impossible d\'accéder à la caméra: ', 'Cannot access camera: ', 'Não foi possível aceder à câmara: ') }}' + e.message);
                                         this.mode = 'upload';
                                     });
                                 });

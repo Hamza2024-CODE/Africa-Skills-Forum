@@ -26,9 +26,11 @@ class Home extends Component
     public string $countdownTitleAr;
     public string $countdownTitleFr;
     public string $countdownTitleEn;
+    public string $countdownTitlePt;
     public string $countdownSubtitleAr;
     public string $countdownSubtitleFr;
     public string $countdownSubtitleEn;
+    public string $countdownSubtitlePt;
     public string $countdownTargetDate;
     public string $countdownTimezone;
     public string $countdownStatus;
@@ -59,6 +61,7 @@ class Home extends Component
         $this->countdownTitleAr     = $settings->get('countdown_title_ar', 'العد التنازلي لافتتاح منتدى السياسات الأفريقية للمهارات 2026');
         $this->countdownTitleFr     = $settings->get('countdown_title_fr', 'Décompte du Lancement du Forum des Politiques Africaines des Compétences 2026');
         $this->countdownTitleEn     = $settings->get('countdown_title_en', 'Countdown to African Skills Policy Forum 2026');
+        $this->countdownTitlePt     = $settings->get('countdown_title_pt', 'Contagem Decrescente para a Abertura do Fórum de Políticas Africanas de Competências 2026');
 
         // Normalize if old title is cached or saved without "Policy"
         if (str_contains($this->countdownTitleEn, 'Africa Skills Forum 2026') && !str_contains($this->countdownTitleEn, 'Policy')) {
@@ -71,6 +74,7 @@ class Home extends Component
         $this->countdownSubtitleAr  = $settings->get('countdown_subtitle_ar', 'منتدى السياسات الأفريقية للمهارات 2026 — مركز المؤتمرات محمد بن أحمد - وهران');
         $this->countdownSubtitleFr  = $settings->get('countdown_subtitle_fr', 'Forum des Politiques Africaines des Compétences 2026 — Centre des Conventions Mohamed Ben Ahmed - Oran');
         $this->countdownSubtitleEn  = $settings->get('countdown_subtitle_en', 'African Skills Policy Forum 2026 — Mohamed Ben Ahmed Convention Center - Oran');
+        $this->countdownSubtitlePt  = $settings->get('countdown_subtitle_pt', 'Fórum de Políticas Africanas de Competências 2026 — Centro de Convenções Mohamed Ben Ahmed - Orão');
 
         $this->countdownTargetDate  = $settings->get('countdown_target_date', '2026-11-16 09:00:00');
         $this->countdownTimezone     = $settings->get('countdown_timezone', 'Africa/Algiers');
@@ -139,21 +143,42 @@ class Home extends Component
 
             $partners = Partner::where('status', 'ACTIVE')->where('is_featured', true)->orderBy('sort_order')->orderBy('name_ar')->get();
 
-            $heroSlide1 = platform()->get('hero_slide_1', '/image.png');
-            $heroSlides = collect([!empty($heroSlide1) ? $heroSlide1 : '/image.png'])
-                ->filter(function($s) { return !empty($s); })
-                ->values()
-                ->all();
-            $heroSlidesJson = json_encode(array_map('url', $heroSlides));
-            $heroMode = platform()->get('hero_bg_mode', 'image');
-
             $settings = app(SettingsEngine::class);
+
+            // Dynamic Hero Slides managed from Admin Panel (/panel/cms/homepage)
+            $heroSlides = [];
+            for ($i = 1; $i <= 5; $i++) {
+                $slideUrl = $settings->get("hero_slide_{$i}");
+                if (!empty($slideUrl)) {
+                    $heroSlides[] = $slideUrl;
+                }
+            }
+
+            // Fallback to default high-res hero images if none configured in admin
+            if (empty($heroSlides)) {
+                $heroSlides = [
+                    "/images/hero_slide_1.png",
+                    "/images/hero_slide_2.png",
+                    "/images/hero_slide_3.png",
+                    "/images/blue_bg.jpg",
+                    "/images/channels4_banner.jpg",
+                    "/images/news_header_bg.png",
+                ];
+            }
+
+            $heroSlidesJson = json_encode($heroSlides);
+            $heroMode = platform()->get("hero_bg_mode", "image");
             $forumData = [
-                'name'             => $settings->get("forum.name_{$locale}"),
-                'slogan'           => $settings->get("forum.slogan_{$locale}"),
-                'dates'            => $settings->get("forum.dates_{$locale}"),
-                'principle'        => $settings->get("forum.principle_{$locale}"),
-                'description'      => $settings->get("forum.description_{$locale}"),
+                'name'             => $settings->get("forum.name_{$locale}", polyTrans("منتدى السياسات الأفريقية للمهارات 2026", "Forum des Politiques Africaines des Compétences 2026", "African Skills Policy Forum 2026", "Fórum de Políticas Africanas de Competências 2026")),
+                'slogan'           => $settings->get("forum.slogan_{$locale}", polyTrans("صياغة مستقبل المهارات، تمكين الشباب الأفريقي", "Façonner l'avenir des compétences, autonomiser la jeunesse africaine", "Shaping the Future of Skills, Empowering Africa's Youth", "Moldar o Futuro das Competências, Capacitar a Juventude Africana")),
+                'dates'            => $settings->get("forum.dates_{$locale}", polyTrans("16 - 18 نوفمبر 2026", "16 - 18 Novembre 2026", "16 - 18 November 2026", "16 - 18 de Novembro de 2026")),
+                'principle'        => $settings->get("forum.principle_{$locale}", polyTrans("صياغة مستقبل المهارات، تمكين الشباب الأفريقي", "Façonner l'avenir des compétences, autonomiser la jeunesse africaine", "Shaping the Future of Skills, Empowering Africa's Youth", "Moldar o Futuro das Competências, Capacitar a Juventude Africana")),
+                'description'      => $settings->get("forum.description_{$locale}", polyTrans(
+                    "يُنظَّم منتدى السياسات الأفريقية للمهارات بشراكة بين وزارة التكوين والتعليم المهنيين بالجزائر ومفوضية الاتحاد الأفريقي، ليكون الحدث السياسي الرفيع المستوى الرئيسي. يجمع المنتدى الوزراء الأفارقة المكلفين بالتكوين والتعليم المهنيين، إلى جانب الخبراء التقنيين والشركاء المؤسساتيين والدوليين، في برنامج عمل يقوم على الحوار الوزاري والتعاون القاري والالتزام السياسي المشترك.",
+                    "Le Forum des Politiques Africaines des Compétences est co-organisé par le Ministère de la Formation et de l'Enseignement Professionnels d'Algérie et la Commission de l'Union Africaine, constituant le principal événement politique de haut niveau.",
+                    "The African Skills Policy Forum is co-organized by Algeria's Ministry of Vocational Training and Education and the African Union Commission, serving as the principal high-level political summit.",
+                    "O Fórum de Políticas Africanas de Competências é coorganizado pelo Ministério da Formação e Ensino Profissionais da Argélia e pela Comissão da União Africana, constituindo a principal cimeira política de alto nível. O Fórum reúne os ministros africanos responsáveis pela formação e ensino técnico-profissionais (EFTP), peritos e parceiros internacionais num programa centrado no diálogo ministerial, cooperação continental e compromisso político conjunto."
+                )),
                 'stat_countries'   => $settings->get('forum.stat_countries', '+30'),
                 'stat_ministers'   => $settings->get('forum.stat_ministers', '+20'),
                 'stat_roundtables' => $settings->get('forum.stat_roundtables', '2'),

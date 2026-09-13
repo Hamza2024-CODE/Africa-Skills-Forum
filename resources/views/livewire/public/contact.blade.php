@@ -4,10 +4,10 @@
         <!-- Header -->
         <div class="text-center max-w-3xl mx-auto space-y-3">
             <h1 class="text-3xl sm:text-4xl font-black text-[#06205C]">
-                {{ app()->getLocale() === 'fr' ? 'Contactez le Comité d\'Organisation — Forum des Politiques Africaines des Compétences' : (app()->getLocale() === 'en' ? 'Contact African Skills Policy Forum Executive Committee' : 'الاتصال باللجنة التنفيذية لمنتدى السياسات الأفريقية للمهارات') }}
+                {{ polyTrans('الاتصال باللجنة التنفيذية لمنتدى السياسات الأفريقية للمهارات', 'Contactez le Comité d\'Organisation — Forum des Politiques Africaines des Compétences', 'Contact African Skills Policy Forum Executive Committee') }}
             </h1>
             <p class="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
-                {{ app()->getLocale() === 'fr' ? 'Nous sommes à votre disposition pour toute question concernant la compétition et les délégations.' : (app()->getLocale() === 'en' ? 'We are at your disposal for any inquiries regarding the competition and delegations.' : 'يسعدنا استقبال استفسارات المتربصين والوفود المشاركة والشركاء.') }}
+                {{ app()->getLocale() === 'pt' ? (__('يسعدنا استقبال استفسارات المتربصين والوفود المشاركة والشركاء.') !== 'يسعدنا استقبال استفسارات المتربصين والوفود المشاركة والشركاء.' ? __('يسعدنا استقبال استفسارات المتربصين والوفود المشاركة والشركاء.') : 'We are at your disposal for any inquiries regarding the competition and delegations.') : (polyTrans('يسعدنا استقبال استفسارات المتربصين والوفود المشاركة والشركاء.', 'Nous sommes à votre disposition pour toute question concernant la compétition et les délégations.', 'We are at your disposal for any inquiries regarding the competition and delegations.')) }}
             </p>
         </div>
 
@@ -16,7 +16,7 @@
             <div class="lg:col-span-5 space-y-6">
                 <div class="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-lg space-y-6">
                     <h3 class="text-lg font-black text-[#06205C]">
-                        {{ app()->getLocale() === 'fr' ? 'Siège Officiel & Coordonnées' : (app()->getLocale() === 'en' ? 'Official Headquarters' : 'العنوان والمقر الرسمي') }}
+                        {{ app()->getLocale() === 'pt' ? (__('العنوان والمقر الرسمي') !== 'العنوان والمقر الرسمي' ? __('العنوان والمقر الرسمي') : 'Official Headquarters') : (polyTrans('العنوان والمقر الرسمي', 'Siège Officiel & Coordonnées', 'Official Headquarters')) }}
                     </h3>
                     <div class="space-y-4 text-xs text-slate-600 font-medium">
                         <div class="flex items-start gap-3">
@@ -48,7 +48,7 @@
                     <form wire:submit.prevent="submit" class="space-y-4">
                         <div>
                             <label class="block text-xs font-bold text-[#06205C] mb-1">
-                                {{ app()->getLocale() === 'fr' ? 'Nom Complet' : (app()->getLocale() === 'en' ? 'Full Name' : 'الاسم الكامل *') }}
+                                {{ app()->getLocale() === 'pt' ? (__('الاسم الكامل *') !== 'الاسم الكامل *' ? __('الاسم الكامل *') : 'Full Name') : (polyTrans('الاسم الكامل *', 'Nom Complet', 'Full Name')) }}
                             </label>
                             <input type="text" wire:model="name" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition">
                             @error('name') <span class="text-[10px] text-rose-600 font-bold mt-1 block">{{ $message }}</span> @enderror
@@ -56,7 +56,7 @@
 
                         <div>
                             <label class="block text-xs font-bold text-[#06205C] mb-1">
-                                {{ app()->getLocale() === 'fr' ? 'Adresse Email' : (app()->getLocale() === 'en' ? 'Email Address' : 'البريد الإلكتروني الرسمي *') }}
+                                {{ app()->getLocale() === 'pt' ? (__('البريد الإلكتروني الرسمي *') !== 'البريد الإلكتروني الرسمي *' ? __('البريد الإلكتروني الرسمي *') : 'Email Address') : (polyTrans('البريد الإلكتروني الرسمي *', 'Adresse Email', 'Email Address')) }}
                             </label>
                             <input type="email" wire:model="email" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition">
                             @error('email') <span class="text-[10px] text-rose-600 font-bold mt-1 block">{{ $message }}</span> @enderror
@@ -64,7 +64,7 @@
 
                         <div>
                             <label class="block text-xs font-bold text-[#06205C] mb-1">
-                                {{ app()->getLocale() === 'fr' ? 'Sujet' : (app()->getLocale() === 'en' ? 'Subject' : 'موضوع الرسالة *') }}
+                                {{ app()->getLocale() === 'pt' ? (__('موضوع الرسالة *') !== 'موضوع الرسالة *' ? __('موضوع الرسالة *') : 'Subject') : (polyTrans('موضوع الرسالة *', 'Sujet', 'Subject')) }}
                             </label>
                             <input type="text" wire:model="subject" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition">
                             @error('subject') <span class="text-[10px] text-rose-600 font-bold mt-1 block">{{ $message }}</span> @enderror
@@ -72,14 +72,14 @@
 
                         <div>
                             <label class="block text-xs font-bold text-[#06205C] mb-1">
-                                {{ app()->getLocale() === 'fr' ? 'Message' : (app()->getLocale() === 'en' ? 'Message Content' : 'محتوى الرسالة *') }}
+                                {{ app()->getLocale() === 'pt' ? (__('محتوى الرسالة *') !== 'محتوى الرسالة *' ? __('محتوى الرسالة *') : 'Message Content') : (polyTrans('محتوى الرسالة *', 'Message', 'Message Content')) }}
                             </label>
                             <textarea wire:model="message" rows="4" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition"></textarea>
                             @error('message') <span class="text-[10px] text-rose-600 font-bold mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <button type="submit" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs shadow-lg transition">
-                            {{ app()->getLocale() === 'fr' ? 'Envoyer le Message' : (app()->getLocale() === 'en' ? 'Send Message' : 'إرسال الرسالة') }}
+                            {{ app()->getLocale() === 'pt' ? (__('إرسال الرسالة') !== 'إرسال الرسالة' ? __('إرسال الرسالة') : 'Send Message') : (polyTrans('إرسال الرسالة', 'Envoyer le Message', 'Send Message')) }}
                         </button>
                     </form>
                 </div>

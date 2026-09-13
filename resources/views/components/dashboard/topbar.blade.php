@@ -49,8 +49,8 @@ $dashboardRoute = match($rawRole) {
     x-init="document.documentElement.classList.toggle('dark', dark)"
     class="sticky top-0 z-40 h-16 flex items-center justify-between px-3 sm:px-6 border-b shadow-xs select-none"
     :style="dark
-        ? 'background:rgba(15,23,42,0.97);border-color:#1E293B;backdrop-filter:blur(12px);'
-        : 'background:rgba(255,255,255,0.97);border-color:rgba(226,232,240,0.8);backdrop-filter:blur(12px);'"
+        ? 'background:#031826;border-color:#1E293B;'
+        : 'background:#FFFFFF;border-color:rgba(226,232,240,0.8);'"
 >
     {{-- ════ START / LEFT ════ --}}
     <div class="flex items-center gap-2 sm:gap-3 shrink-0 min-w-0">

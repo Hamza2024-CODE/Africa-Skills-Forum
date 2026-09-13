@@ -250,9 +250,19 @@
 </head>
 <body x-data="{ pwaUpdateAvailable: false, swWaiting: null }" x-init="
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js?v=2026.08.25.v8').catch(() => {});
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (var r of registrations) r.unregister();
+        });
+    }
+    if ('caches' in window) {
+        caches.keys().then(function(keys) {
+            for (var k of keys) caches.delete(k);
+        });
     }
 " class="font-sans antialiased h-full flex flex-col text-[#06205C] bg-[#F4F7FC] relative">
+
+    <!-- Global Pan-African Cultural Vector Pattern Overlay (Authentic Background Motifs from 6991441) -->
+    <div class="pointer-events-none fixed inset-0 -z-10 opacity-[0.14] dark:opacity-[0.08] bg-repeat bg-[length:480px_480px]" style="background-image: url('/images/african_pattern_bg.jpg');"></div>
 
     @if($isMaintenance && $isAdmin)
         <div class="bg-amber-500 text-slate-950 px-4 py-2 text-xs font-black text-center shadow-lg sticky top-0 z-50 flex items-center justify-center gap-3">

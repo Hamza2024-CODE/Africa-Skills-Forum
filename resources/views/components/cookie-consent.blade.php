@@ -34,16 +34,12 @@
                 </div>
                 <div class="space-y-0.5 sm:space-y-1 flex-1">
                     <h4 class="text-xs sm:text-sm font-black text-white leading-tight">
-                        {{ app()->getLocale() === 'fr' ? 'Gestion des Cookies & Confidentialité' : (app()->getLocale() === 'en' ? 'Cookies & Privacy Preferences' : 'إشعار ملفات تعريف الارتباط (Cookies)') }}
+                        {{ polyTrans('إشعار ملفات تعريف الارتباط (Cookies)', 'Gestion des Cookies & Confidentialité', 'Cookies & Privacy Preferences') }}
                     </h4>
                     <p class="text-[10px] sm:text-xs text-blue-100 font-medium leading-tight sm:leading-relaxed line-clamp-2 sm:line-clamp-none">
-                        {{ app()->getLocale() === 'fr' 
-                            ? 'Nous utilisons des cookies pour améliorer votre expérience de navigation et analyser le trafic du forum.' 
-                            : (app()->getLocale() === 'en' 
-                                ? 'We use cookies to enhance your navigation experience and secure forum services.' 
-                                : 'نستخدم ملفات تعريف الارتباط لتحسين أداء المنصة وتخصيص المحتوى وضمان الأمان أثناء التصفح.') }}
+                        {{ polyTrans('نستخدم ملفات تعريف الارتباط لتحسين أداء المنصة وتخصيص المحتوى وضمان الأمان أثناء التصفح.', 'Nous utilisons des cookies pour améliorer votre expérience de navigation et analyser le trafic du forum.', 'We use cookies to enhance your navigation experience and secure forum services.') }}
                         <a href="{{ route('privacy') }}" class="underline font-bold text-amber-300 hover:text-amber-200 transition ms-1">
-                            {{ app()->getLocale() === 'fr' ? 'En savoir plus' : (app()->getLocale() === 'en' ? 'Learn more' : 'سياسة الخصوصية') }}
+                            {{ polyTrans('سياسة الخصوصية', 'En savoir plus', 'Learn more') }}
                         </a>
                     </p>
                 </div>
@@ -52,10 +48,10 @@
             <!-- Action Buttons -->
             <div class="flex items-center gap-2 pt-0.5">
                 <button type="button" @click="acceptAll()" class="flex-1 py-1.5 sm:py-2.5 px-3 sm:px-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-amber-400 to-[#F5A800] hover:from-amber-500 hover:to-amber-600 text-slate-950 font-black text-[11px] sm:text-xs shadow-md transition transform active:scale-95 text-center cursor-pointer">
-                    {{ app()->getLocale() === 'fr' ? 'Accepter Tout' : (app()->getLocale() === 'en' ? 'Accept All' : 'موافقة وقبول الكل') }}
+                    {{ polyTrans('موافقة وقبول الكل', 'Accepter Tout', 'Accept All') }}
                 </button>
                 <button type="button" @click="decline()" class="py-1.5 sm:py-2.5 px-3 sm:px-4 rounded-lg sm:rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white border border-white/20 font-bold text-[11px] sm:text-xs transition transform active:scale-95 text-center cursor-pointer">
-                    {{ app()->getLocale() === 'fr' ? 'Refuser' : (app()->getLocale() === 'en' ? 'Decline' : 'رفض') }}
+                    {{ polyTrans('رفض', 'Refuser', 'Decline') }}
                 </button>
             </div>
         </div>

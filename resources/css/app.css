@@ -16,87 +16,231 @@
     --color-petrol-600: #0c4d7b;
     --color-petrol-500: #10629c;
 
-    --color-teal-500: #24BDC3;
-    --color-teal-400: #42CBD0;
-    --color-teal-300: #6AD7DC;
-    --color-teal-200: #9CE3E6;
-    --color-teal-100: #D5F4F5;
-
     --color-brand-primary: #052D48;
     --color-brand-accent: #24BDC3;
 }
 
 :root {
-    --bg-main: #F0F6FA;
+    --bg-main: #F4F7FC;
     --bg-surface: #FFFFFF;
-    --bg-card: rgba(255, 255, 255, 0.95);
+    --bg-card: #FFFFFF;
     --border-card: rgba(5, 45, 72, 0.12);
     --text-primary: #052D48;
     --text-muted: #5B6B82;
     --accent-teal: #24BDC3;
     --accent-glow: rgba(36, 189, 195, 0.35);
+
+    --motion-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --motion-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dark {
     --bg-main: #02101b;
     --bg-surface: #031826;
-    --bg-card: rgba(5, 45, 72, 0.75);
-    --border-card: rgba(36, 189, 195, 0.25);
-    --text-primary: #F8FAFC;
+    --bg-card: #031826;
+    --border-card: rgba(36, 189, 195, 0.3);
+    --text-primary: #FFFFFF;
     --text-muted: #94A3B8;
     --accent-teal: #24BDC3;
     --accent-glow: rgba(36, 189, 195, 0.45);
 }
 
-/* Glassmorphism & Custom Polish */
-.glass-card {
-    background: var(--bg-card);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--border-card);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
 }
 
-.glass-card-hover:hover {
-    transform: translateY(-4px);
-    border-color: rgba(36, 189, 195, 0.5);
-    box-shadow: 0 16px 36px -8px rgba(5, 45, 72, 0.3), 0 0 25px rgba(36, 189, 195, 0.25);
+@media (min-width: 640px) {
+    html {
+        font-size: 16.5px;
+    }
+}
+
+@media (min-width: 1024px) {
+    html {
+        font-size: 17px;
+    }
+}
+
+body {
+    background-color: #F4F7FC !important;
+    color: #052D48 !important;
+}
+
+.dark body {
+    background-color: #02101b !important;
+    color: #F8FAFC !important;
+}
+
+/* Global Smooth Lift-Up Motion on Hover for Containers & Cards */
+.card-lift,
+.hover-lift,
+.glass-card,
+.unified-summit-card,
+.countdown-card,
+.grid > .rounded-3xl:not(.fixed):not([role="dialog"]),
+.grid > .rounded-2xl:not(.fixed):not([role="dialog"]) {
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.32s ease !important;
+    will-change: transform;
+}
+
+.card-lift:hover,
+.hover-lift:hover,
+.glass-card:hover,
+.unified-summit-card:hover,
+.countdown-card:hover,
+.grid > .rounded-3xl:not(.fixed):not([role="dialog"]):hover,
+.grid > .rounded-2xl:not(.fixed):not([role="dialog"]):hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 20px 35px -8px rgba(5, 45, 72, 0.16), 0 10px 15px -4px rgba(5, 45, 72, 0.08) !important;
+}
+
+.dark .card-lift:hover,
+.dark .hover-lift:hover,
+.dark .glass-card:hover,
+.dark .unified-summit-card:hover,
+.dark .countdown-card:hover,
+.dark .grid > .rounded-3xl:not(.fixed):not([role="dialog"]):hover,
+.dark .grid > .rounded-2xl:not(.fixed):not([role="dialog"]):hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 20px 35px -8px rgba(36, 189, 195, 0.25), 0 10px 20px -5px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Pan-African Cultural Animated Wave Motion (RTL & LTR Seamless) */
+@keyframes africanWaveMotion {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-33.333%); }
+    100% { transform: translateX(0); }
+}
+
+.african-wave-animated {
+    width: 300%;
+    margin-left: -100%;
+    margin-right: -100%;
+    height: 70px;
+    animation: africanWaveMotion 16s ease-in-out infinite;
+    will-change: transform;
+}
+@media (min-width: 640px) {
+    .african-wave-animated { height: 90px; }
+}
+@media (min-width: 1024px) {
+    .african-wave-animated { height: 110px; }
+}
+
+/* Universal 100% Solid Pure White Card System */
+.glass-card,
+.wsap-glass,
+.dark-tint-glass,
+.unified-summit-card,
+.countdown-card,
+[class*="glass-card"] {
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    opacity: 1 !important;
+    border: 1px solid rgba(5, 45, 72, 0.12) !important;
+    box-shadow: 0 10px 30px -5px rgba(5, 45, 72, 0.08), 0 4px 6px -2px rgba(5, 45, 72, 0.04) !important;
+    color: #052D48 !important;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.35s ease, 
+                border-color 0.35s ease;
+    will-change: transform;
+}
+
+.dark .glass-card,
+.dark .wsap-glass,
+.dark .dark-tint-glass,
+.dark .unified-summit-card,
+.dark .countdown-card,
+.dark [class*="glass-card"] {
+    background-color: #031826 !important;
+    background-image: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    opacity: 1 !important;
+    border: 1.5px solid rgba(36, 189, 195, 0.3) !important;
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5) !important;
+    color: #FFFFFF !important;
+}
+
+/* Crisp Text Colors for Solid Cards */
+.glass-card h1, .glass-card h2, .glass-card h3, .glass-card h4, .glass-card h5, .glass-card h6,
+.unified-summit-card h1, .unified-summit-card h2, .unified-summit-card h3, .unified-summit-card h4, .unified-summit-card h5, .unified-summit-card h6 {
+    color: #052D48 !important;
+}
+
+.dark .glass-card h1, .dark .glass-card h2, .dark .glass-card h3, .dark .glass-card h4, .dark .glass-card h5, .dark .glass-card h6,
+.dark .unified-summit-card h1, .dark .unified-summit-card h2, .dark .unified-summit-card h3, .dark .unified-summit-card h4, .dark .unified-summit-card h5, .dark .unified-summit-card h6 {
+    color: #FFFFFF !important;
+}
+
+.glass-card p, .unified-summit-card p {
+    color: #5B6B82 !important;
+}
+
+.dark .glass-card p, .dark .unified-summit-card p {
+    color: #94A3B8 !important;
+}
+
+.glass-card-hover:hover,
+.glass-card:hover,
+.unified-summit-card:hover,
+.mac-hover-pop:hover {
+    transform: translateY(-6px) scale(1.02);
+    border-color: rgba(36, 189, 195, 0.6) !important;
+    box-shadow: 0 20px 40px -10px rgba(5, 45, 72, 0.15), 
+                0 0 25px rgba(36, 189, 195, 0.25) !important;
+}
+
+.mac-btn-pop {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.35s ease, 
+                background 0.35s ease;
+    will-change: transform;
+}
+
+.mac-btn-pop:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 12px 28px -4px rgba(36, 189, 195, 0.5);
 }
 
 .btn-teal-gradient {
-    background: linear-gradient(135deg, #24BDC3 0%, #178a8f 100%);
-    color: #FFFFFF;
+    background: linear-gradient(135deg, #24BDC3 0%, #178a8f 100%) !important;
+    color: #FFFFFF !important;
     box-shadow: 0 4px 20px -2px rgba(36, 189, 195, 0.4);
-    transition: all 0.25s ease;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, background 0.35s ease;
 }
 
 .btn-teal-gradient:hover {
-    background: linear-gradient(135deg, #42CBD0 0%, #24BDC3 100%);
-    box-shadow: 0 8px 25px rgba(36, 189, 195, 0.6);
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, #42CBD0 0%, #24BDC3 100%) !important;
+    box-shadow: 0 12px 30px rgba(36, 189, 195, 0.65), 0 0 20px rgba(245, 168, 0, 0.3);
+    transform: translateY(-4px) scale(1.03);
 }
 
 .btn-petrol-gradient {
-    background: linear-gradient(135deg, #052D48 0%, #031826 100%);
-    color: #FFFFFF;
+    background: linear-gradient(135deg, #052D48 0%, #031826 100%) !important;
+    color: #FFFFFF !important;
     border: 1px solid rgba(36, 189, 195, 0.3);
-    transition: all 0.25s ease;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
 .btn-petrol-gradient:hover {
     border-color: #24BDC3;
-    box-shadow: 0 8px 25px rgba(5, 45, 72, 0.5), 0 0 20px rgba(36, 189, 195, 0.3);
-    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(5, 45, 72, 0.55), 0 0 25px rgba(36, 189, 195, 0.4);
+    transform: translateY(-4px) scale(1.03);
 }
 
 .glow-teal {
-    box-shadow: 0 0 25px rgba(36, 189, 195, 0.35);
+    box-shadow: 0 0 30px rgba(36, 189, 195, 0.35);
 }
 
 .text-gradient-teal {
-    background: linear-gradient(135deg, #24BDC3 0%, #6AD7DC 100%);
+    background: linear-gradient(135deg, #24BDC3 0%, #FFFFFF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
-

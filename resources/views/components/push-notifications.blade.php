@@ -88,10 +88,10 @@ dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
                     </div>
                     <div class="flex flex-col min-w-0">
                         <span class="text-[11px] font-bold text-slate-200 truncate">
-                            {{ app()->getLocale() === 'fr' ? 'Africa Skills Forum' : (app()->getLocale() === 'en' ? 'Africa Skills Forum' : 'منتدى المهارات الإفريقي') }}
+                            {{ polyTrans('منتدى المهارات الإفريقي', 'Africa Skills Forum', 'Africa Skills Forum') }}
                         </span>
                         <span class="text-[9px] text-slate-400 font-medium">
-                            {{ app()->getLocale() === 'fr' ? 'À l\'instant' : (app()->getLocale() === 'en' ? 'Just now' : 'الآن') }}
+                            {{ polyTrans('الآن', 'À l\'instant', 'Just now') }}
                         </span>
                     </div>
                 </div>

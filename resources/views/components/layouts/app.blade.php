@@ -54,12 +54,16 @@
             color: #0B1F3A;
         }
 
-        /* Glassmorphism & Micro-animations */
+        /* Solid Card System */
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(5, 45, 72, 0.08);
-            box-shadow: 0 10px 30px -10px rgba(5, 45, 72, 0.05);
+            background-color: #FFFFFF !important;
+            background-image: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            opacity: 1 !important;
+            border: 1px solid rgba(5, 45, 72, 0.12) !important;
+            box-shadow: 0 10px 30px -5px rgba(5, 45, 72, 0.08) !important;
+            color: #052D48 !important;
         }
 
         .wsap-btn-primary {
@@ -117,38 +121,38 @@
                     @if(auth()->user()->hasRole(\App\Enums\RoleEnum::PARTICIPANT->value))
                         <a href="{{ route('participant.dashboard') }}" class="flex items-center gap-2 {{ request()->routeIs('participant.dashboard') ? 'text-brand-500 border-b-2 border-brand-500 pb-1' : 'text-slate-600 hover:text-brand-500' }}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Mon Espace' : (app()->getLocale() === 'en' ? 'My Dashboard' : 'لوحة المتنافس') }}</span>
+                            <span>{{ polyTrans('لوحة المتنافس', 'Mon Espace', 'My Dashboard') }}</span>
                         </a>
                         <a href="{{ route('my.venue-map') }}" class="flex items-center gap-2 {{ request()->routeIs('my.venue-map') ? 'text-brand-500 border-b-2 border-brand-500 pb-1' : 'text-slate-600 hover:text-brand-500' }}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Ma Carte 3D' : (app()->getLocale() === 'en' ? 'My 3D Map' : 'خريطتي الميدانية 3D') }}</span>
+                            <span>{{ polyTrans('خريطتي الميدانية 3D', 'Ma Carte 3D', 'My 3D Map') }}</span>
                         </a>
                         <a href="{{ route('my.badge') }}" class="flex items-center gap-2 {{ request()->routeIs('my.badge') || request()->routeIs('accreditation.badge') ? 'text-brand-500 border-b-2 border-brand-500 pb-1' : 'text-slate-600 hover:text-brand-500' }}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Mon Badge Officiel' : (app()->getLocale() === 'en' ? 'My Official Badge' : 'شارة الاعتماد والشهادة') }}</span>
+                            <span>{{ polyTrans('شارة الاعتماد والشهادة', 'Mon Badge Officiel', 'My Official Badge') }}</span>
                         </a>
                     @elseif(auth()->user()->hasRole(\App\Enums\RoleEnum::COUNTRY_ADMIN->value))
                         <a href="{{ route('country.dashboard') }}" class="flex items-center gap-2 {{ request()->routeIs('country.dashboard') ? 'text-brand-500 border-b-2 border-brand-500 pb-1' : 'text-slate-600 hover:text-brand-500' }}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Délégation' : (app()->getLocale() === 'en' ? 'Delegation' : 'لوحة الدولة') }}</span>
+                            <span>{{ polyTrans('لوحة الدولة', 'Délégation', 'Delegation') }}</span>
                         </a>
                         <a href="{{ route('country.skills') }}" class="flex items-center gap-2 {{ request()->routeIs('country.skills') ? 'text-brand-500 border-b-2 border-brand-500 pb-1' : 'text-slate-600 hover:text-brand-500' }}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Métiers' : (app()->getLocale() === 'en' ? 'Trades' : 'اختيار التخصصات') }}</span>
+                            <span>{{ polyTrans('اختيار التخصصات', 'Métiers', 'Trades') }}</span>
                         </a>
                         <a href="{{ route('country.delegation') }}" class="flex items-center gap-2 {{ request()->routeIs('country.delegation') ? 'text-brand-500 border-b-2 border-brand-500 pb-1' : 'text-slate-600 hover:text-brand-500' }}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Membres' : (app()->getLocale() === 'en' ? 'Roster' : 'إدارة الوفد') }}</span>
+                            <span>{{ polyTrans('إدارة الوفد', 'Membres', 'Roster') }}</span>
                         </a>
                     @else
                         <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 text-brand-500 font-bold">
-                            <span>{{ app()->getLocale() === 'fr' ? 'Panneau d\'Administration' : (app()->getLocale() === 'en' ? 'Admin Dashboard' : 'مركز الإدارة الوطنية') }}</span>
+                            <span>{{ polyTrans('مركز الإدارة الوطنية', 'Panneau d\'Administration', 'Admin Dashboard') }}</span>
                         </a>
                     @endif
                 @else
-                    <a href="/" class="text-slate-600 hover:text-brand-500">{{ app()->getLocale() === 'fr' ? 'Accueil' : (app()->getLocale() === 'en' ? 'Home' : 'الرئيسية') }}</a>
-                    <a href="{{ route('skills') }}" class="text-slate-600 hover:text-brand-500">{{ app()->getLocale() === 'fr' ? 'Métiers' : (app()->getLocale() === 'en' ? 'Trades' : 'التخصصات') }}</a>
-                    <a href="{{ route('registration') }}" class="text-brand-500 font-bold">{{ app()->getLocale() === 'fr' ? 'Inscription' : (app()->getLocale() === 'en' ? 'Register' : 'التسجيل الرسمي') }}</a>
+                    <a href="/" class="text-slate-600 hover:text-brand-500">{{ polyTrans('الرئيسية', 'Accueil', 'Home') }}</a>
+                    <a href="{{ route('skills') }}" class="text-slate-600 hover:text-brand-500">{{ polyTrans('التخصصات', 'Métiers', 'Trades') }}</a>
+                    <a href="{{ route('registration') }}" class="text-brand-500 font-bold">{{ polyTrans('التسجيل الرسمي', 'Inscription', 'Register') }}</a>
                 @endauth
             </nav>
 
@@ -177,12 +181,17 @@
                             class="flex items-center gap-2 px-3 py-2 text-xs font-bold hover:bg-slate-50 {{ app()->getLocale() === 'en' ? 'text-brand-500 bg-brand-50' : 'text-[#06205C]' }}">
                             <span class="text-base leading-none">🇬🇧</span> English
                         </a>
+                        <a href="{{ route('lang.switch', 'pt') }}" data-navigate-ignore rel="external"
+                           class="flex items-center justify-between px-3 py-2 text-xs font-bold rounded-xl transition {{ app()->getLocale() === 'pt' ? 'bg-[#24BDC3] text-slate-950 font-black' : 'hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200' }}">
+                            <span>Português</span>
+                            <span class="text-[10px] font-mono opacity-70">PT</span>
+                        </a>
                     </div>
                 </div>
 
                 <div class="hidden sm:flex items-center gap-2 bg-brand-50 border border-brand-100 px-3 py-1.5 rounded-xl text-xs font-bold text-brand-700">
                     <svg class="w-4 h-4 text-brand-sky" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    {{ app()->getLocale() === 'fr' ? 'Session 2027' : (app()->getLocale() === 'en' ? 'Edition 2027' : 'دورة 2027 النشطة') }}
+                    {{ polyTrans('دورة 2027 النشطة', 'Session 2027', 'Edition 2027') }}
                 </div>
 
                 <div class="flex items-center gap-3 {{ app()->getLocale() === 'ar' ? 'border-r' : 'border-l' }} border-brand-100 {{ app()->getLocale() === 'ar' ? 'pr-4' : 'pl-4' }}">

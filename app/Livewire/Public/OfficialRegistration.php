@@ -203,7 +203,7 @@ class OfficialRegistration extends Component
     {
         $locale = app()->getLocale();
         if (!$this->isOpen) {
-            session()->flash("error", $locale === "fr" ? "L'inscription officielle est actuellement fermée par la direction." : ($locale === "en" ? "Official registration is currently closed by administration." : "التسجيل مغلق حالياً من طرف الإدارة."));
+            session()->flash("error", polyTrans("التسجيل مغلق حالياً من طرف الإدارة.", "L'inscription officielle est actuellement fermée par la direction.", "Official registration is currently closed by administration.", "O credenciamento oficial encontra-se temporariamente encerrado pela organização."));
             return;
         }
 

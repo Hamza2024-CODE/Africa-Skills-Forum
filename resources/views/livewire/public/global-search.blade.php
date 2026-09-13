@@ -9,16 +9,16 @@
                     <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#0066FF]"></span>
                 </span>
                 <span class="text-xs font-black text-[#0066FF] tracking-wider uppercase">
-                    ✦ {{ app()->getLocale() === 'fr' ? 'Moteur de Recherche Global' : (app()->getLocale() === 'en' ? 'Global Search Engine' : 'محرك البحث الشامل والمعالجة') }}
+                    ✦ {{ app()->getLocale() === 'pt' ? (__('محرك البحث الشامل والمعالجة') !== 'محرك البحث الشامل والمعالجة' ? __('محرك البحث الشامل والمعالجة') : 'Global Search Engine') : (polyTrans('محرك البحث الشامل والمعالجة', 'Moteur de Recherche Global', 'Global Search Engine')) }}
                 </span>
             </div>
             
             <h1 class="text-3xl sm:text-5xl font-black text-[#06205C] tracking-tight">
-                {{ app()->getLocale() === 'fr' ? 'Rechercher dans la Plateforme' : (app()->getLocale() === 'en' ? 'Search Platform Content & Archive' : 'البحث المباشر في قاعدة بيانات المنصة') }}
+                {{ app()->getLocale() === 'pt' ? (__('البحث المباشر في قاعدة بيانات المنصة') !== 'البحث المباشر في قاعدة بيانات المنصة' ? __('البحث المباشر في قاعدة بيانات المنصة') : 'Search Platform Content & Archive') : (polyTrans('البحث المباشر في قاعدة بيانات المنصة', 'Rechercher dans la Plateforme', 'Search Platform Content & Archive')) }}
             </h1>
             
             <p class="text-xs sm:text-sm text-slate-500 font-bold max-w-xl mx-auto">
-                {{ app()->getLocale() === 'fr' ? 'Recherche en temps réel dans les compétences, actualités, événements, établissements et partenaires.' : (app()->getLocale() === 'en' ? 'Live real-time search across skills, news, events, institutes and partners.' : 'ابحث فورياً عن أي تخصص مهاراتي، خبر إعلامي، حفل أو حدث، مركز تكوين، أو جهة راعية.') }}
+                {{ app()->getLocale() === 'pt' ? (__('ابحث فورياً عن أي تخصص مهاراتي، خبر إعلامي، حفل أو حدث، مركز تكوين، أو جهة راعية.') !== 'ابحث فورياً عن أي تخصص مهاراتي، خبر إعلامي، حفل أو حدث، مركز تكوين، أو جهة راعية.' ? __('ابحث فورياً عن أي تخصص مهاراتي، خبر إعلامي، حفل أو حدث، مركز تكوين، أو جهة راعية.') : 'Live real-time search across skills, news, events, institutes and partners.') : (polyTrans('ابحث فورياً عن أي تخصص مهاراتي، خبر إعلامي، حفل أو حدث، مركز تكوين، أو جهة راعية.', 'Recherche en temps réel dans les compétences, actualités, événements, établissements et partenaires.', 'Live real-time search across skills, news, events, institutes and partners.')) }}
             </p>
         </div>
 
@@ -33,7 +33,7 @@
                 
                 <input type="text" 
                        wire:model.live.debounce.250ms="query" 
-                       placeholder="{{ app()->getLocale() === 'fr' ? 'Tapez votre recherche (Métier, Actualité, Événement)...' : (app()->getLocale() === 'en' ? 'Type search query (Skill code, Event, News)...' : 'اكتب كلمة البحث (اسم التخصص، كود المهنة SKILL-16، الخبر، المؤسسة)...') }}" 
+                       placeholder="{{ app()->getLocale() === 'pt' ? (__('اكتب كلمة البحث (اسم التخصص، كود المهنة SKILL-16، الخبر، المؤسسة)...') !== 'اكتب كلمة البحث (اسم التخصص، كود المهنة SKILL-16، الخبر، المؤسسة)...' ? __('اكتب كلمة البحث (اسم التخصص، كود المهنة SKILL-16، الخبر، المؤسسة)...') : 'Type search query (Skill code, Event, News)...') : (polyTrans('اكتب كلمة البحث (اسم التخصص، كود المهنة SKILL-16، الخبر، المؤسسة)...', 'Tapez votre recherche (Métier, Actualité, Événement)...', 'Type search query (Skill code, Event, News)...')) }}" 
                        class="w-full ps-14 pe-14 py-4 sm:py-5 rounded-3xl bg-white border-2 border-slate-200/90 text-sm sm:text-base font-bold shadow-2xl focus:outline-none focus:border-[#0066FF] transition-all text-[#06205C] placeholder:text-slate-400">
 
                 @if(strlen($query) > 0)
@@ -46,22 +46,22 @@
             <!-- Category Quick Filter Pills -->
             <div class="flex items-center justify-center flex-wrap gap-2 pt-2">
                 <button type="button" wire:click="setCategory('all')" class="px-4 py-1.5 rounded-full text-xs font-black transition-all border {{ $selectedCategory === 'all' ? 'bg-[#06205C] text-white border-[#06205C] shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50' }}">
-                    {{ app()->getLocale() === 'fr' ? 'Tous' : (app()->getLocale() === 'en' ? 'All' : 'الكل') }}
+                    {{ app()->getLocale() === 'pt' ? (__('الكل') !== 'الكل' ? __('الكل') : 'All') : (polyTrans('الكل', 'Tous', 'All')) }}
                 </button>
                 <button type="button" wire:click="setCategory('skills')" class="px-4 py-1.5 rounded-full text-xs font-black transition-all border {{ $selectedCategory === 'skills' ? 'bg-[#0066FF] text-white border-[#0066FF] shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50' }}">
-                    {{ app()->getLocale() === 'fr' ? 'Métiers & Skills' : (app()->getLocale() === 'en' ? 'Skills' : 'التخصصات والمهن') }}
+                    {{ app()->getLocale() === 'pt' ? (__('التخصصات والمهن') !== 'التخصصات والمهن' ? __('التخصصات والمهن') : 'Skills') : (polyTrans('التخصصات والمهن', 'Métiers & Skills', 'Skills')) }}
                 </button>
                 <button type="button" wire:click="setCategory('news')" class="px-4 py-1.5 rounded-full text-xs font-black transition-all border {{ $selectedCategory === 'news' ? 'bg-amber-600 text-white border-amber-600 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50' }}">
-                    {{ app()->getLocale() === 'fr' ? 'Actualités' : (app()->getLocale() === 'en' ? 'News' : 'الأخبار والمقالات') }}
+                    {{ app()->getLocale() === 'pt' ? (__('الأخبار والمقالات') !== 'الأخبار والمقالات' ? __('الأخبار والمقالات') : 'News') : (polyTrans('الأخبار والمقالات', 'Actualités', 'News')) }}
                 </button>
                 <button type="button" wire:click="setCategory('events')" class="px-4 py-1.5 rounded-full text-xs font-black transition-all border {{ $selectedCategory === 'events' ? 'bg-emerald-600 text-white border-emerald-600 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50' }}">
-                    {{ app()->getLocale() === 'fr' ? 'Événements' : (app()->getLocale() === 'en' ? 'Events' : 'الأجندة والفعاليات') }}
+                    {{ app()->getLocale() === 'pt' ? (__('الأجندة والفعاليات') !== 'الأجندة والفعاليات' ? __('الأجندة والفعاليات') : 'Events') : (polyTrans('الأجندة والفعاليات', 'Événements', 'Events')) }}
                 </button>
                 <button type="button" wire:click="setCategory('establishments')" class="px-4 py-1.5 rounded-full text-xs font-black transition-all border {{ $selectedCategory === 'establishments' ? 'bg-purple-600 text-white border-purple-600 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50' }}">
-                    {{ app()->getLocale() === 'fr' ? 'Établissements' : (app()->getLocale() === 'en' ? 'Institutes' : 'المؤسسات التدريبية') }}
+                    {{ app()->getLocale() === 'pt' ? (__('المؤسسات التدريبية') !== 'المؤسسات التدريبية' ? __('المؤسسات التدريبية') : 'Institutes') : (polyTrans('المؤسسات التدريبية', 'Établissements', 'Institutes')) }}
                 </button>
                 <button type="button" wire:click="setCategory('partners')" class="px-4 py-1.5 rounded-full text-xs font-black transition-all border {{ $selectedCategory === 'partners' ? 'bg-rose-600 text-white border-rose-600 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50' }}">
-                    {{ app()->getLocale() === 'fr' ? 'Partenaires' : (app()->getLocale() === 'en' ? 'Partners' : 'الشركاء والرعاة') }}
+                    {{ app()->getLocale() === 'pt' ? (__('الشركاء والرعاة') !== 'الشركاء والرعاة' ? __('الشركاء والرعاة') : 'Partners') : (polyTrans('الشركاء والرعاة', 'Partenaires', 'Partners')) }}
                 </button>
             </div>
         </div>
@@ -78,15 +78,15 @@
                 <div class="flex items-center justify-between bg-white rounded-2xl p-4 border border-slate-200 shadow-sm" data-aos="fade-up">
                     <span class="text-xs font-bold text-slate-600">
                         @if(mb_strlen($query) >= 1)
-                            {{ app()->getLocale() === 'fr' ? 'Résultats pour :' : (app()->getLocale() === 'en' ? 'Search results for:' : 'نتائج البحث عن:') }}
+                            {{ app()->getLocale() === 'pt' ? (__('نتائج البحث عن:') !== 'نتائج البحث عن:' ? __('نتائج البحث عن:') : 'Search results for:') : (polyTrans('نتائج البحث عن:', 'Résultats pour :', 'Search results for:')) }}
                             <strong class="text-[#0066FF]">"{{ $query }}"</strong>
                         @else
-                            {{ app()->getLocale() === 'fr' ? 'Affichage de la catégorie :' : (app()->getLocale() === 'en' ? 'Browsing category:' : 'استعراض الفئة:') }}
+                            {{ app()->getLocale() === 'pt' ? (__('استعراض الفئة:') !== 'استعراض الفئة:' ? __('استعراض الفئة:') : 'Browsing category:') : (polyTrans('استعراض الفئة:', 'Affichage de la catégorie :', 'Browsing category:')) }}
                             <strong class="text-[#0066FF]">{{ $selectedCategory }}</strong>
                         @endif
                     </span>
                     <span class="px-3 py-1 rounded-full bg-blue-50 text-[#0066FF] font-mono font-black text-xs">
-                        {{ $totalResults }} {{ app()->getLocale() === 'fr' ? 'résultats trouvés' : (app()->getLocale() === 'en' ? 'results found' : 'نتيجة مطابقة') }}
+                        {{ $totalResults }} {{ app()->getLocale() === 'pt' ? (__('نتيجة مطابقة') !== 'نتيجة مطابقة' ? __('نتيجة مطابقة') : 'results found') : (polyTrans('نتيجة مطابقة', 'résultats trouvés', 'results found')) }}
                     </span>
                 </div>
 
@@ -96,10 +96,10 @@
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </div>
                         <h3 class="text-lg font-bold text-[#06205C]">
-                            {{ app()->getLocale() === 'fr' ? 'Aucun résultat trouvé' : (app()->getLocale() === 'en' ? 'No matching results' : 'لم يتم العثور على نتائج مطابقة') }}
+                            {{ app()->getLocale() === 'pt' ? (__('لم يتم العثور على نتائج مطابقة') !== 'لم يتم العثور على نتائج مطابقة' ? __('لم يتم العثور على نتائج مطابقة') : 'No matching results') : (polyTrans('لم يتم العثور على نتائج مطابقة', 'Aucun résultat trouvé', 'No matching results')) }}
                         </h3>
                         <p class="text-xs text-slate-400 font-medium max-w-md mx-auto">
-                            {{ app()->getLocale() === 'fr' ? 'Essayez de chercher par mots clés comme "Mécanique", "Web", "Énergie", ou le code du métier "SKILL-16".' : (app()->getLocale() === 'en' ? 'Try searching using keywords like "Mechanics", "Web", "Energy", or skill code "SKILL-16".' : 'جرب البحث باستخدام كلمات رئيسية أخرى مثل "ميكانيكا"، "ويب"، "طاقة"، "افتتاح"، أو كود التخصص مثل "SKILL-16".') }}
+                            {{ app()->getLocale() === 'pt' ? (__('جرب البحث باستخدام كلمات رئيسية أخرى مثل "ميكانيكا"، "ويب"، "طاقة"، "افتتاح"، أو كود التخصص مثل "SKILL-16".') !== 'جرب البحث باستخدام كلمات رئيسية أخرى مثل "ميكانيكا"، "ويب"، "طاقة"، "افتتاح"، أو كود التخصص مثل "SKILL-16".' ? __('جرب البحث باستخدام كلمات رئيسية أخرى مثل "ميكانيكا"، "ويب"، "طاقة"، "افتتاح"، أو كود التخصص مثل "SKILL-16".') : 'Try searching using keywords like "Mechanics", "Web", "Energy", or skill code "SKILL-16".') : (polyTrans('جرب البحث باستخدام كلمات رئيسية أخرى مثل "ميكانيكا"، "ويب"، "طاقة"، "افتتاح"، أو كود التخصص مثل "SKILL-16".', 'Essayez de chercher par mots clés comme "Mécanique", "Web", "Énergie", ou le code du métier "SKILL-16".', 'Try searching using keywords like "Mechanics", "Web", "Energy", or skill code "SKILL-16".')) }}
                         </p>
                     </div>
                 @endif
@@ -109,7 +109,7 @@
                     <div class="space-y-4" data-aos="fade-up">
                         <h3 class="text-lg font-black text-[#06205C] flex items-center gap-2 border-b-2 border-slate-200 pb-2">
                             <span class="w-3 h-3 rounded-full bg-[#0066FF]"></span>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Métiers & Disciplines' : (app()->getLocale() === 'en' ? 'Skills & Occupations' : 'التخصصات والمهن الأولمبية') }}</span>
+                            <span>{{ app()->getLocale() === 'pt' ? (__('التخصصات والمهن الأولمبية') !== 'التخصصات والمهن الأولمبية' ? __('التخصصات والمهن الأولمبية') : 'Skills & Occupations') : (polyTrans('التخصصات والمهن الأولمبية', 'Métiers & Disciplines', 'Skills & Occupations')) }}</span>
                             <span class="text-xs font-mono text-slate-400 font-bold">({{ $skills->count() }})</span>
                         </h3>
                         
@@ -143,7 +143,7 @@
                     <div class="space-y-4" data-aos="fade-up">
                         <h3 class="text-lg font-black text-[#06205C] flex items-center gap-2 border-b-2 border-slate-200 pb-2">
                             <span class="w-3 h-3 rounded-full bg-amber-500"></span>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Actualités & Presse' : (app()->getLocale() === 'en' ? 'News & Articles' : 'الأخبار والتغطيات الإعلامية') }}</span>
+                            <span>{{ app()->getLocale() === 'pt' ? (__('الأخبار والتغطيات الإعلامية') !== 'الأخبار والتغطيات الإعلامية' ? __('الأخبار والتغطيات الإعلامية') : 'News & Articles') : (polyTrans('الأخبار والتغطيات الإعلامية', 'Actualités & Presse', 'News & Articles')) }}</span>
                             <span class="text-xs font-mono text-slate-400 font-bold">({{ $news->count() }})</span>
                         </h3>
                         
@@ -172,7 +172,7 @@
                     <div class="space-y-4" data-aos="fade-up">
                         <h3 class="text-lg font-black text-[#06205C] flex items-center gap-2 border-b-2 border-slate-200 pb-2">
                             <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Agenda & Événements' : (app()->getLocale() === 'en' ? 'Events & Calendar' : 'الأجندة والفعاليات الرسمية') }}</span>
+                            <span>{{ app()->getLocale() === 'pt' ? (__('الأجندة والفعاليات الرسمية') !== 'الأجندة والفعاليات الرسمية' ? __('الأجندة والفعاليات الرسمية') : 'Events & Calendar') : (polyTrans('الأجندة والفعاليات الرسمية', 'Agenda & Événements', 'Events & Calendar')) }}</span>
                             <span class="text-xs font-mono text-slate-400 font-bold">({{ $events->count() }})</span>
                         </h3>
                         
@@ -201,7 +201,7 @@
                     <div class="space-y-4" data-aos="fade-up">
                         <h3 class="text-lg font-black text-[#06205C] flex items-center gap-2 border-b-2 border-slate-200 pb-2">
                             <span class="w-3 h-3 rounded-full bg-rose-500"></span>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Partenaires & Sponsors' : (app()->getLocale() === 'en' ? 'Partners & Sponsors' : 'الشركاء والجهات الراعية') }}</span>
+                            <span>{{ app()->getLocale() === 'pt' ? (__('الشركاء والجهات الراعية') !== 'الشركاء والجهات الراعية' ? __('الشركاء والجهات الراعية') : 'Partners & Sponsors') : (polyTrans('الشركاء والجهات الراعية', 'Partenaires & Sponsors', 'Partners & Sponsors')) }}</span>
                             <span class="text-xs font-mono text-slate-400 font-bold">({{ $partners->count() }})</span>
                         </h3>
                         
@@ -233,24 +233,24 @@
                     <svg class="w-8 h-8 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 </div>
                 <h3 class="text-xl font-black text-[#06205C]">
-                    {{ app()->getLocale() === 'fr' ? 'Commencez votre recherche' : (app()->getLocale() === 'en' ? 'Start Searching' : 'ابدأ كتابة كلمة البحث أو اختر فئة أعلاه') }}
+                    {{ app()->getLocale() === 'pt' ? (__('ابدأ كتابة كلمة البحث أو اختر فئة أعلاه') !== 'ابدأ كتابة كلمة البحث أو اختر فئة أعلاه' ? __('ابدأ كتابة كلمة البحث أو اختر فئة أعلاه') : 'Start Searching') : (polyTrans('ابدأ كتابة كلمة البحث أو اختر فئة أعلاه', 'Commencez votre recherche', 'Start Searching')) }}
                 </h3>
                 <p class="text-xs text-slate-500 font-bold max-w-md mx-auto leading-relaxed">
-                    {{ app()->getLocale() === 'fr' ? 'Le moteur de recherche global est connecté à 100% à la base de données officielle pour vous donner un accès immédiat aux 64 métiers, actualités et événements.' : (app()->getLocale() === 'en' ? 'The global search engine is 100% connected to the official database giving you instant access to all 64 skills, news and events.' : 'محرك البحث الشامل مرتبط 100% بقاعدة بيانات المنصة الرسمية. اختر فئة أو اكتب كلمة بحث للوصول الفوري إلى أحدث المهن والتخصصات الـ 64، الأخبار، الأحداث، والمؤسسات.') }}
+                    {{ app()->getLocale() === 'pt' ? (__('محرك البحث الشامل مرتبط 100% بقاعدة بيانات المنصة الرسمية. اختر فئة أو اكتب كلمة بحث للوصول الفوري إلى أحدث المهن والتخصصات الـ 64، الأخبار، الأحداث، والمؤسسات.') !== 'محرك البحث الشامل مرتبط 100% بقاعدة بيانات المنصة الرسمية. اختر فئة أو اكتب كلمة بحث للوصول الفوري إلى أحدث المهن والتخصصات الـ 64، الأخبار، الأحداث، والمؤسسات.' ? __('محرك البحث الشامل مرتبط 100% بقاعدة بيانات المنصة الرسمية. اختر فئة أو اكتب كلمة بحث للوصول الفوري إلى أحدث المهن والتخصصات الـ 64، الأخبار، الأحداث، والمؤسسات.') : 'The global search engine is 100% connected to the official database giving you instant access to all 64 skills, news and events.') : (polyTrans('محرك البحث الشامل مرتبط 100% بقاعدة بيانات المنصة الرسمية. اختر فئة أو اكتب كلمة بحث للوصول الفوري إلى أحدث المهن والتخصصات الـ 64، الأخبار، الأحداث، والمؤسسات.', 'Le moteur de recherche global est connecté à 100% à la base de données officielle pour vous donner un accès immédiat aux 64 métiers, actualités et événements.', 'The global search engine is 100% connected to the official database giving you instant access to all 64 skills, news and events.')) }}
                 </p>
                 <!-- Quick Category Browse Shortcuts -->
                 <div class="flex flex-wrap justify-center gap-2 pt-2">
                     <button type="button" wire:click="setCategory('skills')" class="px-4 py-2 rounded-xl text-xs font-black bg-[#0066FF] text-white hover:bg-[#0050CC] transition shadow-sm">
-                        {{ app()->getLocale() === 'fr' ? 'Voir tous les Métiers' : (app()->getLocale() === 'en' ? 'Browse All Skills' : 'استعراض جميع المهن الـ 64') }}
+                        {{ app()->getLocale() === 'pt' ? (__('استعراض جميع المهن الـ 64') !== 'استعراض جميع المهن الـ 64' ? __('استعراض جميع المهن الـ 64') : 'Browse All Skills') : (polyTrans('استعراض جميع المهن الـ 64', 'Voir tous les Métiers', 'Browse All Skills')) }}
                     </button>
                     <button type="button" wire:click="setCategory('news')" class="px-4 py-2 rounded-xl text-xs font-black bg-amber-500 text-white hover:bg-amber-600 transition shadow-sm">
-                        {{ app()->getLocale() === 'fr' ? 'Voir les Actualités' : (app()->getLocale() === 'en' ? 'Browse News' : 'الأخبار والمستجدات') }}
+                        {{ app()->getLocale() === 'pt' ? (__('الأخبار والمستجدات') !== 'الأخبار والمستجدات' ? __('الأخبار والمستجدات') : 'Browse News') : (polyTrans('الأخبار والمستجدات', 'Voir les Actualités', 'Browse News')) }}
                     </button>
                     <button type="button" wire:click="setCategory('events')" class="px-4 py-2 rounded-xl text-xs font-black bg-emerald-600 text-white hover:bg-emerald-700 transition shadow-sm">
-                        {{ app()->getLocale() === 'fr' ? 'Voir les Événements' : (app()->getLocale() === 'en' ? 'Browse Events' : 'الفعاليات والأجندة') }}
+                        {{ app()->getLocale() === 'pt' ? (__('الفعاليات والأجندة') !== 'الفعاليات والأجندة' ? __('الفعاليات والأجندة') : 'Browse Events') : (polyTrans('الفعاليات والأجندة', 'Voir les Événements', 'Browse Events')) }}
                     </button>
                     <button type="button" wire:click="setCategory('partners')" class="px-4 py-2 rounded-xl text-xs font-black bg-rose-600 text-white hover:bg-rose-700 transition shadow-sm">
-                        {{ app()->getLocale() === 'fr' ? 'Voir les Partenaires' : (app()->getLocale() === 'en' ? 'Browse Partners' : 'الشركاء والرعاة') }}
+                        {{ app()->getLocale() === 'pt' ? (__('الشركاء والرعاة') !== 'الشركاء والرعاة' ? __('الشركاء والرعاة') : 'Browse Partners') : (polyTrans('الشركاء والرعاة', 'Voir les Partenaires', 'Browse Partners')) }}
                     </button>
                 </div>
             </div>

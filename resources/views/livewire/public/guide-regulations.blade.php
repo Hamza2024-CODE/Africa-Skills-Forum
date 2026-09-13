@@ -16,7 +16,7 @@
         <div class="flex items-center gap-2">
             <button @click="currentPdfUrl = '{{ route('td.viewer', ['key' => $activeSection]) }}'; showPdfReader = true;" class="px-4 py-2 rounded-2xl bg-[#0B2A6F] hover:bg-[#071E52] text-white text-xs font-black shadow-md transition flex items-center gap-2 border border-[#35A536]/40">
                 <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                <span>{{ app()->getLocale() === 'fr' ? 'Consulter le document (Lecteur PDF)' : (app()->getLocale() === 'en' ? 'Read Official Document (PDF Viewer)' : 'استعراض الكراسة الرسمية (قارئ المستند المباشر)') }}</span>
+                <span>{{ app()->getLocale() === 'pt' ? (__('استعراض الكراسة الرسمية (قارئ المستند المباشر)') !== 'استعراض الكراسة الرسمية (قارئ المستند المباشر)' ? __('استعراض الكراسة الرسمية (قارئ المستند المباشر)') : 'Read Official Document (PDF Viewer)') : (polyTrans('استعراض الكراسة الرسمية (قارئ المستند المباشر)', 'Consulter le document (Lecteur PDF)', 'Read Official Document (PDF Viewer)')) }}</span>
             </button>
         </div>
     </div>
@@ -70,7 +70,7 @@
                 >
                     <div class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-amber-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 01-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                        <span>{{ app()->getLocale() === 'fr' ? 'الدلائل التقنية للتخصصات (TD-01 à TD-64)' : (app()->getLocale() === 'en' ? 'Technical Descriptions (TD-01 to TD-64)' : 'الدلائل التقنية للتخصصات (TD-01 إلى TD-64)') }}</span>
+                        <span>{{ app()->getLocale() === 'pt' ? (__('الدلائل التقنية للتخصصات (TD-01 إلى TD-64)') !== 'الدلائل التقنية للتخصصات (TD-01 إلى TD-64)' ? __('الدلائل التقنية للتخصصات (TD-01 إلى TD-64)') : 'Technical Descriptions (TD-01 to TD-64)') : (polyTrans('الدلائل التقنية للتخصصات (TD-01 إلى TD-64)', 'الدلائل التقنية للتخصصات (TD-01 à TD-64)', 'Technical Descriptions (TD-01 to TD-64)')) }}</span>
                     </div>
                     <svg class="w-4 h-4 transition-transform" :class="openTd ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </button>
@@ -107,7 +107,7 @@
                             </div>
                             <div>
                                 <h2 class="text-xl font-black text-[#06205C]">{{ $currentSection->getLocalizedTitle() }}</h2>
-                                <p class="text-xs font-bold text-[#0066FF] mt-0.5">{{ app()->getLocale() === 'fr' ? 'Affichage Simultané: Texte analytique & PDF officiel' : (app()->getLocale() === 'en' ? 'Simultaneous View: Analytical Text & Official PDF' : 'عرض مزدوج مباشر: التحليل النصي والكراسة الرسمية PDF') }}</p>
+                                <p class="text-xs font-bold text-[#0066FF] mt-0.5">{{ app()->getLocale() === 'pt' ? (__('عرض مزدوج مباشر: التحليل النصي والكراسة الرسمية PDF') !== 'عرض مزدوج مباشر: التحليل النصي والكراسة الرسمية PDF' ? __('عرض مزدوج مباشر: التحليل النصي والكراسة الرسمية PDF') : 'Simultaneous View: Analytical Text & Official PDF') : (polyTrans('عرض مزدوج مباشر: التحليل النصي والكراسة الرسمية PDF', 'Affichage Simultané: Texte analytique & PDF officiel', 'Simultaneous View: Analytical Text & Official PDF')) }}</p>
                             </div>
                         </div>
                         
@@ -126,7 +126,7 @@
                         <div class="space-y-4 bg-slate-50/80 p-5 rounded-2xl border border-slate-200">
                             <div class="flex items-center gap-2 pb-2 border-b border-slate-200/80">
                                 <svg class="w-4 h-4 text-[#0066FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                <h3 class="text-xs font-black text-[#06205C] uppercase tracking-wider">{{ app()->getLocale() === 'fr' ? 'Analyse Textuelle du Règlement' : (app()->getLocale() === 'en' ? 'Analytical Content Breakdown' : 'المحتوى النصي والتحليلي للبند') }}</h3>
+                                <h3 class="text-xs font-black text-[#06205C] uppercase tracking-wider">{{ app()->getLocale() === 'pt' ? (__('المحتوى النصي والتحليلي للبند') !== 'المحتوى النصي والتحليلي للبند' ? __('المحتوى النصي والتحليلي للبند') : 'Analytical Content Breakdown') : (polyTrans('المحتوى النصي والتحليلي للبند', 'Analyse Textuelle du Règlement', 'Analytical Content Breakdown')) }}</h3>
                             </div>
                             
                             <div class="text-xs sm:text-sm text-slate-700 leading-relaxed space-y-3 max-h-[620px] overflow-y-auto pr-1">
@@ -189,7 +189,7 @@
                             <div class="flex items-center justify-between pb-2 border-b border-slate-800">
                                 <div class="flex items-center gap-2">
                                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                                    <span class="text-xs font-black text-white">{{ app()->getLocale() === 'fr' ? 'Document PDF Officiel In-Platform' : (app()->getLocale() === 'en' ? 'Official In-Platform PDF Document' : 'المستند الرسمي المعتمد PDF (معاينة داخل المنصة)') }}</span>
+                                    <span class="text-xs font-black text-white">{{ app()->getLocale() === 'pt' ? (__('المستند الرسمي المعتمد PDF (معاينة داخل المنصة)') !== 'المستند الرسمي المعتمد PDF (معاينة داخل المنصة)' ? __('المستند الرسمي المعتمد PDF (معاينة داخل المنصة)') : 'Official In-Platform PDF Document') : (polyTrans('المستند الرسمي المعتمد PDF (معاينة داخل المنصة)', 'Document PDF Officiel In-Platform', 'Official In-Platform PDF Document')) }}</span>
                                 </div>
                                 <span class="text-[10px] font-bold text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">PDF Live</span>
                             </div>

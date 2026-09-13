@@ -44,7 +44,7 @@
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] text-white drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]">
                     {{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences 2026' : (app()->getLocale() === 'en' ? 'Africa Skills Policy Forum 2026' : 'منتدى السياسات الأفريقية للمهارات 2026') }}
-                    <span class="text-[#24BDC3] block mt-2 text-xl sm:text-3xl lg:text-4xl font-extrabold italic">
+                    <span class="text-[#24BDC3] block mt-2 text-xl sm:text-3xl lg:text-4xl font-black">
                         "{{ app()->getLocale() === 'fr' ? 'Façonner l\'avenir des compétences, autonomiser la jeunesse africaine' : (app()->getLocale() === 'en' ? 'Shaping the Future of Skills, Empowering Africa\'s Youth' : 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي') }}"
                     </span>
                 </h1>
@@ -307,7 +307,7 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                             </div>
                             <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#24BDC3] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Cérémonie d\'Ouverture' : (app()->getLocale() === 'en' ? 'Opening Ceremony' : 'حفل الافتتاح') }}</div>
-                            <div class="text-[10px] font-extrabold text-teal-900 dark:text-teal-200 bg-teal-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-teal-200 dark:border-[#24BDC3]/30">16 {{ app()->getLocale() === 'fr' ? 'Nov. — 18:00' : (app()->getLocale() === 'en' ? 'Nov. — 18:00' : 'نوفمبر — 18:00') }}</div>
+                            <div class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm" style="background-color: #0f766e; color: #ffffff !important; border: 1px solid #14b8a6;">16 {{ app()->getLocale() === 'fr' ? 'Nov. — 18:00' : (app()->getLocale() === 'en' ? 'Nov. — 18:00' : 'نوفمبر — 18:00') }}</div>
                         </div>
 
                         <!-- Step 2: Ministerial Roundtable -->
@@ -316,7 +316,7 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                             </div>
                             <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#24BDC3] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Table Ronde Ministérielle' : (app()->getLocale() === 'en' ? 'Ministerial Roundtable' : 'المائدة المستديرة الوزارية') }}</div>
-                            <div class="text-[10px] font-extrabold text-teal-900 dark:text-teal-200 bg-teal-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-teal-200 dark:border-[#24BDC3]/30">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 09:30' : (app()->getLocale() === 'en' ? 'Nov. — 09:30' : 'نوفمبر — 09:30') }}</div>
+                            <div class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm" style="background-color: #d97706; color: #ffffff !important; border: 1px solid #f59e0b;">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 09:30' : (app()->getLocale() === 'en' ? 'Nov. — 09:30' : 'نوفمبر — 09:30') }}</div>
                         </div>
 
                         <!-- Step 3: Joint Declaration -->
@@ -325,7 +325,7 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             </div>
                             <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-[#35A536] transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Déclaration Conjointe' : (app()->getLocale() === 'en' ? 'Joint Declaration' : 'الإعلان المشترك') }}</div>
-                            <div class="text-[10px] font-extrabold text-emerald-800 dark:text-emerald-200 bg-emerald-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-emerald-200 dark:border-emerald-500/30">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 12:15' : (app()->getLocale() === 'en' ? 'Nov. — 12:15' : 'نوفمبر — 12:15') }}</div>
+                            <div class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm" style="background-color: #059669; color: #ffffff !important; border: 1px solid #10b981;">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 12:15' : (app()->getLocale() === 'en' ? 'Nov. — 12:15' : 'نوفمبر — 12:15') }}</div>
                         </div>
 
                         <!-- Step 4: Expert Panels -->
@@ -334,7 +334,7 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                             </div>
                             <div class="text-[11px] font-black text-slate-800 dark:text-slate-200 group-hover/step:text-purple-600 transition-colors leading-tight">{{ app()->getLocale() === 'fr' ? 'Panneaux d\'Experts' : (app()->getLocale() === 'en' ? 'Expert Panels' : 'الجلسات التخصصية') }}</div>
-                            <div class="text-[10px] font-extrabold text-purple-700 dark:text-purple-200 bg-purple-50 dark:bg-[#052D48] px-2 py-0.5 rounded-full inline-block border border-purple-200 dark:border-[#24BDC3]/30">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 14:00' : (app()->getLocale() === 'en' ? 'Nov. — 14:00' : 'نوفمبر — 14:00') }}</div>
+                            <div class="inline-block px-2.5 py-1 rounded-full text-[11px] font-black shadow-sm" style="background-color: #7c3aed; color: #ffffff !important; border: 1px solid #8b5cf6;">17 {{ app()->getLocale() === 'fr' ? 'Nov. — 14:00' : (app()->getLocale() === 'en' ? 'Nov. — 14:00' : 'نوفمبر — 14:00') }}</div>
                         </div>
 
                         <!-- Step 5: Where Policy Meets Talent -->
@@ -469,7 +469,7 @@
                                 <svg class="w-4 h-4 text-[#F5A800]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
                                 <span>{{ app()->getLocale() === 'fr' ? 'Principe Fondateur' : (app()->getLocale() === 'en' ? 'Founding Principle' : 'المبدأ الأساسي للمنتدى') }}</span>
                             </div>
-                            <blockquote class="text-base sm:text-lg font-black text-[#0B2A6F] italic">
+                            <blockquote class="text-base sm:text-lg font-black text-[#0B2A6F]">
                                 "{{ !empty($forumData['principle']) ? $forumData['principle'] : (app()->getLocale() === 'fr' ? 'Façonner l\'avenir des compétences, autonomiser la jeunesse africaine' : (app()->getLocale() === 'en' ? 'Shaping the Future of Skills, Empowering Africa\'s Youth' : 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي')) }}"
                             </blockquote>
                         </div>

@@ -4,9 +4,9 @@
             
             <!-- Official Dual Brand Logos (Ministry Seal + African Union / Africa Skills Forum) -->
             <a href="{{ route('home') }}" class="flex items-center gap-1.5 sm:gap-3 group shrink-0 py-1" title="{{ platform()->name() }}">
-                <div class="flex items-center gap-1.5 sm:gap-3 bg-slate-50/90 dark:bg-[#052D48]/80 hover:bg-slate-100/90 p-1 sm:p-1.5 px-2 sm:px-3 rounded-2xl border border-slate-200/80 dark:border-[#24BDC3]/30 shadow-xs overflow-hidden shrink-0 transition max-w-[62vw] sm:max-w-none">
+                <div class="flex items-center gap-1.5 sm:gap-3 bg-slate-50/90 dark:bg-[#052D48]/80 hover:bg-slate-100/90 p-1 sm:p-1.5 px-2 sm:px-3 rounded-2xl border border-slate-200/80 dark:border-[#24BDC3]/30 shadow-xs overflow-hidden shrink-0 transition max-w-[46vw] sm:max-w-none">
                     <!-- 1. Ministry Seal Logo -->
-                    <img src="@assetv('ministry-logo-trimmed.png')" 
+                    <img src="/ministry-logo-trimmed.png" 
                          alt="الجمهورية الجزائرية الديمقراطية الشعبية - وزارة التكوين والتعليم المهنيين" 
                          class="h-5 sm:h-8 md:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105 shrink-0 bg-white/90 dark:bg-white rounded-lg p-0.5">
                     
@@ -14,7 +14,7 @@
                     <div class="h-4 sm:h-6 w-px bg-slate-300 dark:bg-[#24BDC3]/40 shrink-0"></div>
                     
                     <!-- 2. African Union / Africa Skills Forum Logo -->
-                    <img src="@assetv('africa-logo-trimmed.png')" 
+                    <img src="/africa-logo-trimmed.png" 
                          alt="African Union - Africa Skills Forum" 
                          class="h-5 sm:h-8 md:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105 shrink-0 bg-white/90 dark:bg-white rounded-lg p-0.5">
                 </div>
@@ -23,7 +23,7 @@
             <!-- Desktop Menu Navigation -->
             <nav class="hidden xl:flex items-center gap-3.5 2xl:gap-5 shrink">
                 <a href="{{ route('home') }}" class="px-3.5 py-1.5 rounded-full {{ request()->routeIs('home') ? 'bg-[#052D48] text-white dark:bg-[#24BDC3] dark:text-[#02101b] shadow-xs font-black' : 'text-[#052D48] dark:text-slate-200 hover:text-[#24BDC3] dark:hover:text-[#24BDC3] font-bold' }} text-xs transition whitespace-nowrap">{{ __('messages.home') }}</a>
-                <a href="{{ route('guide') }}" class="text-xs font-bold text-[#052D48] dark:text-slate-200 hover:text-[#24BDC3] dark:hover:text-[#24BDC3] transition whitespace-nowrap">{{ app()->getLocale() === 'fr' ? 'À propos' : (app()->getLocale() === 'en' ? 'About' : 'عن المنتدى') }}</a>
+                <a href="{{ route('guide') }}" class="text-xs font-bold text-[#052D48] dark:text-slate-200 hover:text-[#24BDC3] dark:hover:text-[#24BDC3] transition whitespace-nowrap">{{ polyTrans('عن المنتدى', 'À propos', 'About') }}</a>
 
                 <!-- Media & Broadcast Dropdown -->
                 <div class="relative shrink-0" x-data="{ open: false }">
@@ -37,7 +37,7 @@
                         <a href="{{ route('gallery') }}" class="block px-4 py-2 text-xs font-bold text-[#052D48] dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-[#083b5e] hover:text-[#24BDC3]">{{ __('messages.gallery') }}</a>
                         <a href="{{ route('videos') }}" class="block px-4 py-2 text-xs font-bold text-[#052D48] dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-[#083b5e] hover:text-[#24BDC3]">{{ __('messages.videos') }}</a>
                         <a href="{{ route('live-tv') }}" target="_blank" class="block px-4 py-2 text-xs font-black text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border-t border-slate-100 dark:border-[#094064] mt-1 pt-2 flex items-center justify-between">
-                            <span>{{ app()->getLocale() === 'fr' ? 'Direct TV (Écrans)' : (app()->getLocale() === 'en' ? 'Live TV Broadcast' : 'شاشة البث المباشر (Live TV)') }}</span>
+                            <span>{{ polyTrans('شاشة البث المباشر (Live TV)', 'Direct TV (Écrans)', 'Live TV Broadcast') }}</span>
                             <span class="w-2 h-2 rounded-full bg-rose-600 animate-ping"></span>
                         </a>
                     </div>
@@ -102,26 +102,26 @@
                     <!-- Registration Dropdown Button (Desktop & Tablet) -->
                     <div class="relative shrink-0 hidden md:block" x-data="{ regOpen: false }">
                         <button @click="regOpen = !regOpen" @click.outside="regOpen = false" type="button" class="px-3 sm:px-4 py-1.5 sm:py-2.5 rounded-xl bg-[#24BDC3] hover:bg-[#1fa3a8] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5 whitespace-nowrap">
-                            <span>{{ app()->getLocale() === 'fr' ? 'Inscription & Accréditation' : (app()->getLocale() === 'en' ? 'Registration & Accreditation' : 'التسجيل والاعتماد الرسمي') }}</span>
+                            <span>{{ polyTrans('التسجيل والاعتماد الرسمي', 'Inscription & Accréditation', 'Registration & Accreditation') }}</span>
                             <svg class="w-3.5 h-3.5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
                         <div x-show="regOpen" x-transition class="absolute top-full right-0 mt-2 w-80 rounded-2xl bg-white shadow-xl border border-slate-100 py-2 z-50 text-start">
                             <a href="{{ route('registration') }}" data-navigate-ignore class="block px-4 py-3 text-xs font-bold text-[#052D48] hover:bg-slate-50 hover:text-[#24BDC3] border-b border-slate-100">
                                 <div class="font-extrabold text-slate-900 flex items-center gap-2 justify-start">
                                     <svg class="w-4 h-4 text-[#24BDC3] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                    <span>{{ app()->getLocale() === 'fr' ? '1. Inscription Participants, Experts & Intervenants' : (app()->getLocale() === 'en' ? '1. Participants, Experts & Speakers Registration' : '1. تسجيل المشاركين والخبراء والمحاضرين') }}</span>
+                                    <span>{{ polyTrans('1. تسجيل المشاركين والخبراء والمحاضرين', '1. Inscription Participants, Experts & Intervenants', '1. Participants, Experts & Speakers Registration') }}</span>
                                 </div>
                                 <div class="text-[10px] text-slate-400 font-medium mt-1">
-                                    {{ app()->getLocale() === 'fr' ? 'Demande d\'accréditation individuelle et participation' : (app()->getLocale() === 'en' ? 'Individual accreditation request and session participation' : 'طلب الاعتماد الفردي والمشاركة في جلسات وفعاليات المنتدى') }}
+                                    {{ polyTrans('طلب الاعتماد الفردي والمشاركة في جلسات وفعاليات المنتدى', 'Demande d\'accréditation individuelle et participation', 'Individual accreditation request and session participation') }}
                                 </div>
                             </a>
                             <a href="{{ route('official.registration') }}" data-navigate-ignore class="block px-4 py-3 text-xs font-bold text-[#052D48] hover:bg-slate-50 hover:text-[#052D48]">
                                 <div class="font-extrabold text-[#052D48] flex items-center gap-2 justify-start">
                                     <svg class="w-4 h-4 text-[#052D48] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5 5 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5 5 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
-                                    <span>{{ app()->getLocale() === 'fr' ? '2. Inscription Officielle & Accréditation' : (app()->getLocale() === 'en' ? '2. Official Accreditation & Registration' : '2. التسجيل والاعتماد الرسمي للوفود والإعلام') }}</span>
+                                    <span>{{ polyTrans('2. التسجيل والاعتماد الرسمي للوفود والإعلام', '2. Inscription Officielle & Accréditation', '2. Official Accreditation & Registration') }}</span>
                                 </div>
                                 <div class="text-[10px] text-[#052D48]/70 font-medium mt-1">
-                                    {{ app()->getLocale() === 'fr' ? 'Accréditation des délégations officielles, presse et médias' : (app()->getLocale() === 'en' ? 'Accreditation for official delegations, press and media' : 'اعتماد الوفود الرسمية والصحافة والإعلام والضيوف') }}
+                                    {{ polyTrans('اعتماد الوفود الرسمية والصحافة والإعلام والضيوف', 'Accréditation des délégations officielles, presse et médias', 'Accreditation for official delegations, press and media') }}
                                 </div>
                             </a>
                         </div>
@@ -185,25 +185,25 @@
                     <div class="p-3.5 rounded-2xl bg-gradient-to-br from-teal-50 to-blue-50/80 border border-teal-200/80 space-y-2">
                         <div class="text-[11px] font-black text-[#052D48] uppercase tracking-wider flex items-center gap-1.5">
                             <span class="w-2 h-2 rounded-full bg-[#24BDC3]"></span>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Accréditation & Inscription' : (app()->getLocale() === 'en' ? 'Accreditation & Registration' : 'بوابات التسجيل والاعتماد') }}</span>
+                            <span>{{ polyTrans('بوابات التسجيل والاعتماد', 'Accréditation & Inscription', 'Accreditation & Registration') }}</span>
                         </div>
                         
                         <a href="{{ route('registration') }}" @click="mobileMenuOpen = false" class="block p-2.5 rounded-xl bg-white hover:bg-teal-50 border border-teal-100 shadow-xs transition">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-black text-slate-900">{{ app()->getLocale() === 'fr' ? '1. Inscription Participants & Experts' : (app()->getLocale() === 'en' ? '1. Participants & Experts' : '1. تسجيل المشاركين والخبراء والمحاضرين') }}</span>
+                                <span class="text-xs font-black text-slate-900">{{ polyTrans('1. تسجيل المشاركين والخبراء والمحاضرين', '1. Inscription Participants & Experts', '1. Participants & Experts') }}</span>
                             </div>
                         </a>
 
                         <a href="{{ route('official.registration') }}" @click="mobileMenuOpen = false" class="block p-2.5 rounded-xl bg-[#052D48] text-white hover:bg-[#031D2F] shadow-xs transition">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-black text-white">{{ app()->getLocale() === 'fr' ? '2. Inscription Officielle & Médias' : (app()->getLocale() === 'en' ? '2. Official Accreditation' : '2. التسجيل والاعتماد للوفود والإعلام') }}</span>
+                                <span class="text-xs font-black text-white">{{ polyTrans('2. التسجيل والاعتماد للوفود والإعلام', '2. Inscription Officielle & Médias', '2. Official Accreditation') }}</span>
                             </div>
                         </a>
                     </div>
 
                     <!-- 2. Main Navigation Links -->
                     <nav class="space-y-1 text-start">
-                        <div class="px-2 py-1 text-[10px] font-black text-slate-400 uppercase tracking-widest">{{ app()->getLocale() === 'fr' ? 'Navigation Principale' : (app()->getLocale() === 'en' ? 'Main Navigation' : 'قائمة القسّم الرئيسية') }}</div>
+                        <div class="px-2 py-1 text-[10px] font-black text-slate-400 uppercase tracking-widest">{{ polyTrans('قائمة القسّم الرئيسية', 'Navigation Principale', 'Main Navigation') }}</div>
 
                         <a href="{{ route('home') }}" @click="mobileMenuOpen = false" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-black {{ request()->routeIs('home') ? 'bg-[#052D48] text-white shadow-md' : 'text-[#052D48] hover:bg-slate-50' }} transition">
                             <svg class="w-4 h-4 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -212,17 +212,17 @@
 
                         <a href="{{ route('guide') }}" @click="mobileMenuOpen = false" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-black {{ request()->routeIs('guide') ? 'bg-[#052D48] text-white shadow-md' : 'text-[#052D48] hover:bg-slate-50' }} transition">
                             <svg class="w-4 h-4 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'À propos du Forum' : (app()->getLocale() === 'en' ? 'About Forum & Guide' : 'عن المنتدى ودليل المشاركة') }}</span>
+                            <span>{{ polyTrans('عن المنتدى ودليل المشاركة', 'À propos du Forum', 'About Forum & Guide') }}</span>
                         </a>
 
                         <a href="{{ route('skills') }}" @click="mobileMenuOpen = false" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-black {{ request()->routeIs('skills') ? 'bg-[#052D48] text-white shadow-md' : 'text-[#052D48] hover:bg-slate-50' }} transition">
                             <svg class="w-4 h-4 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 01-1.187-2.19l.732-4.393A2 2 0 017.11 6.814l3.176.635a6 6 0 003.86-.517l.318-.158a6 6 0 013.86-.517l2.387.477a2 2 0 011.642 1.964v6.22a2 2 0 01-.927 1.69z"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Guide des Métiers' : (app()->getLocale() === 'en' ? 'Skills Guide' : 'دليل التخصصات والمهن') }}</span>
+                            <span>{{ polyTrans('دليل التخصصات والمهن', 'Guide des Métiers', 'Skills Guide') }}</span>
                         </a>
 
                         <a href="{{ route('events') }}" @click="mobileMenuOpen = false" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-black {{ request()->routeIs('events') ? 'bg-[#052D48] text-white shadow-md' : 'text-[#052D48] hover:bg-slate-50' }} transition">
                             <svg class="w-4 h-4 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Sessions & Conférences' : (app()->getLocale() === 'en' ? 'Sessions & Encounters' : 'اللقاءات والجلسات والندوات') }}</span>
+                            <span>{{ polyTrans('اللقاءات والجلسات والندوات', 'Sessions & Conférences', 'Sessions & Encounters') }}</span>
                         </a>
 
                         <a href="{{ route('news') }}" @click="mobileMenuOpen = false" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-black {{ request()->routeIs('news') ? 'bg-[#052D48] text-white shadow-md' : 'text-[#052D48] hover:bg-slate-50' }} transition">
@@ -232,12 +232,12 @@
 
                         <a href="{{ route('gallery') }}" @click="mobileMenuOpen = false" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-black {{ request()->routeIs('gallery') ? 'bg-[#052D48] text-white shadow-md' : 'text-[#052D48] hover:bg-slate-50' }} transition">
                             <svg class="w-4 h-4 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Galerie Photos' : (app()->getLocale() === 'en' ? 'Photo Gallery' : 'معرض الصور والتغطيات') }}</span>
+                            <span>{{ polyTrans('معرض الصور والتغطيات', 'Galerie Photos', 'Photo Gallery') }}</span>
                         </a>
 
                         <a href="{{ route('videos') }}" @click="mobileMenuOpen = false" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-black {{ request()->routeIs('videos') ? 'bg-[#052D48] text-white shadow-md' : 'text-[#052D48] hover:bg-slate-50' }} transition">
                             <svg class="w-4 h-4 text-[#24BDC3]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                            <span>{{ app()->getLocale() === 'fr' ? 'Vidéos & Replays' : (app()->getLocale() === 'en' ? 'Videos & Highlights' : 'مركز الفيديو والتسجيلات') }}</span>
+                            <span>{{ polyTrans('مركز الفيديو والتسجيلات', 'Vidéos & Replays', 'Videos & Highlights') }}</span>
                         </a>
 
                         @if(platform()->get('show_partners_section', true))
@@ -260,7 +260,7 @@
                         <a href="{{ route('live-tv') }}" target="_blank" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-black text-rose-600 bg-rose-50 border border-rose-200 transition mt-2">
                             <div class="flex items-center gap-3">
                                 <svg class="w-4 h-4 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                                <span>{{ app()->getLocale() === 'fr' ? 'Direct TV (Écrans)' : (app()->getLocale() === 'en' ? 'Live TV Broadcast' : 'شاشة البث المباشر (Live TV)') }}</span>
+                                <span>{{ polyTrans('شاشة البث المباشر (Live TV)', 'Direct TV (Écrans)', 'Live TV Broadcast') }}</span>
                             </div>
                             <span class="w-2 h-2 rounded-full bg-rose-600 animate-ping"></span>
                         </a>

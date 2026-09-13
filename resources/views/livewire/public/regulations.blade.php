@@ -6,10 +6,10 @@
 
 
             <h1 class="text-3xl sm:text-4xl font-black text-[#06205C]">
-                {{ app()->getLocale() === 'fr' ? 'Règlements & Lois Officiels' : (app()->getLocale() === 'en' ? 'Official Regulations & Competition Rules' : 'اللوائح التنظيمية والقانونية للأولمبياد') }}
+                {{ app()->getLocale() === 'pt' ? (__('اللوائح التنظيمية والقانونية للأولمبياد') !== 'اللوائح التنظيمية والقانونية للأولمبياد' ? __('اللوائح التنظيمية والقانونية للأولمبياد') : 'Official Regulations & Competition Rules') : (polyTrans('اللوائح التنظيمية والقانونية للأولمبياد', 'Règlements & Lois Officiels', 'Official Regulations & Competition Rules')) }}
             </h1>
             <p class="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
-                {{ app()->getLocale() === 'fr' ? 'Consultez et téléchargez les règlements officiels régissant les Olympiades des Métiers.' : (app()->getLocale() === 'en' ? 'Review and download official regulations governing WorldSkills competitions.' : 'استعرض وحمّل كافة اللوائح الرسمية المنظمة لمسابقات أولمبياد المهن.') }}
+                {{ app()->getLocale() === 'pt' ? (__('استعرض وحمّل كافة اللوائح الرسمية المنظمة لمسابقات أولمبياد المهن.') !== 'استعرض وحمّل كافة اللوائح الرسمية المنظمة لمسابقات أولمبياد المهن.' ? __('استعرض وحمّل كافة اللوائح الرسمية المنظمة لمسابقات أولمبياد المهن.') : 'Review and download official regulations governing WorldSkills competitions.') : (polyTrans('استعرض وحمّل كافة اللوائح الرسمية المنظمة لمسابقات أولمبياد المهن.', 'Consultez et téléchargez les règlements officiels régissant les Olympiades des Métiers.', 'Review and download official regulations governing WorldSkills competitions.')) }}
             </p>
         </div>
 
@@ -24,7 +24,7 @@
                     </div>
                     <div>
                         <h3 class="text-base sm:text-lg font-black text-[#06205C]">
-                            {{ app()->getLocale() === 'fr' ? 'Règlement Général des Olympiades (Règlement Intérieur)' : (app()->getLocale() === 'en' ? 'General Competition Regulations & Internal Rules' : 'اللوائح العامة لمسابقات أولمبياد المهن (النظام الداخلي والقواعد)') }}
+                            {{ app()->getLocale() === 'pt' ? (__('اللوائح العامة لمسابقات أولمبياد المهن (النظام الداخلي والقواعد)') !== 'اللوائح العامة لمسابقات أولمبياد المهن (النظام الداخلي والقواعد)' ? __('اللوائح العامة لمسابقات أولمبياد المهن (النظام الداخلي والقواعد)') : 'General Competition Regulations & Internal Rules') : (polyTrans('اللوائح العامة لمسابقات أولمبياد المهن (النظام الداخلي والقواعد)', 'Règlement Général des Olympiades (Règlement Intérieur)', 'General Competition Regulations & Internal Rules')) }}
                         </h3>
                         <p class="text-xs text-slate-500 font-medium mt-1">
                             {{ app()->getLocale() === 'fr' ? 'Document Officiel WSI Standard — Version 1.0' : 'المستند التنظيمي الرسمي الشامل — شروط التنافس والتحكيم والتنظيم' }}
@@ -53,7 +53,7 @@
                     </div>
                     <div>
                         <h3 class="text-base sm:text-lg font-black text-[#06205C]">
-                            {{ app()->getLocale() === 'fr' ? 'Guide Pratique des Normes de Sécurité (PPE) & Épreuves' : (app()->getLocale() === 'en' ? 'Practical Safety & Equipment Standards Guide (PPE)' : 'دليل معايير السلامة والتجهيزات الشخصية (PPE) والدليل التطبيقي') }}
+                            {{ app()->getLocale() === 'pt' ? (__('دليل معايير السلامة والتجهيزات الشخصية (PPE) والدليل التطبيقي') !== 'دليل معايير السلامة والتجهيزات الشخصية (PPE) والدليل التطبيقي' ? __('دليل معايير السلامة والتجهيزات الشخصية (PPE) والدليل التطبيقي') : 'Practical Safety & Equipment Standards Guide (PPE)') : (polyTrans('دليل معايير السلامة والتجهيزات الشخصية (PPE) والدليل التطبيقي', 'Guide Pratique des Normes de Sécurité (PPE) & Épreuves', 'Practical Safety & Equipment Standards Guide (PPE)')) }}
                         </h3>
                         <p class="text-xs text-slate-500 font-medium mt-1">
                             {{ app()->getLocale() === 'fr' ? 'Document Officiel WSI Standard — Version 2.1' : 'دليل السلامة والتأطير التقني المعتمد للأولمبياد' }}

@@ -6,10 +6,10 @@
             <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
             <div class="relative z-10 space-y-3">
                 <h1 class="text-2xl sm:text-4xl font-black text-white leading-tight">
-                    {{ app()->getLocale() === 'fr' ? 'Conditions Générales d\'Utilisation' : (app()->getLocale() === 'en' ? 'Terms & Conditions' : 'شروط وأحكام الاستخدام الرسمية') }}
+                    {{ polyTrans('شروط وأحكام الاستخدام الرسمية', 'Conditions Générales d\'Utilisation', 'Terms & Conditions') }}
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-200 font-medium max-w-2xl">
-                    {{ app()->getLocale() === 'fr' ? 'Règles d\'utilisation de la plateforme officielle du Forum des Politiques Africaines des Compétences.' : (app()->getLocale() === 'en' ? 'Official terms governing platform registration, accreditation, and participation.' : 'القواعد الرسمية المحددة لضوابط التسجيل، والاعتماد، والمشاركة بالمنتدى.') }}
+                    {{ polyTrans('القواعد الرسمية المحددة لضوابط التسجيل، والاعتماد، والمشاركة بالمنتدى.', 'Règles d\'utilisation de la plateforme officielle du Forum des Politiques Africaines des Compétences.', 'Official terms governing platform registration, accreditation, and participation.') }}
                 </p>
             </div>
         </div>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="space-y-1">
                     <h3 class="text-sm font-black text-[#0B2A6F]">
-                        {{ app()->getLocale() === 'fr' ? 'Conditions & Règles D\'Utilisation' : (app()->getLocale() === 'en' ? 'Terms of Service' : 'شروط وضوابط الاستخدام') }}
+                        {{ polyTrans('شروط وضوابط الاستخدام', 'Conditions & Règles D\'Utilisation', 'Terms of Service') }}
                     </h3>
                     <p class="text-xs text-slate-700 leading-relaxed font-medium">
                         {{ $content }}
@@ -35,7 +35,7 @@
             <!-- Meta Details -->
             <div class="flex items-center justify-between text-xs text-slate-500 pt-4 border-t border-slate-100">
                 <span class="font-bold">Version {{ $version }}</span>
-                <span>{{ app()->getLocale() === 'fr' ? 'Dernière mise à jour:' : (app()->getLocale() === 'en' ? 'Last Updated:' : 'آخر تحديث:') }} {{ $updatedAt }}</span>
+                <span>{{ app()->getLocale() === 'pt' ? (__('آخر تحديث:') !== 'آخر تحديث:' ? __('آخر تحديث:') : 'Last Updated:') : (polyTrans('آخر تحديث:', 'Dernière mise à jour:', 'Last Updated:')) }} {{ $updatedAt }}</span>
             </div>
 
         </div>

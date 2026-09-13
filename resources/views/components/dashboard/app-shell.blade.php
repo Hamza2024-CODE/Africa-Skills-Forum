@@ -90,13 +90,16 @@
             transition: background 0.3s, color 0.3s;
         }
 
-        /* ── Glass Cards ── */
+        /* ── Solid Cards ── */
         .glass-card {
-            background: var(--ws-surface);
-            backdrop-filter: blur(12px);
+            background-color: #FFFFFF !important;
+            background-image: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
             border-color: var(--ws-border);
         }
         .dark .glass-card {
+            background-color: #031826 !important;
             border-color: rgba(30,41,59,0.6);
         }
 

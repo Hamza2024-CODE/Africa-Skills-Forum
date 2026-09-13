@@ -108,12 +108,12 @@ class Registration extends Component
         $country = Country::find($this->countryId);
         $locale = app()->getLocale();
         if (!$country) {
-            return $locale === 'fr' ? 'Ex: 0550123456 ou +213550123456' : ($locale === 'en' ? 'Ex: 0550123456 or +213550123456' : 'مثال: 0550123456 أو +213550123456');
+            return polyTrans('مثال: 0550123456 أو +213550123456', 'Ex: 0550123456 ou +213550123456', 'Ex: 0550123456 or +213550123456');
         }
 
         $code = $country->phone_code ?: ($country->is_algeria ? '+213' : '');
         return match($country->iso2) {
-            'DZ' => $locale === 'fr' ? 'Ex: 0550123456 ou +213550123456' : ($locale === 'en' ? 'Ex: 0550123456 or +213550123456' : 'مثال: 0550123456 أو +213550123456'),
+            'DZ' => polyTrans('مثال: 0550123456 أو +213550123456', 'Ex: 0550123456 ou +213550123456', 'Ex: 0550123456 or +213550123456'),
             'TN' => "{$code} 20 123 456",
             'MA' => "{$code} 6 12 34 56 78",
             'EG' => "{$code} 10 1234 5678",
@@ -155,18 +155,18 @@ class Registration extends Component
             }
 
             $this->validate($rules, [
-                'role.required'             => $locale === 'fr' ? 'Veuillez sélectionner votre qualité/rôle.' : ($locale === 'en' ? 'Please select your role.' : 'يرجى اختيار صفة التسجيل.'),
-                'countryId.required'        => $locale === 'fr' ? 'Veuillez sélectionner le pays de la délégation.' : ($locale === 'en' ? 'Please select delegation country.' : 'يرجى اختيار دولة الوفد المشارك.'),
-                'firstNameAr.required'      => $locale === 'fr' ? 'Le prénom en arabe est requis.' : ($locale === 'en' ? 'First name in Arabic is required.' : 'الاسم الشخصي بالعربية مطلوب.'),
-                'lastNameAr.required'       => $locale === 'fr' ? 'Le nom en arabe est requis.' : ($locale === 'en' ? 'Last name in Arabic is required.' : 'اللقب العائلي بالعربية مطلوب.'),
-                'firstNameLatin.required'  => $locale === 'fr' ? 'Le prénom en latin est requis.' : ($locale === 'en' ? 'First name in Latin is required.' : 'الاسم بالفرنسية/اللاتينية مطلوب.'),
-                'lastNameLatin.required'   => $locale === 'fr' ? 'Le nom en latin est requis.' : ($locale === 'en' ? 'Last name in Latin is required.' : 'اللقب بالفرنسية/اللاتينية مطلوب.'),
-                'email.required'            => $locale === 'fr' ? 'L\'adresse email est requise.' : ($locale === 'en' ? 'Email address is required.' : 'البريد الإلكتروني مطلوب.'),
-                'phone.required'            => $locale === 'fr' ? 'Le numéro de téléphone est requis.' : ($locale === 'en' ? 'Phone number is required.' : 'رقم الهاتف مطلوب.'),
-                'dateOfBirth.required'      => $locale === 'fr' ? 'La date de naissance est requise.' : ($locale === 'en' ? 'Date of birth is required.' : 'تاريخ الميلاد مطلوب.'),
-                'organizationName.required' => $locale === 'fr' ? 'Le nom de l\'établissement est requis.' : ($locale === 'en' ? 'Organization name is required.' : 'اسم المؤسسة / الهيئة مطلوب.'),
-                'jobTitle.required'         => $locale === 'fr' ? 'Le titre professionnel est requis.' : ($locale === 'en' ? 'Job title is required.' : 'الصفة المهنية / المسمى الوظيفي مطلوب.'),
-                'skillId.required'          => $locale === 'fr' ? 'Veuillez sélectionner votre domaine d\'expertise.' : ($locale === 'en' ? 'Please select domain of expertise.' : 'يرجى اختيار مجال التخصص والخبرة للخبير المحكّم.'),
+                'role.required'             => polyTrans('يرجى اختيار صفة التسجيل.', 'Veuillez sélectionner votre qualité/rôle.', 'Please select your role.'),
+                'countryId.required'        => polyTrans('يرجى اختيار دولة الوفد المشارك.', 'Veuillez sélectionner le pays de la délégation.', 'Please select delegation country.'),
+                'firstNameAr.required'      => polyTrans('الاسم الشخصي بالعربية مطلوب.', 'Le prénom en arabe est requis.', 'First name in Arabic is required.'),
+                'lastNameAr.required'       => polyTrans('اللقب العائلي بالعربية مطلوب.', 'Le nom en arabe est requis.', 'Last name in Arabic is required.'),
+                'firstNameLatin.required'  => polyTrans('الاسم بالفرنسية/اللاتينية مطلوب.', 'Le prénom en latin est requis.', 'First name in Latin is required.'),
+                'lastNameLatin.required'   => polyTrans('اللقب بالفرنسية/اللاتينية مطلوب.', 'Le nom en latin est requis.', 'Last name in Latin is required.'),
+                'email.required'            => polyTrans('البريد الإلكتروني مطلوب.', 'L\'adresse email est requise.', 'Email address is required.'),
+                'phone.required'            => polyTrans('رقم الهاتف مطلوب.', 'Le numéro de téléphone est requis.', 'Phone number is required.'),
+                'dateOfBirth.required'      => polyTrans('تاريخ الميلاد مطلوب.', 'La date de naissance est requise.', 'Date of birth is required.'),
+                'organizationName.required' => polyTrans('اسم المؤسسة / الهيئة مطلوب.', 'Le nom de l\'établissement est requis.', 'Organization name is required.'),
+                'jobTitle.required'         => polyTrans('الصفة المهنية / المسمى الوظيفي مطلوب.', 'Le titre professionnel est requis.', 'Job title is required.'),
+                'skillId.required'          => polyTrans('يرجى اختيار مجال التخصص والخبرة للخبير المحكّم.', 'Veuillez sélectionner votre domaine d\'expertise.', 'Please select domain of expertise.'),
             ]);
 
             // Uniqueness Check for Email and Phone
@@ -232,24 +232,24 @@ class Registration extends Component
         }
 
         $messages = [
-            'role.required'             => $locale === 'fr' ? 'Veuillez sélectionner votre qualité/rôle.' : ($locale === 'en' ? 'Please select your role.' : 'يرجى اختيار صفة التسجيل.'),
-            'countryId.required'        => $locale === 'fr' ? 'Veuillez sélectionner le pays de la délégation.' : ($locale === 'en' ? 'Please select delegation country.' : 'يرجى اختيار دولة الوفد المشارك.'),
-            'firstNameAr.required'      => $locale === 'fr' ? 'Le prénom en arabe est requis.' : ($locale === 'en' ? 'First name in Arabic is required.' : 'الاسم الشخصي بالعربية مطلوب.'),
-            'lastNameAr.required'       => $locale === 'fr' ? 'Le nom en arabe est requis.' : ($locale === 'en' ? 'Last name in Arabic is required.' : 'اللقب العائلي بالعربية مطلوب.'),
-            'firstNameLatin.required'  => $locale === 'fr' ? 'Le prénom en latin est requis.' : ($locale === 'en' ? 'First name in Latin is required.' : 'الاسم بالفرنسية/اللاتينية مطلوب.'),
-            'lastNameLatin.required'   => $locale === 'fr' ? 'Le nom en latin est requis.' : ($locale === 'en' ? 'Last name in Latin is required.' : 'اللقب بالفرنسية/اللاتينية مطلوب.'),
-            'email.required'            => $locale === 'fr' ? 'L\'adresse email est requise.' : ($locale === 'en' ? 'Email address is required.' : 'البريد الإلكتروني مطلوب.'),
-            'phone.required'            => $locale === 'fr' ? 'Le numéro de téléphone est requis.' : ($locale === 'en' ? 'Phone number is required.' : 'رقم الهاتف مطلوب.'),
-            'dateOfBirth.required'      => $locale === 'fr' ? 'La date de naissance est requise.' : ($locale === 'en' ? 'Date of birth is required.' : 'تاريخ الميلاد مطلوب.'),
-            'organizationName.required' => $locale === 'fr' ? 'Le nom de l\'établissement est requis.' : ($locale === 'en' ? 'Organization name is required.' : 'اسم المؤسسة / الهيئة مطلوب.'),
-            'jobTitle.required'         => $locale === 'fr' ? 'Le titre professionnel est requis.' : ($locale === 'en' ? 'Job title is required.' : 'الصفة المهنية / المسمى الوظيفي مطلوب.'),
-            'skillId.required'          => $locale === 'fr' ? 'Veuillez sélectionner votre domaine d\'expertise.' : ($locale === 'en' ? 'Please select domain of expertise.' : 'يرجى اختيار مجال التخصص والخبرة للخبير المحكّم.'),
-            'photoFile.required'        => $locale === 'fr' ? 'Veuillez charger votre photo officielle.' : ($locale === 'en' ? 'Please upload your official photo.' : 'يرجى تحميل الصورة الشخصية الرسمية المعتمدة على الشارة.'),
-            'photoFile.uploaded'        => $locale === 'fr' ? 'Échec du téléversement de la photo.' : ($locale === 'en' ? 'Photo upload failed.' : 'عذراً، تعذر رفع الصورة الشخصية. يرجى اختيار ملف بحجم أقل من 50 ميغابايت.'),
-            'photoFile.max'             => $locale === 'fr' ? 'La taille de la photo ne doit pas dépasser 20 Mo.' : ($locale === 'en' ? 'Photo file size must not exceed 20 MB.' : 'حجم الصورة الشخصية كبير جداً (يجب ألا يتعدى 20 ميغابايت).'),
-            'nationalId.required'       => $locale === 'fr' ? 'Le numéro NIN (18 chiffres) est requis.' : ($locale === 'en' ? 'NIN number (18 digits) is required.' : 'رقم التعريف الوطني (18 رقماً) مطلوب.'),
-            'nationalId.regex'          => $locale === 'fr' ? 'Le numéro NIN doit comporter exactement 18 chiffres.' : ($locale === 'en' ? 'NIN must be exactly 18 digits.' : 'يجب أن يتكون رقم بطاقة التعريف الوطنية (NIN) من 18 رقماً بالضبط.'),
-            'passportNumber.required'   => $locale === 'fr' ? 'Le numéro de passeport est requis.' : ($locale === 'en' ? 'Passport number is required.' : 'رقم جواز السفر مطلوب.'),
+            'role.required'             => polyTrans('يرجى اختيار صفة التسجيل.', 'Veuillez sélectionner votre qualité/rôle.', 'Please select your role.'),
+            'countryId.required'        => polyTrans('يرجى اختيار دولة الوفد المشارك.', 'Veuillez sélectionner le pays de la délégation.', 'Please select delegation country.'),
+            'firstNameAr.required'      => polyTrans('الاسم الشخصي بالعربية مطلوب.', 'Le prénom en arabe est requis.', 'First name in Arabic is required.'),
+            'lastNameAr.required'       => polyTrans('اللقب العائلي بالعربية مطلوب.', 'Le nom en arabe est requis.', 'Last name in Arabic is required.'),
+            'firstNameLatin.required'  => polyTrans('الاسم بالفرنسية/اللاتينية مطلوب.', 'Le prénom en latin est requis.', 'First name in Latin is required.'),
+            'lastNameLatin.required'   => polyTrans('اللقب بالفرنسية/اللاتينية مطلوب.', 'Le nom en latin est requis.', 'Last name in Latin is required.'),
+            'email.required'            => polyTrans('البريد الإلكتروني مطلوب.', 'L\'adresse email est requise.', 'Email address is required.'),
+            'phone.required'            => polyTrans('رقم الهاتف مطلوب.', 'Le numéro de téléphone est requis.', 'Phone number is required.'),
+            'dateOfBirth.required'      => polyTrans('تاريخ الميلاد مطلوب.', 'La date de naissance est requise.', 'Date of birth is required.'),
+            'organizationName.required' => polyTrans('اسم المؤسسة / الهيئة مطلوب.', 'Le nom de l\'établissement est requis.', 'Organization name is required.'),
+            'jobTitle.required'         => polyTrans('الصفة المهنية / المسمى الوظيفي مطلوب.', 'Le titre professionnel est requis.', 'Job title is required.'),
+            'skillId.required'          => polyTrans('يرجى اختيار مجال التخصص والخبرة للخبير المحكّم.', 'Veuillez sélectionner votre domaine d\'expertise.', 'Please select domain of expertise.'),
+            'photoFile.required'        => polyTrans('يرجى تحميل الصورة الشخصية الرسمية المعتمدة على الشارة.', 'Veuillez charger votre photo officielle.', 'Please upload your official photo.'),
+            'photoFile.uploaded'        => polyTrans('عذراً، تعذر رفع الصورة الشخصية. يرجى اختيار ملف بحجم أقل من 50 ميغابايت.', 'Échec du téléversement de la photo.', 'Photo upload failed.'),
+            'photoFile.max'             => polyTrans('حجم الصورة الشخصية كبير جداً (يجب ألا يتعدى 20 ميغابايت).', 'La taille de la photo ne doit pas dépasser 20 Mo.', 'Photo file size must not exceed 20 MB.'),
+            'nationalId.required'       => polyTrans('رقم التعريف الوطني (18 رقماً) مطلوب.', 'Le numéro NIN (18 chiffres) est requis.', 'NIN number (18 digits) is required.'),
+            'nationalId.regex'          => polyTrans('يجب أن يتكون رقم بطاقة التعريف الوطنية (NIN) من 18 رقماً بالضبط.', 'Le numéro NIN doit comporter exactement 18 chiffres.', 'NIN must be exactly 18 digits.'),
+            'passportNumber.required'   => polyTrans('رقم جواز السفر مطلوب.', 'Le numéro de passeport est requis.', 'Passport number is required.'),
         ];
 
         $this->validate($rules, $messages);

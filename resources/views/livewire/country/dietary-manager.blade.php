@@ -1,6 +1,6 @@
 @php
 $locale = app()->getLocale();
-$t = fn($ar, $fr, $en) => match($locale) { 'fr' => $fr, 'en' => $en, default => $ar };
+ = fn(, , ,  = null) => polyTrans(, , , );
 
 $dietaryOptions = [
     'GLUTEN_FREE'     => [

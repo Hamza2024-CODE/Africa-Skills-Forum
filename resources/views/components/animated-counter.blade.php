@@ -64,22 +64,19 @@
         return n.toLocaleString();
     }
 }"
-class="bg-white rounded-3xl p-6 shadow-md border border-slate-200/80 text-center space-y-3 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden group cursor-default select-none">
-
-    {{-- Decorative glow --}}
-    <div class="absolute inset-0 bg-gradient-to-br from-blue-50/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-3xl"></div>
+style="background-color: #FFFFFF !important; opacity: 1 !important;" class="bg-white rounded-3xl p-6 shadow-md border border-slate-200/80 text-center space-y-3 relative overflow-hidden group cursor-pointer select-none transition-all duration-300 hover:-translate-y-1.5 hover:border-[#24BDC3] hover:shadow-xl">
 
     {{-- Partner Image / Logo / Icon Support --}}
     @if($image)
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-50 p-2.5 border border-slate-100 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-50 p-2.5 border border-slate-100 flex items-center justify-center shadow-md transform group-hover:-translate-y-2 group-hover:scale-125 transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
             <img src="{{ $image }}" alt="{{ $label }}" class="max-h-full max-w-full object-contain filter drop-shadow">
         </div>
     @elseif(!empty($icon))
-        <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 shadow-sm group-hover:scale-110 transition-transform duration-300">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-[#24BDC3]/15 text-[#24BDC3] flex items-center justify-center border border-[#24BDC3]/30 shadow-md transform group-hover:-translate-y-2 group-hover:scale-125 group-hover:bg-[#24BDC3] group-hover:text-white transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
             {!! $icon !!}
         </div>
     @elseif(isset($slot) && !$slot->isEmpty())
-        <div class="w-12 h-12 mx-auto rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 shadow-sm group-hover:scale-110 transition-transform duration-300">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-[#24BDC3]/15 text-[#24BDC3] flex items-center justify-center border border-[#24BDC3]/30 shadow-md transform group-hover:-translate-y-2 group-hover:scale-125 group-hover:bg-[#24BDC3] group-hover:text-white transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
             {{ $slot }}
         </div>
     @endif

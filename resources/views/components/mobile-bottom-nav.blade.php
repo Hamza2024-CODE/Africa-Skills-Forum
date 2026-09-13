@@ -54,13 +54,13 @@
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>',
             ],
             [
-                'label' => (app()->getLocale() === 'fr' ? 'Mon Espace' : (app()->getLocale() === 'en' ? 'Dashboard' : 'فضائي')),
+                'label' => (polyTrans('فضائي', 'Mon Espace', 'Dashboard')),
                 'url' => route('participant.dashboard'),
                 'active' => request()->routeIs('participant.dashboard'),
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 00-2 2h2a2 2 0 00-2-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>',
             ],
             [
-                'label' => (app()->getLocale() === 'fr' ? 'Mon Badge' : (app()->getLocale() === 'en' ? 'My Badge' : 'شارتي الرسمية')),
+                'label' => (polyTrans('شارتي الرسمية', 'Mon Badge', 'My Badge')),
                 'url' => $myBadgeUrl,
                 'active' => request()->routeIs('accreditation.badge*'),
                 'is_primary' => true,
@@ -73,7 +73,7 @@
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 01-1.187-2.19l.732-4.393A2 2 0 017.11 6.814l3.176.635a6 6 0 003.86-.517l.318-.158a6 6 0 013.86-.517l2.387.477a2 2 0 011.642 1.964v6.22a2 2 0 01-.927 1.69z"/>',
             ],
             [
-                'label' => (app()->getLocale() === 'fr' ? 'Mon Profil' : (app()->getLocale() === 'en' ? 'My Profile' : 'حسابي')),
+                'label' => (polyTrans('حسابي', 'Mon Profil', 'My Profile')),
                 'url' => route('profile'),
                 'active' => request()->routeIs('profile'),
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>',
@@ -103,26 +103,26 @@
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>',
             ],
             [
-                'label' => (app()->getLocale() === 'fr' ? 'Dashboard Admin' : (app()->getLocale() === 'en' ? 'Admin Board' : 'فضائي الإداري')),
+                'label' => (polyTrans('فضائي الإداري', 'Dashboard Admin', 'Admin Board')),
                 'url' => $dashUrl,
                 'active' => request()->routeIs('*dashboard*'),
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 00-2 2h2a2 2 0 00-2-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>',
             ],
             [
-                'label' => (app()->getLocale() === 'fr' ? 'Scanner QR' : (app()->getLocale() === 'en' ? 'QR Scanner' : 'الماسح الضوئي')),
+                'label' => (polyTrans('الماسح الضوئي', 'Scanner QR', 'QR Scanner')),
                 'url' => $scannerUrl,
                 'active' => request()->routeIs('*scanner*'),
                 'is_primary' => true,
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>',
             ],
             [
-                'label' => (app()->getLocale() === 'fr' ? 'Accréditations' : (app()->getLocale() === 'en' ? 'Accreditations' : 'الاعتمادات')),
+                'label' => (polyTrans('الاعتمادات', 'Accréditations', 'Accreditations')),
                 'url' => route('admin.accreditations'),
                 'active' => request()->routeIs('admin.accreditations*'),
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>',
             ],
             [
-                'label' => (app()->getLocale() === 'fr' ? 'Profil' : (app()->getLocale() === 'en' ? 'Profile' : 'حسابي')),
+                'label' => (polyTrans('حسابي', 'Profil', 'Profile')),
                 'url' => route('profile'),
                 'active' => request()->routeIs('profile'),
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>',
@@ -185,10 +185,10 @@
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                     <div>
                         <h3 class="text-sm font-black text-[#0B2A6F]">
-                            {{ app()->getLocale() === 'fr' ? 'Choisissez le type d\'inscription' : (app()->getLocale() === 'en' ? 'Select Registration Type' : 'اختر نوع التسجيل والاعتماد') }}
+                            {{ polyTrans('اختر نوع التسجيل والاعتماد', 'Choisissez le type d\'inscription', 'Select Registration Type') }}
                         </h3>
                         <p class="text-[11px] text-slate-500 font-bold">
-                            {{ app()->getLocale() === 'fr' ? 'Portail officiel Africa Skills Forum 2026' : (app()->getLocale() === 'en' ? 'Official Africa Skills Forum 2026 Portal' : 'منتدى المهارات الإفريقية 2026') }}
+                            {{ polyTrans('منتدى المهارات الإفريقية 2026', 'Portail officiel Africa Skills Forum 2026', 'Official Africa Skills Forum 2026 Portal') }}
                         </p>
                     </div>
                     <button @click="showRegModal = false" class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold flex items-center justify-center">✕</button>
@@ -202,10 +202,10 @@
                         </div>
                         <div class="text-start">
                             <div class="text-xs font-black text-slate-900">
-                                {{ app()->getLocale() === 'fr' ? 'Inscription Participants & Experts' : (app()->getLocale() === 'en' ? 'Participants & Experts Registration' : 'تسجيل المشاركين والخبراء والمحاضرين') }}
+                                {{ polyTrans('تسجيل المشاركين والخبراء والمحاضرين', 'Inscription Participants & Experts', 'Participants & Experts Registration') }}
                             </div>
                             <div class="text-[10px] text-slate-500 font-bold mt-0.5">
-                                {{ app()->getLocale() === 'fr' ? 'Pour les participants aux sessions et conférences' : (app()->getLocale() === 'en' ? 'For session participants and experts' : 'خاص بالمشاركين والخبراء في جلسات وفعاليات المنتدى') }}
+                                {{ polyTrans('خاص بالمشاركين والخبراء في جلسات وفعاليات المنتدى', 'Pour les participants aux sessions et conférences', 'For session participants and experts') }}
                             </div>
                         </div>
                     </a>
@@ -217,10 +217,10 @@
                         </div>
                         <div class="text-start">
                             <div class="text-xs font-black text-[#0B2A6F]">
-                                {{ app()->getLocale() === 'fr' ? 'Inscription Officielle & Accréditation' : (app()->getLocale() === 'en' ? 'Official Registration & Accreditation' : 'التسجيل الرسمي والاعتماد للوفود والصحافة') }}
+                                {{ polyTrans('التسجيل الرسمي والاعتماد للوفود والصحافة', 'Inscription Officielle & Accréditation', 'Official Registration & Accreditation') }}
                             </div>
                             <div class="text-[10px] text-slate-500 font-bold mt-0.5">
-                                {{ app()->getLocale() === 'fr' ? 'Délégations nationales, invités VIP, médias et صحافة' : (app()->getLocale() === 'en' ? 'National delegations, VIP guests, media & press' : 'خاص بالوفود الوطنية، الدبلوماسيين، والصحافة والإعلام') }}
+                                {{ polyTrans('خاص بالوفود الوطنية، الدبلوماسيين، والصحافة والإعلام', 'Délégations nationales, invités VIP, médias et صحافة', 'National delegations, VIP guests, media & press') }}
                             </div>
                         </div>
                     </a>

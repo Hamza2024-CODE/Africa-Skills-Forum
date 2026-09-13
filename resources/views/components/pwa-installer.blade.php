@@ -6,12 +6,10 @@
     isAndroid: false,
     showAndroidGuide: false,
     init() {
-        // Register Service Worker
+        // Ensure no stale service worker cache in development
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js?v=2026.08.24.v4')
-                    .then(reg => console.log('PWA ServiceWorker registered with scope:', reg.scope))
-                    .catch(err => console.warn('PWA ServiceWorker registration failed:', err));
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                for (let r of registrations) { r.unregister(); }
             });
         }
 
@@ -77,14 +75,14 @@
                 </div>
                 <div class="space-y-0.5">
                     <h4 class="text-xs sm:text-sm font-black text-white leading-tight">
-                        {{ app()->getLocale() === 'fr' ? 'Application Forum des Politiques Africaines 📱' : (app()->getLocale() === 'en' ? 'African Skills Policy Forum App 📱' : 'تطبيق منتدى السياسات الأفريقية للمهارات 📱') }}
+                        {{ polyTrans('تطبيق منتدى السياسات الأفريقية للمهارات', 'Application Forum des Politiques Africaines', 'African Skills Policy Forum App') }}
                     </h4>
                     <p class="text-[10px] text-blue-100 font-bold leading-tight">
                         <template x-if="!isIOS">
-                            <span>{{ app()->getLocale() === 'fr' ? 'Installer sur votre téléphone pour un accès rapide' : (app()->getLocale() === 'en' ? 'Install on your device for fast offline access' : 'ثبّت التطبيق على هاتفك للوصول السريع بدون إنترنت') }}</span>
+                            <span>{{ polyTrans('ثبّت التطبيق على هاتفك للوصول السريع بدون إنترنت', 'Installer sur votre téléphone pour un accès rapide', 'Install on your device for fast offline access') }}</span>
                         </template>
                         <template x-if="isIOS">
-                            <span>{{ app()->getLocale() === 'fr' ? 'Appuyez sur Partager ⎋ puis "Sur l\'écran d\'accueil ➕"' : (app()->getLocale() === 'en' ? 'Tap Share ⎋ then "Add to Home Screen ➕"' : 'اضغط زر المشاركة ⎋ ثم "إضافة إلى الشاشة الرئيسية ➕"') }}</span>
+                            <span>{{ polyTrans('اضغط زر المشاركة ثم "إضافة إلى الشاشة الرئيسية"', 'Appuyez sur Partager puis "Sur l\'écran d\'accueil"', 'Tap Share then "Add to Home Screen"') }}</span>
                         </template>
                     </p>
                 </div>
@@ -93,7 +91,7 @@
             <div class="flex items-center gap-2 shrink-0">
                 <template x-if="!isIOS">
                     <button type="button" @click="installApp()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-[#F5A800] hover:from-amber-500 hover:to-amber-600 text-slate-950 font-black text-xs shadow-lg transition transform active:scale-95 whitespace-nowrap cursor-pointer">
-                        {{ app()->getLocale() === 'fr' ? 'Installer' : (app()->getLocale() === 'en' ? 'Install' : 'تثبيت الآن') }}
+                        {{ polyTrans('تثبيت الآن', 'Installer', 'Install') }}
                     </button>
                 </template>
 

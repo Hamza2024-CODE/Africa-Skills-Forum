@@ -6,10 +6,10 @@
             <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
             <div class="relative z-10 space-y-3">
                 <h1 class="text-2xl sm:text-4xl font-black text-white leading-tight">
-                    {{ app()->getLocale() === 'fr' ? 'Politique de Confidentialité & Protection des Données' : (app()->getLocale() === 'en' ? 'Privacy Policy & Data Security' : 'سياسة الخصوصية وحماية البيانات الشخصية') }}
+                    {{ app()->getLocale() === 'pt' ? (__('سياسة الخصوصية وحماية البيانات الشخصية') !== 'سياسة الخصوصية وحماية البيانات الشخصية' ? __('سياسة الخصوصية وحماية البيانات الشخصية') : 'Privacy Policy & Data Security') : (polyTrans('سياسة الخصوصية وحماية البيانات الشخصية', 'Politique de Confidentialité & Protection des Données', 'Privacy Policy & Data Security')) }}
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-200 font-medium max-w-2xl">
-                    {{ app()->getLocale() === 'fr' ? 'Engagement officiel de protection de la vie privée et de sécurité des informations des participants.' : (app()->getLocale() === 'en' ? 'Official commitment to participant privacy and information security.' : 'التزام رسمي بحماية سرية وأمان معلومات جميع المشاركين والزوار بالمنتدى.') }}
+                    {{ app()->getLocale() === 'pt' ? (__('التزام رسمي بحماية سرية وأمان معلومات جميع المشاركين والزوار بالمنتدى.') !== 'التزام رسمي بحماية سرية وأمان معلومات جميع المشاركين والزوار بالمنتدى.' ? __('التزام رسمي بحماية سرية وأمان معلومات جميع المشاركين والزوار بالمنتدى.') : 'Official commitment to participant privacy and information security.') : (polyTrans('التزام رسمي بحماية سرية وأمان معلومات جميع المشاركين والزوار بالمنتدى.', 'Engagement officiel de protection de la vie privée et de sécurité des informations des participants.', 'Official commitment to participant privacy and information security.')) }}
                 </p>
             </div>
         </div>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="space-y-1">
                     <h3 class="text-sm font-black text-[#0B2A6F]">
-                        {{ app()->getLocale() === 'fr' ? 'Engagement De Confidentialité' : (app()->getLocale() === 'en' ? 'Privacy Commitment' : 'الالتزام بحماية الخصوصية') }}
+                        {{ app()->getLocale() === 'pt' ? (__('الالتزام بحماية الخصوصية') !== 'الالتزام بحماية الخصوصية' ? __('الالتزام بحماية الخصوصية') : 'Privacy Commitment') : (polyTrans('الالتزام بحماية الخصوصية', 'Engagement De Confidentialité', 'Privacy Commitment')) }}
                     </h3>
                     <p class="text-xs text-slate-700 leading-relaxed font-medium">
                         {{ $content }}
@@ -35,7 +35,7 @@
             <!-- Meta Details -->
             <div class="flex items-center justify-between text-xs text-slate-500 pt-4 border-t border-slate-100">
                 <span class="font-bold">Version {{ $version }}</span>
-                <span>{{ app()->getLocale() === 'fr' ? 'Dernière mise à jour:' : (app()->getLocale() === 'en' ? 'Last Updated:' : 'آخر تحديث:') }} {{ $updatedAt }}</span>
+                <span>{{ app()->getLocale() === 'pt' ? (__('آخر تحديث:') !== 'آخر تحديث:' ? __('آخر تحديث:') : 'Last Updated:') : (polyTrans('آخر تحديث:', 'Dernière mise à jour:', 'Last Updated:')) }} {{ $updatedAt }}</span>
             </div>
 
         </div>
