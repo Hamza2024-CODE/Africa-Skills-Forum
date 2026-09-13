@@ -2,7 +2,7 @@
 
     <!-- 1. Pan-African Summit Hero Stage + Seamless Cultural Wavy Divider (Zero Gap) -->
     <div class="relative w-full !mt-0 p-0">
-        <section class="relative bg-gradient-to-br from-[#052D48] via-[#031826] to-[#010a12] text-white pt-16 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden shadow-2xl"
+        <section class="relative bg-gradient-to-b from-[#052D48] via-[#031826] to-[#052D48] text-white pt-16 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden shadow-2xl"
              x-data="{
                  activeSlide: 0,
                  slides: {{ $heroSlidesJson }},
@@ -30,7 +30,7 @@
                 <img src="{{ asset('/images/hero_slide_1.png') }}" alt="Africa Skills Policy Forum 2026" class="w-full h-full object-cover object-center filter brightness-90">
             </div>
             <!-- Elegant Cinematic Gradient Overlay for Maximum Text Readability -->
-            <div class="absolute inset-0 z-20 bg-gradient-to-t from-[#010a12] via-[#052D48]/75 to-black/40"></div>
+            <div class="absolute inset-0 z-20 bg-gradient-to-t from-[#052D48] via-[#052D48]/75 to-black/40"></div>
         </div>
 
         <!-- Slide Navigation Indicators (Bottom Left, matching official artwork) -->
@@ -146,8 +146,8 @@
                     </pattern>
             </defs>
 
-            <!-- Layer 1: Seamless Dark Blue Bridge (Weld from Hero #010a12 down to the top of ribbon) -->
-            <path fill="#010a12" d="M0,0 L1440,0 L1440,50 C1340,55 1160,10 960,35 C640,85 320,15 0,50 Z">
+            <!-- Layer 1: Seamless Deep Blue Bridge (Weld from Hero #052D48 down to the top of ribbon) -->
+            <path fill="#052D48" d="M0,0 L1440,0 L1440,50 C1340,55 1160,10 960,35 C640,85 320,15 0,50 Z">
                 <animate attributeName="d" dur="9s" repeatCount="indefinite"
                     values="M0,0 L1440,0 L1440,50 C1340,55 1160,10 960,35 C640,85 320,15 0,50 Z;
                             M0,0 L1440,0 L1440,42 C1300,15 1120,40 900,70 C580,25 280,70 0,42 Z;
