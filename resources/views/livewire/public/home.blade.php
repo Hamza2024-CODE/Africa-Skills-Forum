@@ -1,42 +1,84 @@
 <div class="space-y-12 pb-16" x-data="{ showScheduleModal: false, scheduleTab: 16, showVideoModal: false, showPdfModal: false }" @open-schedule.window="showScheduleModal = true">
 
     <!-- 1. Pan-African Summit Hero Stage (Ultra-Modern African Leadership Aesthetic & Auto-Slider) -->
-    <section class="relative bg-gradient-to-br from-[#052D48] via-[#031826] to-[#010a12] text-white pt-16 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-b-[3.5rem] border-b-2 border-[#24BDC3]/50 shadow-2xl"
+    <section class="relative bg-gradient-to-br from-[#052D48] via-[#031826] to-[#010a12] text-white pt-16 pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-b-[3.5rem] border-b-2 border-[#24BDC3]/50 shadow-2xl"
              x-data="{
                  activeSlide: 0,
                  slides: {{ $heroSlidesJson }},
                  heroMode: '{{ $heroMode }}',
+                 typewriterPhrases: {{ $typewriterPhrasesJson }},
+                 currentPhraseIndex: 0,
+                 typedText: '{{ addslashes($forumData['slogan'] ?? 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي') }}',
+                 charIndex: 0,
+                 isDeleting: false,
+                 typewriterSpeed: 70,
+
                  init() {
                      if (this.slides.length > 1) {
                          setInterval(() => {
                              this.activeSlide = (this.activeSlide + 1) % this.slides.length;
                          }, 5000);
                      }
+                     this.charIndex = this.typedText.length;
+                     setTimeout(() => {
+                         this.isDeleting = true;
+                         this.runTypewriter();
+                     }, 2400);
+                 },
+
+                 runTypewriter() {
+                     const currentPhrase = this.typewriterPhrases[this.currentPhraseIndex];
+                     if (!this.isDeleting) {
+                         this.typedText = currentPhrase.substring(0, this.charIndex + 1);
+                         this.charIndex++;
+                         if (this.charIndex === currentPhrase.length) {
+                             this.isDeleting = true;
+                             setTimeout(() => this.runTypewriter(), 2800);
+                             return;
+                         }
+                     } else {
+                         this.typedText = currentPhrase.substring(0, this.charIndex - 1);
+                         this.charIndex--;
+                         if (this.charIndex === 0) {
+                             this.isDeleting = false;
+                             this.currentPhraseIndex = (this.currentPhraseIndex + 1) % this.typewriterPhrases.length;
+                             setTimeout(() => this.runTypewriter(), 400);
+                             return;
+                         }
+                     }
+                     setTimeout(() => this.runTypewriter(), this.isDeleting ? 35 : this.typewriterSpeed);
                  }
              }">
         
-        <!-- Background Layer: High-Definition Image -->
+        <!-- Background Layer: Multi-Image Dynamic Auto-Slider (Controlled by Admin via GlobalSettings) -->
         <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            <div class="absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-85 scale-105">
-                <img src="{{ asset(platform()->get('hero_slide_1', '/image.png')) }}" alt="Africa Skills Policy Forum 2026" class="w-full h-full object-cover object-center filter brightness-90">
+            <template x-for="(slide, index) in slides" :key="index">
+                <div class="absolute inset-0 transition-all duration-1000 ease-in-out"
+                     :class="activeSlide === index ? 'opacity-90 scale-105 z-10' : 'opacity-0 scale-100 z-0'"
+                     style="transition: opacity 1.2s ease-in-out, transform 6s ease-out;">
+                    <img :src="slide" alt="Africa Skills Policy Forum 2026" class="w-full h-full object-cover object-center filter brightness-90">
+                </div>
+            </template>
+            <!-- Fallback Static First Slide -->
+            <div class="absolute inset-0 z-0 opacity-90 scale-105" x-show="!slides || slides.length === 0">
+                <img src="{{ asset('/images/hero_slide_1.png') }}" alt="Africa Skills Policy Forum 2026" class="w-full h-full object-cover object-center filter brightness-90">
             </div>
             <!-- Elegant Cinematic Gradient Overlay for Maximum Text Readability -->
-            <div class="absolute inset-0 bg-gradient-to-t from-[#02101b] via-[#052D48]/70 to-black/40"></div>
+            <div class="absolute inset-0 z-20 bg-gradient-to-t from-[#010a12] via-[#052D48]/75 to-black/40"></div>
         </div>
 
-        <!-- Slide Navigation Indicators (Bottom Left) -->
-        <div class="absolute bottom-6 left-8 z-20 flex items-center gap-2" x-show="slides.length > 1">
+        <!-- Slide Navigation Indicators (Bottom Left, matching official artwork) -->
+        <div class="absolute bottom-12 sm:bottom-14 left-6 sm:left-10 z-20 flex items-center gap-2" x-show="slides.length > 1">
             <template x-for="(slide, index) in slides" :key="index">
                 <button @click="activeSlide = index" 
                         class="h-2 rounded-full transition-all duration-500 cursor-pointer"
-                        :class="activeSlide === index ? 'w-8 bg-[#24BDC3] shadow-md shadow-[#24BDC3]/50' : 'w-2 bg-white/40 hover:bg-white/70'"></button>
+                        :class="activeSlide === index ? 'w-8 bg-[#24BDC3] shadow-md shadow-[#24BDC3]/50' : 'w-2.5 bg-white/40 hover:bg-white/70'"></button>
             </template>
         </div>
 
         <!-- Dynamic Ambient Beams in Bright Teal (#24BDC3) & Deep Petrol Blue (#052D48) -->
         <div class="hidden sm:block absolute -top-24 -left-24 w-[32rem] h-[32rem] bg-[#24BDC3]/20 rounded-full blur-2xl pointer-events-none"></div>
         <div class="hidden sm:block absolute -bottom-24 -right-24 w-[32rem] h-[32rem] bg-[#052D48]/40 rounded-full blur-2xl pointer-events-none"></div>
-
         <div class="max-w-7xl mx-auto relative z-10 space-y-8 text-right">
 
             <!-- Title & Subtitle Card with Glass Text Effect -->
@@ -44,8 +86,8 @@
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] text-white drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]">
                     {{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences 2026' : (app()->getLocale() === 'en' ? 'Africa Skills Policy Forum 2026' : 'منتدى السياسات الأفريقية للمهارات 2026') }}
-                    <span class="text-[#24BDC3] block mt-2 text-xl sm:text-3xl lg:text-4xl font-black">
-                        "{{ app()->getLocale() === 'fr' ? 'Façonner l\'avenir des compétences, autonomiser la jeunesse africaine' : (app()->getLocale() === 'en' ? 'Shaping the Future of Skills, Empowering Africa\'s Youth' : 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي') }}"
+                    <span class="text-[#24BDC3] block mt-2 text-xl sm:text-3xl lg:text-4xl font-black min-h-[1.4em]">
+                        “<span x-text="typedText">{{ $forumData['slogan'] ?? 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي' }}</span><span class="animate-pulse text-[#F5A800]">|</span>”
                     </span>
                 </h1>
 
