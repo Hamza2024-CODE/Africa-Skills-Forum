@@ -1,7 +1,8 @@
 <div class="space-y-12 pb-16" x-data="{ showScheduleModal: false, scheduleTab: 16, showVideoModal: false, showPdfModal: false }" @open-schedule.window="showScheduleModal = true">
 
-    <!-- 1. Pan-African Summit Hero Stage (Ultra-Modern African Leadership Aesthetic & Auto-Slider) -->
-    <section class="relative bg-gradient-to-br from-[#052D48] via-[#031826] to-[#010a12] text-white pt-16 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden shadow-2xl"
+    <!-- 1. Pan-African Summit Hero Stage + Seamless Cultural Wavy Divider (Zero Gap) -->
+    <div class="relative w-full !mt-0 p-0">
+        <section class="relative bg-gradient-to-br from-[#052D48] via-[#031826] to-[#010a12] text-white pt-16 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden shadow-2xl"
              x-data="{
                  activeSlide: 0,
                  slides: {{ $heroSlidesJson }},
@@ -135,7 +136,7 @@
                 </section>
 
     <!-- Pan-African Cultural Animated Wavy Transition Divider (Hero to Content Stage - 100% Transparent to Wallpaper) -->
-    <div class="relative w-full overflow-hidden leading-none pointer-events-none z-20 -mt-1">
+    <div class="relative w-full overflow-hidden leading-none pointer-events-none z-20" style="margin-top: -3px !important; margin-bottom: 0px !important;">
         <svg class="block w-full" viewBox="0 0 1440 120" preserveAspectRatio="none" style="width: 100% !important; height: 95px !important; min-height: 70px !important; display: block !important;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <defs>
                 <pattern id="hero-african-green-motif" width="320" height="32" patternUnits="userSpaceOnUse" x="0" y="0">
@@ -187,6 +188,7 @@
             </path>
         </svg>
     </div>
+    </div><!-- /Hero & Wavy Divider Zero-Gap Group -->
 
     <!-- 2. Africa Skills Forum Official Event Dashboard & Countdown Stage (Animated & Interactive) -->
     @if(platform()->get('countdown_enabled', true) && $countdownStatus !== 'DISABLED')
