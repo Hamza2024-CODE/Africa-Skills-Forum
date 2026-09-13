@@ -6,47 +6,12 @@
                  activeSlide: 0,
                  slides: {{ $heroSlidesJson }},
                  heroMode: '{{ $heroMode }}',
-                 typewriterPhrases: {{ $typewriterPhrasesJson }},
-                 currentPhraseIndex: 0,
-                 typedText: '{{ addslashes($forumData['slogan'] ?? 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي') }}',
-                 charIndex: 0,
-                 isDeleting: false,
-                 typewriterSpeed: 70,
-
                  init() {
                      if (this.slides.length > 1) {
                          setInterval(() => {
                              this.activeSlide = (this.activeSlide + 1) % this.slides.length;
                          }, 5000);
                      }
-                     this.charIndex = this.typedText.length;
-                     setTimeout(() => {
-                         this.isDeleting = true;
-                         this.runTypewriter();
-                     }, 2400);
-                 },
-
-                 runTypewriter() {
-                     const currentPhrase = this.typewriterPhrases[this.currentPhraseIndex];
-                     if (!this.isDeleting) {
-                         this.typedText = currentPhrase.substring(0, this.charIndex + 1);
-                         this.charIndex++;
-                         if (this.charIndex === currentPhrase.length) {
-                             this.isDeleting = true;
-                             setTimeout(() => this.runTypewriter(), 2800);
-                             return;
-                         }
-                     } else {
-                         this.typedText = currentPhrase.substring(0, this.charIndex - 1);
-                         this.charIndex--;
-                         if (this.charIndex === 0) {
-                             this.isDeleting = false;
-                             this.currentPhraseIndex = (this.currentPhraseIndex + 1) % this.typewriterPhrases.length;
-                             setTimeout(() => this.runTypewriter(), 400);
-                             return;
-                         }
-                     }
-                     setTimeout(() => this.runTypewriter(), this.isDeleting ? 35 : this.typewriterSpeed);
                  }
              }">
         
@@ -86,8 +51,8 @@
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] text-white drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]">
                     {{ app()->getLocale() === 'fr' ? 'Forum des Politiques Africaines des Compétences 2026' : (app()->getLocale() === 'en' ? 'Africa Skills Policy Forum 2026' : 'منتدى السياسات الأفريقية للمهارات 2026') }}
-                    <span class="text-[#24BDC3] block mt-2 text-xl sm:text-3xl lg:text-4xl font-black min-h-[1.4em]">
-                        “<span x-text="typedText">{{ $forumData['slogan'] ?? 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي' }}</span><span class="animate-pulse text-[#F5A800]">|</span>”
+                    <span class="text-[#24BDC3] block mt-2 text-xl sm:text-3xl lg:text-4xl font-black">
+                        "{{ $forumData['slogan'] ?? 'صياغة مستقبل المهارات، تمكين الشباب الأفريقي' }}"
                     </span>
                 </h1>
 

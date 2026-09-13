@@ -170,34 +170,7 @@ class Home extends Component
             $heroSlidesJson = json_encode($heroSlides);
             $heroMode = platform()->get("hero_bg_mode", "slider");
 
-            $typewriterPhrases = [
-                "ar" => [
-                    "صياغة مستقبل المهارات، تمكين الشباب الأفريقي",
-                    "الحدث السياسي القاري الأبرز لتطوير التعليم والتدريب المهني",
-                    "شراكة استراتيجية بين الجزائر ومفوضية الاتحاد الأفريقي",
-                    "وهران 2026: مركز المؤتمرات محمد بن أحمد",
-                ],
-                "fr" => [
-                    "Façonner l'avenir des compétences, autonomiser la jeunesse africaine",
-                    "Sommet politique continental de haut niveau pour l'EFTP",
-                    "Partenariat stratégique : Algérie & Commission de l'Union Africaine",
-                    "Oran 2026 : Centre des Conventions Mohamed Ben Ahmed",
-                ],
-                "en" => [
-                    "Shaping the Future of Skills, Empowering Africa's Youth",
-                    "Continental High-Level Summit for TVET & Skills Development",
-                    "Strategic Partnership: Algeria & African Union Commission",
-                    "Oran 2026: Mohamed Ben Ahmed Convention Center",
-                ],
-                "pt" => [
-                    "Moldar o Futuro das Competências, Capacitar a Juventude Africana",
-                    "Cimeira Continental de Alto Nível para a Educação e Formação Profissional",
-                    "Parceria Estratégica: Argélia & Comissão da União Africana",
-                    "Oran 2026: Centro de Convenções Mohamed Ben Ahmed",
-                ],
-            ];
-            $activePhrases = $typewriterPhrases[$locale] ?? $typewriterPhrases['ar'];
-            $typewriterPhrasesJson = json_encode($activePhrases, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+
             $forumData = [
                 'name'             => $settings->get("forum.name_{$locale}", polyTrans("منتدى السياسات الأفريقية للمهارات 2026", "Forum des Politiques Africaines des Compétences 2026", "African Skills Policy Forum 2026", "Fórum de Políticas Africanas de Competências 2026")),
                 'slogan'           => $settings->get("forum.slogan_{$locale}", polyTrans("صياغة مستقبل المهارات، تمكين الشباب الأفريقي", "Façonner l'avenir des compétences, autonomiser la jeunesse africaine", "Shaping the Future of Skills, Empowering Africa's Youth", "Moldar o Futuro das Competências, Capacitar a Juventude Africana")),
@@ -223,7 +196,6 @@ class Home extends Component
                 'featuredVideoThumbUrl'  => $featuredVideoThumbUrl,
                 'partners'               => $partners,
                 'heroSlidesJson'         => $heroSlidesJson,
-                'typewriterPhrasesJson'  => $typewriterPhrasesJson,
                 'heroMode'               => $heroMode,
                 'forumData'              => $forumData,
             ];
