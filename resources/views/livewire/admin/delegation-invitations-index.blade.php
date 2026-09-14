@@ -1,7 +1,7 @@
 @php
 $locale = app()->getLocale();
 $dir = $locale === 'ar' ? 'rtl' : 'ltr';
- = fn(, , ,  = null) => polyTrans(, , , );
+ $t = fn($ar, $fr, $en, $pt = null) => polyTrans($ar, $fr, $en, $pt);
 @endphp
 
 <div class="space-y-8 font-sans text-slate-900 dark:text-white" dir="{{ $dir }}">

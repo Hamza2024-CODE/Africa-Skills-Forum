@@ -1,6 +1,6 @@
 @php
     $locale = app()->getLocale();
-     = fn(, , ,  = null) => polyTrans(, , , );
+     $t = fn($ar, $fr, $en, $pt = null) => polyTrans($ar, $fr, $en, $pt);
 @endphp
 
 <div class="space-y-8 pb-16 font-sans" dir="{{ $locale === 'ar' ? 'rtl' : 'ltr' }}">

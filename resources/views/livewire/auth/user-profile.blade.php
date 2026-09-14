@@ -1,6 +1,6 @@
 @php
 $locale = app()->getLocale();
- = fn(, , ,  = null) => polyTrans(, , , );
+ $t = fn($ar, $fr, $en, $pt = null) => polyTrans($ar, $fr, $en, $pt);
 $userRole = $user?->roles->first()?->name ?? 'PARTICIPANT';
 
 $userRoleKey = match($userRole) {

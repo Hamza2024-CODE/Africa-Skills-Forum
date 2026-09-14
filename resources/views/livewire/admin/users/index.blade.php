@@ -1,6 +1,6 @@
 @php
 $locale = app()->getLocale();
- = fn(, , ,  = null) => polyTrans(, , , );
+ $t = fn($ar, $fr, $en, $pt = null) => polyTrans($ar, $fr, $en, $pt);
 
 $roleBadge = [
     'SUPER_ADMIN'        => ['bg-rose-50 text-rose-700 border-rose-200',       $t('أدمن مسؤول المنصة كاملة','Super Admin','Platform Master Admin')],

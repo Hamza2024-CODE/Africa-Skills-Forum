@@ -1,6 +1,6 @@
 @php
 $locale = app()->getLocale();
- = fn(, , ,  = null) => polyTrans(, , , );
+ $t = fn($ar, $fr, $en, $pt = null) => polyTrans($ar, $fr, $en, $pt);
 @endphp
 
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
